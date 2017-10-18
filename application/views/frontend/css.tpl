@@ -9,4 +9,11 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
  
-<link href="/css/main.css?<{$randseed}>" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Changa+One:400,400i%7CGrand+Hotel%7CLato:300,400,400italic,700">
+<link rel="stylesheet" href="css/style.css">
+
+<{if $cssArray}>
+	<{foreach from=$cssArray item=file}>
+		<link rel="stylesheet" href="css/file">
+	<{/foreach}>
+<{/if}>

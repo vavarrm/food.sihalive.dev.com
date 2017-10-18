@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class MainPage extends CI_Controller {
 	
 	public function __construct() 
 	{
@@ -33,12 +33,12 @@ class Index extends CI_Controller {
 			array(
 			),
 		);
-		
+		// exit;
 		$this->smarty->assign(array(
 			'shopList'			=>$shopList,
 			'foodTypeClass'	=>$foodTypeClass
 		));
-		$this->smarty->display(__CLASS__.'/index.tpl');
+		$this->smarty->display(__CLASS__.'/menu-modern.tpl');
 	}
 	
 	public function shopInfo()

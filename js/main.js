@@ -14,3 +14,19 @@ $(function() {
 	})
 
 });
+
+var CategoryListApi ="/api/getCategory/";
+
+
+
+var sihaliveApp = angular.module('sihaliveApp', []);
+
+var CategoryCtrl = function($scope, $http){
+	$http.post(CategoryListApi,	[]).success(function(r) {
+		// $scope.categorys =r.body.data;
+		$scope.categorys =["1"];
+
+	});
+};
+
+sihaliveApp.controller('CategoryCtrl', CategoryCtrl);

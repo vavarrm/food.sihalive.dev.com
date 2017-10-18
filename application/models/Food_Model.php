@@ -8,6 +8,15 @@
 			$this->load->database();
 		}
 		
+		public function getCategory()
+		{
+			$sql="SELECT * FROM `category` ORDER BY ca_id";
+			$query = $this->db->query($sql, $bind);
+			$rows  =  $query->result_array();
+			$query->free_result();
+			return $rows;
+		}
+		
 		public function getFoodClassList()
 		{
 			$ary  = array(

@@ -20,6 +20,7 @@ class Mysmarty
 	
 	public function display($tpl)
 	{
+
 		$language_ary = $this->CI->language->load('main');
 		
 		$this->assign(array(

@@ -1,5 +1,6 @@
 <?php
 	$lang['website_name'] = "西哈生活";
+	$lang['website_title_menu'] = "菜單頁";
 	$lang['nav_index'] = "首页";
 	$lang['nav_about'] = "关于我们";
 	$lang['nav_contact'] = "联络我们";
