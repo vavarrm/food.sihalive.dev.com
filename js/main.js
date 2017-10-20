@@ -27,10 +27,8 @@ var categoryCtrl = function($scope, $http){
 
 var shopCartCtrl = function($scope, $cookies, $rootScope){
 	var shopcart =  $cookies.getObject('shopcart');
-	$scope.data={
-		num : shopcart.length
-	};
 	$scope.items=shopcart;
+	$scope.cartnums= shopcart.length;
 	$scope.calculateTotal = function(filteredArray){
 		var total = 0;
 		angular.forEach(filteredArray, function(item){

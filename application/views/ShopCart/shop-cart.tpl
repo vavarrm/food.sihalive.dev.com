@@ -41,7 +41,7 @@
           <div class="shell">
             <div class="range">
               <div class="cell-xs-12">
-                <h4 class="text-left font-default">{{data.num}} Items in your cart</h4>
+                <h4 class="text-left font-default"><span ng-bind="cartnums"></span>  Items in your cart</h4>
                 <div class="table-responsive offset-top-10">
                   <table class="table table-shopping-cart">
                     <tbody>

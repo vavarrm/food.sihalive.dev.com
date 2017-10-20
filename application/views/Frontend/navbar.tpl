@@ -52,7 +52,7 @@
 			<a href="/ShopCart/order" class="link link-shop link-default">
 			  <span class="big text-gray-light">Cart</span>
 			  <span class="icon icon-sm mdi mdi-cart-outline"></span>
-			  <span class="label-inline big text-white" ng-if="data.num" ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
+			  <span class="label-inline big text-white" ng-if="cartnums" ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
 			</a>
 		  </div>
 		  <!-- RD Navbar Nav-->
