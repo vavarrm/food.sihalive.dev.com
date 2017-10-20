@@ -6,7 +6,8 @@ class MainPage extends CI_Controller {
 	public function __construct() 
 	{
 		parent::__construct();
-		
+		$this->food_language_ary = $this->language->load('food');
+		$this->load->model('Food_Model', 'food');	
     }
 	
 	public function index()
@@ -33,10 +34,13 @@ class MainPage extends CI_Controller {
 			array(
 			),
 		);
-		// exit;
+		
+		$categorys = $this->food->getCategory();
+		$foods = $this->food->getFoodForMenu();
+		
 		$this->smarty->assign(array(
-			'shopList'			=>$shopList,
-			'foodTypeClass'	=>$foodTypeClass
+			'categorys'	=>$categorys,
+			'foods'		=>$foods 
 		));
 		$this->smarty->display(__CLASS__.'/menu-modern.tpl');
 	}

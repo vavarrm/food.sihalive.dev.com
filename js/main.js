@@ -1,32 +1,87 @@
-$(function() {
-	
-    // $( "#dialog" ).dialog();
- 
-	
-	$('#nav-login').bind('click', function(e){
-		e.preventDefault();
-		$( "#dialog" ).dialog({
-			width:'auto',
-			resizable: false,
-			modal: true,}
-		).removeClass('hidden');
-		// dialog.dialog( "open" );
-	})
 
-});
 
 var CategoryListApi ="/api/getCategory/";
 
 
+var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
 
-var sihaliveApp = angular.module('sihaliveApp', []);
-
-var CategoryCtrl = function($scope, $http){
-	$http.post(CategoryListApi,	[]).success(function(r) {
-		// $scope.categorys =r.body.data;
-		$scope.categorys =["1"];
-
-	});
+var productPageCtrl = function($scope, $cookies, $rootScope){
+	
+	$scope.click = function(f_id) 
+	{
+		var  obj ={
+			f_id : f_id,
+			order_num  :  $('#order_num').val(),
+			price: $('.resp-tab-item.resp-tab-active').find('.price').data('price')
+		};
+		var shopcart =  $cookies.getObject('shopcart');
+		shopcart.push(obj);
+		$cookies.putObject('shopcart', shopcart, { path: '/'});
+		
+		$rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
+	};
 };
 
-sihaliveApp.controller('CategoryCtrl', CategoryCtrl);
+var categoryCtrl = function($scope, $http){
+};
+
+var shopCartCtrl = function($scope, $cookies, $rootScope){
+	var shopcart =  $cookies.getObject('shopcart');
+	$scope.data={
+		num : shopcart.length
+	};
+	$scope.items=shopcart;
+	$scope.calculateTotal = function(filteredArray){
+		var total = 0;
+		angular.forEach(filteredArray, function(item){
+			total += parseFloat(item.price);
+		});
+		return total;
+	};
+};
+
+var navCtrl = function($scope, $cookies, $rootScope){
+	var shopcart =  $cookies.getObject('shopcart');
+	if (typeof shopcart === "undefined") {
+		shopcart =[];
+		$cookies.putObject('shopcart', shopcart, { path: '/'});
+	}
+	$scope.data={
+		num : shopcart.length
+	};
+	$scope.cartnums= shopcart.length;
+	
+    $rootScope.$on('cartnumsChanged', function(event, data){
+        $scope.cartnums = $cookies.getObject('shopcart').length;
+    })
+};
+
+
+sihaliveApp.controller('categoryCtrl', categoryCtrl);
+sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', navCtrl]);
+sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', productPageCtrl]);
+sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', shopCartCtrl]);
+
+
+
+$( "body" ).on( "click", ".stepper-arrow.up", function() {
+	var input = $(this).parent().find('input');
+	var max   =parseInt(input.attr('max'));
+	var val   =parseInt(input.val());
+	if(val > max)
+	{
+		return false;
+	}
+	input.val(val +1);
+});
+
+$( "body" ).on( "click", ".stepper-arrow.down", function() {
+	var input = $(this).parent().find('input');
+	var min   =parseInt(input.attr('min'));
+	var val   =parseInt(input.val());
+	if(val <= min)
+	{
+		return false;
+	}
+	input.val(val -1);
+});

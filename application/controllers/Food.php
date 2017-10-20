@@ -11,7 +11,7 @@ class Food extends CI_Controller {
 		
     }
 	
-	public function index()
+	public function index($f_id)
 	{
 		$shopList = array(
 			array(
@@ -40,12 +40,13 @@ class Food extends CI_Controller {
 			'foodTypeClass'		=>$foodTypeClass,
 
 		));
-		$this->smarty->display(__CLASS__.'/index.tpl');
+		$this->smarty->display(__CLASS__.'/shop-single.tpl');
 	}
 	
 	public function menu()
 	{
 		$foodList = $this->food->getFoodList();
+		$foodClassList =$this->food->getFoodClassList();
 		$foodClassList =$this->food->getFoodClassList();
 		$this->smarty->assign(array(
 			'foodList'			=>$foodList,

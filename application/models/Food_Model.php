@@ -19,92 +19,19 @@
 		
 		public function getFoodClassList()
 		{
-			$ary  = array(
-				"母分類一"=>array(
-					array(
-						'sub_name'=>'子分類1',
-						'sub_id'=>'1'
-					),
-					array(
-						'sub_name'=>'子分類1',
-						'sub_id'=>'1'
-					),
-					array(
-						'sub_name'=>'子分類1',
-						'sub_id'=>'1'
-					)
-				),
-				"母分類二"=>array(
-					array(
-						'sub_name'=>'子分類1',
-						'sub_id'=>'1'
-					),
-					array(
-						'sub_name'=>'子分類1',
-						'sub_id'=>'1'
-					),
-					array(
-						'sub_name'=>'子分類1',
-						'sub_id'=>'1'
-					)
-				),
-				"母分類三"=>array(
-				),
-			);
-			
-			return $ary ;
+		
 		}
 		
-		public function getFoodList()
+		public function getFoodForMenu()
 		{
-			$ary = array(
-				array(
-					'food_name' 			=>'食物名称',
-					'food_us_price' 		=>'1.5',
-					'food_kh_price' 		=>'6000',
-					'food_description'		=>'食物描述',
-					'food_id' 				=>'1',
-				),	
-				array(
-					'food_name' =>'食物名称',
-					'food_us_price' 		=>'1.5',
-					'food_kh_price' 		=>'6000',
-					'food_description'		=>'食物描述',
-					'food_id' 				=>'1',
-				),	
-				array(
-					'food_name' =>'食物名称',
-					'food_us_price' 		=>'1.5',
-					'food_kh_price' 		=>'6000',
-					'food_description'		=>'食物描述',
-					'food_id' 				=>'1',
-				),array(
-					'food_name' =>'食物名称',
-					'food_us_price' 		=>'1.5',
-					'food_kh_price' 		=>'6000',
-					'food_description'		=>'食物描述',
-					'food_id' 				=>'1',
-				),array(
-					'food_name' =>'食物名称',
-					'food_us_price' 		=>'1.5',
-					'food_kh_price' 		=>'6000',
-					'food_description'		=>'食物描述',
-					'food_id' 				=>'1',
-				),array(
-					'food_name' =>'食物名称',
-					'food_us_price' 		=>'1.5',
-					'food_kh_price' 		=>'6000',
-					'food_description'		=>'食物描述',
-					'food_id' 				=>'1',
-				),array(
-					'food_name' =>'食物名称',
-					'food_us_price' 		=>'1.5',
-					'food_kh_price' 		=>'6000',
-					'food_description'		=>'食物描述',
-					'food_id' 				=>'1',
-				),
-			);
-			return $ary;
+			$sql ="	SELECT * 
+					FROM `food` AS f
+						LEFT JOIN `category` AS ca ON f.ca_id = ca.ca_id
+					ORDER BY f.f_id DESC";
+			$query = $this->db->query($sql, $bind);
+			$rows  =  $query->result_array();
+			$query->free_result();
+			return $rows;
 		}
 	}
 ?>
