@@ -1,4 +1,4 @@
-<div class="rd-navbar-wrap rd-navbar-default">
+<div class="rd-navbar-wrap rd-navbar-default"  ng-controller="navCtrl">
   <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" class="rd-navbar">
 	<div class="shell shell-fluid">
 	  <div class="rd-navbar-inner">
@@ -10,7 +10,7 @@
 				<!-- RD Navbar Toggle-->
 				<button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
 				<!-- RD Navbar Brand--><a href="index.html" class="rd-navbar-brand brand">
-				  <div class="brand-logo"><img src="images/brand-232x49.png" alt="" width="232" height="49"/>
+				  <div class="brand-logo"><img src="/images/brand-232x49.png" alt="" width="232" height="49"/>
 				  </div></a>
 			  </div>
 			  <div class="rd-navbar-aside-right">
@@ -48,7 +48,13 @@
 		<!-- RD Navbar Nav-->
 		<div class="rd-navbar-nav-wrap">
 		  <!-- RD Navbar Shop-->
-		  <div class="rd-navbar-shop"><a href="shop-cart.html" class="link link-shop link-default"><span class="big text-gray-light">Cart</span><span class="icon icon-sm mdi mdi-cart-outline"></span><span class="label-inline big text-white">2</span></a></div>
+		  <div class="rd-navbar-shop">
+			<a href="/ShopCart/order" class="link link-shop link-default">
+			  <span class="big text-gray-light">Cart</span>
+			  <span class="icon icon-sm mdi mdi-cart-outline"></span>
+			  <span class="label-inline big text-white" ng-if="data.num" ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
+			</a>
+		  </div>
 		  <!-- RD Navbar Nav-->
 		  <ul class="rd-navbar-nav">
 			<li><a href="index.html">Home</a>
@@ -58,12 +64,12 @@
 			<li><a href="#">Menu</a>
 			  <!-- RD Navbar Dropdown-->
 			  <ul class="rd-navbar-dropdown menu-img-wrap">
-				<li class="menu-img"><a href="menu-single.html"><img src="images/menu-food-01.png" alt="" width="88" height="60"><span>Sushi</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="images/menu-food-03.png" alt="" width="88" height="60"><span>Pizza</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="images/menu-food-04.png" alt="" width="88" height="60"><span>Barbecue</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="images/menu-food-05.png" alt="" width="88" height="60"><span>Sandwiches</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="images/menu-food-06.png" alt="" width="88" height="60"><span>Mexican</span></a></li>
+				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Sushi</span></a></li>
+				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
+				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Pizza</span></a></li>
+				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Barbecue</span></a></li>
+				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Sandwiches</span></a></li>
+				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>Mexican</span></a></li>
 			  </ul>
 			</li>
 			<li class="active"><a href="#">Pages</a>
