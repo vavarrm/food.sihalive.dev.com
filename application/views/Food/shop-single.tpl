@@ -163,9 +163,14 @@
                     <div class="stepper-type-1">
                       <input type="number" id="order_num" data-zeros="true" value="1" min="1" max="20" readonly class="form-control">
                     </div>
-					<a ng-click="click(1);$event.stopPropagation();" class="text-top btn btn-primary btn-shape-circle">
+					<a ng-click="click(1);$event.stopPropagation();" class="text-top btn btn-primary btn-shape-circle btn-min-width-sm">
 						<span>Order Online</span>
 					</a>
+					<a href="/ShopCart/order" class="text-top btn btn-primary btn-shape-circle">
+						<span class="icon icon-sm mdi mdi-cart-outline">
+						</span>
+					</a>
+					
                   </div>
                 </div>
               </div>

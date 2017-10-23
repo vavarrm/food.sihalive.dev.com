@@ -45,7 +45,7 @@
                 <div class="table-responsive offset-top-10">
                   <table class="table table-shopping-cart">
                     <tbody>
-                      <tr ng-repeat="item in items|filter as filteredStuff">
+                      <tr ng-repeat="item in items|filter as filterAry" ng-show="!item.del">
                         <td style="width: 1px">
                           <div class="form-group stepper-type-2">
                             <input type="number" data-zeros="true"  value="{{item.order_num}}" ng-model="$item.order_num" min="1" max="20" readonly class="form-control text-bold">
@@ -65,14 +65,14 @@
                           <div class="inset-left-20"><span class="h5 text-sbold">${{item.price}}</span></div>
                         </td>
                         <td>
-                          <div class="inset-left-20"><a href="#" class="icon icon-sm mdi mdi-window-close link-gray-lightest"></a></div>
+                          <div class="inset-left-20"><a  class="icon icon-sm mdi mdi-window-close link-gray-lightest" ng-click="delete($index);$event.stopPropagation();"></a></div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <div class="offset-top-35 text-right">
-                  <div class="h4 font-default text-bold"><small class="inset-right-5 text-gray-light">Total: </small> ${{calculateTotal(filteredStuff)}}</div><a href="#" class="btn btn-icon btn-icon-left btn-primary btn-shape-circle offset-top-35"><span class="icon icon-xs mdi mdi-cart-outline"></span><span>Proceed to checkout</span></a>
+                  <div class="h4 font-default text-bold"><small class="inset-right-5 text-gray-light">Total: </small> ${{Total(filterAry)}}</div><a href="#" class="btn btn-icon btn-icon-left btn-primary btn-shape-circle offset-top-35"><span class="icon icon-xs mdi mdi-cart-outline"></span><span>Proceed to checkout</span></a>
                 </div>
               </div>
             </div>

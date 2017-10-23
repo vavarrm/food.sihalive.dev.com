@@ -29,13 +29,22 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 	var shopcart =  $cookies.getObject('shopcart');
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
-	$scope.calculateTotal = function(filteredArray){
+	$scope.Total = function(filterAry){
 		var total = 0;
-		angular.forEach(filteredArray, function(item){
-			total += parseFloat(item.price);
+		angular.forEach(filterAry, function(item){
+			total += parseFloat(item.price,2);
 		});
-		return total;
+		return total.toFixed(2);
 	};
+	$scope.delete = function($index)
+	{
+		// $scope.items[$index].s\=true;
+		$scope.items.splice($index,1);
+		$cookies.putObject('shopcart', $scope.items, { path: '/'});
+		$scope.cartnums= $scope.items.length;
+		$rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
+		// console.log(shopcart)
+	}
 };
 
 var navCtrl = function($scope, $cookies, $rootScope){
@@ -58,7 +67,7 @@ var navCtrl = function($scope, $cookies, $rootScope){
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', navCtrl]);
 sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', productPageCtrl]);
-sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', shopCartCtrl]);
+sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', shopCartCtrl]);
 
 
 
