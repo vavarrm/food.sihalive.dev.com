@@ -166,11 +166,6 @@
 					<a ng-click="click(1);$event.stopPropagation();" class="text-top btn btn-primary btn-shape-circle btn-min-width-sm">
 						<span>Order Online</span>
 					</a>
-					<a href="/ShopCart/order" class="text-top btn btn-primary btn-shape-circle">
-						<span class="icon icon-sm mdi mdi-cart-outline">
-						</span>
-					</a>
-					
                   </div>
                 </div>
               </div>

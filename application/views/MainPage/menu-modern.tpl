@@ -52,12 +52,12 @@
                   <{foreach from=$foods item=food}>
 				  <div data-filter="Category <{$food.ca_id}>" class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                     <div class="thumbnail-menu-modern">
-                      <figure><img src="images/<{$food.ca_name|lower}>-<{$food.f_id}>-310x260.png" alt="" width="310" height="260" class="img-responsive"/>
+                      <figure><img src="images/food/<{$food.ca_name|lower}>-<{$food.f_id}>-310x260.png" alt="" width="310" height="260" class="img-responsive"/>
                       </figure>
                       <div class="caption">
                         <h5><a href="menu-single.html" class="link link-default"><{$food.f_name}></a></h5>
                         <p class="text-italic"><{$food.f_description}></p>
-                        <p class="price"><{$food.f_price}></p><a href="/Food/index/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15">Order Online</a>
+                        <p class="price"><{$food.f_large_price}></p><a href="/Food/index/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15">Order Online</a>
                       </div>
                     </div>
                   </div>
