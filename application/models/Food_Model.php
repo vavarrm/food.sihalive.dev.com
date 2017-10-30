@@ -7,7 +7,7 @@
 			parent::__construct();
 			$this->load->database();
 		}
-		
+	
 		public function getCategory()
 		{
 			$sql="SELECT * FROM `category` ORDER BY ca_id";

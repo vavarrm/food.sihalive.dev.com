@@ -199,6 +199,16 @@
       </main>
       <!-- Page Footers-->
 	  <{include file="Frontend/footer.tpl"}>
+	  <div class="page-foot text-center text-lg-left footer-light context-dark">
+	  <section class="section-top-45 section-bottom-40">
+	  <div class="col-xs-12">
+		<div class="grid-element grid-element-outline cart-details-under">
+		  <h6>1/1</h6>
+		  <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers.</p>
+		</div>
+	  </div>
+	  </section>
+	  </div>
     </div>
     <!-- Global Mailform Output-->
     <div id="form-output-global" class="snackbars"></div>

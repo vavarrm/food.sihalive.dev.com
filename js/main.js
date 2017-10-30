@@ -19,6 +19,13 @@ var productPageCtrl = function($scope, $cookies, $rootScope){
 		$cookies.putObject('shopcart', shopcart, { path: '/'});
 		
 		$rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
+		if($(document).width()<=1024)
+		{
+			$('.cartnums').removeClass('text-white').addClass('text-black');
+		}else
+		{
+			$('.cartnums').removeClass('text-black').addClass('text-white');
+		}
 	};
 };
 
@@ -29,6 +36,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 	var shopcart =  $cookies.getObject('shopcart');
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
+
 	$scope.Total = function(filterAry){
 		var total = 0;
 		angular.forEach(filterAry, function(item){
@@ -57,7 +65,6 @@ var navCtrl = function($scope, $cookies, $rootScope){
 		num : shopcart.length
 	};
 	$scope.cartnums= shopcart.length;
-	
     $rootScope.$on('cartnumsChanged', function(event, data){
         $scope.cartnums = $cookies.getObject('shopcart').length;
     })

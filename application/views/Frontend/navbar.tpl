@@ -2,16 +2,25 @@
   <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" class="rd-navbar">
 	<div class="shell shell-fluid">
 	  <div class="rd-navbar-inner">
-		<div class="rd-navbar-nav-wrap-outer">
+		<div class="rd-navbar-nav-wrap-outer"> 
 		  <div class="rd-navbar-aside">
 			<div class="rd-navbar-aside-content">
 			  <!-- RD Navbar Panel-->
 			  <div class="rd-navbar-panel rd-navbar-aside-left">
 				<!-- RD Navbar Toggle-->
 				<button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
-				<!-- RD Navbar Brand--><a href="index.html" class="rd-navbar-brand brand">
-				  <div class="brand-logo"><img src="/images/brand-232x49.png" alt="" width="232" height="49"/>
-				  </div></a>
+				<div class="cart-right-top" >
+					<span class="icon icon-sm mdi mdi-cart-outline"  ></span>
+					<span >(</span>
+					<span class="label-inline big text-white cartnums"   ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
+					<span >)</span>
+				</div>
+				<!-- RD Navbar Brand-->
+					<a href="index.html" class="rd-navbar-brand brand" >
+						<div class="brand-logo" >
+							<img src="/images/brand-232x49.png"  style="margin-top:6px;" alt="" width="232" height="49"/>
+						</div>
+					</a>
 			  </div>
 			  <div class="rd-navbar-aside-right">
 				<!-- RD Navbar Aside-->
@@ -51,8 +60,8 @@
 		  <div class="rd-navbar-shop">
 			<a href="/ShopCart/order" class="link link-shop link-default">
 			  <span class="big text-gray-light">Cart</span>
-			  <span class="icon icon-sm mdi mdi-cart-outline" ng-if="cartnums" ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
-			  <span class="label-inline big text-white" ng-if="cartnums" ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
+			  <span class="icon icon-sm mdi mdi-cart-outline" ></span>
+			  <span class="label-inline big text-white cartnums"  ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
 			</a>
 		  </div>
 		  <!-- RD Navbar Nav-->
@@ -182,3 +191,22 @@
 	</div>
   </nav>
 </div>
+<script>
+	window.onload = function ()
+	{
+		if($(document).width()<=1024)
+		{
+			$('.cartnums').removeClass('text-white').addClass('text-black');
+		}
+		
+		$( window ).resize(function() {
+			if($(document).width()<=1024)
+			{
+				$('.cartnums').removeClass('text-white').addClass('text-black');
+			}else
+			{
+				$('.cartnums').removeClass('text-black').addClass('text-white');
+			}
+		});
+	}
+</script>
