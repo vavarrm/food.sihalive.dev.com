@@ -38,6 +38,7 @@ class Food extends CI_Controller {
 		$this->smarty->assign(array(
 			'shopList'			=>$shopList,
 			'foodTypeClass'		=>$foodTypeClass,
+			'f_id'				=>$f_id
 
 		));
 		$this->smarty->display(__CLASS__.'/shop-single.tpl');

@@ -13,14 +13,15 @@
 		<![endif]-->
   </head>
   <body>
+  	  <{include file="Frontend/basic.tpl"}>
     <!-- Page-->
-    <div class="page text-center">
+    <div class="page text-center" >
       <header class="page-head">
         <!-- RD Navbar-->
         <{include file="Frontend/navbar.tpl"}>
       </header>
       <!-- Page Content-->
-      <main class="page-content" ng-controller="productPageCtrl">
+      <main class="page-content" ng-controller="productPageCtrl" ng-model="f_id" ng-init="f_id='<{$f_id}>'">
         <!-- Breadcrumbs & Page title-->
         <section class="text-center section-34 section-sm-60 section-md-top-100 section-md-bottom-105 bg-image bg-image-breadcrumbs">
           <div class="shell shell-fluid">
@@ -66,14 +67,16 @@
               </div>
               <div class="cell-sm-6 cell-lg-5 text-sm-left offset-top-60 offset-sm-top-0">
                 <div class="reveal-xs-flex range-xs-middle range-xs-center range-sm-left">
-                  <h4 class="font-default">Fruit Mix Basket</h4>
+                  <h4 class="font-default" ng-model="food.f_name" ng-bind="food.f_name"></h4>
                   <div class="inset-xs-left-50 offset-top-0">
                     <div class="team-member-position team-member-position-primary"><span class="big text-italic text-middle">Hot</span></div>
                   </div>
                 </div>
+				<{*
                 <div class="offset-top-15">
                   <p>Fruit / Sweet / Basket / Tropical / Gift / Tray</p>
                 </div>
+				*}>
                 <div class="offset-top-15">
                   <div class="group-sm"><a href="#" class="link-zoom"><img src="/images/shop-single-01-57x21.png" alt="" width="57" height="21"/></a><a href="#" class="link-zoom"><img src="/images/shop-single-02-52x21.png" alt="" width="52" height="21"/></a><a href="#" class="link-zoom"><img src="/images/shop-single-03-54x21.png" alt="" width="54" height="21"/></a></div>
                 </div>
@@ -81,8 +84,8 @@
                 <div class="offset-top-30">
                   <div class="responsive-tabs responsive-tabs-shop responsive-tabs-horizontal">
                     <ul class="resp-tabs-list">
-                      <li><span class="price" data-price="25.90">$25.90</span><span class="icon icon-circle">Big</span></li>
-                      <li><span class="price" data-price="13.90">$13.90</span><span class="icon icon-circle">Mini</span></li>
+                      <li ng-if="food.f_large_price > 0" ng-click="selectPrice(food.f_large_price, $event);$event.stopPropagation();"><span class="price">$</span><span class="price selectedprice" data-price="25.90" ng-model="food.f_large_price" ng-bind="food.f_large_price"></span><span class="icon icon-circle">Big</span></li>
+                      <li ng-if="food.f_medium_price > 0" ng-click="selectPrice(food.f_medium_price, $event);$event.stopPropagation();"><span class="price">$</span><span class="price selectedprice" data-price="13.90" ng-model="food.f_medium_price" ng-bind="food.f_medium_price"></span><span class="icon icon-circle">Mini</span></li>
                     </ul>
                     <div class="resp-tabs-container">
                       <div>
@@ -120,6 +123,7 @@
                           </div>
                         </div>
                       </div>
+					  <{*
                       <div>
                         <!-- Linear progress bar-->
                         <div data-to="30" class="progress-linear">
@@ -155,15 +159,16 @@
                           </div>
                         </div>
                       </div>
+					  *}>
                     </div>
                   </div>
                 </div>
                 <div class="offset-top-45" >
                   <div class="group-sm">
                     <div class="stepper-type-1">
-                      <input type="number" id="order_num" data-zeros="true" value="1" min="1" max="20" readonly class="form-control">
+                      <input type="number" id="order_num" data-zeros="true"   value="1" min="1" max="20" readonly class="form-control">
                     </div>
-					<a ng-click="click(1);$event.stopPropagation();" class="text-top btn btn-primary btn-shape-circle btn-min-width-sm">
+					<a ng-click="click(<{$f_id}>);$event.stopPropagation();" class="text-top btn btn-primary btn-shape-circle btn-min-width-sm">
 						<span>Order Online</span>
 					</a>
                   </div>
@@ -180,8 +185,9 @@
             </ul>
             <div class="resp-tabs-container">
               <div>
-                <p class="text-base">The Fruit Mix Basket is a colorful and delicious way to share in the celebration of the holiday season with friends, family, and co-workers! A beautiful natural woven basket is loaded full of the following fruits: 3 Braeburn Apples, 1 Granny Smith Apple, 3 Comice Pears, 1 Red Pear, 5 to 6 Mandarin Oranges with Leaves, 2 Navel Oranges, and 1 Ruby Grapefruit and others.</p>
-                <div class="unit unit-horizontal unit-spacing-xs offset-top-20">
+                <p class="text-base" ng-model="food.f_description" ng-bind="food.f_description"></p>
+                <{*
+				<div class="unit unit-horizontal unit-spacing-xs offset-top-20">
                   <div class="unit-left">
                     <p class="h6">Ingredients:</p>
                   </div>
@@ -189,6 +195,7 @@
                     <p>Apples / Pears / Oranges / Grapefruits / Kiwis</p>
                   </div>
                 </div>
+				*}>
               </div>
               <div>
                 <p class="text-base">Here you can read some details about a nifty little lifecycle of your order's journey from the time you place your order to your new treasures arriving at your doorstep. At first, you choose the product you like. Then you put into your shopping cart and pass the checkout process in a few clicks. Our store offers several payment and delivery methods, so after placing your order, you'll have an opportunity to choose which one is the most convenient for you.</p>
@@ -199,16 +206,6 @@
       </main>
       <!-- Page Footers-->
 	  <{include file="Frontend/footer.tpl"}>
-	  <div class="page-foot text-center text-lg-left footer-light context-dark">
-	  <section class="section-top-45 section-bottom-40">
-	  <div class="col-xs-12">
-		<div class="grid-element grid-element-outline cart-details-under">
-		  <h6>1/1</h6>
-		  <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers.</p>
-		</div>
-	  </div>
-	  </section>
-	  </div>
     </div>
     <!-- Global Mailform Output-->
     <div id="form-output-global" class="snackbars"></div>

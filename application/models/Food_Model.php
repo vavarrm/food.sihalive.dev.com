@@ -8,6 +8,20 @@
 			$this->load->database();
 		}
 	
+		public function getProductForFid($f_id)
+		{
+			$sql="	SELECT * 
+					FROM `food` AS f LEFT JOIN category AS ca ON f.ca_id = ca.ca_id
+					WHERE f_id =?";
+			$bind = array(
+				$f_id
+			);
+			$query = $this->db->query($sql, $bind);
+			$rows  =  $query->row_array();
+			$query->free_result();
+			return $rows;
+		}
+	
 		public function getCategory()
 		{
 			$sql="SELECT * FROM `category` ORDER BY ca_id";
