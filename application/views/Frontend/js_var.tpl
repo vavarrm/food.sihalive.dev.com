@@ -1,4 +1,5 @@
 <script>
-	var cart_num_is_zero ="<{$language.js_cart_num_is_zero}>"
-	var cart_ischeckout ="<{$language.js_cart_ischeckout}>"
+	<{foreach from=$language_js_ary item=value key=k}>
+	var <{$k}> ="<{$value}>"
+	<{/foreach}>
 </script>

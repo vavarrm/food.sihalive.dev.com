@@ -22,10 +22,11 @@ class Mysmarty
 	{
 
 		$language_ary = $this->CI->language->load('main');
-		$language_ary = array_merge($language_ary,$this->CI->language->load('js'));
+		$language_js_ary =$this->CI->language->load('js');
 		
 		$this->assign(array(
 			'language'	=>$language_ary,
+			'language_js_ary'	=>$language_js_ary,
 			'randseed'	=>$this->randseed
 		));
 		$this->smarty->clearAllCache();

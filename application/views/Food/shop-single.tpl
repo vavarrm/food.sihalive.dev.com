@@ -72,13 +72,24 @@
                     <div class="team-member-position team-member-position-primary"><span class="big text-italic text-middle">Hot</span></div>
                   </div>
                 </div>
-				<{*
                 <div class="offset-top-15">
-                  <p>Fruit / Sweet / Basket / Tropical / Gift / Tray</p>
+                  <{*<p>Fruit / Sweet / Basket / Tropical / Gift / Tray</p>*}>
+                  <p ng-model="food.f_description" ng-bind="food.f_description"></p>
                 </div>
-				*}>
                 <div class="offset-top-15">
-                  <div class="group-sm"><a href="#" class="link-zoom"><img src="/images/shop-single-01-57x21.png" alt="" width="57" height="21"/></a><a href="#" class="link-zoom"><img src="/images/shop-single-02-52x21.png" alt="" width="52" height="21"/></a><a href="#" class="link-zoom"><img src="/images/shop-single-03-54x21.png" alt="" width="54" height="21"/></a></div>
+                  <div class="group-sm">
+					<a href="#" class="link-zoom">
+						<img src="/images/shop-single-01-57x21.png" alt="" width="57" height="21"/>
+					</a>
+					<{*
+					<a href="#" class="link-zoom">
+						<img src="/images/shop-single-02-52x21.png" alt="" width="52" height="21"/>
+					</a>
+					<a href="#" class="link-zoom">
+						<img src="/images/shop-single-03-54x21.png" alt="" width="54" height="21"/>
+					</a>
+					*}>
+				  </div>
                 </div>
                 <hr class="offset-top-30 veil reveal-sm-block">
                 <div class="offset-top-30">
@@ -180,13 +191,14 @@
         <section class="text-left">
           <div class="responsive-tabs responsive-tabs-horizontal responsive-tabs-horizontal-background">
             <ul class="resp-tabs-list shell">
-              <li>Description</li>
+               <{*<li>Description</li> *}>
               <li>Delivery</li>
             </ul>
             <div class="resp-tabs-container">
+			  <{*
               <div>
                 <p class="text-base" ng-model="food.f_description" ng-bind="food.f_description"></p>
-                <{*
+               
 				<div class="unit unit-horizontal unit-spacing-xs offset-top-20">
                   <div class="unit-left">
                     <p class="h6">Ingredients:</p>
@@ -195,8 +207,8 @@
                     <p>Apples / Pears / Oranges / Grapefruits / Kiwis</p>
                   </div>
                 </div>
-				*}>
               </div>
+			  *}>
               <div>
                 <p class="text-base">Here you can read some details about a nifty little lifecycle of your order's journey from the time you place your order to your new treasures arriving at your doorstep. At first, you choose the product you like. Then you put into your shopping cart and pass the checkout process in a few clicks. Our store offers several payment and delivery methods, so after placing your order, you'll have an opportunity to choose which one is the most convenient for you.</p>
               </div>

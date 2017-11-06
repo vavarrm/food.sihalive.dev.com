@@ -8,6 +8,63 @@
 			$this->load->database();
 		}
 	
+		public function getLastOid()
+		{
+			$sql = 'SELECT 
+						o_id 
+					FROM 
+						order_list 
+					WHERE  
+						DATE_FORMAT(o_datetime, "%Y-%m-%d") =  DATE_FORMAT(NOW(), "%Y-%m-%d")
+					ORDER BY o_id DESC';
+			$query = $this->db->query($sql, $bind);
+			$row =  $query->row_array();
+			$query->free_result();
+			return $row;
+		}
+	
+		public function inserdOrder($ary = array())
+		{
+			$output = array();
+			$this->db->trans_start(); 
+			$row = $this->getLastOid();
+			if(empty($row))
+			{
+				$row['o_id'] = date('Ymd').sprintf('%06d',1);
+			}else
+			{
+				$row['o_id']+=1;
+			}
+			$sql="INSERT INTO order_list (o_id,o_datetime) VALUES(?,NOW())";
+			$query = $this->db->query($sql, array($row['o_id']));
+		
+
+			
+			foreach($ary['order_list'] as  $key => $value )
+			{
+				if(!isset($value['discount']))
+				{
+					$value['discount'] = 1;
+				}
+				$sql ="INSERT INTO order_detail(o_id, od_item_index, f_id, od_num, od_price, od_discount, od_add_datetime	)
+					   VALUES(?, ?, ?, ?, ?, ?, NOW())";
+				$insert = array(
+					$row['o_id'] ,
+					$key+1,
+					$value['f_id'],
+					$value['order_num'],
+					$value['price'],
+					$value['discount'],
+				);
+				$query = $this->db->query($sql, $insert);
+			}
+			$this->db->trans_complete();
+			if ($this->db->trans_status()===  FALSE)
+			{ 
+				
+			}
+		}
+	
 		public function getProductForFid($f_id)
 		{
 			$sql="	SELECT * 

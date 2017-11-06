@@ -70,7 +70,7 @@
 						</div>
 						<a ng-click="checkout();$event.stopPropagation();" class="btn btn-icon btn-icon-left btn-primary btn-shape-circle offset-top-35">
 							<span class="icon icon-xs mdi mdi-cart-outline"></span>
-							<span >Proceed to checkout</span>
+							<span ><{$shopLanguageAry.shopcart_proceed_to_checkout}></span>
 						</a>
 					</div>
 				</div>

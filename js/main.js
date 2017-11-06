@@ -91,16 +91,45 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 		$rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
 	}
 	$scope.ischeckout = false;
+	$scope.checkout_confirm  = false;
 	$scope.checkout = function()
 	{
 		if($scope.cartnums ==0)
 		{
-			$( "#dialog p").text(cart_num_is_zero); 
+			$( "#dialog p").text(js_cart_num_is_zero); 
 			$( "#dialog" ).dialog();
 		}
+		if($scope.checkout_confirm ==false)
+		{
+			$( "#dialog p").text( js_cart_checkout_confirm ); 
+			$( "#dialog" ).dialog({
+				buttons: [
+					{
+					  text: "Ok",
+					  click: function() {
+						$( this ).dialog( "close" );
+						$scope.checkout_confirm = true;
+						$scope.checkout();
+					  }
+					},
+					{
+					  text: "close",
+					  click: function() {
+						$( this ).dialog( "close" );
+					  }
+					},
+				]
+			});
+			return false;
+		}
+		
 		if($scope.ischeckout !=true)
 		{
-			postdata ={};
+			var shopcart =  $cookies.getObject('shopcart');
+			console.log(shopcart);
+			postdata ={
+				order_list : shopcart
+			};
 			$scope.ischeckout = true;
 			$.ajax({
 				// async: false,
@@ -108,9 +137,13 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 				dataType: 'json',
 				url: CheckOutApi,
 				data: JSON.stringify(postdata),
+				contentType: "application/json",
 				success: function (data) {
-					console.log(data);
 					$scope.ischeckout =false ;
+					if(data.status =="200")
+					{
+						
+					}
 				},
 				error: function (data) {
 					
@@ -119,7 +152,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 			
 		}else
 		{
-			$( "#dialog p").text( cart_ischeckout ); 
+			$( "#dialog p").text( js_cart_ischeckout ); 
 			$( "#dialog" ).dialog();
 		}
 	}

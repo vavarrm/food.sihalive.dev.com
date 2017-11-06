@@ -15,20 +15,19 @@ class Api extends CI_Controller {
 	public function checkout()
 	{
 		$output['body']=array();
-		$output['status'] = '100';
+		$output['status'] = '200';
 		$output['title'] ='结帐';
 		try 
 		{
-				
 			if(empty($this->request))
 			{
 				$output['status'] ='000';
 				throw new Exception("request is empty");
 			}
+			$this->food->inserdOrder($this->request);
 		}catch(Exception $e)
 		{
-			$output['status'] = $status ;
-			$output['errormsg'] = $e->getMessage();
+			$output['message'] = $e->getMessage();
 		}
 		
 		$this->response($output);
@@ -47,8 +46,7 @@ class Api extends CI_Controller {
 			$output['status'] = $status ;
 		}catch(Exception $e)
 		{
-			$output['status'] = $status ;
-			$output['errormsg'] = $e->getMessage();
+			$output['message'] = $e->getMessage();
 		}
 		
 		$this->response($output);
@@ -70,7 +68,7 @@ class Api extends CI_Controller {
 		}catch(Exception $e)
 		{
 			$output['status'] = $status ;
-			$output['errormsg'] = $e->getMessage();
+			$output['message'] = $e->getMessage();
 		}
 		
 		$this->response($output);
