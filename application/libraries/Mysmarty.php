@@ -35,10 +35,18 @@ class Mysmarty
 	
 	public function displayFrame($tpl)
 	{
+		
+		$language_ary = $this->CI->language->load('main');
+		$language_js_ary =$this->CI->language->load('js');
+		
 		$this->assign(array(
-			'content_tpl'	=>'front_end/block/'.$tpl
+			'language'	=>$language_ary,
+			'language_js_ary'	=>$language_js_ary,
+			'randseed'	=>$this->randseed,
+			'content'	=>$tpl
 		));
-		$this->smarty->display('front_end/frame.tpl');
+		$this->smarty->clearAllCache();
+		$this->smarty->display('Frontend/frame.tpl');
 	}
 	
 	public function assign($var)

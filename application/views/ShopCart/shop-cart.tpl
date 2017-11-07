@@ -133,6 +133,5 @@
     <{include file="Frontend/gallery.tpl"}>
     <!-- Java script-->
 	<{include file="Frontend/js.tpl"}>
-	<{include file="Frontend/basic.tpl"}>
   </body>
 </html>

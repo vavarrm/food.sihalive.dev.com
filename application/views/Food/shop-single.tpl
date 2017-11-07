@@ -13,7 +13,6 @@
 		<![endif]-->
   </head>
   <body>
-  	  <{include file="Frontend/basic.tpl"}>
     <!-- Page-->
     <div class="page text-center" >
       <header class="page-head">

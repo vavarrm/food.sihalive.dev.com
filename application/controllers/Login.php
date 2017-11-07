@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 			'shopList'			=>$shopList,
 			'foodTypeClass'	=>$foodTypeClass
 		));
-		$this->smarty->display(__CLASS__.'/index.tpl');
+		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
 	}
 	
 	public function menu()

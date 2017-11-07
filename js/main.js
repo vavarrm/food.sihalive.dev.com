@@ -1,8 +1,28 @@
+(function ($) {
+    $.fn.serializeFormJSON = function () {
 
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+})(jQuery);
 
 var CategoryListApi ="/api/getCategory/";
 var GetProductApi ="/api/getProduct/";
 var CheckOutApi ="/api/checkout/";
+var RegistrationApi ="/api/registration/";
+var LoginApi ="/api/login/";
+var GetUserApi ="/api/getUser/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -97,7 +117,17 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 		if($scope.cartnums ==0)
 		{
 			$( "#dialog p").text(js_cart_num_is_zero); 
-			$( "#dialog" ).dialog();
+			$( "#dialog" ).dialog({
+				buttons: [
+					{
+					  text: "close",
+					  click: function() {
+						$( this ).dialog( "close" );
+					  }
+					}
+				]
+			});
+			return false;
 		}
 		if($scope.checkout_confirm ==false)
 		{
@@ -126,7 +156,6 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 		if($scope.ischeckout !=true)
 		{
 			var shopcart =  $cookies.getObject('shopcart');
-			console.log(shopcart);
 			postdata ={
 				order_list : shopcart
 			};
@@ -142,6 +171,20 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 					$scope.ischeckout =false ;
 					if(data.status =="200")
 					{
+						$cookies.remove('shopcart', {path: '/'});
+						$( "#dialog p").text(js_cart_checkout_ok); 
+						$( "#dialog" ).dialog({
+							buttons: [
+								{
+								  text: "close",
+								  click: function() {
+									$( this ).dialog( "close" );
+									window.location.href="/";
+								  }
+								}
+							]
+						});
+					}else{
 						
 					}
 				},
@@ -173,12 +216,151 @@ var navCtrl = function($scope, $cookies, $rootScope){
     })
 };
 
+var loginCtrl = function($scope, $cookies, $rootScope){
+	$scope.user = false;
+	$scope.register = function()
+	{
+		if($scope.password_confirm !=$scope.password)
+		{
+			var obj = {
+				message :js_login_password_confirm
+			}
+			dialog(obj);
+			return false;
+		}
+		postdata = $('#Register').serializeFormJSON();
+		$.ajax({
+			// async: false,
+			type: 'post',
+			dataType: 'json',
+			url: RegistrationApi,
+			data: JSON.stringify(postdata),
+			contentType: "application/json",
+			success: function (data) {
+				$scope.ischeckout =false ;
+				if(data.status =="200")
+				{
+					var obj = {
+						message :js_user_registration_ok
+					}
+					dialog(obj)
+				}else{
+					var obj = {
+						message :data.message
+					};
+					dialog(obj)
+				}
+			},
+			error: function (data) {
+				var obj = {
+						message :js_login_password_confirm
+				}
+				dialog(obj)
+			}
+		});
+		
+	}
+	
+	$scope.doLogin = function()
+	{
+		postdata = $('#Loginfrm').serializeFormJSON();
+		$.ajax({
+			// async: false,
+			type: 'post',
+			dataType: 'json',
+			url: LoginApi,
+			data: JSON.stringify(postdata),
+			contentType: "application/json",
+			success: function (data) {
+				$scope.ischeckout =false ;
+				if(data.status =="200")
+				{
+					$scope.user = data['body']['user'];
+					var obj = {
+						message :js_user_login_ok,
+						buttons: [
+						{
+						  text: "ok",
+						  click: function() {
+							$( this ).dialog( "close" );
+							location.href="/";
+						  }
+						}]
+					};
+					dialog(obj);
+				}else{
+					var obj = {
+						message :data.message
+					};
+					dialog(obj)
+				}
+			},
+			error: function (data) {
+				var obj = {
+						message :js_user_login_error
+				}
+				dialog(obj)
+			}
+		});
+	}
+}
+
+
+var bodyCtrl = function($scope, $cookies, $rootScope)
+{
+	$scope.logout = function()
+	{
+		alert('e');
+	}
+	$.ajax({
+		// async: false,
+		type: 'get',
+		dataType: 'json',
+		url: GetUserApi,
+		success: function (data) {
+			$scope.ischeckout =false ;
+			if(data.status =="200")
+			{
+				$scope.user = data['body']['user'];
+			}
+		},
+		error: function (data) {
+			var obj = {
+					message :js_login_password_confirm
+			}
+			dialog(obj)
+		}
+	});
+}
 
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', navCtrl]);
 sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', productPageCtrl]);
 sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', shopCartCtrl]);
+sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope', loginCtrl]);
+sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', bodyCtrl]);
 
+
+function dialog(object2)
+{
+	if(typeof object2 !="object")
+	{
+		object2 ={};
+	}
+	var  object1 ={
+		buttons: [
+			{
+			  text: "close",
+			  click: function() {
+				$( this ).dialog( "close" );
+			  }
+			}
+		]
+	};
+	$.extend( object1, object2 );
+	$( "#dialog p").text(object1.message); 
+	$( "#dialog" ).dialog(object1);
+}
 
 $( "body" ).on( "click", ".stepper-arrow.up", function(e) {
 	var input = $(this).parent().find('input');

@@ -42,7 +42,7 @@ class MainPage extends CI_Controller {
 			'categorys'	=>$categorys,
 			'foods'		=>$foods 
 		));
-		$this->smarty->display(__CLASS__.'/menu-modern.tpl');
+		$this->smarty->displayFrame(__CLASS__.'/menu-modern.tpl');
 	}
 	
 	public function shopInfo()

@@ -44,9 +44,12 @@
 				  <li>
 					<ul class="list-inline list-inline-sm">
 					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-instagram"></span></a></li>
-					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
+					  <li><a  target="_blank" href="https://www.facebook.com/Sihalive-187813995113064/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
+					  <li><a  target="blank" href="/Login/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-user"></span></a></li>
+					  <{*
 					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-twitter"></span></a></li>
 					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-google-plus"></span></a></li>
+					  *}>
 					</ul>
 				  </li>
 				</ul>
@@ -66,10 +69,28 @@
 		  </div>
 		  <!-- RD Navbar Nav-->
 		  <ul class="rd-navbar-nav">
-			<li><a href="index.html">Home</a>
+			<li>
+				<a href="/">Home</a>
 			</li>
-			<li><a href="about.html">About Us</a>
+			<li>
+				<a href="about.html">About Us</a>
 			</li>
+			<li>
+				<a href="#">user</a>
+				<!-- RD Navbar Dropdown-->
+				<ul class="rd-navbar-dropdown">
+					<li>
+						<a href="gallery-grid.html">orderlist</a>
+					</li>
+					<li>
+						<a href="gallery-grid.html">setting</a>
+					</li>
+					<li>
+						<a ng-click="logout()">logout</a>
+					</li>
+				</ul>
+			</li>
+			<{*
 			<li><a href="#">Menu</a>
 			  <!-- RD Navbar Dropdown-->
 			  <ul class="rd-navbar-dropdown menu-img-wrap">
@@ -157,6 +178,7 @@
 				</li>
 			  </ul>
 			</li>
+			*}>
 		  </ul>
 		  <div class="rd-navbar-aside-right">
 			<ul class="list-links list-inline text-left">

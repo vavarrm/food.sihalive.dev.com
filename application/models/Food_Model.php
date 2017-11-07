@@ -39,24 +39,26 @@
 			$query = $this->db->query($sql, array($row['o_id']));
 		
 
-			
-			foreach($ary['order_list'] as  $key => $value )
+			if(!empty($ary['order_list']))
 			{
-				if(!isset($value['discount']))
+				foreach($ary['order_list'] as  $key => $value )
 				{
-					$value['discount'] = 1;
+					if(!isset($value['discount']))
+					{
+						$value['discount'] = 1;
+					}
+					$sql ="INSERT INTO order_detail(o_id, od_item_index, f_id, od_num, od_price, od_discount, od_add_datetime	)
+						   VALUES(?, ?, ?, ?, ?, ?, NOW())";
+					$insert = array(
+						$row['o_id'] ,
+						$key+1,
+						$value['f_id'],
+						$value['order_num'],
+						$value['price'],
+						$value['discount'],
+					);
+					$query = $this->db->query($sql, $insert);
 				}
-				$sql ="INSERT INTO order_detail(o_id, od_item_index, f_id, od_num, od_price, od_discount, od_add_datetime	)
-					   VALUES(?, ?, ?, ?, ?, ?, NOW())";
-				$insert = array(
-					$row['o_id'] ,
-					$key+1,
-					$value['f_id'],
-					$value['order_num'],
-					$value['price'],
-					$value['discount'],
-				);
-				$query = $this->db->query($sql, $insert);
 			}
 			$this->db->trans_complete();
 			if ($this->db->trans_status()===  FALSE)
