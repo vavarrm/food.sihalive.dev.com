@@ -23,6 +23,8 @@ var CheckOutApi ="/api/checkout/";
 var RegistrationApi ="/api/registration/";
 var LoginApi ="/api/login/";
 var GetUserApi ="/api/getUser/";
+var LogoutApi ="/api/logout/";
+var FBRegApi ="/api/fbReg/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -220,7 +222,9 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 	$scope.user = false;
 	$scope.register = function()
 	{
-		if($scope.password_confirm !=$scope.password)
+		console.log($scope.u_passwd_confirm);
+		console.log($scope.u_passwd);
+		if($scope.u_passwd_confirm !=$scope.u_passwd)
 		{
 			var obj = {
 				message :js_login_password_confirm
@@ -228,7 +232,7 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 			dialog(obj);
 			return false;
 		}
-		postdata = $('#Register').serializeFormJSON();
+		var postdata = $('#Register').serializeFormJSON();
 		$.ajax({
 			// async: false,
 			type: 'post',
@@ -241,7 +245,16 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 				if(data.status =="200")
 				{
 					var obj = {
-						message :js_user_registration_ok
+						message :js_user_registration_ok,
+						buttons: [
+							{
+							  text: "OK",
+							  click: function() {
+								$( this ).dialog( "close" );
+								window.location.href="/";
+							  }
+							}
+						]
 					}
 					dialog(obj)
 				}else{
@@ -253,7 +266,7 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 			},
 			error: function (data) {
 				var obj = {
-						message :js_login_password_confirm
+						message :js_response_error
 				}
 				dialog(obj)
 			}
@@ -303,17 +316,56 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 			}
 		});
 	}
+	
+	
 }
 
 
 var bodyCtrl = function($scope, $cookies, $rootScope)
 {
+	$scope.islogin = false;
+	
+	$scope.fbLogin = function()
+	{
+		checkFbLogin();
+	}
+	
 	$scope.logout = function()
 	{
-		alert('e');
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: LogoutApi,
+			success: function (data) {
+				$scope.ischeckout =false ;
+				if(data.status =="200")
+				{
+					var obj = {
+						message :js_user_logout_ok,
+						buttons: [
+						{
+						  text: "ok",
+						  click: function() {
+							$( this ).dialog( "close" );
+							location.href="/";
+						  }
+						}]
+					}
+					dialog(obj);
+				}
+			},
+			error: function (data) {
+				var obj = {
+						message :js_user_logout_error
+				}
+				dialog(obj)
+			}
+		});
 	}
+	
+	
 	$.ajax({
-		// async: false,
+		async: false,
 		type: 'get',
 		dataType: 'json',
 		url: GetUserApi,
@@ -322,11 +374,15 @@ var bodyCtrl = function($scope, $cookies, $rootScope)
 			if(data.status =="200")
 			{
 				$scope.user = data['body']['user'];
+				if($scope.user !=null)
+				{
+					$scope.islogin = true;
+				}
 			}
 		},
 		error: function (data) {
 			var obj = {
-					message :js_login_password_confirm
+					message :js_user_login_error
 			}
 			dialog(obj)
 		}
@@ -391,3 +447,109 @@ $( "body" ).on( "click", ".stepper-arrow.down", function() {
 	}
 	input.val(val -1);
 });
+
+var fbAction ='';
+$('#fbReg').bind('click', function(e){
+	e.preventDefault();
+	fbAction = "FBreg";
+	fbLogin();
+})
+
+// javascript document
+// This is called with the results from from FB.getLoginStatus().
+function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+		switch(fbAction)
+		{
+			case 'FBreg' :
+				FBreg(response);
+			break;
+		}
+    } else if (response.status === 'not_authorized') {
+		
+        // The person is logged into Facebook, but not your app.
+    } else {
+        // The person is not logged into Facebook, so we're not sure if
+        // they are logged into this app or not.
+    }
+}
+// This function is called when someone finishes with the Login
+// Button.  See the onlogin handler attached to it in the sample
+// code below.
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+}
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : fbAppId ,
+        cookie     : true, 
+        xfbml      : true, 
+        version    : 'v2.2' 
+    });
+};
+
+(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/zh_TW/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "facebook-jssdk"));
+
+function loginNEMI(token) {
+  
+}
+
+function FBreg(token) {
+	postdata =token.authResponse;
+	$.ajax({
+		type: 'post',
+		dataType: 'json',
+		url: FBRegApi,
+		data: JSON.stringify(postdata),
+		contentType: "application/json",
+		success: function (data) {
+			if(data.status =="200")
+			{
+				var obj = {
+					message :js_user_registration_ok,
+					buttons: 
+					[
+						{
+						  text: "OK",
+						  click: function() {
+							$( this ).dialog( "close" );
+							window.location.href="/";
+						  }
+						}
+					]
+				}
+				dialog(obj)
+			}else{
+				var obj = {
+					message :data.message
+				};
+				dialog(obj)
+			}
+		},
+		error: function (data) {
+			console.log(data);
+			var obj = {
+					message :js_response_error
+			}
+			dialog(obj)
+		}
+	});
+}
+// custom fb login button
+function fbLogin()
+{
+    // FB 第三方登入，要求公開資料與email
+    FB.login(function(response)
+    {
+        statusChangeCallback(response);
+    }, {scope: 'public_profile,email'});
+}

@@ -27,7 +27,10 @@ class Mysmarty
 		$this->assign(array(
 			'language'	=>$language_ary,
 			'language_js_ary'	=>$language_js_ary,
-			'randseed'	=>$this->randseed
+			'randseed'	=>$this->randseed,
+			'fb_app_id'=>$fb_app_id,
+			'fb_app_key'=>$fb_app_key,
+			'fb_version'=>$fb_version,
 		));
 		$this->smarty->clearAllCache();
 		$this->smarty->display($tpl);
@@ -38,12 +41,18 @@ class Mysmarty
 		
 		$language_ary = $this->CI->language->load('main');
 		$language_js_ary =$this->CI->language->load('js');
+		$fb_app_id =$this->CI->config->item('fb_app_id');
+		$fb_app_key =$this->CI->config->item('fb_app_key');
+		$fb_version =$this->CI->config->item('fb_version');
 		
 		$this->assign(array(
 			'language'	=>$language_ary,
 			'language_js_ary'	=>$language_js_ary,
 			'randseed'	=>$this->randseed,
-			'content'	=>$tpl
+			'content'	=>$tpl,
+			'fb_app_id'=>$fb_app_id,
+			'fb_app_key'=>$fb_app_key,
+			'fb_version'=>$fb_version,
 		));
 		$this->smarty->clearAllCache();
 		$this->smarty->display('Frontend/frame.tpl');

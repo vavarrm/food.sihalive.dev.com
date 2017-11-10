@@ -29,7 +29,7 @@
 			  <div class="resp-tabs-container">
 				<div>
 					<div class="group-sm">
-						<a href="#" class="btn btn-facebook btn-icon btn-icon-left">
+						<a  class="btn btn-facebook btn-icon btn-icon-left" ng-click="fbLogin();$event.stopPropagation();">
 							<span class="icon icon-lg fa-facebook"></span>
 							<span>Facebook</span>
 						</a>
@@ -64,7 +64,7 @@
 				</div>
 				<div >
 					<div class="group-sm">
-						<a href="#" class="btn btn-facebook btn-icon btn-icon-left">
+						<a href="#" class="btn btn-facebook btn-icon btn-icon-left"  id="fbReg">
 							<span class="icon icon-xs fa-facebook"></span>
 							<span>Facebook</span>
 						</a>
@@ -94,7 +94,7 @@
 					</div>
 					<div class="form-group">
 					  <label for="register-form-password" class="form-label form-label-outside">Password</label>
-					  <input id="register-form-password"  maxlength="12" ng-model="u_passwd" type="u_password" name="u_passwd" data-constraints="@Required" class="form-control">
+					  <input id="register-form-password"  maxlength="12" ng-model="u_passwd" type="password" name="u_passwd" data-constraints="@Required" class="form-control">
 					</div>
 					<div class="form-group">
 					  <label for="register-form-password-confirm" class="form-label form-label-outside">Confirm Password</label>

@@ -66,6 +66,7 @@ $autoload['libraries'] = array(
 	'My_Language' =>'language',
 	'MyRsa' =>'rsa',
 	'MyDecryption' =>'decryption',
+	'MyFBApi' =>'fb',
 	'session'
 );
 

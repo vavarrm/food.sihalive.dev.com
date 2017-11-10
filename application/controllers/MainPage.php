@@ -10,7 +10,18 @@ class MainPage extends CI_Controller {
 		$this->load->model('Food_Model', 'food');	
     }
 	
+	
+	public function privacy()
+	{
+		$this->smarty->displayFrame(__CLASS__.'/privacy.tpl');
+	}
+	
 	public function index()
+	{
+		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
+	}
+	
+	public function foodMenu()
 	{
 		$shopList = array(
 			array(

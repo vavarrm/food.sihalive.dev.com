@@ -74,13 +74,30 @@
 			</li>
 			<li>
 				<a href="about.html">About Us</a>
+			</li>			
+			<li>
+				<a href="about.html">FAQ</a>
 			</li>
 			<li>
+				<a href="contacts.html">Contacts</a>
+			</li>
+			<li><a href="#">Menu</a>
+			  <!-- RD Navbar Dropdown-->
+			  <ul class="rd-navbar-dropdown menu-img-wrap">
+				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Sushi</span></a></li>
+				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
+				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Pizza</span></a></li>
+				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Barbecue</span></a></li>
+				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Sandwiches</span></a></li>
+				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>Mexican</span></a></li>
+			  </ul>
+			</li>
+			<li  ng-show="islogin">
 				<a href="#">user</a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
 					<li>
-						<a href="gallery-grid.html">orderlist</a>
+						<a href="/Food/orderList">orderlist</a>
 					</li>
 					<li>
 						<a href="gallery-grid.html">setting</a>
@@ -91,17 +108,6 @@
 				</ul>
 			</li>
 			<{*
-			<li><a href="#">Menu</a>
-			  <!-- RD Navbar Dropdown-->
-			  <ul class="rd-navbar-dropdown menu-img-wrap">
-				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Sushi</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Pizza</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Barbecue</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Sandwiches</span></a></li>
-				<li class="menu-img"><a href="menu-single.html"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>Mexican</span></a></li>
-			  </ul>
-			</li>
 			<li class="active"><a href="#">Pages</a>
 			  <!-- RD Navbar Megamenu-->
 			  <ul class="rd-navbar-megamenu">
