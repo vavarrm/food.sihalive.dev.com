@@ -29,7 +29,7 @@
 			  <div class="resp-tabs-container">
 				<div>
 					<div class="group-sm">
-						<a  class="btn btn-facebook btn-icon btn-icon-left" ng-click="fbLogin();$event.stopPropagation();">
+						<a id="FBloginBtn"  class="btn btn-facebook btn-icon btn-icon-left">
 							<span class="icon icon-lg fa-facebook"></span>
 							<span>Facebook</span>
 						</a>

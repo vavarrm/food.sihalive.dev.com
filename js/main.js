@@ -25,6 +25,7 @@ var LoginApi ="/api/login/";
 var GetUserApi ="/api/getUser/";
 var LogoutApi ="/api/logout/";
 var FBRegApi ="/api/fbReg/";
+var FBLoginApi ="/api/fbLogin/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -222,8 +223,6 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 	$scope.user = false;
 	$scope.register = function()
 	{
-		console.log($scope.u_passwd_confirm);
-		console.log($scope.u_passwd);
 		if($scope.u_passwd_confirm !=$scope.u_passwd)
 		{
 			var obj = {
@@ -293,11 +292,12 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 						message :js_user_login_ok,
 						buttons: [
 						{
-						  text: "ok",
-						  click: function() {
-							$( this ).dialog( "close" );
-							location.href="/";
-						  }
+							text: "ok",
+							click: function() 
+							{
+								$( this ).dialog( "close" );
+								location.href="/";
+							}
 						}]
 					};
 					dialog(obj);
@@ -324,11 +324,6 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 var bodyCtrl = function($scope, $cookies, $rootScope)
 {
 	$scope.islogin = false;
-	
-	$scope.fbLogin = function()
-	{
-		checkFbLogin();
-	}
 	
 	$scope.logout = function()
 	{
@@ -455,6 +450,12 @@ $('#fbReg').bind('click', function(e){
 	fbLogin();
 })
 
+$('#FBloginBtn').bind('click', function(e){
+	e.preventDefault();
+	fbAction = "FBLogin";
+	fbLogin();
+})
+
 // javascript document
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
@@ -465,6 +466,9 @@ function statusChangeCallback(response) {
 			case 'FBreg' :
 				FBreg(response);
 			break;
+			case 'FBLogin':
+				FBLogin(response);
+			break;
 		}
     } else if (response.status === 'not_authorized') {
 		
@@ -474,9 +478,9 @@ function statusChangeCallback(response) {
         // they are logged into this app or not.
     }
 }
-// This function is called when someone finishes with the Login
-// Button.  See the onlogin handler attached to it in the sample
-// code below.
+
+
+
 function checkLoginState() {
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
@@ -499,12 +503,10 @@ window.fbAsyncInit = function() {
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, "script", "facebook-jssdk"));
 
-function loginNEMI(token) {
-  
-}
+
 
 function FBreg(token) {
-	postdata =token.authResponse;
+	var postdata =token.authResponse;
 	$.ajax({
 		type: 'post',
 		dataType: 'json',
@@ -536,7 +538,6 @@ function FBreg(token) {
 			}
 		},
 		error: function (data) {
-			console.log(data);
 			var obj = {
 					message :js_response_error
 			}
@@ -544,7 +545,49 @@ function FBreg(token) {
 		}
 	});
 }
-// custom fb login button
+
+function FBLogin(token)
+{
+	var postdata =token.authResponse;
+	$.ajax({
+		type: 'post',
+		dataType: 'json',
+		url: FBLoginApi,
+		data: JSON.stringify(postdata),
+		contentType: "application/json",
+		success: function (data) {
+			if(data.status =="200")
+			{
+				var obj = {
+					message :js_user_login_ok,
+					buttons: 
+					[
+						{
+						  text: "OK",
+						  click: function() {
+							$( this ).dialog( "close" );
+							window.location.href="/";
+						  }
+						}
+					]
+				}
+				dialog(obj)
+			}else{
+				var obj = {
+					message :data.message
+				};
+				dialog(obj)
+			}
+		},
+		error: function (data) {
+			var obj = {
+					message :js_response_error
+			}
+			dialog(obj)
+		}
+	});
+}
+
 function fbLogin()
 {
     // FB 第三方登入，要求公開資料與email

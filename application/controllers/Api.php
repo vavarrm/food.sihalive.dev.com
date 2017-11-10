@@ -12,6 +12,45 @@ class Api extends CI_Controller {
 		$this->load->model('User_Model', 'user');
     }
 	
+	
+	public function fbLogin()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='FB登入';
+		try 
+		{
+			if(empty($this->request))
+			{
+				$output['status'] ='000';
+				throw new Exception("request is empty");
+			}
+			
+			$response =  $this->fb->get('/me?fields=id,name,email', $this->request['accessToken']);
+			if(empty($response))
+			{
+				throw new Exception("fb response empty");
+			}
+			$fbuser = $response->getGraphUser();
+			$user = $this->user->getUserForFBId($fbuser['id']);
+			
+			if(empty($user))
+			{
+				throw new Exception("user is no exist");
+			}
+			
+			$user = $this->doLogin($user);
+			$output['body']['user'] = $this->session->userdata('sihalive_user');
+			
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
+	
 	public function fbReg()
 	{
 		$output['body']=array();
@@ -220,7 +259,7 @@ class Api extends CI_Controller {
 			{
 				throw new Exception("username or email is exist");
 			}
-			// $this->request['u_reg_type'] ='form';
+
 			$row = $this->user->insert($this->request);
 			if($row['affected_rows'] <0)
 			{
