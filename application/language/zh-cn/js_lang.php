@@ -9,5 +9,6 @@
 	$lang['js_user_login_error'] = "登入失败";
 	$lang['js_user_logout_ok'] = "登出成功";
 	$lang['js_response_error'] = "回应错误";
+	$lang['js_please_login'] = "请登入";
 
 ?>

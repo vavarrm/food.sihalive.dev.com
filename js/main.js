@@ -30,6 +30,29 @@ var FBLoginApi ="/api/fbLogin/";
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
 
+sihaliveApp .factory('User', function(){
+	var user ;
+	$.ajax({
+		async: false,
+		type: 'get',
+		dataType: 'json',
+		url: GetUserApi,
+		success: function (data) {
+			if(data.status =="200")
+			{
+				user = data['body']['user'];
+			}
+		},
+		error: function (data) {
+			var obj = {
+				message :js_user_login_error
+			}
+			dialog(obj)
+		}
+	});
+	return user;
+})
+
 var productPageCtrl = function($scope, $cookies, $rootScope){
 	
 	$scope.$watch("f_id", function(){
@@ -50,7 +73,6 @@ var productPageCtrl = function($scope, $cookies, $rootScope){
 	{
 		$scope.selectprice = price;
 		$('.resp-tab-item.resp-tab-active').removeClass('resp-tab-active');
-		// $($event).addClass('resp-tab-active');
 	}
 	
 	$scope.click = function(f_id) 
@@ -93,8 +115,10 @@ var productPageCtrl = function($scope, $cookies, $rootScope){
 var categoryCtrl = function($scope, $http){
 };
 
-var shopCartCtrl = function($scope, $cookies, $rootScope){
+var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	var shopcart =  $cookies.getObject('shopcart');
+	
+	
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
 
@@ -117,6 +141,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 	$scope.checkout_confirm  = false;
 	$scope.checkout = function()
 	{
+		
 		if($scope.cartnums ==0)
 		{
 			$( "#dialog p").text(js_cart_num_is_zero); 
@@ -132,6 +157,24 @@ var shopCartCtrl = function($scope, $cookies, $rootScope){
 			});
 			return false;
 		}
+
+		if(User == null)
+		{
+			$( "#dialog p").text(js_please_login); 
+			$( "#dialog" ).dialog({
+				buttons: [
+					{
+					  text: "close",
+					  click: function() {
+						$( this ).dialog( "close" );
+						location.href="/Login/";
+					  }
+					}
+				]
+			});
+			return false;
+		}
+		
 		if($scope.checkout_confirm ==false)
 		{
 			$( "#dialog p").text( js_cart_checkout_confirm ); 
@@ -321,7 +364,7 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 }
 
 
-var bodyCtrl = function($scope, $cookies, $rootScope)
+var bodyCtrl = function($scope, $cookies, $rootScope, User)
 {
 	$scope.islogin = false;
 	
@@ -357,39 +400,29 @@ var bodyCtrl = function($scope, $cookies, $rootScope)
 			}
 		});
 	}
-	
-	
-	$.ajax({
-		async: false,
-		type: 'get',
-		dataType: 'json',
-		url: GetUserApi,
-		success: function (data) {
-			$scope.ischeckout =false ;
-			if(data.status =="200")
-			{
-				$scope.user = data['body']['user'];
-				if($scope.user !=null)
-				{
-					$scope.islogin = true;
-				}
-			}
-		},
-		error: function (data) {
-			var obj = {
-					message :js_user_login_error
-			}
-			dialog(obj)
+
+	$scope.init = function()
+	{
+		if(User != null)
+		{
+			$scope.islogin = true;
 		}
-	});
+	}
+}
+
+var breadcrumbsCtrl = function ($scope)
+{
+	var pathname = window.location.pathname; // Returns path only
+	$scope.breadcrumbs = pathname.split('/');
 }
 
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
-sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', navCtrl]);
-sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', productPageCtrl]);
-sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', shopCartCtrl]);
-sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope', loginCtrl]);
-sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', bodyCtrl]);
+sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
+sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
+sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', 'User', productPageCtrl]);
+sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
+sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope', 'User',loginCtrl]);
+sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'User',bodyCtrl]);
 
 
 function dialog(object2)

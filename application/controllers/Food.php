@@ -24,35 +24,11 @@ class Food extends CI_Controller {
 	
 	public function index($f_id)
 	{
-		$shopList = array(
-			array(
-			),			
-			array(
-			),			
-			array(
-			),			
-			array(
-			),			
-			array(
-			),
-		);
-	
-		
-		$foodTypeClass = array(
-			array(
-			),
-			array(
-			),
-			array(
-			),
-		);
 		$this->smarty->assign(array(
-			'shopList'			=>$shopList,
-			'foodTypeClass'		=>$foodTypeClass,
 			'f_id'				=>$f_id
 
 		));
-		$this->smarty->display(__CLASS__.'/shop-single.tpl');
+		$this->smarty->displayFrame(__CLASS__.'/shop-single.tpl');
 	}
 	
 	public function menu()

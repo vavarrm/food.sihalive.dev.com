@@ -38,7 +38,7 @@
 			  <div class="caption">
 				<h5><a href="menu-single.html" class="link link-default"><{$food.f_name}></a></h5>
 				<p class="text-italic"><{$food.f_description}></p>
-				<p class="price"><{$food.f_large_price}></p><a href="/Food/index/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15">Order Online</a>
+				<p class="price"><{$food.f_large_price}></p><a href="/Menu/food/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15">Order Online</a>
 			  </div>
 			</div>
 		  </div>

@@ -14,7 +14,7 @@ class ShopCart extends CI_Controller {
 		$this->smarty->assign(array(
 			'shopLanguageAry'	=>$this->shopcart_language_ary,
 		));
-		$this->smarty->display(__CLASS__.'/shop-cart.tpl');
+		$this->smarty->displayFrame(__CLASS__.'/shop-cart.tpl');
 	}
 	
 }

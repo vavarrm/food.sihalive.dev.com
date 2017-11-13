@@ -288,6 +288,14 @@ class Api extends CI_Controller {
 			{
 				throw new Exception("request is empty");
 			}
+			
+			$user  = $this->session->userdata('sihalive_user');
+			
+			if(empty($user))
+			{
+				throw new Exception("user no login");
+			}
+			
 			$this->food->inserdOrder($this->request);
 		}catch(Exception $e)
 		{

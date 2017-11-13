@@ -12,7 +12,7 @@
 			<script src="js/html5shiv.min.js"></script>
 		<![endif]-->
 	</head>
-	<body ng-controller="bodyCtrl">
+	<body ng-controller="bodyCtrl" ng-init="init()">
 	<!-- Page-->
     <div class="page text-center" >
       <header class="page-head">

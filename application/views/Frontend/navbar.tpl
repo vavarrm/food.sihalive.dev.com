@@ -71,10 +71,7 @@
 		  <ul class="rd-navbar-nav">
 			<li>
 				<a href="/">Home</a>
-			</li>
-			<li>
-				<a href="about.html">About Us</a>
-			</li>			
+			</li>		
 			<li>
 				<a href="about.html">FAQ</a>
 			</li>
@@ -84,13 +81,16 @@
 			<li><a href="#">Menu</a>
 			  <!-- RD Navbar Dropdown-->
 			  <ul class="rd-navbar-dropdown menu-img-wrap">
-				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Sushi</span></a></li>
-				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
-				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Pizza</span></a></li>
-				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Barbecue</span></a></li>
-				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Sandwiches</span></a></li>
-				<li class="menu-img"><a href="/MainPage/foodMenu"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>Mexican</span></a></li>
+				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Sushi</span></a></li>
+				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
+				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Pizza</span></a></li>
+				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Barbecue</span></a></li>
+				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Sandwiches</span></a></li>
+				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>Mexican</span></a></li>
 			  </ul>
+			</li>
+			<li>
+				<a href="contacts.html">Coming soon</a>
 			</li>
 			<li  ng-show="islogin">
 				<a href="#">user</a>

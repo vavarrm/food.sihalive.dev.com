@@ -166,6 +166,7 @@
 	</div>
   </div>
 </section>
+<{*
 <section class="section-50 section-sm-100 bg-image-7">
   <div class="shell text-center">
 	<div class="range range-xs-center range-sm-right range-condensed">
@@ -184,6 +185,8 @@
 	</div>
   </div>
 </section>
+*}>
+<{*
 <section class="section-50 section-sm-100">
   <div class="shell">
 	<div class="range range-xs-center">
@@ -287,6 +290,8 @@
 	</div>
   </div>
 </section>
+*}>
+<{*
 <section>
   <!-- RD Google Map-->
   <div data-zoom="15" data-y="40.643180" data-x="-73.9874068" data-styles="" class="rd-google-map rd-google-map__model">
@@ -297,4 +302,5 @@
 	</ul>
   </div>
 </section>
+*}>
 </main>

@@ -35,8 +35,10 @@
 			{
 				$row['o_id']+=1;
 			}
-			$sql="INSERT INTO order_list (o_id,o_datetime) VALUES(?,NOW())";
-			$query = $this->db->query($sql, array($row['o_id']));
+			
+			$user  = $this->session->userdata('sihalive_user');
+			$sql="INSERT INTO order_list (o_id,o_datetime, u_id) VALUES(?,NOW(), ?)";
+			$query = $this->db->query($sql, array($row['o_id'], $user['u_id']));
 		
 
 			if(!empty($ary['order_list']))
