@@ -260,6 +260,12 @@ var navCtrl = function($scope, $cookies, $rootScope){
     $rootScope.$on('cartnumsChanged', function(event, data){
         $scope.cartnums = $cookies.getObject('shopcart').length;
     })
+	
+	$scope.setLanguage = function(lang)
+	{
+		$cookies.put('language', lang, { path: '/'});
+		window.location.reload();
+	}
 };
 
 var loginCtrl = function($scope, $cookies, $rootScope){
@@ -414,6 +420,7 @@ var breadcrumbsCtrl = function ($scope)
 {
 	var pathname = window.location.pathname; // Returns path only
 	$scope.breadcrumbs = pathname.split('/');
+	console.log($scope.breadcrumbs);
 }
 
 sihaliveApp.controller('categoryCtrl', categoryCtrl);

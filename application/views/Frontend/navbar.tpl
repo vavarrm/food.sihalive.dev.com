@@ -73,10 +73,10 @@
 				<a href="/">Home</a>
 			</li>		
 			<li>
-				<a href="about.html">FAQ</a>
+				<a href="/Faq">FAQ</a>
 			</li>
 			<li>
-				<a href="contacts.html">Contacts</a>
+				<a href="/Contacts">Contacts</a>
 			</li>
 			<li><a href="#">Menu</a>
 			  <!-- RD Navbar Dropdown-->
@@ -91,6 +91,18 @@
 			</li>
 			<li>
 				<a href="contacts.html">Coming soon</a>
+			</li>
+			<li>
+				<a href="#">Language</a>
+				<!-- RD Navbar Dropdown-->
+				<ul class="rd-navbar-dropdown">
+					<li >
+						<a ng-click="setLanguage('en')">english</a>
+					</li>
+					<li>
+						<a ng-click="setLanguage('zh-cn')">chinese</a>
+					</li>
+				</ul>
 			</li>
 			<li  ng-show="islogin">
 				<a href="#">user</a>
