@@ -17,7 +17,7 @@
 				  </div>
 				  <div class="col-xs-6  text-left">
 						<div class="h5 text-sbold offset-top-20 ">
-							<a href="shop-single.html" class="link-default grid-element-mod-2">Fruit Mix Basket</a>
+							<span  class=" grid-element-mod-2">{{item.f_name}}</span>
 						</div>
 						<div class="offset-top-0">
 							<span class="h5 text-sbold">${{item.price}}</span>

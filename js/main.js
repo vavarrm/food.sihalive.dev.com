@@ -80,7 +80,8 @@ var productPageCtrl = function($scope, $cookies, $rootScope){
 		var  obj ={
 			f_id : f_id,
 			order_num  :  parseInt($('#order_num').val()),
-			price: $scope.selectprice
+			price: $scope.selectprice,
+			f_name:$scope.food.f_name
 		};
 		var shopcart =  $cookies.getObject('shopcart');
 		var isadd = false;
