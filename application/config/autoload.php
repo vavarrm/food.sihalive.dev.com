@@ -67,6 +67,7 @@ $autoload['libraries'] = array(
 	'MyRsa' =>'rsa',
 	'MyDecryption' =>'decryption',
 	'MyFBApi' =>'fb',
+	'MySocketIO' =>'socketIO',
 	'session'
 );
 

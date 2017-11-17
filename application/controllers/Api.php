@@ -297,6 +297,11 @@ class Api extends CI_Controller {
 			}
 			
 			$this->food->inserdOrder($this->request);
+			$ary =array(
+				'action'	=>'order_alert'
+			);
+			$output['body']['order_alert'] = $this->socketIO->push($ary);
+			
 		}catch(Exception $e)
 		{
 			$output['status'] ='000';

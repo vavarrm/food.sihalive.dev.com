@@ -253,9 +253,6 @@ var navCtrl = function($scope, $cookies, $rootScope){
 		shopcart =[];
 		$cookies.putObject('shopcart', shopcart, { path: '/'});
 	}
-	$scope.data={
-		num : shopcart.length
-	};
 	$scope.cartnums= shopcart.length;
     $rootScope.$on('cartnumsChanged', function(event, data){
         $scope.cartnums = $cookies.getObject('shopcart').length;
@@ -420,7 +417,6 @@ var breadcrumbsCtrl = function ($scope)
 {
 	var pathname = window.location.pathname; // Returns path only
 	$scope.breadcrumbs = pathname.split('/');
-	console.log($scope.breadcrumbs);
 }
 
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
