@@ -1,5 +1,8 @@
 ﻿<!-- jQuery -->
-<script src="/js/core.js"></script>
+<script>
+	var mymap;
+</script>
+<script src="/js/core.js?<{$randseed}>"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- jQuery fancybox -->
@@ -28,6 +31,3 @@
 </div>
 
 
-<script>
-
-</script>

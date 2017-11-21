@@ -15,6 +15,7 @@
         });
         return o;
     };
+
 })(jQuery);
 
 var CategoryListApi ="/api/getCategory/";
@@ -26,6 +27,7 @@ var GetUserApi ="/api/getUser/";
 var LogoutApi ="/api/logout/";
 var FBRegApi ="/api/fbReg/";
 var FBLoginApi ="/api/fbLogin/";
+var DeliveryPositionApi ="/api/getDeliveryPosition/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -122,7 +124,29 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
-
+	
+	$scope.aaa = function()
+	{
+		alert('d');
+	}
+	
+	$scope.mapinit = function()
+	{	
+		$.ajax({
+			async: false,
+			type: 'GET',
+			dataType: 'json',
+			url: DeliveryPositionApi,
+			contentType: "application/json",
+			success: function (data) {
+				$scope.positions = data['body']['data']['positions'];
+				// console.log($scope.positions);
+			},
+			error: function (data) {
+				
+			}
+		});
+	}
 	$scope.Total = function(filterAry){
 		var total = 0;
 		angular.forEach(filterAry, function(item){
@@ -140,9 +164,9 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	}
 	$scope.ischeckout = false;
 	$scope.checkout_confirm  = false;
+
 	$scope.checkout = function()
 	{
-		
 		if($scope.cartnums ==0)
 		{
 			$( "#dialog p").text(js_cart_num_is_zero); 
@@ -176,6 +200,76 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 			return false;
 		}
 		
+		
+		if($('input[name=o_consignee]').val() =="")
+		{
+			$( "#dialog p").text(js_o_consignee_empty); 
+			$( "#dialog" ).dialog({
+				buttons: [
+					{
+					  text: "close",
+					  click: function() {
+						$( this ).dialog( "close" );
+						$('input[name=o_consignee]').focus();
+					  }
+					}
+				]
+			});
+			return false;
+		}
+		
+		if($('input[name=o_phone]').val() =="")
+		{
+			$( "#dialog p").text(js_o_phone_empty); 
+			$( "#dialog" ).dialog({
+				buttons: [
+					{
+					  text: "close",
+					  click: function() {
+						$( this ).dialog( "close" );
+						$('input[name=o_phone]').focus();
+					  }
+					}
+				]
+			});
+			return false;
+		}
+		
+		if($('#message').val() =="")
+		{
+			$( "#dialog p").text(js_o_messge_empty); 
+			$( "#dialog" ).dialog({
+				buttons: [
+					{
+					  text: "close",
+					  click: function() {
+						$( this ).dialog( "close" );
+						$('#message').focus();
+					  }
+					}
+				]
+			});
+			return false;
+		}	
+		
+		if($('#o_position_id').val() =="")
+		{
+			$( "#dialog p").text(js_o_messge_empty); 
+			$( "#dialog" ).dialog({
+				buttons: [
+					{
+					  text: "close",
+					  click: function() {
+						$( this ).dialog( "close" );
+						$('#message').focus();
+					  }
+					}
+				]
+			});
+			return false;
+		}
+		
+		
 		if($scope.checkout_confirm ==false)
 		{
 			$( "#dialog p").text( js_cart_checkout_confirm ); 
@@ -204,8 +298,13 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 		{
 			var shopcart =  $cookies.getObject('shopcart');
 			postdata ={
-				order_list : shopcart
+				order_list : shopcart,
+				'o_consignee'	: $('input[name=o_consignee]').val(),
+				'o_phone'	: $('input[name=o_phone]').val(),
+				'o_message'	: $('#message').val(),
+				'o_position_id'	: $('#o_position_id').val()
 			};
+		
 			$scope.ischeckout = true;
 			$.ajax({
 				// async: false,
@@ -633,3 +732,5 @@ function fbLogin()
         statusChangeCallback(response);
     }, {scope: 'public_profile,email'});
 }
+
+	

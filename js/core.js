@@ -17874,6 +17874,8 @@ if ("undefined" == typeof jQuery)
  * @see          https://ua.linkedin.com/pub/evgeniy-gusarov/8a/a40/54a
  * @version      0.1.5
  */
+ var myMap ;
+ var myMaker ;
 !function(a) {
     "use strict";
     var t = {
@@ -17881,8 +17883,8 @@ if ("undefined" == typeof jQuery)
         mapClass: "map_model",
         locationsClass: "map_locations",
         marker: {
-            basic: "images/gmap_marker.png",
-            active: "images/gmap_marker_active.png"
+            basic: "/images/gmap_marker.png",
+            active: "/images/gmap_marker_active.png"
         },
         styles: [],
         onInit: !1
@@ -17903,6 +17905,7 @@ if ("undefined" == typeof jQuery)
             n.data("x") && n.data("y") && (e[t] = {
                 x: n.data("x"),
                 y: n.data("y"),
+				position_id : n.data("position_id"),
                 basic: n.data("basic") ? n.data("basic") : o.marker.basic,
                 active: n.data("active") ? n.data("active") : o.marker.active
             },
@@ -17926,8 +17929,10 @@ if ("undefined" == typeof jQuery)
                 center: new google.maps.LatLng(parseFloat(s.map.y),parseFloat(s.map.x)),
                 styles: e.styles,
                 zoom: s.map.zoom,
-                scrollwheel: !1
+                scrollwheel: !1,
+				clickableIcons :!1
             });
+			myMap  = i;
             e.onInit && e.onInit.call(this, i);
             var c = new google.maps.InfoWindow
               , l = [];
@@ -17936,7 +17941,8 @@ if ("undefined" == typeof jQuery)
                     position: new google.maps.LatLng(parseFloat(s.locations[r].y),parseFloat(s.locations[r].x)),
                     map: i,
                     icon: s.locations[r].basic,
-                    index: r
+                    index: r,
+					position_id : s.locations[r].position_id
                 }),
                 s.locations[r].content && (google.maps.event.addListener(l[r], "click", function() {
                     for (var t in l)
@@ -17944,15 +17950,44 @@ if ("undefined" == typeof jQuery)
                     c.setContent(s.locations[this.index].content),
                     c.open(i, this),
                     a(".gm-style-iw").parent().parent().addClass("gm-wrapper"),
-                    this.setIcon(s.locations[this.index].active)
+                    this.setIcon(s.locations[this.index].active);
                 }),
                 google.maps.event.addListener(c, "closeclick", function() {
                     for (var a in l)
                         l[a].setIcon(s.locations[a].basic)
                 }));
+			myMaker = l;
             google.maps.event.addDomListener(window, "resize", function() {
                 i.setCenter(new google.maps.LatLng(parseFloat(s.map.y),parseFloat(s.map.x)))
             })
+			$('#o_position_id').bind('change',function()
+			{
+				var y = $(this).find('option:checked').data('y');
+				var x = $(this).find('option:checked').data('x');
+				var position_id = $(this).val();
+				// console.log( position_id)
+				if(position_id  ==0)
+				{
+					c.close();
+					for (var a in l)
+                        l[a].setIcon(s.locations[a].basic)
+					return false;
+				}
+				i.setCenter( new google.maps.LatLng(y,x));
+				for (var t in l)
+				{
+					if(s.locations[t].position_id == position_id)
+					{
+						l[t].setIcon(s.locations[t].basic);
+						var selectMaker = l[t];
+						break;
+					}
+				}
+				c.setContent(s.locations[0].content);
+				c.open(i, selectMaker);
+				$(".gm-style-iw").parent().parent().addClass("gm-wrapper");
+				l[r].setIcon(s.locations[0].active);
+			})
         })
     }
 }(jQuery);

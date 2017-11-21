@@ -37,8 +37,16 @@
 			}
 			
 			$user  = $this->session->userdata('sihalive_user');
-			$sql="INSERT INTO order_list (o_id,o_datetime, u_id) VALUES(?,NOW(), ?)";
-			$query = $this->db->query($sql, array($row['o_id'], $user['u_id']));
+			$sql="INSERT INTO order_list (o_id,o_datetime, u_id, o_consignee, o_phone, o_messge, o_position_id) VALUES(?,NOW(), ?, ?, ?, ?, ?)";
+			$bind = array(
+				$row['o_id'],
+				$user['u_id'],
+				$ary['o_consignee'],
+				$ary['o_phone'],
+				$ary['o_message'],
+				$ary['o_position_id']
+			);
+			$query = $this->db->query($sql, $bind);
 		
 
 			if(!empty($ary['order_list']))

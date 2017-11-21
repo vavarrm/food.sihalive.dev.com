@@ -10,8 +10,28 @@ class Api extends CI_Controller {
 		$this->request = json_decode(trim(file_get_contents('php://input'), 'r'), true);
 		$this->load->model('Food_Model', 'food');
 		$this->load->model('User_Model', 'user');
+		$this->load->model('Position_Model', 'position');
     }
 	
+	
+	public function getDeliveryPosition()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='get Delivery Position';
+		try 
+		{
+			$positions = $this->position->getDeliveryPosition();
+			$output['body']['data']['positions'] =$positions ;
+			
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
 	
 	public function fbLogin()
 	{

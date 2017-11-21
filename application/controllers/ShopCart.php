@@ -9,6 +9,11 @@ class ShopCart extends CI_Controller {
 		$this->shopcart_language_ary = $this->language->load('shopcart');
     }
 	
+	public function index()
+	{
+		$this->order();
+	}
+	
 	public function order()
 	{
 		$this->smarty->assign(array(

@@ -10,5 +10,9 @@
 	$lang['js_user_logout_ok'] = "登出成功";
 	$lang['js_response_error'] = "回应错误";
 	$lang['js_please_login'] = "请登入";
+	$lang['js_o_consignee_empty'] = "請填寫收貨人欄位";
+	$lang['js_o_phone_empty'] = "請填寫手机欄位";
+	$lang['js_o_messge_empty'] = "請填寫讯息欄位";
+	$lang['js_o_messge_empty'] = "請填寫讯息欄位";
 
 ?>
