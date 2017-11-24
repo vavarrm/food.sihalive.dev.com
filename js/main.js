@@ -32,7 +32,7 @@ var DeliveryPositionApi ="/api/getDeliveryPosition/";
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
 
-sihaliveApp .factory('User', function(){
+sihaliveApp.factory('User', function(){
 	var user ;
 	$.ajax({
 		async: false,
