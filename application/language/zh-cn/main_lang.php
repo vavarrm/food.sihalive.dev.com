@@ -14,4 +14,5 @@
 	$lang['item_shopinfo_500x300'] = "店家图片";
 	$lang['item_shopinfo_details'] = "店家资料";
 	$lang['item_shopinfo_address'] = "店家地址";
+	$lang['from_button_sumbit'] = "送出";
 ?>

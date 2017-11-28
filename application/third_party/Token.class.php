@@ -1,17 +1,12 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class MyRsa
+<?php
+class tokenClass
 {
-	private $CI ;
-
-	
 	public function __construct() 
 	{
-		$this->CI =& get_instance();
 
 	}
 	
-	
-	private static $PRIVATE_KEY = '-----BEGIN RSA PRIVATE KEY-----
+	protected static $PRIVATE_KEY = '-----BEGIN RSA PRIVATE KEY-----
 MIICXQIBAAKBgQCoCzqpvGqdrXyzGn3Rvvr1QPaCFAAiS+eAxsdfAEA+OjqQLkzz
 uk96amsJqUA0eitAQDsJoQFQVaUQ1j1nZsAFTR3eCuiEk3f+3x1KZGNPPs2evUYW
 AposUCk2qZm71+8zZe+6t8YZKtwz8xJFI5p7cqmawjYBc11oCMtKOVHL2QIDAQAB
@@ -25,27 +20,31 @@ NMxdX+IB2Sc9AHs1DxWsU5OgpueGdnN+i6sCQQC3BliIhmjyQzPjn5A6Xi7TmErX
 jbcmW+Yp5K/89FHCCQvVs/KN56FSQnqsooCg70IQR1D2nXrtpzafz5vYEIoO8Kw8
 ICWoFB0jPTg0G2SXsYqpAkBRLRyocI/c7tucQh7kYS2T5jkChJQfBj6aO1PdC1kM
 +cs2pAYJ7eE106C1YGvUfP1yy6fo8wMgzW7e54fQz/8/
------END RSA PRIVATE KEY-----';    
-    private static $PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----
+-----END RSA PRIVATE KEY-----
+';    
+   protected static $PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCoCzqpvGqdrXyzGn3Rvvr1QPaC
 FAAiS+eAxsdfAEA+OjqQLkzzuk96amsJqUA0eitAQDsJoQFQVaUQ1j1nZsAFTR3e
 CuiEk3f+3x1KZGNPPs2evUYWAposUCk2qZm71+8zZe+6t8YZKtwz8xJFI5p7cqma
 wjYBc11oCMtKOVHL2QIDAQAB
 -----END PUBLIC KEY-----';   
-	private static $padding = OPENSSL_PKCS1_PADDING;
+	private static $PADDING = OPENSSL_PKCS1_PADDING;
+	protected static $AES_METHOD = 'aes-256-cbc';
+	protected static $IV = 'ix0vYQiZYu845Zis';
     /**     
-     * 鑾峰彇绉侀挜     
+     * 获取私钥     
      * @return bool|resource     
      */    
-    private static function getPrivateKey() 
+    
+	private static function getPrivateKey() 
     {        
         $privKey = self::$PRIVATE_KEY;       
 
         return openssl_pkey_get_private($privKey, "phrase");    
-    }    
-
+    }   
+	
     /**     
-     * 鑾峰彇鍏挜     
+     * 获取公钥     
      * @return bool|resource     
      */    
     private static function getPublicKey()
@@ -54,9 +53,49 @@ wjYBc11oCMtKOVHL2QIDAQAB
 		
         return openssl_pkey_get_public($publicKey);    
     }    
-
+	
+	/*
+	* 產生RandomKey
+	*
+	*
+	*/
+	public  function getRandomKey($length=5)
+	{
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_ []{}<>~`+=,.;/?|';   
+		$random_key ='';
+		for ( $i = 0; $i < $length; $i++ )  
+		{  
+			$random_key .= $chars[ mt_rand(0, strlen($chars) - 1) ];  
+		}  
+		return $random_key;  
+	}
+	
+	
+	/**     
+     * AES加密     
+     * @param string $data  	加密字串    
+     * @param string $random_key   RandomKey    
+     */
+	public function AesEncrypt($data, $random_key)
+	{
+		$encrypt = openssl_encrypt($data, self::$AES_METHOD, $random_key, 0, self::$IV);
+		return base64_encode($encrypt) ;
+	}
+	
+	/**     
+     * AES解密     
+     * @param string $encrypt  密文    
+     */
+	public function AesDecrypt($encrypt, $random_key)
+	{
+		$encrypt = base64_decode($encrypt);
+		$decrypt = openssl_decrypt($encrypt, self::$AES_METHOD, $random_key, 0, self::$IV);
+		return $decrypt;
+	}
+	
+	
     /**     
-     * 绉侀挜鍔犲瘑     
+     * 私钥加密     
      * @param string $data     
      * @return null|string     
      */    
@@ -69,7 +108,7 @@ wjYBc11oCMtKOVHL2QIDAQAB
     }    
 
     /**     
-     * 鍏挜鍔犲瘑     
+     * 公钥加密     
      * @param string $data     
      * @return null|string     
      */    
@@ -82,7 +121,7 @@ wjYBc11oCMtKOVHL2QIDAQAB
     }    
 
     /**     
-     * 绉侀挜瑙ｅ瘑     
+     * 私钥解密     
      * @param string $encrypted     
      * @return null     
      */    
@@ -95,7 +134,7 @@ wjYBc11oCMtKOVHL2QIDAQAB
     }    
 
     /**     
-     * 鍏挜瑙ｅ瘑     
+     * 公钥解密     
      * @param string $encrypted     
      * @return null     
      */    
@@ -108,3 +147,4 @@ wjYBc11oCMtKOVHL2QIDAQAB
     }
 
 }
+?>

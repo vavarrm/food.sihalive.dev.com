@@ -10,10 +10,12 @@
 				<!-- RD Navbar Toggle-->
 				<button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
 				<div class="cart-right-top" >
-					<span class="icon icon-sm mdi mdi-cart-outline"  ></span>
-					<span >(</span>
-					<span class="label-inline big text-white cartnums"   ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
-					<span >)</span>
+					<a href="/ShopCart/" class="link link-shop link-default">
+						<span class="icon icon-sm mdi mdi-cart-outline"  ></span>
+						<span >(</span>
+						<span class="label-inline big text-white cartnums"   ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
+						<span >)</span>
+					</a>
 				</div>
 				<!-- RD Navbar Brand-->
 					<a href="index.html" class="rd-navbar-brand brand" >
@@ -46,10 +48,6 @@
 					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-instagram"></span></a></li>
 					  <li><a  target="_blank" href="https://www.facebook.com/Sihalive-187813995113064/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
 					  <li><a  target="blank" href="/Login/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-user"></span></a></li>
-					  <{*
-					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-twitter"></span></a></li>
-					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-google-plus"></span></a></li>
-					  *}>
 					</ul>
 				  </li>
 				</ul>
@@ -112,91 +110,16 @@
 						<a href="/Food/orderList">orderlist</a>
 					</li>
 					<li>
-						<a href="gallery-grid.html">setting</a>
+						<a href="/User/Profile">Profile</a>
 					</li>
 					<li>
 						<a ng-click="logout()">logout</a>
 					</li>
 				</ul>
 			</li>
-			<{*
-			<li class="active"><a href="#">Pages</a>
-			  <!-- RD Navbar Megamenu-->
-			  <ul class="rd-navbar-megamenu">
-				<li>
-				  <h6 class="rd-megamenu-header">Pages</h6>
-				  <ul class="list-marked">
-					<li><a href="careers.html">Careers</a></li>
-					<li><a href="faq.html">FAQ</a></li>
-					<li><a href="deals.html">Deals</a></li>
-					<li><a href="coming-soon.html">Coming Soon</a></li>
-					<li><a href="404.html">404 Page</a></li>
-					<li><a href="503.html">503 Page</a></li>
-					<li><a href="search-results.html">Search Results</a></li>
-					<li><a href="maintenance.html">Maintenance Page</a></li>
-					<li><a href="privacy.html">Terms of Use</a></li>
-					<li><a href="member-profile.html">Member profile</a></li>
-					<li><a href="team.html">Our Team</a></li>
-					<li><a href="testimonials.html">Testimonials</a></li>
-				  </ul>
-				</li>
-				<li>
-				  <h6 class="rd-megamenu-header">Additional Pages</h6>
-				  <ul class="list-marked">
-					<li><a href="typography.html">Typography</a></li>
-					<li><a href="buttons.html">Buttons</a></li>
-					<li><a href="forms.html">Forms</a></li>
-					<li><a href="icons.html">Icons</a></li>
-					<li><a href="grid.html">Grid</a></li>
-					<li><a href="tabs-and-accordions.html">Tabs &amp; Accordions</a></li>
-					<li><a href="progress-bars.html">Progress Bars</a></li>
-					<li><a href="tables.html">Tables</a></li>
-					<li><a href="login-register.html">Login/Register </a></li>
-				  </ul>
-				</li>
-				<li>
-				  <h6 class="rd-megamenu-header">Menu</h6>
-				  <ul class="list-marked">
-					<li><a href="menu-classic.html">Classic Menu</a></li>
-					<li><a href="menu-modern.html">Modern Menu</a></li>
-					<li><a href="menu-single.html">Single Menu</a></li>
-					<li><a href="shop-single.html">Single Product</a></li>
-					<li><a href="shop-cart.html">Cart page</a></li>
-				  </ul>
-				</li>
-			  </ul>
+			<li  ng-show="islogin == false">
+				<a href="/Login/">login</a>
 			</li>
-			<li><a href="#">Gallery</a>
-			  <!-- RD Navbar Dropdown-->
-			  <ul class="rd-navbar-dropdown">
-				<li><a href="gallery-grid.html">Grid Gallery</a>
-				</li>
-				<li><a href="gallery-cobbles.html">Cobbles Gallery</a>
-				</li>
-				<li><a href="gallery-masonry.html">Masonry Gallery</a>
-				</li>
-				<li><a href="gallery-condensed.html">Grid without Padding</a>
-				</li>
-			  </ul>
-			</li>
-			<li><a href="contacts.html">Contacts</a>
-			</li>
-			<li><a href="#">News</a>
-			  <!-- RD Navbar Dropdown-->
-			  <ul class="rd-navbar-dropdown">
-				<li><a href="blog-classic.html">Classic Blog</a>
-				</li>
-				<li><a href="blog-grid.html">Grid Blog</a>
-				</li>
-				<li><a href="blog-masonry.html">Masonry Blog</a>
-				</li>
-				<li><a href="blog-modern.html">Modern Blog</a>
-				</li>
-				<li><a href="blog-post.html">Single Post</a>
-				</li>
-			  </ul>
-			</li>
-			*}>
 		  </ul>
 		  <div class="rd-navbar-aside-right">
 			<ul class="list-links list-inline text-left">

@@ -368,14 +368,17 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-$config['sess_driver'] = 'files';
+$config['sess_driver'] = 'database';
+$config['sess_table_name'] = 'ci_sessions';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = sys_get_temp_dir();
+$config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
 
+
+// var_dump($config);
 /*
 |--------------------------------------------------------------------------
 | Cookie Related Variables
@@ -512,7 +515,7 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-$config['private_key'] = 'CSGcqpUs4LaFmeGh';
+$config['private_key'] = 'nmgfBxvHiRbNzRfE';
 $config['fb_app_id'] = '541985926144295';
 $config['fb_app_secret'] = '8028ae50abc2dc1df4068f459f219b79';
 $config['fb_version'] = 'v2.10';

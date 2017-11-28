@@ -64,9 +64,8 @@ $autoload['libraries'] = array(
 	'Mysmarty' =>'smarty', 
 	'MyFunc'=>'myfunc', 
 	'My_Language' =>'language',
-	'MyRsa' =>'rsa',
-	'MyDecryption' =>'decryption',
 	'MyFBApi' =>'fb',
+	'MyToken' =>'token',
 	'MySocketIO' =>'socketIO',
 	'session'
 );

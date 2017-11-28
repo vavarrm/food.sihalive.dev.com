@@ -7,7 +7,7 @@
 		<div ng-repeat="item in items|filter as filterAry" ng-show="!item.del" class="row grid-system-row grid-element-outline-bottom offset-top-15 offset-sm-top-30">
 		  <div class="col-xs-1">
 				<div class="form-group stepper-type-2 offset-top-20">
-					<input type="number" data-zeros="true"  value="{{item.order_num}}" ng-model="$item.order_num" min="1" max="20" readonly class="form-control text-bold">
+					<input data-index="{{$index}}" data-price="{{item.price}}" type="number" data-zeros="true"  value="{{item.order_num}}" ng-model="$item.order_num" min="1" max="20" readonly class="form-control text-bold">
 				</div>
 		  </div>
 		  <div class="col-xs-4">
@@ -15,12 +15,21 @@
 					<img src="/images/shop-cart-1-130x130.png" width="130" height="130" alt="">
 				</div>
 		  </div>
-		  <div class="col-xs-6  text-left">
+		  <div class="col-xs-4  text-left">
 				<div class="h5 text-sbold offset-top-20 ">
 					<span  class=" grid-element-mod-2">{{item.f_name}}</span>
 				</div>
 				<div class="offset-top-0">
 					<span class="h5 text-sbold">${{item.price}}</span>
+				</div>
+		  </div>
+		  <div class="col-xs-2  text-left">
+				<div class="h5 text-sbold offset-top-20 ">
+					<span  class=" grid-element-mod-2">Subtotal</span>
+				</div>
+				<div class="offset-top-0">
+					<span class="h5 text-sbold">$<span>
+					<span data-index="{{$index}}" data-subtotal="{{item.subtotal}}" class="h5 text-sbold subtotal" ng-model="item.subtotal" ng-bind="item.subtotal" ng-init="item.subtotal =  (item.price*item.order_num)"></span>
 				</div>
 		  </div>
 		  <div class="col-xs-1">
@@ -32,7 +41,9 @@
 		<div  class="row grid-system-row offset-top-50 text-right">
 			<div class="col-xs-12">
 				<div class="h4 font-default text-bold">
-					<small class="inset-right-5 text-gray-light">Total: </small> ${{Total(filterAry)}}
+					<span>Total: </span>
+					<span>$</span>
+					<span class="total">{{Total(filterAry)}}</span>
 				</div>
 			</div>
 		</div>
@@ -95,3 +106,54 @@
 	</div>
 </section>
 </main>
+<script>
+function changeOrderNum(input)
+{
+	var index = $(input).data('index');
+	var price = parseFloat($(input).data('price'));
+	var order_num = parseInt(input.val());
+	$('span[data-index='+index+']').html(price* order_num ).data('subtotal', price* order_num);
+	var total = 0;
+	$.each($('.subtotal'),function(i,e){
+		var subtotal = parseFloat($(e).data('subtotal'),2);
+		total+=subtotal ;
+		
+	})
+
+	$('.total').html(parseFloat(total,2).toFixed(2));
+}
+window.onload=function(){
+	
+	$( "body" ).on( "click", ".stepper-arrow.up", function(e) {
+		var input = $(this).parent().find('input');
+		if($(input).hasClass( "ng-valid" ) ==false)
+		{
+			return false;
+		}
+		var max   =parseInt(input.attr('max'));
+		var val   =parseInt(input.val());
+		if(val > max)
+		{
+			return false;
+		}
+		input.val(val +1);
+		changeOrderNum(input)
+	});
+
+	$( "body" ).on( "click", ".stepper-arrow.down", function() {
+		var input = $(this).parent().find('input');
+		if($(input).hasClass( "ng-valid" ) ==false)
+		{
+			return false;
+		}
+		var min   =parseInt(input.attr('min'));
+		var val   =parseInt(input.val());
+		if(val <= min)
+		{
+			return false;
+		}
+		input.val(val -1);
+		changeOrderNum(input);
+	});
+}
+</script>

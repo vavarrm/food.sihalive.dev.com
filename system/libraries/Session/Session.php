@@ -69,6 +69,7 @@ class CI_Session {
 	 */
 	public function __construct(array $params = array())
 	{
+		
 		// No sessions under CLI
 		if (is_cli())
 		{
@@ -83,6 +84,7 @@ class CI_Session {
 		elseif ( ! empty($params['driver']))
 		{
 			$this->_driver = $params['driver'];
+			
 			unset($params['driver']);
 		}
 		elseif ($driver = config_item('sess_driver'))

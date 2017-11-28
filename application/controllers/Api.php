@@ -137,8 +137,8 @@ class Api extends CI_Controller {
 				throw new Exception("insert user error");
 			}
 			$user = $this->user->getUserForFBId($fbuser['id']);
-			$user = $this->doLogin($user);
-			$output['body']['user'] = $this->session->userdata('encrypt_user_data');
+			$sess = $this->doLogin($user);
+			$output['body']['sess'] = $sess;
 			
 		}catch(Exception $e)
 		{

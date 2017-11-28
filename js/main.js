@@ -32,28 +32,33 @@ var DeliveryPositionApi ="/api/getDeliveryPosition/";
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
 
-sihaliveApp.factory('User', function(){
-	var user ;
-	$.ajax({
-		async: false,
-		type: 'get',
-		dataType: 'json',
-		url: GetUserApi,
-		success: function (data) {
-			if(data.status =="200")
-			{
-				user = data['body']['user'];
+sihaliveApp.factory('User',['$cookies' , function($cookies){
+	var user={} ;
+	var sess = $cookies.get('sess');
+	if(sess !='')
+	{
+		$.ajax({
+			async: false,
+			type: 'get',
+			dataType: 'json',
+			url: GetUserApi+'?sess='+sess ,
+			success: function (data) {
+				if(data.status =="200")
+				{
+					user = data['body']['user_data'];
+					// console.log(user);
+				}
+			},
+			error: function (data) {
+				var obj = {
+					message :js_user_login_error
+				}
+				dialog(obj)
 			}
-		},
-		error: function (data) {
-			var obj = {
-				message :js_user_login_error
-			}
-			dialog(obj)
-		}
-	});
+		});
+	}
 	return user;
-})
+}])
 
 var productPageCtrl = function($scope, $cookies, $rootScope){
 	
@@ -121,14 +126,8 @@ var categoryCtrl = function($scope, $http){
 var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	var shopcart =  $cookies.getObject('shopcart');
 	
-	
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
-	
-	$scope.aaa = function()
-	{
-		alert('d');
-	}
 	
 	$scope.mapinit = function()
 	{	
@@ -150,7 +149,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	$scope.Total = function(filterAry){
 		var total = 0;
 		angular.forEach(filterAry, function(item){
-			total += parseFloat(item.price,2);
+			total += parseFloat(item.subtotal,2);
 		});
 		return total.toFixed(2);
 	};
@@ -183,7 +182,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 			return false;
 		}
 
-		if(User == null)
+		if(typeof User.u_id == 'undefined')
 		{
 			$( "#dialog p").text(js_please_login); 
 			$( "#dialog" ).dialog({
@@ -297,6 +296,10 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 		if($scope.ischeckout !=true)
 		{
 			var shopcart =  $cookies.getObject('shopcart');
+			// console.log(shopcart);
+			angular.forEach($('input[data-index]'), function(item, index){
+				shopcart[index].order_num = $(item).val();
+			})
 			postdata ={
 				order_list : shopcart,
 				'o_consignee'	: $('input[name=o_consignee]').val(),
@@ -331,7 +334,17 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 							]
 						});
 					}else{
-						
+						$( "#dialog p").text( js_cart_checkout_error ); 
+						$( "#dialog" ).dialog({
+							buttons: [
+								{
+								  text: "close",
+								  click: function() {
+									$( this ).dialog( "close" );
+								  }
+								}
+							]
+						});
 					}
 				},
 				error: function (data) {
@@ -386,9 +399,10 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 			data: JSON.stringify(postdata),
 			contentType: "application/json",
 			success: function (data) {
-				$scope.ischeckout =false ;
 				if(data.status =="200")
 				{
+					$scope.sess = data['body']['sess'];
+					$cookies.put('sess', $scope.sess, { path: '/'});
 					var obj = {
 						message :js_user_registration_ok,
 						buttons: [
@@ -422,6 +436,7 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 	$scope.doLogin = function()
 	{
 		postdata = $('#Loginfrm').serializeFormJSON();
+		postdata['logintype'] ='web';
 		$.ajax({
 			// async: false,
 			type: 'post',
@@ -430,10 +445,10 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 			data: JSON.stringify(postdata),
 			contentType: "application/json",
 			success: function (data) {
-				$scope.ischeckout =false ;
 				if(data.status =="200")
 				{
-					$scope.user = data['body']['user'];
+					$scope.sess = data['body']['sess'];
+					$cookies.put('sess', $scope.sess, { path: '/'});
 					var obj = {
 						message :js_user_login_ok,
 						buttons: [
@@ -481,6 +496,7 @@ var bodyCtrl = function($scope, $cookies, $rootScope, User)
 				$scope.ischeckout =false ;
 				if(data.status =="200")
 				{
+					$cookies.remove('sess', {path: '/'});
 					var obj = {
 						message :js_user_logout_ok,
 						buttons: [
@@ -506,7 +522,8 @@ var bodyCtrl = function($scope, $cookies, $rootScope, User)
 
 	$scope.init = function()
 	{
-		if(User != null)
+		console.log(User);
+		if(typeof User.u_id != 'undefined')
 		{
 			$scope.islogin = true;
 		}
@@ -519,6 +536,14 @@ var breadcrumbsCtrl = function ($scope)
 	$scope.breadcrumbs = pathname.split('/');
 }
 
+var userCtrl = function($scope)
+{
+	$scope.setProfile = function()
+	{
+		console.log('d');
+	}
+}
+sihaliveApp.controller('userCtrl', ['$scope',userCtrl]);
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
@@ -549,35 +574,7 @@ function dialog(object2)
 	$( "#dialog" ).dialog(object1);
 }
 
-$( "body" ).on( "click", ".stepper-arrow.up", function(e) {
-	var input = $(this).parent().find('input');
-	if($(input).hasClass( "ng-valid" ) ==false)
-	{
-		return false;
-	}
-	var max   =parseInt(input.attr('max'));
-	var val   =parseInt(input.val());
-	if(val > max)
-	{
-		return false;
-	}
-	input.val(val +1);
-});
 
-$( "body" ).on( "click", ".stepper-arrow.down", function() {
-	var input = $(this).parent().find('input');
-	if($(input).hasClass( "ng-valid" ) ==false)
-	{
-		return false;
-	}
-	var min   =parseInt(input.attr('min'));
-	var val   =parseInt(input.val());
-	if(val <= min)
-	{
-		return false;
-	}
-	input.val(val -1);
-});
 
 var fbAction ='';
 $('#fbReg').bind('click', function(e){
@@ -652,6 +649,8 @@ function FBreg(token) {
 		success: function (data) {
 			if(data.status =="200")
 			{
+				var sess = data['body']['sess'];
+				$.cookie('sess', sess, { path: '/' });
 				var obj = {
 					message :js_user_registration_ok,
 					buttons: 
@@ -694,6 +693,8 @@ function FBLogin(token)
 		success: function (data) {
 			if(data.status =="200")
 			{
+				var sess = data['body']['sess'];
+				$.cookie('sess', sess, { path: '/' });
 				var obj = {
 					message :js_user_login_ok,
 					buttons: 
