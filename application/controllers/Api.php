@@ -11,8 +11,36 @@ class Api extends CI_Controller {
 		$this->load->model('Food_Model', 'food');
 		$this->load->model('User_Model', 'user');
 		$this->load->model('Position_Model', 'position');
+		$this->js = $this->language->load('js');
     }
 	
+	
+	public function index()
+	{
+		
+	}
+	
+	public function test()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='test';
+		$get= $this->input->get();
+		try 
+		{
+			$str = $get['str'];
+			$encrypt = $this->rsa->privateEncrypt($str) ;
+			$decrypt= $this->rsa->publicDecrypt($encrypt) ;
+			$output['body']['encrypt'] = $encrypt  ;
+			$output['body']['decrypt'] = $decrypt  ;
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
 	
 	public function getDeliveryPosition()
 	{
@@ -59,8 +87,8 @@ class Api extends CI_Controller {
 				throw new Exception("user is no exist");
 			}
 			
-			$user = $this->doLogin($user);
-			$output['body']['user'] = $this->session->userdata('sihalive_user');
+			$sess = $this->doLogin($user);
+			$output['body']['sess'] = $sess;
 			
 		}catch(Exception $e)
 		{
@@ -110,7 +138,7 @@ class Api extends CI_Controller {
 			}
 			$user = $this->user->getUserForFBId($fbuser['id']);
 			$user = $this->doLogin($user);
-			$output['body']['user'] = $this->session->userdata('sihalive_user');
+			$output['body']['user'] = $this->session->userdata('encrypt_user_data');
 			
 		}catch(Exception $e)
 		{
@@ -128,7 +156,7 @@ class Api extends CI_Controller {
 		$output['title'] ='登出';
 		try 
 		{
-			$this->session->unset_userdata('sihalive_user');
+			$this->session->unset_userdata('encrypt_user_data');
 		}catch(Exception $e)
 		{
 			$output['message'] = $e->getMessage();
@@ -140,35 +168,59 @@ class Api extends CI_Controller {
 	private function doLogin($ary)
 	{
 		$row = $this->user->getUserForLogin($ary);
-		$private_key = $this->config->item('private_key');
 		if(empty($row))
 		{
-			$output['status'] ='000';
-			throw new Exception("user empty");
-		}else
-		{
-			$token = $row['u_name'].':'.$row['u_email'].
+			$output['status'] ='001';
+			throw new Exception($this->js['js_user_empty']);
+		}elseif(md5($ary['u_passwd']) != $row['u_passwd'] && $ary['logintype'] =='web'){
+			$output['status'] ='002';
+			throw new Exception($this->js['js_user_passwd_error']);
+		}else{
 			$user = array(
 				'u_name'  =>$row['u_name'],
 				'u_email' =>$row['u_email'],
 				'u_id' =>$row['u_id'],
 				'fb_u_id' =>$row['fb_u_id'],
-				'sess'	  =>$this->decryption->encrypt($row['u_id'].':'.$private_key)
 			);
-			$this->session->set_userdata('sihalive_user', $user);
-			return $user;
+			$randomKey = $this->token->getRandomKey();
+			$rsaRandomKey = $this->token->publicEncrypt($randomKey);
+			$data = array(
+				'u_name'  =>$row['u_name'],
+				'u_email' =>$row['u_email'],
+				'u_id' =>$row['u_id'],
+				'fb_u_id' =>$row['fb_u_id'],
+			);
+			$encrypt_user_data = $this->token->AesEncrypt(serialize($data), $randomKey);
+			$this->session->set_userdata('encrypt_user_data', $encrypt_user_data);
+			$urlRsaRandomKey = urlencode($rsaRandomKey) ;
+			return $urlRsaRandomKey ;
 		}
 		
 	}
 	
-	public function getUser()
+	public function getUser($urlRsaRandomKey='')
 	{
 		$output['body']=array();
 		$output['status'] = '200';
 		$output['title'] ='取得登入訊息';
 		try 
-		{
-			$output['body']['user'] = $this->session->userdata('sihalive_user');
+		{	$get = $this->input->get();
+			if(isset($get['sess']))
+			{
+				$urlRsaRandomKey =$get['sess'];
+			}
+			$RsaRandomKey = $urlRsaRandomKey;
+			$randomKey =  $this->token->privateDecrypt($RsaRandomKey);
+			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			// var_dump($encrypt_user_data);
+			$decrypt_user_data = $this->token->AesDecrypt($encrypt_user_data , $randomKey );
+			$user_data = unserialize($decrypt_user_data);
+			if(!$user_data)
+			{
+				$output['status'] ='000';
+				throw new Exception("get user error");
+			}
+			$output['body']['user_data'] =$user_data  ;
 		}catch(Exception $e)
 		{
 			$output['status'] = '000';
@@ -201,8 +253,8 @@ class Api extends CI_Controller {
 			}
 			$this->request['u_name'] = $this->request['username_email'];
 			$this->request['u_email'] = $this->request['username_email'];
-			$user = $this->doLogin($this->request);
-			$output['body']['user'] = $this->session->userdata('sihalive_user');
+			$sess = $this->doLogin($this->request);
+			$output['body']['sess'] = $sess;
 		}catch(Exception $e)
 		{
 			$output['status'] = '000';
@@ -286,7 +338,8 @@ class Api extends CI_Controller {
 				throw new Exception("insert user error");
 			}
 			$output['message'] ="insert OK";
-			$user = $this->doLogin($this->request);
+			$sess = $this->doLogin($this->request);
+			$output['body']['sess'] = $sess;
 			
 		}catch(Exception $e)
 		{
@@ -309,7 +362,7 @@ class Api extends CI_Controller {
 				throw new Exception("request is empty");
 			}
 			
-			$user  = $this->session->userdata('sihalive_user');
+			$user  = $this->session->userdata('encrypt_user_data');
 			
 			if(empty($user))
 			{
