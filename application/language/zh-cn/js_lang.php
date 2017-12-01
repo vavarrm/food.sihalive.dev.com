@@ -20,6 +20,7 @@
 	$lang['js_sending'] = "送出中请稍后";
 	$lang['js_respond_200'] = "传输完成";
 	$lang['js_order_list_error'] = "無法獲取訂單資料";
+	$lang['js_required_error'] = "请输入必填资料";
 
 
 ?>

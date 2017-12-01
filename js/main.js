@@ -216,7 +216,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 					  text: "close",
 					  click: function() {
 						$( this ).dialog( "close" );
-						location.href="/Login/";
+						location.href="/Login/?back=ShopCart";
 					  }
 					}
 				]
@@ -405,6 +405,7 @@ var navCtrl = function($scope, $cookies, $rootScope){
 
 var loginCtrl = function($scope, $cookies, $rootScope){
 	$scope.user = false;
+	
 	$scope.UserIsExist = function(name)
 	{
 		$.ajax({
@@ -529,14 +530,7 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 							click: function() 
 							{
 								$( this ).dialog( "close" );
-								if(document.referrer ==="")
-								{
-									location.href="/";
-								}else{
-									window.history.go(-1);
-								}
-								// 
-								
+								location.href="/"+$scope.back; 		
 							}
 						}]
 					};
@@ -624,12 +618,22 @@ var userCtrl = function($scope, $cookies, $rootScope, User)
 	$scope.setProfile = function()
 	{
 
+		
 		if(	$scope.sending == true)
 		{
+			global({show:true ,message:js_respond_200,type:'finsh'});
+			return false;
+		}
+		if($('#o_consignee').val() =="" || $('#o_phone').val() =="")
+		{
+			var obj = {
+				message :js_required_error
+			};
+			dialog(obj)
 			return false;
 		}
 		global({show:true});
-		$scope.sending == true;
+		$scope.sending = true;
 		var postdata = {
 			u_consignee	:$('#o_consignee').val(),
 			u_phone	:$('#o_phone').val(),
@@ -712,7 +716,7 @@ sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
 sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', 'User', productPageCtrl]);
 sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
-sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope', 'User',loginCtrl]);
+sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope',loginCtrl]);
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'User',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
 
@@ -897,12 +901,8 @@ function FBLogin(token)
 						  text: "OK",
 						  click: function() {
 							$( this ).dialog( "close" );
-							if(document.referrer ==="")
-							{
-								location.href="/";
-							}else{
-								window.history.go(-1);
-							}
+							location.href="/"+url_back;
+						
 						  }
 						}
 					]

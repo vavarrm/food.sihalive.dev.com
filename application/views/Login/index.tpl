@@ -1,20 +1,10 @@
 <!-- Page Content-->
-<main class="page-content" ng-controller="loginCtrl">
+<script>
+	var url_back ='<{$smarty.get.back}>';
+</script>
+<main class="page-content" ng-controller="loginCtrl" ng-model="back" ng-init="back='<{$smarty.get.back}>'">
 	<!-- Breadcrumbs & Page title-->
-	<section class="text-center section-34 section-sm-60 section-md-top-100 section-md-bottom-105 bg-image bg-image-breadcrumbs">
-	  <div class="shell shell-fluid">
-		<div class="range range-condensed">
-		  <div class="cell-xs-12 cell-xl-preffix-1 cell-xl-11">
-			<p class="h3 text-white">Login/Register</p>
-			<ul class="breadcrumbs-custom offset-top-10">
-			  <li><a href="index.html">Home</a></li>
-			  <li><a href="#">Pages</a></li>
-			  <li class="active">Login/Register</li>
-			</ul>
-		  </div>
-		</div>
-	  </div>
-	</section>
+	<{include file="Frontend/breadcrumbs.tpl"}>
 
 	<!-- Buttons-->
 	<section class="bg-white text-center section-50 section-sm-100">

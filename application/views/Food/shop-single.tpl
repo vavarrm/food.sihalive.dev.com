@@ -1,19 +1,6 @@
       <main class="page-content" ng-controller="productPageCtrl" ng-model="f_id" ng-init="f_id='<{$f_id}>'">
         <!-- Breadcrumbs & Page title-->
-        <section class="text-center section-34 section-sm-60 section-md-top-100 section-md-bottom-105 bg-image bg-image-breadcrumbs">
-          <div class="shell shell-fluid">
-            <div class="range range-condensed">
-              <div class="cell-xs-12 cell-xl-preffix-1 cell-xl-11">
-                <p class="h3 text-white">Single Product</p>
-                <ul class="breadcrumbs-custom offset-top-10">
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="#">Pages</a></li>
-                  <li class="active">Single Product</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+		<{include file="Frontend/breadcrumbs.tpl"}>
 
         <section class="section-50 section-sm-100">
           <div class="shell">

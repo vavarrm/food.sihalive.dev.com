@@ -12,7 +12,7 @@
 							<div class="form-inline-flex">
 								<div class="form-group">
 									<label for="o_consignee" class="form-label form-label-outside rd-input-label"><{$userLanguageAry.user_delivery_consignee}></label>
-									<input id="o_consignee" ng-model="u_consignee"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+									<input id="o_consignee" ng-model="u_consignee"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
 									<span class="form-validation"></span>
 								</div>
 								<div class="form-group">
