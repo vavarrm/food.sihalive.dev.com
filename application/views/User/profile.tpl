@@ -1,7 +1,7 @@
 <main class="page-content" ng-controller="userCtrl" ng-init="init()">
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
-	<section class="bg-white text-center section-100 section-sm-bottom-100 section-sm-top-50" ng-controller="shopCartCtrl">
+	<section class="bg-white text-center section-100 section-sm-bottom-100 section-sm-top-50">
 		<div class="shell">
 		<h5>Profile</h5>
 			<div class="range range-xs-center offset-top-15">
