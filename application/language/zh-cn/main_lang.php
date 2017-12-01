@@ -15,4 +15,8 @@
 	$lang['item_shopinfo_details'] = "店家资料";
 	$lang['item_shopinfo_address'] = "店家地址";
 	$lang['from_button_sumbit'] = "送出";
+	$lang['register_form_username_isexist'] = "使用者名称重复";
+	$lang['register_form_email_isexist'] = "信箱重复";
+	$lang['text_search_conditions'] = "搜尋條件";
+	$lang['text_function'] = "功能列";
 ?>

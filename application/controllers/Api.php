@@ -10,29 +10,29 @@ class Api extends CI_Controller {
 		$this->request = json_decode(trim(file_get_contents('php://input'), 'r'), true);
 		$this->load->model('Food_Model', 'food');
 		$this->load->model('User_Model', 'user');
+		$this->load->model('Order_Model', 'order');
 		$this->load->model('Position_Model', 'position');
 		$this->js = $this->language->load('js');
     }
 	
-	
-	public function index()
-	{
-		
-	}
-	
-	public function test()
+	public function getOrderList()
 	{
 		$output['body']=array();
 		$output['status'] = '200';
-		$output['title'] ='test';
-		$get= $this->input->get();
+		$output['title'] ='set Profile';
 		try 
 		{
-			$str = $get['str'];
-			$encrypt = $this->rsa->privateEncrypt($str) ;
-			$decrypt= $this->rsa->publicDecrypt($encrypt) ;
-			$output['body']['encrypt'] = $encrypt  ;
-			$output['body']['decrypt'] = $decrypt  ;
+			$get = $this->input->get();
+			$sess= $get ['sess'];
+			$urlRsaRandomKey = 	$get["sess"];
+			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			$user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
+			if(!$user_data)
+			{
+				throw new Exception("get user error");
+			}
+			$get['u_id'] = $user_data['u_id'];
+			$output['body']['data']['orders'] = $this->order->getOrderList($get);
 		}catch(Exception $e)
 		{
 			$output['status'] = '000';
@@ -41,6 +41,98 @@ class Api extends CI_Controller {
 		
 		$this->response($output);
 	}
+	
+	public function setProfile()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='set Profile';
+		try 
+		{
+			$get = $this->input->get();
+			$sess= $get ['sess'];
+			$urlRsaRandomKey = 	$get["sess"];
+			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			$user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
+			if(!$user_data)
+			{
+				throw new Exception("get user error");
+			}
+			$output['body']['affected_rows'] = $this->user->setsetProfile($this->request, $user_data['u_id']);
+			
+			
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
+	
+	public function isUserExist()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='is User Exist';
+		try 
+		{
+			$get = $this->input->get();
+			$u_name = $get ['u_name'];
+			$isUserExist  = $this->user->isUserNameExist($u_name);
+			$output['body']['data']['is_user_exist'] =$isUserExist['total'] ;
+			
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
+	
+	public function isEmailExist()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='is Email Exist';
+		try 
+		{
+			$get = $this->input->get();
+			$u_email = $get ['u_email'];
+			$isUserExist  = $this->user->isEmailExist($u_email);
+			$output['body']['data']['is_user_exist'] =$isUserExist['total'] ;
+			
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
+	
+	// public function test()
+	// {
+		// $output['body']=array();
+		// $output['status'] = '200';
+		// $output['title'] ='test';
+		// $get= $this->input->get();
+		// try 
+		// {
+			// $str = $get['str'];
+			// $encrypt = $this->rsa->privateEncrypt($str) ;
+			// $decrypt= $this->rsa->publicDecrypt($encrypt) ;
+			// $output['body']['encrypt'] = $encrypt  ;
+			// $output['body']['decrypt'] = $decrypt  ;
+		// }catch(Exception $e)
+		// {
+			// $output['status'] = '000';
+			// $output['message'] = $e->getMessage();
+		// }
+		
+		// $this->response($output);
+	// }
 	
 	public function getDeliveryPosition()
 	{
@@ -195,7 +287,16 @@ class Api extends CI_Controller {
 			$urlRsaRandomKey = urlencode($rsaRandomKey) ;
 			return $urlRsaRandomKey ;
 		}
-		
+	
+	}
+	
+	private function decryptUser($rsa_randomKey, $encrypt_user_data)
+	{
+		$randomKey =  $this->token->privateDecrypt($rsa_randomKey);
+		$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+		$decrypt_user_data = $this->token->AesDecrypt($encrypt_user_data , $randomKey );
+		$user_data = unserialize($decrypt_user_data);
+		return $user_data;
 	}
 	
 	public function getUser($urlRsaRandomKey='')
@@ -209,17 +310,14 @@ class Api extends CI_Controller {
 			{
 				$urlRsaRandomKey =$get['sess'];
 			}
-			$RsaRandomKey = $urlRsaRandomKey;
-			$randomKey =  $this->token->privateDecrypt($RsaRandomKey);
 			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
-			// var_dump($encrypt_user_data);
-			$decrypt_user_data = $this->token->AesDecrypt($encrypt_user_data , $randomKey );
-			$user_data = unserialize($decrypt_user_data);
-			if(!$user_data)
+			$decrypt_user_data= $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
+			if(!$decrypt_user_data)
 			{
 				$output['status'] ='000';
 				throw new Exception("get user error");
 			}
+			$user_data = $this->user->getUserForId($decrypt_user_data['u_id']);
 			$output['body']['user_data'] =$user_data  ;
 		}catch(Exception $e)
 		{
@@ -368,7 +466,15 @@ class Api extends CI_Controller {
 			{
 				throw new Exception("user no login");
 			}
-			
+			$get = $this->input->get();
+			$urlRsaRandomKey = 	$get["sess"];
+			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			$user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
+			if(!$user_data)
+			{
+				throw new Exception("get user error");
+			}
+			$this->request['u_id'] = $user_data['u_id'];
 			$this->food->inserdOrder($this->request);
 			$ary =array(
 				'action'	=>'order_alert'

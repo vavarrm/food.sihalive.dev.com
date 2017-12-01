@@ -83,14 +83,16 @@
 					<p class="small text-uppercase">Or</p>
 				  </div>
 				  <!-- RD Mailform-->
-				  <form id="Register" class="rd-mailform form-register text-center offset-top-20">
+				  <form class="rd-mailform form-register text-center offset-top-20">
 					<div class="form-group">
-					  <label for="register-form-name" class="form-label form-label-outside">USERNAME</label>
-					  <input id="register-form-name" maxlength="20"   ng-model="name" type="text" name="u_name" data-constraints="@Required" class="form-control">
+						<label for="register-form-name" class="form-label form-label-outside">USERNAME</label>
+						<input id="register-form-name" ng-blur="UserIsExist(name)" maxlength="20"   ng-model="name" type="text" name="u_name" data-constraints="@Required" class="form-control">
+						<span  ng-show="username_isexist" class="small text-uppercase" style="color:red;" ><{$language.register_form_username_isexist}></span>
 					</div>
 					<div class="form-group">
-					  <label for="register-form-email" class="form-label form-label-outside">E-mail</label>
-					  <input id="register-form-email" ng-model="email" type="email" name="u_email" data-constraints="@Required @Email" class="form-control">
+						<label for="register-form-email" class="form-label form-label-outside">E-mail</label>
+						<input id="register-form-email" ng-blur="EmailIsExist(email.text)" ng-model="email.text" type="email" name="u_email" data-constraints="@Required @Email" class="form-control">
+						<span  ng-show="email_isexist" class="small text-uppercase" style="color:red;" ><{$language.register_form_email_isexist}></span>
 					</div>
 					<div class="form-group">
 					  <label for="register-form-password" class="form-label form-label-outside">Password</label>

@@ -36,11 +36,10 @@
 				$row['o_id']+=1;
 			}
 			
-			$user  = $this->session->userdata('sihalive_user');
 			$sql="INSERT INTO order_list (o_id,o_datetime, u_id, o_consignee, o_phone, o_messge, o_position_id) VALUES(?,NOW(), ?, ?, ?, ?, ?)";
 			$bind = array(
 				$row['o_id'],
-				$user['u_id'],
+				$ary['u_id'],
 				$ary['o_consignee'],
 				$ary['o_phone'],
 				$ary['o_message'],

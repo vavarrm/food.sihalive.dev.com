@@ -16,6 +16,10 @@
 	$lang['js_o_consignee_empty'] = "請填寫收貨人欄位";
 	$lang['js_o_phone_empty'] = "請填寫手机欄位";
 	$lang['js_o_messge_empty'] = "請填寫讯息欄位";
-	$lang['js_o_messge_empty'] = "請填寫讯息欄位";
+	$lang['js_set_profile_error'] = "無法設定使用者資料";
+	$lang['js_sending'] = "送出中请稍后";
+	$lang['js_respond_200'] = "传输完成";
+	$lang['js_order_list_error'] = "無法獲取訂單資料";
+
 
 ?>

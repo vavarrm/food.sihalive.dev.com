@@ -15,8 +15,9 @@
         });
         return o;
     };
-
 })(jQuery);
+
+
 
 var CategoryListApi ="/api/getCategory/";
 var GetProductApi ="/api/getProduct/";
@@ -28,6 +29,10 @@ var LogoutApi ="/api/logout/";
 var FBRegApi ="/api/fbReg/";
 var FBLoginApi ="/api/fbLogin/";
 var DeliveryPositionApi ="/api/getDeliveryPosition/";
+var isUserExistApi ="/api/isUserExist/";
+var isEmailExistApi ="/api/isEmailExist/";
+var setProfileApi ="/api/setProfile/";
+var getOrderList ="/api/getOrderList/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -46,7 +51,6 @@ sihaliveApp.factory('User',['$cookies' , function($cookies){
 				if(data.status =="200")
 				{
 					user = data['body']['user_data'];
-					// console.log(user);
 				}
 			},
 			error: function (data) {
@@ -125,9 +129,30 @@ var categoryCtrl = function($scope, $http){
 
 var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	var shopcart =  $cookies.getObject('shopcart');
-	
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
+	
+	$scope.data = {
+		o_consignee :User.u_consignee,
+		o_phone :User.u_phone,
+	};
+	
+	if($scope.cartnums ==0)
+	{
+		$( "#dialog p").text(js_cart_num_is_zero); 
+		$( "#dialog" ).dialog({
+			buttons: [
+				{
+				  text: "close",
+				  click: function() {
+					$( this ).dialog( "close" );
+					window.location.href="/Menu";
+				  }
+				}
+			]
+		});
+		return false;
+	}
 	
 	$scope.mapinit = function()
 	{	
@@ -307,13 +332,13 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 				'o_message'	: $('#message').val(),
 				'o_position_id'	: $('#o_position_id').val()
 			};
-		
+			var sess = $cookies.get('sess');
 			$scope.ischeckout = true;
 			$.ajax({
 				// async: false,
 				type: 'POST',
 				dataType: 'json',
-				url: CheckOutApi,
+				url: CheckOutApi+'?sess='+sess,
 				data: JSON.stringify(postdata),
 				contentType: "application/json",
 				success: function (data) {
@@ -380,6 +405,53 @@ var navCtrl = function($scope, $cookies, $rootScope){
 
 var loginCtrl = function($scope, $cookies, $rootScope){
 	$scope.user = false;
+	$scope.UserIsExist = function(name)
+	{
+		$.ajax({
+			async: false,
+			type: 'GET',
+			dataType: 'json',
+			url: isUserExistApi+'?u_name='+name,
+			contentType: "application/json",
+			success: function (data) {
+				var is_user_exist = data['body']['data']['is_user_exist'];
+				if(is_user_exist > 0)
+				{
+					$scope.username_isexist = true;
+				}else
+				{
+					$scope.username_isexist = false;
+				}
+			},
+			error: function (data) {
+				
+			}
+		});
+	}
+	$scope.EmailIsExist = function()
+	{
+		
+		$.ajax({
+			async: false,
+			type: 'GET',
+			dataType: 'json',
+			url: isEmailExistApi+'?u_email='+$('#register-form-email').val(),
+			contentType: "application/json",
+			success: function (data) {
+				var is_user_exist = data['body']['data']['is_user_exist'];
+				if(is_user_exist > 0)
+				{
+					$scope.email_isexist = true;
+				}else
+				{
+					$scope.email_isexist = false;
+				}
+			},
+			error: function (data) {
+				
+			}
+		});
+	}
 	$scope.register = function()
 	{
 		if($scope.u_passwd_confirm !=$scope.u_passwd)
@@ -457,7 +529,8 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 							click: function() 
 							{
 								$( this ).dialog( "close" );
-								location.href="/";
+								// location.href="/";
+								window.history.go(-1);
 							}
 						}]
 					};
@@ -485,7 +558,6 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 var bodyCtrl = function($scope, $cookies, $rootScope, User)
 {
 	$scope.islogin = false;
-	
 	$scope.logout = function()
 	{
 		$.ajax({
@@ -522,7 +594,6 @@ var bodyCtrl = function($scope, $cookies, $rootScope, User)
 
 	$scope.init = function()
 	{
-		console.log(User);
 		if(typeof User.u_id != 'undefined')
 		{
 			$scope.islogin = true;
@@ -536,14 +607,100 @@ var breadcrumbsCtrl = function ($scope)
 	$scope.breadcrumbs = pathname.split('/');
 }
 
-var userCtrl = function($scope)
+var userCtrl = function($scope, $cookies, $rootScope, User)
 {
+	$scope.sending =false;
+	$scope.init = function()
+	{
+		$scope.u_consignee = User.u_consignee;
+		$scope.u_phone = User.u_phone;
+	}
 	$scope.setProfile = function()
 	{
-		console.log('d');
+
+		if(	$scope.sending == true)
+		{
+			return false;
+		}
+		global({show:true});
+		$scope.sending == true;
+		var postdata = {
+			u_consignee	:$('#o_consignee').val(),
+			u_phone	:$('#o_phone').val(),
+		};
+
+		var sess = $cookies.get('sess');
+		$.ajax({
+			// async: false,
+			type: 'post',
+			dataType: 'json',
+			url: setProfileApi+"?sess="+sess,
+			data: JSON.stringify(postdata),
+			contentType: "application/json",
+			success: function (data) {
+				if(data.status =="200")
+				{
+					$scope.sending = false;
+					global({show:true ,message:js_respond_200,type:'finsh'});
+					setTimeout("global()", 2000 );
+				}else{
+					var obj = {
+						message :data.message
+					};
+					dialog(obj)
+				}
+			},
+			error: function (data) {
+				var obj = {
+					message :js_set_profile_error
+				}
+				dialog(obj)
+			}
+		});
+		return false;
 	}
 }
-sihaliveApp.controller('userCtrl', ['$scope',userCtrl]);
+
+var orderCtrl = function($scope, $cookies, $rootScope, User)
+{	
+	$scope.data={
+		orders :{},
+		order_status :{},
+		o_status :'1'
+	};
+	$scope.orderList = function()
+	{
+		var sess = $cookies.get('sess');
+		$.ajax({
+			async: false,
+			type: 'get',
+			dataType: 'json',
+			url: getOrderList+"?sess="+sess,
+			contentType: "application/json",
+			success: function (data) {
+				if(data.status =="200")
+				{
+					$scope.data.orders = data['body']['data']['orders'];
+					$scope.data.order_status = data['body']['data']['order_status'];
+				}else{
+					var obj = {
+						message :data.message
+					};
+					dialog(obj)
+				}
+			},
+			error: function (data) {
+				var obj = {
+					message :js_order_list_error
+				}
+				dialog(obj)
+			}
+		});
+		return false;
+	}
+}
+
+sihaliveApp.controller('userCtrl', ['$scope' , '$cookies', '$rootScope', 'User',userCtrl]);
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
@@ -551,7 +708,38 @@ sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', '
 sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
 sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope', 'User',loginCtrl]);
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'User',bodyCtrl]);
+sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
 
+
+function global(odj)
+{
+	var default_obj ={
+		show : false,
+		message : js_sending,
+		type : 'sending'
+	}
+	
+	var data = $.extend(default_obj,odj);
+	$('#form-output-global-icon').removeAttr('class');
+	$('#form-output-global-icon').addClass('icon text-middle fa icon-xxs');
+	switch (data.type)
+	{
+		case 'sending' :
+			$('#form-output-global-icon').addClass('fa-circle-o-notch');
+			$('#form-output-global-icon').addClass('fa-spin');
+		break; 
+		case 'finsh' :
+			$('#form-output-global-icon').addClass('fa-check');
+		break;
+	}
+	$('#form-output-global').find('.message').html(data.message)
+	if(data.show == true)
+	{
+		$('#form-output-global').addClass('active');
+	}else{
+		$('#form-output-global').removeClass('active');
+	}
+}
 
 function dialog(object2)
 {
@@ -703,7 +891,7 @@ function FBLogin(token)
 						  text: "OK",
 						  click: function() {
 							$( this ).dialog( "close" );
-							window.location.href="/";
+							window.history.go(-1);
 						  }
 						}
 					]

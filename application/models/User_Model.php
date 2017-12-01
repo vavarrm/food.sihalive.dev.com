@@ -8,11 +8,63 @@
 			$this->load->database();
 		}
 		
+		function setsetProfile($ary,$u_id)
+		{
+			$this->db->where('u_id', $u_id);
+			$this->db->update('user', $ary); 
+			$output['affected_rows'] = $this->db->affected_rows();
+			return $output;
+		}
+		
+		function isUserNameExist($u_name)
+		{
+			$sql="SELECT COUNT(*) AS total FROM user WHERE u_name=?";
+			$bind = array(
+				$u_name
+			);
+			$query = $this->db->query($sql, $bind);
+			$row =  $query->row_array();
+			$query->free_result();
+			return $row;
+		}
+		
+		function isEmailExist($u_email)
+		{
+			$sql="SELECT COUNT(*) AS total FROM user WHERE u_email=?";
+			$bind = array(
+				$u_email
+			);
+			$query = $this->db->query($sql, $bind);
+			$row =  $query->row_array();
+			$query->free_result();
+			return $row;
+		}
+		
 		function getUserForFBId($fb_u_id)
 		{
 			$sql ="SELECT * FROM user WHERE fb_u_id = ?";
 			$bind = array(
 				$fb_u_id
+			);
+			$query = $this->db->query($sql, $bind);
+			$row =  $query->row_array();
+			$query->free_result();
+			return $row;
+		}	
+		
+		function getUserForId($u_id)
+		{
+			$sql ="
+			SELECT 
+				u_name,
+				u_email,
+				u_consignee,
+				u_phone,
+				u_id,
+				fb_u_id
+			FROM user WHERE u_id = ?";
+			$bind = array(
+				$u_id
 			);
 			$query = $this->db->query($sql, $bind);
 			$row =  $query->row_array();

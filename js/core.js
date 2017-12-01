@@ -4394,7 +4394,7 @@
         o[n] || (o[n] = !0,
         e.migrateWarnings.push(n),
         r && r.warn && !e.migrateMute && (r.warn("JQMIGRATE: " + n),
-        e.migrateTrace && r.trace && r.trace()))
+        e.migrateTrace && r.trace ))//&& r.trace()))
     }
     function a(t, n, a, o) {
         if (Object.defineProperty)
@@ -4417,7 +4417,7 @@
     }
     var o = {};
     e.migrateWarnings = [],
-    !e.migrateMute && t.console && t.console.log && t.console.log("JQMIGRATE: Logging is active"),
+    !e.migrateMute && t.console && t.console.log && //t.console.log("JQMIGRATE: Logging is active"),
     e.migrateTrace === n && (e.migrateTrace = !0),
     e.migrateReset = function() {
         o = {},

@@ -25,7 +25,12 @@
       <{include file="Frontend/footer.tpl"}>
     </div>
     <!-- Global Mailform Output-->
-    <div id="form-output-global" class="snackbars"></div>
+    <div id="form-output-global"  class="snackbars" >
+		<p>
+			<span id="form-output-global-icon" class="icon text-middle fa icon-xxs"></span>
+			<span class="message"></span>
+		</p>
+	</div>
     <!-- PhotoSwipe Gallery-->
 	<{include file="Frontend/gallery.tpl"}>
     <!-- Java script-->

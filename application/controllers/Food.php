@@ -8,15 +8,19 @@ class Food extends CI_Controller {
 		parent::__construct();
 		$this->food_language_ary = $this->language->load('food');
 		$this->load->model('Food_Model', 'food');	
+		$this->load->model('Order_Model', 'order');	
 		
     }
 	
 	public function orderList()
 	{
+		$order_status = $this->order->getOrderStatus();
 		$this->smarty->assign(array(
 			'shopList'			=>$shopList,
 			'foodTypeClass'		=>$foodTypeClass,
-			'f_id'				=>$f_id
+			'f_id'				=>$f_id,
+			'order_status'		=>$order_status,
+			'foodLanguageAry'	=>$this->food_language_ary,
 
 		));
 		$this->smarty->displayFrame(__CLASS__.'/orderlist.tpl');

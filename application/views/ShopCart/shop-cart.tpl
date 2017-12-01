@@ -54,50 +54,50 @@
 				  <div class="cell-sm-12 cell-md-12">
 					<div class="inset-lg-left-50 inset-lg-right-50">
 					  <!-- RD Mailform-->
-					  <form method="post"  class="rd-mailform form-contact-line text-left" >
-						<div class="form-inline-flex">
-						  <div class="form-group">
-							<label for="o_consignee" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_consignee}></label>
-							<input id="o_consignee" type="text" placeholder="<{$shopLanguageAry.shopcart_delivery_consignee}>" name="o_consignee" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
-							<span class="form-validation"></span>
-						  </div>
-						  <div class="form-group">
-							<label for="o_phone" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_phone}></label>
-							<input id="o_phone" type="text" placeholder="<{$shopLanguageAry.shopcart_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
-						  </div>
-						</div>
-						<div class="form-group offset-top-15">
-						  <label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_message}></label>
-						  <textarea id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"></textarea><span class="form-validation"></span>
-						</div>
-						<div class="offset-top-15">
-							<div ng-init="mapinit()" data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
-								<ul class="map_locations">
-								  <li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
-									<p data-position_id ="1">
-										<span class="icon">
-											<img src="/images/gmap-24x34.png" alt="" width="24" height="34"/>
-										</span>267 Park Avenue New York, NY 90210
-									</p>
-								  </li>
-								</ul>
-							</div>
-						</div>
-						<div class="offset-top-15">
+						<form method="post"  class="rd-mailform form-contact-line text-left" >
 							<div class="form-inline-flex">
-								<div class="form-group offset-top-15">
-									<label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
-									<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child">
-										<option value="0">請選擇</option>
-										<option data-y="{{position.p_lat}}"    data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<button ng-click="checkout();$event.preventDefault();"  class="btn btn-primary btn-fullwidth"><{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
+							  <div class="form-group">
+								<label for="o_consignee" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_consignee}></label>
+								<input id="o_consignee" type="text"  ng-model="data.o_consignee" placeholder="<{$shopLanguageAry.shopcart_delivery_consignee}>" name="o_consignee" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+								<span class="form-validation"></span>
+							  </div>
+							  <div class="form-group">
+								<label for="o_phone" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_phone}></label>
+								<input id="o_phone" type="text" ng-model="data.o_phone" placeholder="<{$shopLanguageAry.shopcart_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+							  </div>
+							</div>
+							<div class="form-group offset-top-15">
+							  <label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_message}></label>
+							  <textarea id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"></textarea><span class="form-validation"></span>
+							</div>
+							<div class="offset-top-15">
+								<div ng-init="mapinit()" data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
+									<ul class="map_locations">
+									  <li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
+										<p data-position_id ="1">
+											<span class="icon">
+												<img src="/images/gmap-24x34.png" alt="" width="24" height="34"/>
+											</span>267 Park Avenue New York, NY 90210
+										</p>
+									  </li>
+									</ul>
 								</div>
 							</div>
-						</div>
-					  </form>
+							<div class="offset-top-15">
+								<div class="form-inline-flex">
+									<div class="form-group offset-top-15">
+										<label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
+										<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child">
+											<option value="0">請選擇</option>
+											<option data-y="{{position.p_lat}}"    data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<button ng-click="checkout();$event.preventDefault();"  class="btn btn-primary btn-fullwidth"><{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				  </div>
 				</div>
