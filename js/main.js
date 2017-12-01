@@ -529,8 +529,14 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 							click: function() 
 							{
 								$( this ).dialog( "close" );
-								// location.href="/";
-								window.history.go(-1);
+								if(document.referrer ==="")
+								{
+									location.href="/";
+								}else{
+									window.history.go(-1);
+								}
+								// 
+								
 							}
 						}]
 					};
@@ -891,7 +897,12 @@ function FBLogin(token)
 						  text: "OK",
 						  click: function() {
 							$( this ).dialog( "close" );
-							window.history.go(-1);
+							if(document.referrer ==="")
+							{
+								location.href="/";
+							}else{
+								window.history.go(-1);
+							}
 						  }
 						}
 					]
