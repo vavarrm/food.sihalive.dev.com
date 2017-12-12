@@ -29,8 +29,17 @@ class Api extends CI_Controller {
 	
 	public function sendSMS()
 	{
+		$get = $this->input->get();
+		$url="http://client.mekongsms.com/api/sendsms.aspx";
+		$url.="?username=apitest303@smartmkn";
+		$url.="&pass=766252f3c81557098b3bf0094b173a84";
+		$url.="&cd=Cust001";
+		$url.="&sender=Sihalive";
+		$url.="&smstext=".$get['smstext'];
+		$url.="&isflash=0";
+		$url.="&gsm=".$get['gsm'];
 		
-		$url ="http://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
+		// $url ="http://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
 		var_dump($this->getSSLPage($url));
 		
 		// $ch = curl_init();
