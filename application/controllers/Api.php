@@ -35,7 +35,7 @@ class Api extends CI_Controller {
 		$url.="&pass=766252f3c81557098b3bf0094b173a84";
 		$url.="&cd=Cust001";
 		$url.="&sender=Sihalive";
-		$url.="&smstext=".$get['smstext'];
+		$url.="&smstext=".urlencode($get['smstext']);
 		$url.="&isflash=0";
 		$url.="&gsm=".$get['gsm'];
 		
