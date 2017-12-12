@@ -11,13 +11,14 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-
+<script src="//cdn.bootcss.com/socket.io/1.3.7/socket.io.js"></script>
 
 <script type="text/javascript" src="/js/script.js"></script>
 
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+
 
 <script src="/js/main.js?<{$randseed}>"></script>
 

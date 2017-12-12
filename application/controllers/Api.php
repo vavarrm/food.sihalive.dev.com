@@ -15,6 +15,19 @@ class Api extends CI_Controller {
 		$this->js = $this->language->load('js');
     }
 	
+	public function sendSMS()
+	{
+		$url ="https://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
+		echo file_get_contents($url);
+		// $ch = curl_init();
+		// curl_setopt($ch, CURLOPT_URL, $url);
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// $output = curl_exec($ch);
+		// curl_close($ch);
+		// echo "D";
+		// echo  $output;
+	}
+	
 	public function getOrderList()
 	{
 		$output['body']=array();

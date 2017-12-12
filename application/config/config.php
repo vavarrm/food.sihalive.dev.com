@@ -519,4 +519,4 @@ $config['private_key'] = 'nmgfBxvHiRbNzRfE';
 $config['fb_app_id'] = '541985926144295';
 $config['fb_app_secret'] = '8028ae50abc2dc1df4068f459f219b79';
 $config['fb_version'] = 'v2.10';
-$config['websokect_url'] = 'http://websokcet.sihalive.com:2121/';
+$config['websokect_url'] = 'http://admin.sihalive.dev.com:2121';

@@ -36,4 +36,23 @@
     <!-- Java script-->
 	<{include file="Frontend/js.tpl"}>
 	</body>
+	<script>
+		window.onload = function ()
+		{
+			if($(document).width()<=1024)
+			{
+				$('.cartnums').removeClass('text-white').addClass('text-black');
+			}
+			
+			$( window ).resize(function() {
+				if($(document).width()<=1024)
+				{
+					$('.cartnums').removeClass('text-white').addClass('text-black');
+				}else
+				{
+					$('.cartnums').removeClass('text-black').addClass('text-white');
+				}
+			});
+		}
+	</script>
 </html>
