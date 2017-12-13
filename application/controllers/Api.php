@@ -19,7 +19,9 @@ class Api extends CI_Controller {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_SSLVERSION,3); 
+		curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
 		$result = curl_exec($ch);
 		curl_close($ch);
 		return $result;
@@ -31,6 +33,7 @@ class Api extends CI_Controller {
 		$url.="?username=apitest303@smartmkn";
 		$url.="&pass=766252f3c81557098b3bf0094b173a84";
 		// $url ="http://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
+		echo $this->getSSLPage($url);
 	}
 	
 	public function sendSMS()
@@ -46,7 +49,7 @@ class Api extends CI_Controller {
 		$url.="&gsm=".$get['gsm'];
 		
 		// $url ="http://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
-		var_dump($this->getSSLPage($url));
+		// var_dump($this->getSSLPage($url));
 		
 		// $ch = curl_init();
 		// curl_setopt($ch, CURLOPT_URL, $url);
