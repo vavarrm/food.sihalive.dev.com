@@ -14,20 +14,7 @@ class Api extends CI_Controller {
 		$this->load->model('Position_Model', 'position');
 		$this->js = $this->language->load('js');
     }
-	
-	private function getSSLPage($url) {
-		$homepage = file_get_contents($url);
-		return $homepage;
-		// $ch = curl_init();
-		// curl_setopt($ch, CURLOPT_HEADER, false);
-		// curl_setopt($ch, CURLOPT_URL, $url);
-		// curl_setopt($ch, CURLOPT_HEADER, 1);
-		// curl_setopt($ch, CURLOPT_SSLVERSION,3); 
-		// curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
-		// $result = curl_exec($ch);
-		// curl_close($ch);
-		return $result;
-	}
+
 	
 	public function getSMDBalance ()
 	{
@@ -48,25 +35,22 @@ class Api extends CI_Controller {
 	public function sendSMS()
 	{
 		$get = $this->input->get();
-		$url="http://client.mekongsms.com/api/sendsms.aspx";
-		$url.="?username=apitest303@smartmkn";
-		$url.="&pass=766252f3c81557098b3bf0094b173a84";
-		$url.="&cd=Cust001";
-		$url.="&sender=Sihalive";
-		$url.="&smstext=".urlencode($get['smstext']);
-		$url.="&isflash=0";
-		$url.="&gsm=".$get['gsm'];
-		
-		// $url ="http://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
-		// var_dump($this->getSSLPage($url));
-		
-		// $ch = curl_init();
-		// curl_setopt($ch, CURLOPT_URL, $url);
-		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		// $output = curl_exec($ch);
-		// curl_close($ch);
-		// echo "D";
-		// echo  $output;
+		$url="http://client.mekongsms.com/api/postsms.aspx";
+		$post = array(
+			'username'	=>"apitest303@smartmkn",
+			'pass'	=>"766252f3c81557098b3bf0094b173a84",
+			'cd'	=>"Cust001",
+			'sender'	=>"Sihalive",
+			'smstext'	=>urlencode($get['smstext']),
+			'isflash'	=>0,
+			'gsm'	=>$get['gsm'],
+		);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post)); 
+		$output = curl_exec($ch); 
+		curl_close($ch);
+		echo $output;
 	}
 	
 	public function getOrderList()
