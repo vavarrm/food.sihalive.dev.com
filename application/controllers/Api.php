@@ -31,7 +31,6 @@ class Api extends CI_Controller {
 		$url.="?username=apitest303@smartmkn";
 		$url.="&pass=766252f3c81557098b3bf0094b173a84";
 		// $url ="http://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
-		var_dump($this->getSSLPage($url));
 	}
 	
 	public function sendSMS()
