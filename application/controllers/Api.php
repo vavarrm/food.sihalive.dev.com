@@ -16,7 +16,7 @@ class Api extends CI_Controller {
     }
 	
 	private function getSSLPage($url) {
-		$homepage = file_get_contents('http://www.example.com/');
+		$homepage = file_get_contents($url);
 		return $homepage;
 		// $ch = curl_init();
 		// curl_setopt($ch, CURLOPT_HEADER, false);
