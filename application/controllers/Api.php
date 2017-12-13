@@ -19,7 +19,7 @@ class Api extends CI_Controller {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_HEADER, 1);
+		// curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_SSLVERSION,3); 
 		curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
 		$result = curl_exec($ch);
