@@ -31,11 +31,18 @@ class Api extends CI_Controller {
 	
 	public function getSMDBalance ()
 	{
-		$url="http://client.mekongsms.com/api/credits.aspx";
-		$url.="?username=apitest303@smartmkn";
-		$url.="&pass=766252f3c81557098b3bf0094b173a84";
-		// $url ="http://client.mekongsms.com/api/sendsms.aspx?username=apitest303@smartmkn&pass=766252f3c81557098b3bf0094b173a84&cd=Cust001&sender=Sihalive&smstext=hello&isflash=0&gsm=85516995372";
-		echo $this->getSSLPage($url);
+		$url="http://client.mekongsms.com/api/postcheckbalance.aspx";
+		$post = array(
+			'username'	=>"apitest303@smartmkn",
+			'pass'	=>"766252f3c81557098b3bf0094b173a84",
+		);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post)); 
+		$output = curl_exec($ch); 
+		curl_close($ch);
+		echo $output;
 	}
 	
 	public function sendSMS()
