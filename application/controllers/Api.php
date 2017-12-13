@@ -21,9 +21,7 @@ class Api extends CI_Controller {
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSLVERSION,3); 
 		$result = curl_exec($ch);
-		echo 'Curl error: ' . curl_error($ch);
 		curl_close($ch);
-		
 		return $result;
 	}
 	
