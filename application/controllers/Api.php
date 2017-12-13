@@ -16,14 +16,16 @@ class Api extends CI_Controller {
     }
 	
 	private function getSSLPage($url) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_URL, $url);
+		$homepage = file_get_contents('http://www.example.com/');
+		return $homepage;
+		// $ch = curl_init();
+		// curl_setopt($ch, CURLOPT_HEADER, false);
+		// curl_setopt($ch, CURLOPT_URL, $url);
 		// curl_setopt($ch, CURLOPT_HEADER, 1);
-		curl_setopt($ch, CURLOPT_SSLVERSION,3); 
-		curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
-		$result = curl_exec($ch);
-		curl_close($ch);
+		// curl_setopt($ch, CURLOPT_SSLVERSION,3); 
+		// curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
+		// $result = curl_exec($ch);
+		// curl_close($ch);
 		return $result;
 	}
 	
