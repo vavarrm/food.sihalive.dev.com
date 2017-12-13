@@ -41,12 +41,13 @@ class Api extends CI_Controller {
 			'pass'	=>"766252f3c81557098b3bf0094b173a84",
 			'cd'	=>"Cust001",
 			'sender'	=>"Sihalive",
-			'smstext'	=>urlencode($get['smstext']),
+			'smstext'	=>$get['smstext'],
 			'isflash'	=>0,
 			'gsm'	=>$get['gsm'],
 		);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post)); 
 		$output = curl_exec($ch); 
