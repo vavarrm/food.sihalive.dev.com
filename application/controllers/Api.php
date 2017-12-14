@@ -13,6 +13,7 @@ class Api extends CI_Controller {
 		$this->load->model('Order_Model', 'order');
 		$this->load->model('Position_Model', 'position');
 		$this->js = $this->language->load('js');
+		$this->sms =$this->config->item('sms');
     }
 
 	
@@ -20,8 +21,8 @@ class Api extends CI_Controller {
 	{
 		$url="http://client.mekongsms.com/api/postcheckbalance.aspx";
 		$post = array(
-			'username'	=>"apitest303@smartmkn",
-			'pass'	=>"766252f3c81557098b3bf0094b173a84",
+			'username'	=>$this->sms['username'],
+			'pass'		=>$this->sms['password'],
 		);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -37,13 +38,13 @@ class Api extends CI_Controller {
 		$get = $this->input->get();
 		$url="http://client.mekongsms.com/api/postsms.aspx";
 		$post = array(
-			'username'	=>"apitest303@smartmkn",
-			'pass'	=>"766252f3c81557098b3bf0094b173a84",
-			'cd'	=>"Cust001",
+			'username'	=>$this->sms['username'],
+			'pass'		=>$this->sms['password'],
+			'cd'		=>"Cust001",
 			'sender'	=>"Sihalive",
 			'smstext'	=>$get['smstext'],
 			'isflash'	=>0,
-			'gsm'	=>$get['gsm'],
+			'gsm'		=>$get['gsm'],
 		);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);

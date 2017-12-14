@@ -56,48 +56,15 @@
   <div class="shell text-center">
 	<h3>Our Menu</h3>
 	<div class="range range-xs-center">
-	  <div class="cell-sm-6 cell-md-4">
-		<div class="menu-variant-1"><img src="images/sushi-7-310x260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-		  <div class="caption">
-			<h5 class="title"><a href="menu-single.html" class="link-white">Sushi</a></h5>
-		  </div>
-		</div>
-	  </div>
-	  <div class="cell-sm-6 cell-md-4 offset-top-50 offset-sm-top-0">
-		<div class="menu-variant-1"><img src="images/burger-7-310x260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-		  <div class="caption">
-			<h5 class="title"><a href="menu-single.html" class="link-white">Burgers</a></h5>
-		  </div>
-		</div>
-	  </div>
-	  <div class="cell-sm-6 cell-md-4 offset-top-50 offset-md-top-0">
-		<div class="menu-variant-1"><img src="images/pizza-7-310x260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-		  <div class="caption">
-			<h5 class="title"><a href="menu-single.html" class="link-white">Pizzas</a></h5>
-		  </div>
-		</div>
-	  </div>
-	  <div class="cell-sm-6 cell-md-4 offset-top-50">
-		<div class="menu-variant-1"><img src="images/barbecue-7-310x260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-		  <div class="caption">
-			<h5 class="title"><a href="menu-single.html" class="link-white">Barbecue</a></h5>
-		  </div>
-		</div>
-	  </div>
-	  <div class="cell-sm-6 cell-md-4 offset-top-50">
-		<div class="menu-variant-1"><img src="images/sandwich-7-310x260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-		  <div class="caption">
-			<h5 class="title"><a href="menu-single.html" class="link-white">Sandwiches</a></h5>
-		  </div>
-		</div>
-	  </div>
-	  <div class="cell-sm-6 cell-md-4 offset-top-50">
-		<div class="menu-variant-1"><img src="images/mexican-7-310x260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-		  <div class="caption">
-			<h5 class="title"><a href="menu-single.html" class="link-white">Tacos</a></h5>
-		  </div>
-		</div>
-	  </div>
+		<{foreach from=$category item=row key=index}>
+			<div class="cell-sm-6 cell-md-4  offset-top-50">
+				<div class="menu-variant-1"><img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
+				  <div class="caption">
+						<h5 class="title"><a href="menu-single.html" class="link-white"><{$row.ca_name}></a></h5>
+				  </div>
+				</div>
+			</div>
+		<{/foreach}>
 	</div>
   </div>
 </section>

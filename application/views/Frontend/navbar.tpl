@@ -29,23 +29,16 @@
 				<ul class="list-links list-inline text-left">
 				  <li>
 					<div class="unit unit-horizontal unit-middle unit-spacing-xs">
-					  <div class="unit-left"><span class="icon icon-circle icon-gray-dark icon-xxs mdi mdi-map-marker text-middle"></span></div>
-					  <div class="unit-body">
-						<address class="contact-info"><a href="#" class="link-default link-xs">267 Park Avenue <br class="visible-md visible-lg"> New York, NY 90210</a></address>
-					  </div>
-					</div>
-				  </li>
-				  <li>
-					<div class="unit unit-horizontal unit-middle unit-spacing-xs">
 					  <div class="unit-left"><span class="icon icon-circle icon-gray-dark icon-xxs mdi mdi-phone text-middle"></span></div>
 					  <div class="unit-body">
-						<address class="contact-info"><a href="callto:#" class="link-default link-xs">1-800-1234-567</a><span class="reveal-block text-base link-xs">Mon – Sat: 9:00–18:00</span></address>
+						<address class="contact-info">
+							<a href="callto:#" class="link-default link-xs"><{$website.phone}></a>
+						</address>
 					  </div>
 					</div>
 				  </li>
 				  <li>
 					<ul class="list-inline list-inline-sm">
-					  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-instagram"></span></a></li>
 					  <li><a  target="_blank" href="https://www.facebook.com/Sihalive-187813995113064/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
 					  <li><a  target="blank" href="/Login/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-user"></span></a></li>
 					</ul>
@@ -71,20 +64,19 @@
 				<a href="/">Home</a>
 			</li>		
 			<li>
-				<a href="/Faq">FAQ</a>
-			</li>
-			<li>
 				<a href="/Contacts">Contacts</a>
 			</li>
 			<li><a href="#">Menu</a>
 			  <!-- RD Navbar Dropdown-->
 			  <ul class="rd-navbar-dropdown menu-img-wrap">
-				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Sushi</span></a></li>
-				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
-				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Pizza</span></a></li>
-				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Barbecue</span></a></li>
-				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Sandwiches</span></a></li>
-				<li class="menu-img"><a href="/Menu"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>Mexican</span></a></li>
+				<{foreach from=$category item=row}>
+					<li class="menu-img">
+						<a href="/Menu">
+							<img src="/images/menu-food-<{$row.ca_id|string_format:"%02d"}>.png" alt="" width="88" height="60">
+							<span><{$row.ca_name}></span>
+						</a>
+					</li>
+				<{/foreach}>
 			  </ul>
 			</li>
 			<li>
@@ -125,14 +117,6 @@
 			<ul class="list-links list-inline text-left">
 			  <li>
 				<div class="unit unit-horizontal unit-middle unit-spacing-xs">
-				  <div class="unit-left"><span class="icon icon-circle icon-gray-dark icon-xxs mdi mdi-map-marker text-middle"></span></div>
-				  <div class="unit-body">
-					<address class="contact-info"><a href="#" class="link-default link-xs">267 Park Avenue <br class="visible-md visible-lg"> New York, NY 90210</a></address>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="unit unit-horizontal unit-middle unit-spacing-xs">
 				  <div class="unit-left"><span class="icon icon-circle icon-gray-dark icon-xxs mdi mdi-phone text-middle"></span></div>
 				  <div class="unit-body">
 					<address class="contact-info"><a href="callto:#" class="link-default link-xs">1-800-1234-567</a><span class="reveal-block text-base link-xs">Mon – Sat: 9:00–18:00</span></address>
@@ -141,10 +125,7 @@
 			  </li>
 			  <li>
 				<ul class="list-inline list-inline-sm">
-				  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-instagram"></span></a></li>
-				  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
-				  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-twitter"></span></a></li>
-				  <li><a href="#" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-google-plus"></span></a></li>
+				  <li><a href="https://www.facebook.com/Sihalive-187813995113064/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
 				</ul>
 			  </li>
 			</ul>
