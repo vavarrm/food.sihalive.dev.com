@@ -520,9 +520,9 @@ $config['fb_app_id'] = '541985926144295';
 $config['fb_app_secret'] = '8028ae50abc2dc1df4068f459f219b79';
 $config['fb_version'] = 'v2.10';
 $config['websokect_url'] = 'http://admin.sihalive.dev.com:2121';
-$config['sms'] = array(
-	'username'	:'tsai_sms@smartmkn',
-	'password'	:md5('3xxkdkj@c'),
+$config['sms'] = array(	
+	'username'	=>'tsai_sms@smartmkn',
+	'password'	=>md5('3xxkdkj@c'),
 );
 $config['website'] = array(
 	'phone' =>"+85516995371"
