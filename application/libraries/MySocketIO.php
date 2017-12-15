@@ -23,7 +23,7 @@ class MySocketIO
 			}
 		}
 		
-		$url = $_SERVER['SERVER_NAME']."?".$get_str;
+		$url = $_SERVER['SERVER_NAME'].":2121?".$get_str;
  
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
