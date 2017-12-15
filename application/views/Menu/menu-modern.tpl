@@ -17,7 +17,9 @@
 			  <div id="isotope-1" class="isotope-filters isotope-filters-buttons">
 				<ul class="inline-list"  >
 					<{foreach from=$categorys item=category}>
-					<li><a data-isotope-filter="Category <{$category.ca_id}>" data-isotope-group="gallery" href="#" class="btn-shape-circle btn"><{$category.ca_name}></a></li>
+						<li>
+							<a data-isotope-filter="Category <{$category.ca_id}>" data-isotope-group="gallery" href="#" class="btn-shape-circle btn"><{$category.ca_name}></a>
+						</li>
 					<{/foreach}>
 				</ul>
 			  </div>

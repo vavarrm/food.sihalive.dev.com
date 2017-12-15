@@ -1,4 +1,4 @@
-<div class="rd-navbar-wrap rd-navbar-default"  ng-controller="navCtrl">
+<div class="rd-navbar-wrap rd-navbar-default"  ng-controller="navCtrl" >
   <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" class="rd-navbar">
 	<div class="shell shell-fluid">
 	  <div class="rd-navbar-inner">
@@ -49,7 +49,7 @@
 		  </div>
 		</div>
 		<!-- RD Navbar Nav-->
-		<div class="rd-navbar-nav-wrap">
+		<div class="rd-navbar-nav-wrap" >
 		  <!-- RD Navbar Shop-->
 		  <div class="rd-navbar-shop">
 			<a href="/ShopCart/" class="link link-shop link-default">
@@ -71,7 +71,7 @@
 			  <ul class="rd-navbar-dropdown menu-img-wrap">
 				<{foreach from=$category item=row}>
 					<li class="menu-img">
-						<a href="/Menu">
+						<a href="/Menu?ca_id=<{$row.ca_id}>">
 							<img src="/images/menu-food-<{$row.ca_id|string_format:"%02d"}>.png" alt="" width="88" height="60">
 							<span><{$row.ca_name}></span>
 						</a>
@@ -94,7 +94,7 @@
 					</li>
 				</ul>
 			</li>
-			<li  ng-show="islogin">
+			<li  ng-show="islogin" >
 				<a href="#">user</a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
@@ -111,6 +111,7 @@
 			</li>
 			<li  ng-show="islogin == false">
 				<a href="/Login/">login</a>
+				
 			</li>
 		  </ul>
 		  <div class="rd-navbar-aside-right">

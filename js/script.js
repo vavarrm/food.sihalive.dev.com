@@ -949,7 +949,6 @@ $document.ready(function () {
       });
 
       isogroup.push(iso);
-
       filterItems.on("click", function (e) {
         e.preventDefault();
         var filter = $(this),
@@ -981,7 +980,7 @@ $document.ready(function () {
           }, 500);
         }
 
-      }).eq(0).trigger("click");
+      }).eq(ca_id-1).trigger("click");
     }
 
     $(window).on('load', function () {

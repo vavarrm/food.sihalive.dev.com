@@ -37,10 +37,10 @@ var getOrderList ="/api/getOrderList/";
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
 
-sihaliveApp.factory('User',['$cookies' , function($cookies){
+sihaliveApp.factory('User',['$cookies','$rootScope' , function($cookies, $rootScope){
 	var user={} ;
 	var sess = $cookies.get('sess');
-	if(sess !='')
+	if(sess !='' && typeof sess !="undefined")
 	{
 		$.ajax({
 			async: false,
@@ -48,10 +48,12 @@ sihaliveApp.factory('User',['$cookies' , function($cookies){
 			dataType: 'json',
 			url: GetUserApi+'?sess='+sess ,
 			success: function (data) {
+				// console.log(data);
 				if(data.status =="200")
 				{
 					user = data['body']['user_data'];
 				}
+					
 			},
 			error: function (data) {
 				var obj = {
@@ -385,7 +387,11 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	}
 };
 
-var navCtrl = function($scope, $cookies, $rootScope){
+var navCtrl = function($scope, $cookies, $rootScope, User){
+	// console.log(User);
+	$scope.data = {
+		islogin : false
+	}
 	var shopcart =  $cookies.getObject('shopcart');
 	if (typeof shopcart === "undefined") {
 		shopcart =[];
@@ -569,6 +575,7 @@ var bodyCtrl = function($scope, $cookies, $rootScope, User)
 				if(data.status =="200")
 				{
 					$cookies.remove('sess', {path: '/'});
+					$cookies.remove('ci_session', {path: '/'});
 					var obj = {
 						message :js_user_logout_ok,
 						buttons: [

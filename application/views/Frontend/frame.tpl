@@ -33,10 +33,13 @@
 	</div>
     <!-- PhotoSwipe Gallery-->
 	<{include file="Frontend/gallery.tpl"}>
-    <!-- Java script-->
-	<{include file="Frontend/js.tpl"}>
-	</body>
 	<script>
+		var ca_id ="1";
+	</script>
+	<{include file="Frontend/js.tpl"}>
+    <!-- Java script-->
+	<script>
+		
 		window.onload = function ()
 		{
 			if($(document).width()<=1024)
@@ -53,6 +56,9 @@
 					$('.cartnums').removeClass('text-black').addClass('text-white');
 				}
 			});
+			
 		}
 	</script>
+
+	</body>
 </html>

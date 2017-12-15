@@ -19,7 +19,6 @@ class MainPage extends CI_Controller {
 	public function index()
 	{
 		
-		
 		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
 	}
 }
