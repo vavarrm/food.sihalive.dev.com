@@ -34,7 +34,7 @@
     <!-- PhotoSwipe Gallery-->
 	<{include file="Frontend/gallery.tpl"}>
 	<script>
-		var ca_id ="<{$smart.get.ca_id}>";
+		var ca_id ="<{$smarty.get.ca_id}>";
 	</script>
 	<{include file="Frontend/js.tpl"}>
     <!-- Java script-->
