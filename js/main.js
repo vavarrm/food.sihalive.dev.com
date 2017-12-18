@@ -33,6 +33,7 @@ var isUserExistApi ="/api/isUserExist/";
 var isEmailExistApi ="/api/isEmailExist/";
 var setProfileApi ="/api/setProfile/";
 var getOrderList ="/api/getOrderList/";
+var getOrderList ="/api/getOrderList/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -68,33 +69,23 @@ sihaliveApp.factory('User',['$cookies','$rootScope' , function($cookies, $rootSc
 
 var productPageCtrl = function($scope, $cookies, $rootScope){
 	
-	$scope.$watch("f_id", function(){
-		$.ajax({
-			async: false,
-			type: 'GET',
-			url: GetProductApi+'?f_id='+$scope.f_id,
-			success: function (data) {
-				$scope.food = data['body']['data'];
-				$scope.selectprice= $scope.food['f_large_price'];
-			},
-			error: function (data) {
-			}
-		});
-
-    });
 	$scope.selectPrice = function(price, $event)
 	{
 		$scope.selectprice = price;
 		$('.resp-tab-item.resp-tab-active').removeClass('resp-tab-active');
 	}
 	
-	$scope.click = function(f_id) 
+	$scope.click = function(f_id, order_num, price, f_name) 
 	{	
+		if(order_num =='na')
+		{
+			order_num = $('#order_num').val();
+		}
 		var  obj ={
 			f_id : f_id,
-			order_num  :  parseInt($('#order_num').val()),
-			price: $scope.selectprice,
-			f_name:$scope.food.f_name
+			order_num  :  order_num,
+			price: price,
+			f_name:f_name
 		};
 		var shopcart =  $cookies.getObject('shopcart');
 		var isadd = false;
@@ -717,15 +708,23 @@ var orderCtrl = function($scope, $cookies, $rootScope, User)
 	}
 }
 
+var contactsCtrl = function ($scope){
+	$scope.send = function()
+	{
+		
+	}
+}
+
 sihaliveApp.controller('userCtrl', ['$scope' , '$cookies', '$rootScope', 'User',userCtrl]);
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
-sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', 'User', productPageCtrl]);
+sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', productPageCtrl]);
 sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
 sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope',loginCtrl]);
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'User',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
+sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
 
 
 function global(odj)

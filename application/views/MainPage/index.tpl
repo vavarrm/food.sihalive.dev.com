@@ -58,12 +58,17 @@
 	<div class="range range-xs-center">
 		<{foreach from=$category item=row key=index}>
 			<div class="cell-sm-6 cell-md-4  offset-top-50">
-				<div class="menu-variant-1"><img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-				  <div class="caption">
-						<h5 class="title"><a href="/Menu?ca_id=<{$row.ca_id}>" class="link-white"><{$row.ca_name}></a></h5>
-				  </div>
+				<div class="menu-variant-1">
+					<a href="/Menu?ca_id=<{$row.ca_id}>">
+						<img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
+					</a>
+					<div class="caption">
+						<h5 class="title">
+							<a href="/Menu?ca_id=<{$row.ca_id}>" class="link-white"><{$row.ca_name}></a>
+						</h5>
+					</div>
 				</div>
-			</div>
+			</div>	</a>
 		<{/foreach}>
 	</div>
   </div>

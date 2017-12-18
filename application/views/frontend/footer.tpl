@@ -14,7 +14,7 @@
 			  <div class="unit-left"><span class="icon icon-md-mod-1 icon-default mdi mdi-phone text-middle"></span></div>
 			  <div class="unit-body">
 				<address class="contact-info">
-					<a href="callto:#" class="link-white link-lg">+1 (409) 987–5874</a>
+					<a href="callto:#" class="link-white link-lg"><{$website.phone}></a>
 				</address>
 			  </div>
 			</div>

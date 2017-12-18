@@ -21,6 +21,19 @@
 	}
 }
 
+@media  (max-width: 768px) 
+{
+	.item img
+	{
+		width :380px;
+		height :320px;
+	}
+}
+
+
+
+
+
 .bs-wizard {margin-top: 40px;}
 
 /*Form Wizard*/

@@ -3,6 +3,11 @@
 	<head>
 		<!-- Site Title-->
 		<title><{$language.website_name}>-<{$language.website_title_menu}></title>
+		<meta property="og:url"           content="http://food.sihalive.dev.com" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content="<{$language.website_name}>" />
+		<meta property="og:description"   content="	11" />
+		<meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
 		<{include file="Frontend/meta.tpl"}>
 		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
 		<!-- Stylesheets-->
@@ -35,11 +40,14 @@
 	<{include file="Frontend/gallery.tpl"}>
 	<script>
 		var ca_id ="<{$smarty.get.ca_id}>";
+		if(ca_id =="")
+		{
+			ca_id  = 1;
+		}
 	</script>
 	<{include file="Frontend/js.tpl"}>
     <!-- Java script-->
 	<script>
-		
 		window.onload = function ()
 		{
 			if($(document).width()<=1024)
@@ -58,7 +66,55 @@
 			});
 			
 		}
-	</script>
 
+		function changeOrderNum(input)
+		{
+			var index = $(input).data('index');
+			var price = parseFloat($(input).data('price'));
+			var order_num = parseInt(input.val());
+			$('span[data-index='+index+']').html(price* order_num ).data('subtotal', price* order_num);
+			var total = 0;
+			$.each($('.subtotal'),function(i,e){
+				var subtotal = parseFloat($(e).data('subtotal'),2);
+				total+=subtotal ;
+				
+			})
+
+			$('.total').html(parseFloat(total,2).toFixed(2));
+		}
+		window.onload=function(){	
+			$( "body" ).on( "click", ".stepper-arrow.up", function(e) {	
+				var input = $(this).parent().find('input');
+				if($(input).hasClass( "ng-valid" ) ==false)
+				{
+					return false;
+				}
+				var max   =parseInt(input.attr('max'));
+				var val   =parseInt(input.val());
+				if(val > max)
+				{
+					return false;
+				}
+				input.val(val +1);
+				changeOrderNum(input)
+			});
+
+			$( "body" ).on( "click", ".stepper-arrow.down", function() {
+				var input = $(this).parent().find('input');
+				if($(input).hasClass( "ng-valid" ) ==false)
+				{
+					return false;
+				}
+				var min   =parseInt(input.attr('min'));
+				var val   =parseInt(input.val());
+				if(val <= min)
+				{
+					return false;
+				}
+				input.val(val -1);
+				changeOrderNum(input);
+			});
+		}
+	</script>
 	</body>
 </html>

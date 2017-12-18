@@ -525,6 +525,9 @@ $config['sms'] = array(
 	'password'	=>md5('3xxkdkj@c'),
 );
 $config['website'] = array(
-	'phone' =>"+85516995371"
+	'phone' =>"+85516995371",
+	'fbfanspage' =>"https://www.facebook.com/Sihalive-187813995113064/",
+	'email'	=>"tryion@sihalive.com",
+	"domain"	=>"http://food.sihalive.com"
 );	
 

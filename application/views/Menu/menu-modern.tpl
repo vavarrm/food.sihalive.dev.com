@@ -27,7 +27,7 @@
 		  </ul>
 		</div>
 	  </div>
-	  <div class="cell-xs-12 offset-top-40">
+	  <div class="cell-xs-12 offset-top-40" ng-controller="productPageCtrl" >
 		<!-- Isotope Content-->
 		<div data-isotope-layout="fitRows" data-isotope-group="gallery" data-photo-swipe-gallery="gallery" class="row isotope isotope-menu">
 		  <{foreach from=$foods item=food}>
@@ -40,7 +40,11 @@
 			  <div class="caption">
 				<h5><a href="menu-single.html" class="link link-default"><{$food.f_name}></a></h5>
 				<p class="text-italic"><{$food.f_description}></p>
-				<p class="price"><{$food.f_large_price}></p><a href="/Menu/food/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15">Order Online</a>
+				<p class="price"><{$food.f_large_price}></p>
+			
+				<a href="/Menu/food/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15 btn btn-primary btn-shadow btn-shape-circle btn-xs"><{$food_language_ary.food_menu_check_food}></a>
+				<a href="" ng-click="click(<{$food.f_id}>, 'na','<{$food.f_large_price}>' ,'<{$food.f_name}>');$event.stopPropagation();" class="btn btn-shape-circle btn-primary offset-top-15 btn btn-primary btn-shadow btn-shape-circle btn-xs"><{$food_language_ary.food_menu_addcar}></a>
+				
 			  </div>
 			</div>
 		  </div>

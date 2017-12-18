@@ -19,4 +19,5 @@
 	$lang['register_form_email_isexist'] = "信箱重复";
 	$lang['text_search_conditions'] = "搜尋條件";
 	$lang['text_function'] = "功能列";
+	$lang['add_cart'] = "加入購物車";
 ?>

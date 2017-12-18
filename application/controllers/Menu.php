@@ -17,15 +17,20 @@ class Menu extends CI_Controller {
 		
 		$this->smarty->assign(array(
 			'categorys'	=>$categorys,
-			'foods'		=>$foods 
+			'foods'		=>$foods ,
+			'food_language_ary'	=>$this->food_language_ary
 		));
 		$this->smarty->displayFrame(__CLASS__.'/menu-modern.tpl');
 	}
 	
 	public function food($f_id)
 	{
+		$food =$this->food->getProductForFid($f_id);
+		// var_dump($food );
 		$this->smarty->assign(array(
-			'f_id'				=>$f_id
+			'f_id'				=>$f_id,
+			'food_language_ary'	=>$this->food_language_ary,
+			'food'	=>$food
 
 		));
 		$this->smarty->displayFrame(__CLASS__.'/shop-single.tpl');

@@ -120,13 +120,13 @@
 				<div class="unit unit-horizontal unit-middle unit-spacing-xs">
 				  <div class="unit-left"><span class="icon icon-circle icon-gray-dark icon-xxs mdi mdi-phone text-middle"></span></div>
 				  <div class="unit-body">
-					<address class="contact-info"><a href="callto:#" class="link-default link-xs">1-800-1234-567</a><span class="reveal-block text-base link-xs">Mon – Sat: 9:00–18:00</span></address>
+					<address class="contact-info"><a href="callto:#" class="link-default link-xs"><{$website.phone}></a><span class="reveal-block text-base link-xs">Mon – Sat: 9:00–18:00</span></address>
 				  </div>
 				</div>
 			  </li>
 			  <li>
 				<ul class="list-inline list-inline-sm">
-				  <li><a href="https://www.facebook.com/Sihalive-187813995113064/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
+				  <li><a href="" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
 				</ul>
 			  </li>
 			</ul>
