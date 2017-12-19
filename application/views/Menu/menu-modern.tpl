@@ -43,7 +43,7 @@
 				<p class="price"><{$food.f_large_price}></p>
 			
 				<a href="/Menu/food/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15 btn btn-primary btn-shadow btn-shape-circle btn-xs"><{$food_language_ary.food_menu_check_food}></a>
-				<a href="" ng-click="click(<{$food.f_id}>, 'na','<{$food.f_large_price}>' ,'<{$food.f_name}>');$event.stopPropagation();" class="btn btn-shape-circle btn-primary offset-top-15 btn btn-primary btn-shadow btn-shape-circle btn-xs"><{$food_language_ary.food_menu_addcar}></a>
+				<a href="" ng-click="click(<{$food.f_id}>, '1','<{$food.f_large_price}>' ,'<{$food.f_name}>');$event.stopPropagation();" class="btn btn-shape-circle btn-primary offset-top-15 btn btn-primary btn-shadow btn-shape-circle btn-xs"><{$food_language_ary.food_menu_addcar}></a>
 				
 			  </div>
 			</div>
