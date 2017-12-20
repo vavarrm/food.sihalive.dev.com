@@ -61,12 +61,12 @@
 		  <!-- RD Navbar Nav-->
 		  <ul class="rd-navbar-nav">
 			<li>
-				<a href="/">Home</a>
+				<a href="/"><{$language.nav_home}></a>
 			</li>		
 			<li>
-				<a href="/Contacts">Contacts</a>
+				<a href="/Contacts"><{$language.nav_contact}></a>
 			</li>
-			<li><a href="#">Menu</a>
+			<li><a href="#"><{$language.nav_menu}></a>
 			  <!-- RD Navbar Dropdown-->
 			  <ul class="rd-navbar-dropdown menu-img-wrap">
 				<{foreach from=$category item=row}>
@@ -79,9 +79,7 @@
 				<{/foreach}>
 			  </ul>
 			</li>
-			<li>
-				<a href="contacts.html">Coming soon</a>
-			</li>
+			<{*
 			<li>
 				<a href="#">Language</a>
 				<!-- RD Navbar Dropdown-->
@@ -94,8 +92,9 @@
 					</li>
 				</ul>
 			</li>
+			*}>
 			<li  ng-show="islogin" >
-				<a href="#">user</a>
+				<a href="#"><{$language.nav_user}></a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
 					<li>
@@ -110,8 +109,7 @@
 				</ul>
 			</li>
 			<li  ng-show="islogin == false">
-				<a href="/Login/">login</a>
-				
+				<a href="/Login/"><{$language.nav_login}></a>
 			</li>
 		  </ul>
 		  <div class="rd-navbar-aside-right">

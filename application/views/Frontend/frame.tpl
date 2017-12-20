@@ -3,6 +3,11 @@
 	<head>
 		<!-- Site Title-->
 		<title><{$language.website_name}>-<{$language.website_title_menu}></title>
+	  <meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
 		<meta property="og:url"           content="http://food.sihalive.dev.com" />
 		<meta property="og:type"          content="website" />
 		<meta property="og:title"         content="<{$language.website_name}>" />
@@ -48,25 +53,6 @@
 	<{include file="Frontend/js.tpl"}>
     <!-- Java script-->
 	<script>
-		window.onload = function ()
-		{
-			if($(document).width()<=1024)
-			{
-				$('.cartnums').removeClass('text-white').addClass('text-black');
-			}
-			
-			$( window ).resize(function() {
-				if($(document).width()<=1024)
-				{
-					$('.cartnums').removeClass('text-white').addClass('text-black');
-				}else
-				{
-					$('.cartnums').removeClass('text-black').addClass('text-white');
-				}
-			});
-			
-		}
-
 		function changeOrderNum(input)
 		{
 			var index = $(input).data('index');
@@ -82,7 +68,23 @@
 
 			$('.total').html(parseFloat(total,2).toFixed(2));
 		}
-		window.onload=function(){	
+		window.onload=function()
+		{	
+			if($(document).width()<=1024)
+			{
+				$('.cartnums').removeClass('text-white').addClass('text-black');
+			}
+			
+			$( window ).resize(function() {
+				if($(document).width()<=1024)
+				{
+					$('.cartnums').removeClass('text-white').addClass('text-black');
+				}else
+				{
+					$('.cartnums').removeClass('text-black').addClass('text-white');
+				}
+			});
+			
 			$( "body" ).on( "click", ".stepper-arrow.up", function(e) {	
 				var input = $(this).parent().find('input');
 				if($(input).hasClass( "ng-valid" ) ==false)

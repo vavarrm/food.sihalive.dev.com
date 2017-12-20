@@ -2,9 +2,9 @@
   <div class="shell shell-fluid">
 	<div class="range range-condensed">
 	  <div class="cell-xs-12 cell-xl-preffix-1 cell-xl-11">
-		<p class="h3 text-white" ng-bind="breadcrumbs[1]" >Menu</p>
+		<p class="h3 text-white" ng-bind="breadcrumbs[1]" ></p>
 		<ul class="breadcrumbs-custom offset-top-10">
-		  <li ><a href="/">Home</a></li>
+		  <li ><a href="/"><{$language.nav_home}></a></li>
 		  <li class="active" ng-if="breadcrumbs[1]">
 			<span ng-if="breadcrumbs.length ==2" ng-bind="breadcrumbs[1]" ></span>
 			<a ng-if="breadcrumbs.length >2" href="/{{breadcrumbs[1]}}" ng-bind="breadcrumbs[1]"></a>
