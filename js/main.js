@@ -605,7 +605,7 @@ var breadcrumbsCtrl = function ($scope)
 	$scope.breadcrumbs = pathname.split('/');
 	$.each($scope.breadcrumbs,function(i,e)
 	{
-		$scope.breadcrumbs[i]=nav[e];
+		$scope.breadcrumbs[i]=__nav[e];
 	})
 }
 
@@ -828,22 +828,22 @@ function checkLoginState() {
     });
 }
 
-// window.fbAsyncInit = function() {
-    // FB.init({
-        // appId      : fbAppId ,
-        // cookie     : true, 
-        // xfbml      : true, 
-        // version    : 'v2.2' 
-    // });
-// };
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : fbAppId ,
+        cookie     : true, 
+        xfbml      : true, 
+        version    : 'v2.2' 
+    });
+};
 
-// (function(d, s, id) {
-	// var js, fjs = d.getElementsByTagName(s)[0];
-	// if (d.getElementById(id)) return;
-	// js = d.createElement(s); js.id = id;
-	// js.src = "//connect.facebook.net/zh_TW/sdk.js";
-	// fjs.parentNode.insertBefore(js, fjs);
-// }(document, "script", "facebook-jssdk"));
+(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/zh_TW/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "facebook-jssdk"));
 
 
 

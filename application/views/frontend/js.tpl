@@ -9,15 +9,16 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
 
-
+<{include file="Frontend/js_var.tpl"}>
 <script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <{if $jsArray}>
 	<{foreach from=$jsArray item=file}>
 		<script src="js/<{$file}>"></script>
 	<{/foreach}>
 <{/if}>
-<{include file="Frontend/js_var.tpl"}>
+
 <div id="dialog" title="<{$language.website_alert_title}>">
   <p></p>
 </div>
