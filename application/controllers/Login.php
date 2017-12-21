@@ -13,7 +13,10 @@ class Login extends CI_Controller {
 	{
 		$get= $this->input->get();
 		$this->smarty->assign(array(
-			'back'	=>$get['back']
+			'back'	=>$get['back'],
+			'jsArray'	=>array(
+				'fb.js'
+			)
 		));
 		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
 	}

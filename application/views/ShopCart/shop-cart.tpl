@@ -17,10 +17,10 @@
 		  </div>
 		  <div class="col-xs-4  text-left">
 				<div class="h5 text-sbold offset-top-20 ">
-					<span  class=" grid-element-mod-2">{{item.f_name}}</span>
+					<span  class=" grid-element-mod-2"　ng-bind="item.f_name"></span>
 				</div>
 				<div class="offset-top-0">
-					<span class="h5 text-sbold">${{item.price}}</span>
+					<span class="h5 text-sbold" ng-bind="'$'+item.price"></span>
 				</div>
 		  </div>
 		  <div class="col-xs-2  text-left">
@@ -41,9 +41,7 @@
 		<div  class="row grid-system-row offset-top-50 text-right">
 			<div class="col-xs-12">
 				<div class="h4 font-default text-bold">
-					<span>Total: </span>
-					<span>$</span>
-					<span class="total">{{Total(filterAry)}}</span>
+					<span class="total" ng-bind="'Total:'+Total(filterAry)"></span>
 				</div>
 			</div>
 		</div>
@@ -63,15 +61,28 @@
 							  </div>
 							  <div class="form-group">
 								<label for="o_phone" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_phone}></label>
-								<input id="o_phone" type="text" ng-model="data.o_phone" placeholder="<{$shopLanguageAry.shopcart_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+								<input id="o_phone" type="text" ng-model="data.o_phone" placeholder="<{$shopLanguageAry.shopcart_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+								<span class="form-validation"></span>
 							  </div>
 							</div>
 							<div class="form-group offset-top-15">
-							  <label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_message}></label>
-							  <textarea id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"></textarea><span class="form-validation"></span>
+								<div class="form-inline-flex">
+									 <div class="form-group">
+										<label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
+										<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child">
+											<option value="0">請選擇</option>
+											<option data-y="{{position.p_lat}}"    data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_message}></label>
+										<input type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge"  class="form-control form-control-has-validation form-control-last-child">
+										<span class="form-validation"></span>
+									</div>
+								</div>
 							</div>
-							<div class="offset-top-15">
-								<div ng-init="mapinit()" data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
+							<div class="offset-top-15" >
+								<div ng-init="mapinit()"  data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
 									<ul class="map_locations">
 									  <li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
 										<p data-position_id ="1">
@@ -85,13 +96,6 @@
 							</div>
 							<div class="offset-top-15">
 								<div class="form-inline-flex">
-									<div class="form-group offset-top-15">
-										<label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
-										<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child">
-											<option value="0">請選擇</option>
-											<option data-y="{{position.p_lat}}"    data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
-										</select>
-									</div>
 									<div class="form-group">
 										<button ng-click="checkout();$event.preventDefault();"  class="btn btn-primary btn-fullwidth"><{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
 									</div>

@@ -26,11 +26,12 @@ class Mysmarty
 		
 		$this->assign(array(
 			'language'	=>$language_ary,
-			'language_js_ary'	=>$language_js_ary,
-			'randseed'	=>$this->randseed,
-			'fb_app_id'=>$fb_app_id,
-			'fb_app_key'=>$fb_app_key,
-			'fb_version'=>$fb_version,
+			'language_js_ary'		=>$language_js_ary,
+			'randseed'				=>$this->randseed,
+			'fb_app_id'				=>$fb_app_id,
+			'fb_app_key'			=>$fb_app_key,
+			'fb_version'			=>$fb_version,
+	
 		));
 		$this->smarty->clearAllCache();
 		$this->smarty->display($tpl);
@@ -44,6 +45,8 @@ class Mysmarty
 		$fb_app_id =$this->CI->config->item('fb_app_id');
 		$fb_app_key =$this->CI->config->item('fb_app_key');
 		$fb_version =$this->CI->config->item('fb_version');
+		$fb_version =$this->CI->config->item('fb_version');
+		$google_map_api_key=$this->CI->config->item('google_map_api_key');
 		$website =$this->CI->config->item('website');
 		$this->CI->load->model('Food_Model', 'food');
 		$category = $this->CI->food->getCategory();
@@ -56,7 +59,8 @@ class Mysmarty
 			'fb_app_key'=>$fb_app_key,
 			'fb_version'=>$fb_version,
 			'category'	=>$category,
-			'website'	=>$website
+			'website'	=>$website,
+			'google_map_api_key'	=>$google_map_api_key
 		));
 		$this->smarty->clearAllCache();
 		$this->smarty->display('Frontend/frame.tpl');

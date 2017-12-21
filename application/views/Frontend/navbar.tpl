@@ -37,12 +37,6 @@
 					  </div>
 					</div>
 				  </li>
-				  <li>
-					<ul class="list-inline list-inline-sm">
-					  <li><a  target="_blank" href="https://www.facebook.com/Sihalive-187813995113064/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-facebook"></span></a></li>
-					  <li><a  target="blank" href="/Login/" class="link-silver-light"><span class="icon icon-sm-mod-1 fa fa-user"></span></a></li>
-					</ul>
-				  </li>
 				</ul>
 			  </div>
 			</div>
