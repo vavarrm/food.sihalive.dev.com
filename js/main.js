@@ -150,6 +150,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 	
 	$scope.mapinit = function()
 	{	
+		
 		$.ajax({
 			async: false,
 			type: 'GET',
@@ -730,6 +731,7 @@ sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope',loginCt
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'User',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
 sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
+// sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
 
 
 function global(odj)

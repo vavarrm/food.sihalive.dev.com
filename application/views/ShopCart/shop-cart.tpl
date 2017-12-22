@@ -85,10 +85,11 @@
 								<div ng-init="mapinit()"  data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
 									<ul class="map_locations">
 									  <li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
-										<p data-position_id ="1">
+										<p data-position_id ="1" style="width: 200px; text-align:  center;">
 											<span class="icon">
 												<img src="/images/gmap-24x34.png" alt="" width="24" height="34"/>
-											</span>267 Park Avenue New York, NY 90210
+											</span>
+											<span style="width:28px">{{position.p_name}}</span>
 										</p>
 									  </li>
 									</ul>

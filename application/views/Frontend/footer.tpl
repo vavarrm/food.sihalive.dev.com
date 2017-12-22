@@ -16,6 +16,7 @@
 				<address class="contact-info">
 					<a href="callto:#" class="link-white link-lg"><{$website.phone}></a>
 				</address>
+					<span class="contact-info"><{$language.text_open_hour}></span>
 			  </div>
 			</div>
 		  </div>

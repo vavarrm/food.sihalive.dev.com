@@ -25,6 +25,8 @@
 	$lang['text_search_conditions'] = "搜尋條件";
 	$lang['text_function'] = "功能列";
 	$lang['text_name'] = "姓名";
+	$lang['text_username_or_email'] = "使用者名稱或信箱";
+	$lang['text_password'] = "密碼";
 	$lang['text_enter_name'] = "請輸入姓名";
 	$lang['text_phone'] = "電話";
 	$lang['text_enter_phone'] = "請輸入電話";
@@ -33,6 +35,9 @@
 	$lang['text_email'] = "電子郵件";
 	$lang['text_enter_email'] = "請輸入電子郵件";
 	$lang['text_your_follow_us'] = "關注我們";
+	$lang['text_login'] = "登入";
+	$lang['text_open_hour'] = "Mon – Sat: 9:00–21:00";
+	$lang['text_reg'] = "註冊";
 	$lang['text_contacts'] = "連繫我們";
 	$lang['button_text_send'] = "送出";
 	$lang['add_cart'] = "加入購物車";

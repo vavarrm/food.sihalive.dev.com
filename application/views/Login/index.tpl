@@ -23,16 +23,6 @@
 							<span class="icon icon-lg fa-facebook"></span>
 							<span>Facebook</span>
 						</a>
-						<{*
-						<a href="#" class="btn btn-twitter btn-icon btn-icon-left">
-							<span class="icon icon-xs fa-twitter"></span>
-							<span>Twitter</span>
-						</a>
-						<a href="#" class="btn btn-google-plus btn-icon btn-icon-left">
-							<span class="icon icon-xs fa-google-plus"></span>
-							<span>Google +</span>
-						</a>
-						*}>
 					</div>
 				  <div class="divider-custom offset-top-30">
 					<p class="small text-uppercase">Or</p>
