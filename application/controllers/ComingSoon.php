@@ -10,7 +10,8 @@ class ComingSoon extends CI_Controller {
 	
 	public function index()
 	{
-		
+		header("Location: https://www.facebook.com/Happy-Cafe-1625286631132025/"); 
+		exit;
 		$this->smarty->display(__CLASS__.'/coming-soon.tpl');
 	}
 }
