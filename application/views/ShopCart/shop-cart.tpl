@@ -86,9 +86,6 @@
 									<ul class="map_locations">
 									  <li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
 										<p data-position_id ="1" style="width: 200px; text-align:  center;">
-											<span class="icon">
-												<img src="/images/gmap-24x34.png" alt="" width="24" height="34"/>
-											</span>
 											<span style="width:28px">{{position.p_name}}</span>
 										</p>
 									  </li>
