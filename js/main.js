@@ -33,7 +33,6 @@ var isUserExistApi ="/api/isUserExist/";
 var isEmailExistApi ="/api/isEmailExist/";
 var setProfileApi ="/api/setProfile/";
 var getOrderList ="/api/getOrderList/";
-var getOrderList ="/api/getOrderList/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -49,7 +48,6 @@ sihaliveApp.factory('User',['$cookies','$rootScope' , function($cookies, $rootSc
 			dataType: 'json',
 			url: GetUserApi+'?sess='+sess ,
 			success: function (data) {
-				// console.log(data);
 				if(data.status =="200")
 				{
 					user = data['body']['user_data'];
@@ -67,7 +65,7 @@ sihaliveApp.factory('User',['$cookies','$rootScope' , function($cookies, $rootSc
 	return user;
 }])
 
-var productPageCtrl = function($scope, $cookies, $rootScope){
+var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 	
 	$scope.selectPrice = function(price, $event)
 	{
@@ -75,8 +73,52 @@ var productPageCtrl = function($scope, $cookies, $rootScope){
 		$('.resp-tab-item.resp-tab-active').removeClass('resp-tab-active');
 	}
 	
-	$scope.click = function(f_id, order_num, price, f_name) 
+	$scope.order_set= function(f_id, order_num, price, f_name, is_set) 
 	{	
+		 var promise = apiService.getSetList(f_id);
+		 promise.then
+		(
+			function(r) { 
+				var obj = {
+				};
+				$scope.setList = r.data.body.rows;
+				$( "#setdialog" ).dialog(obj).removeClass('hidden');
+			},
+			function(errorPayload) {
+           
+			}
+		)
+	}
+	
+	$scope.click = function(f_id, order_num, price, f_name, is_set) 
+	{	
+		var set_include = new Array();
+		var set_select_empty = false;
+		var error
+		if(typeof is_set != 'undefined' && is_set == '1')
+		{
+			
+			$.each($('.setSelect'), function(i, e){
+				
+				if($(e).val() =="")
+				{
+					error = js_please_select+$(e).prev().text();
+					set_select_empty  = true;
+					return  false;
+				}
+				var f_name = $(e).find("option:selected").text();
+				set_include.push({"f_id":$(e).val(),'f_name':f_name});
+			})
+		}
+		
+		if(set_select_empty == true)
+		{
+			var obj = {
+					message : error
+				}
+			dialog(obj)
+		}
+		
 		if(order_num =='na')
 		{
 			order_num = $('#order_num').val();
@@ -85,7 +127,9 @@ var productPageCtrl = function($scope, $cookies, $rootScope){
 			f_id : f_id,
 			order_num  :  order_num,
 			price: price,
-			f_name:f_name
+			f_name:f_name,
+			is_set:is_set,
+			set_include :set_include
 		};
 		var shopcart =  $cookies.getObject('shopcart');
 		var isadd = false;
@@ -159,7 +203,6 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 			contentType: "application/json",
 			success: function (data) {
 				$scope.positions = data['body']['data']['positions'];
-				// console.log($scope.positions);
 			},
 			error: function (data) {
 				
@@ -316,7 +359,6 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 		if($scope.ischeckout !=true)
 		{
 			var shopcart =  $cookies.getObject('shopcart');
-			// console.log(shopcart);
 			angular.forEach($('input[data-index]'), function(item, index){
 				shopcart[index].order_num = $(item).val();
 			})
@@ -325,7 +367,9 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 				'o_consignee'	: $('input[name=o_consignee]').val(),
 				'o_phone'	: $('input[name=o_phone]').val(),
 				'o_message'	: $('#message').val(),
-				'o_position_id'	: $('#o_position_id').val()
+				'o_position_id'	: $('#o_position_id').val(),
+				'o_lat'		:$('input[name=c_lat]').val(),
+				'o_lng'		:$('input[name=c_lng]').val(),
 			};
 			var sess = $cookies.get('sess');
 			$scope.ischeckout = true;
@@ -381,7 +425,6 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 };
 
 var navCtrl = function($scope, $cookies, $rootScope, User){
-	// console.log(User);
 	$scope.data = {
 		islogin : false
 	}
@@ -725,13 +768,27 @@ sihaliveApp.controller('userCtrl', ['$scope' , '$cookies', '$rootScope', 'User',
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
-sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', productPageCtrl]);
+sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', 'apiService', productPageCtrl]);
 sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
 sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope',loginCtrl]);
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'User',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
 sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
 // sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
+
+var apiService = function($http)
+{
+	var apiUrl = {
+		
+	};
+	return {
+		getSetList: function(f_id){
+			return $http.get('/Api/getSetList?f_id='+f_id);
+		}
+    };
+}
+sihaliveApp.factory('apiService', ['$http',apiService]);
+
 
 
 function global(odj)

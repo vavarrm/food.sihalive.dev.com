@@ -54,7 +54,7 @@
 </section>
 <section class="section-50 section-sm-top-90 section-sm-bottom-100 bg-image-6">
   <div class="shell text-center">
-	<h3>Our Menu</h3>
+	<h3><{$mainpage_language_ary.our_menu}></h3>
 	<div class="range range-xs-center">
 		<{foreach from=$category item=row key=index}>
 			<div class="cell-sm-6 cell-md-4  offset-top-50">

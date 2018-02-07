@@ -74,32 +74,30 @@
 				<{/foreach}>
 			  </ul>
 			</li>
-			<{*
 			<li>
-				<a href="#">Language</a>
+				<a href="#"><{$language.nav_language}></a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
 					<li >
 						<a ng-click="setLanguage('en')">english</a>
 					</li>
 					<li>
-						<a ng-click="setLanguage('zh-cn')">chinese</a>
+						<a ng-click="setLanguage('zh-cn')">简体中文</a>
 					</li>
 				</ul>
 			</li>
-			*}>
 			<li  ng-show="islogin" >
 				<a href="#"><{$language.nav_user}></a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
 					<li>
-						<a href="/Food/orderList">orderlist</a>
+						<a href="/Food/orderList"><{$language.nav_user_orderlist}></a>
 					</li>
 					<li>
-						<a href="/User/Profile">Profile</a>
+						<a href="/User/Profile"><{$language.nav_user_profile}></a>
 					</li>
 					<li>
-						<a ng-click="logout()">logout</a>
+						<a ng-click="logout()"><{$language.nav_user_logout}></a>
 					</li>
 				</ul>
 			</li>

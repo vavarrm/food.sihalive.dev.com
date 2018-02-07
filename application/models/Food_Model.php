@@ -8,6 +8,29 @@
 			$this->load->database();
 		}
 	
+		public function getSetList($f_id)
+		{
+			$sql="	SELECT 
+						f.f_id, 
+						f.f_name setName,
+						f.f_large_price,
+						fs.fs_child_f_id , 
+						f2.f_name , 
+						ca.ca_name, 
+						fs.fs_group_id 
+					FROM `food` AS f 
+						INNER JOIN food_set AS fs ON f.`f_id`  = fs.fs_parent_f_id
+						INNER JOIN food AS f2 ON f2.f_id = fs.fs_child_f_id
+						INNER JOIN category AS ca ON ca.ca_id = f2.ca_id
+					WHERE f.f_id = ?
+					ORDER BY fs.fs_group_id ASC , fs.fs_child_f_id  ASC";
+			$bind = array($f_id);
+			$query = $this->db->query($sql, $bind);
+			$row =  $query->result_array();
+			$query->free_result();
+			return $row;
+		}
+		
 		public function getLastOid()
 		{
 			$sql = 'SELECT 
@@ -36,39 +59,91 @@
 				$row['o_id']+=1;
 			}
 			
-			$sql="INSERT INTO order_list (o_id,o_datetime, u_id, o_consignee, o_phone, o_messge, o_position_id) VALUES(?,NOW(), ?, ?, ?, ?, ?)";
+			$sql="INSERT INTO order_list (o_id,o_datetime, u_id, o_consignee, o_phone, o_messge, o_position_id, o_lat, o_lng) 
+						VALUES(?,NOW(), ?, ?, ?, ?, ?, ?, ?)";
 			$bind = array(
 				$row['o_id'],
 				$ary['u_id'],
 				$ary['o_consignee'],
 				$ary['o_phone'],
 				$ary['o_message'],
-				$ary['o_position_id']
+				$ary['o_position_id'],
+				$ary['o_lat'],
+				$ary['o_lng'],
 			);
 			$query = $this->db->query($sql, $bind);
 		
-
+			$in_f_id = array();
 			if(!empty($ary['order_list']))
 			{
+				$index =0;
+				$total_sql="";
 				foreach($ary['order_list'] as  $key => $value )
 				{
-					if(!isset($value['discount']))
+					if($value['is_set']==1)
 					{
-						$value['discount'] = 1;
+						if(!empty($value['set_include']))
+						{
+							
+							foreach($value['set_include'] as $include)
+							{
+								$index++;
+								$sql ="SELECT * FROM food WHERE f_id =?";
+								$bind = array( $include['f_id']);
+								$query = $this->db->query($sql, $bind);
+								$temp =  $query->row_array();
+								$query->free_result();
+								$sql ="INSERT INTO order_detail(o_id, od_item_index, od_f_id, od_num, od_price, od_discount, od_add_datetime ,od_is_set	)
+									   VALUES(?, ?, ?, ?, ?, ?, NOW() ,'1')";
+								$insert = array(
+									$row['o_id'] ,
+									$index,
+									$temp['f_id'],
+									$value['order_num'],
+									$temp['f_large_price'],
+									$temp['f_discount'],
+								);
+								$query = $this->db->query($sql, $insert);
+							}
+							$total_sql[] =sprintf("SELECT	f_large_price*f_discount AS price FROM food WHERE f_id = %s", $value['f_id']);
+						}
+					}else
+					{
+						$index++;
+						$sql ="SELECT * FROM food WHERE f_id =?";
+						$bind = array($value['f_id']);
+						$query = $this->db->query($sql, $bind);
+						$temp =  $query->row_array();
+						$query->free_result();
+						$sql ="INSERT INTO order_detail(o_id, od_item_index, od_f_id, od_num, od_price, od_discount, od_add_datetime	)
+							   VALUES(?, ?, ?, ?, ?, ?, NOW())";
+						$insert = array(
+							$row['o_id'] ,
+							$index,
+							$temp['f_id'],
+							$value['order_num'],
+							$temp['f_large_price'],
+							$temp['f_discount'],
+						);
+						$query = $this->db->query($sql, $insert);
+						$total_sql[] =sprintf("SELECT	f_large_price*f_discount AS price FROM food WHERE f_id = %s", $temp['f_id']);
+						
 					}
-					$sql ="INSERT INTO order_detail(o_id, od_item_index, f_id, od_num, od_price, od_discount, od_add_datetime	)
-						   VALUES(?, ?, ?, ?, ?, ?, NOW())";
-					$insert = array(
-						$row['o_id'] ,
-						$key+1,
-						$value['f_id'],
-						$value['order_num'],
-						$value['price'],
-						$value['discount'],
-					);
-					$query = $this->db->query($sql, $insert);
 				}
 			}
+			
+			$total_sql =  "SELECT SUM(price) as total FROM (".join(' UNION ALL ' , $total_sql).") AS t1";
+			$query = $this->db->query($total_sql);
+			$temp =  $query->row_array();
+			$query->free_result();
+			
+			$sql = "UPDATE order_list SET o_total =? WHERE o_id =?";
+			$bind = array(
+				$temp['total'],
+				$row['o_id']
+			);
+			$query = $this->db->query($sql , $bind);
+			
 			$this->db->trans_complete();
 			if ($this->db->trans_status()===  FALSE)
 			{ 
@@ -106,7 +181,7 @@
 		
 		public function getFoodForMenu($where = array())
 		{
-			$where_str =" 1 = 1 AND f_is_del='0'";
+			$where_str =" 1 = 1 AND f_is_del='0' AND f_status='sale_on'";
 			if(!empty($where) )
 			{
 				foreach($where as $key =>$vale)

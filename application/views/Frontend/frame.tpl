@@ -14,7 +14,7 @@
 		<meta property="og:description"   content="	11" />
 		<meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
 		<{include file="Frontend/meta.tpl"}>
-		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 		<!-- Stylesheets-->
 		<{include file="Frontend/css.tpl"}>
 		<!--[if lt IE 10]>

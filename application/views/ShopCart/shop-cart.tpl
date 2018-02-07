@@ -17,7 +17,8 @@
 		  </div>
 		  <div class="col-xs-4  text-left">
 				<div class="h5 text-sbold offset-top-20 ">
-					<span  class=" grid-element-mod-2"　ng-bind="item.f_name"></span>
+					<span  class=" grid-element-mod-2">{{item.f_name}}</span>
+		
 				</div>
 				<div class="offset-top-0">
 					<span class="h5 text-sbold" ng-bind="'$'+item.price"></span>
@@ -25,7 +26,7 @@
 		  </div>
 		  <div class="col-xs-2  text-left">
 				<div class="h5 text-sbold offset-top-20 ">
-					<span  class=" grid-element-mod-2">Subtotal</span>
+					<span  class="h5"><{$shopLanguageAry.shopcart_subtotal}></span>
 				</div>
 				<div class="offset-top-0">
 					<span class="h5 text-sbold">$<span>
@@ -39,9 +40,9 @@
 		  </div>
 		</div>
 		<div  class="row grid-system-row offset-top-50 text-right">
-			<div class="col-xs-12">
+			<div class="col-xs-10">
 				<div class="h4 font-default text-bold">
-					<span class="total" ng-bind="'Total:'+Total(filterAry)"></span>
+					<span class="total" ng-bind="'<{$shopLanguageAry.shopcart_total}>:'+Total(filterAry)"></span>
 				</div>
 			</div>
 		</div>
@@ -99,6 +100,8 @@
 									</div>
 								</div>
 							</div>
+							<input name="c_lat" type="hidden">
+							<input name="c_lng" type="hidden">
 						</form>
 					</div>
 				  </div>

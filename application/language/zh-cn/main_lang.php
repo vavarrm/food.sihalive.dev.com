@@ -1,18 +1,20 @@
 <?php
 	$lang['website_name'] = "西哈生活";
 	$lang['website_title_menu'] = "菜單頁";
+	$lang['website_slogan'] = "快速、可靠的外送服务";
 	$lang['website_alert_title'] = "系統提示";
 	
 	$lang['nav_home'] = "首页";
 	$lang['nav_about'] = "关于我们";
 	$lang['nav_menu'] = "菜單";
 	$lang['nav_contact'] = "联络我们";
+	$lang['nav_language'] = "语言";
 	$lang['nav_login'] = "登入";
 		
 	$lang['nav_user']  = "使用者";
 	$lang['nav_user_orderlist'] ='訂單列表';
 	$lang['nav_user_profile'] ='個人資料';
-	$lang['nav_user_logout'] ='登出';
+	$lang['nav_user_logout'] ='注销';
 	
 	$lang['shop_menu'] = "菜单点餐";
 	$lang['shop_link'] = "店家资料";
@@ -39,6 +41,10 @@
 	$lang['text_open_hour'] = "Mon – Sat: 9:00–21:00";
 	$lang['text_reg'] = "註冊";
 	$lang['text_contacts'] = "連繫我們";
+	$lang['select_0'] = "请选择";
 	$lang['button_text_send'] = "送出";
 	$lang['add_cart'] = "加入購物車";
+	$lang['button_ok'] = "确定";
+	$lang['text_choose_your_category'] = "选择食物类别";
+	$lang['text_filter'] = "请选择";
 ?>

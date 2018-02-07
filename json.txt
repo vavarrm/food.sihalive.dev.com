@@ -1,0 +1,1077 @@
+{
+    "status": "ok",
+    "data": [
+        {
+            "spot_id": "1782146444",
+            "lat": "10.616248",
+            "lng": "103.523762",
+            "name": "333 Apartments",
+            "description": "333 Apartments. Big building close to football field.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1769170249",
+            "lat": "10.633302",
+            "lng": "103.517312",
+            "name": "360 Resort",
+            "description": "360 Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1407714640",
+            "lat": "10.604387",
+            "lng": "103.534692",
+            "name": "7 Jan Boutique",
+            "description": "7 Jan Boutique",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1767510256",
+            "lat": "10.613765",
+            "lng": "103.530819",
+            "name": "Adidas Gym",
+            "description": "Adidas Gym",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1261182581",
+            "lat": "10.608961",
+            "lng": "103.525618",
+            "name": "Aqua Resort",
+            "description": "Aqua Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1200591286",
+            "lat": "10.607372",
+            "lng": "103.521362",
+            "name": "Aristocrat Residence and Hotel",
+            "description": "Aristocrat Residence and Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1663456985",
+            "lat": "10.634437",
+            "lng": "103.504662",
+            "name": "Backpacker Heaven",
+            "description": "Backpacker Heaven",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1786092403",
+            "lat": "10.5802",
+            "lng": "103.545946",
+            "name": "Bamboo Shack Bar & Restaurant",
+            "description": "Bamboo Shack Bar & Restaurant, Otres 1",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1210604483",
+            "lat": "10.60621",
+            "lng": "103.525464",
+            "name": "Bao Mai Resort & Casino",
+            "description": "Bao Mai Resort & Casino",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1776833398",
+            "lat": "10.607195",
+            "lng": "103.525964",
+            "name": "Beach Club Resort",
+            "description": "Beach Club Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1048546806",
+            "lat": "10.609736",
+            "lng": "103.522925",
+            "name": "Beach Road Hotel",
+            "description": "Beach Road Hotel, Serendipity Beach Road",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1717903463",
+            "lat": "10.607223",
+            "lng": "103.521589",
+            "name": "Benny's City Hotel",
+            "description": "Benny's City Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1711676077",
+            "lat": "10.615223",
+            "lng": "103.523124",
+            "name": "Blue Coconuts Residence",
+            "description": "Blue Coconuts Residence. Blue building.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1295587528",
+            "lat": "10.568904",
+            "lng": "103.558023",
+            "name": "BOHO Hostel, Kitchen & Bar",
+            "description": "BOHO Hostel, Kitchen & Bar",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1462388558",
+            "lat": "10.576818",
+            "lng": "103.550112",
+            "name": "Bower Bar & Resort",
+            "description": "Bower Bar & Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "261728392",
+            "lat": "10.606354",
+            "lng": "103.548787",
+            "name": "BS Holiday Villa & Condominium",
+            "description": "BS Holiday Villa & Condominium. On the hill at Sihanoukville’s O2 area behind the market on the way to Otres beach.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1457614919",
+            "lat": "10.622904",
+            "lng": "103.517934",
+            "name": "Chandara Guest House",
+            "description": "Chandara Guest House",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1377164470",
+            "lat": "10.615878",
+            "lng": "103.548659",
+            "name": "Chhea Bun Yi Apartments",
+            "description": "Chhea Bun Yi Apartments",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1341262553",
+            "lat": "10.607842",
+            "lng": "103.521699",
+            "name": "Chochi Garden",
+            "description": "Chochi Garden",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1301130040",
+            "lat": "10.618266",
+            "lng": "103.525127",
+            "name": "Cider Shack",
+            "description": "Cider Shack",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1332987068",
+            "lat": "10.606075",
+            "lng": "103.518471",
+            "name": "Cloud 9",
+            "description": "Cloud 9",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1396710695",
+            "lat": "10.615186",
+            "lng": "103.523022",
+            "name": "Coconut Sand Residence",
+            "description": "Coconut Sand Residence. Next to Happy World.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1065938292",
+            "lat": "10.608931",
+            "lng": "103.522382",
+            "name": "Coolabah Resort",
+            "description": "Coolabah Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1953423366",
+            "lat": "10.61315",
+            "lng": "103.522051",
+            "name": "Cozy Resort",
+            "description": "Cozy Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1140466305",
+            "lat": "10.627272",
+            "lng": "103.522464",
+            "name": "CT Polyclinic",
+            "description": "CT Polyclinic",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1236624941",
+            "lat": "10.627946",
+            "lng": "103.521206",
+            "name": "Days Inn",
+            "description": "Days Inn",
+            "instructions": ""
+        },
+        {
+            "spot_id": "472839102",
+            "lat": "10.614195",
+            "lng": "103.522798",
+            "name": "Deluxx Boutique Hotel",
+            "description": "Deluxx Boutique Hotel, down the small street opposite Golden Lion Gym.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1368084497",
+            "lat": "10.615053",
+            "lng": "103.52401",
+            "name": "Deluxx Boutique Residence",
+            "description": "Deluxx Boutique Residence, white building.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1078178844",
+            "lat": "10.630072",
+            "lng": "103.50496",
+            "name": "Diamond Sea Hotel And Casino",
+            "description": "Diamond Sea Hotel And Casino",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1424954190",
+            "lat": "10.626579",
+            "lng": "103.529172",
+            "name": "Don Bosco Guesthouse",
+            "description": "Don Bosco Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1157032622",
+            "lat": "10.611109",
+            "lng": "103.547393",
+            "name": "Don Bosco Hotel School",
+            "description": "Don Bosco Hotel School",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1154792585",
+            "lat": "10.625499",
+            "lng": "103.523395",
+            "name": "Downtown Suites",
+            "description": "Downtown Suites. Go down small alley to reach building.\r\nGates are locked after 8 PM",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1998983110",
+            "lat": "10.631571",
+            "lng": "103.503031",
+            "name": "Eden's Garden",
+            "description": "Eden's Garden",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1240870814",
+            "lat": "10.579724",
+            "lng": "103.546856",
+            "name": "Eolia Beach Bungalows Resort",
+            "description": "Eolia Beach Bungalows Resor",
+            "instructions": ""
+        },
+        {
+            "spot_id": "261728182",
+            "lat": "10.60802",
+            "lng": "103.521452",
+            "name": "Family Bungalow",
+            "description": "Family Bungalow, Serendipity Beach Road. Opposite Holiday Villa Nataya.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1242634620",
+            "lat": "10.632223",
+            "lng": "103.514063",
+            "name": "Fitness Resort Sihanoukville",
+            "description": "Fitness Resort Sihanoukville",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1451266160",
+            "lat": "10.561858",
+            "lng": "103.557794",
+            "name": "Footprints Hostel",
+            "description": "Footprints Hostel, Otres 2",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1612566294",
+            "lat": "10.614667",
+            "lng": "103.523386",
+            "name": "Fun Buggy's",
+            "description": "Fun Buggy's",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1486729923",
+            "lat": "10.622356",
+            "lng": "103.525865",
+            "name": "G'Day Mate Guesthouse",
+            "description": "G'Day Mate Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1318763010",
+            "lat": "10.614554",
+            "lng": "103.522876",
+            "name": "Germes Nonalcoholspace Guesthouse",
+            "description": "Germes Nonalcoholspace Guesthouse, above Peace Food Cafe",
+            "instructions": ""
+        },
+        {
+            "spot_id": "526182381",
+            "lat": "10.615601",
+            "lng": "103.525125",
+            "name": "Golden Lion Gym",
+            "description": "Golden Lion Gym, 300 meters from Sunday Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1475781752",
+            "lat": "10.557645",
+            "lng": "103.560969",
+            "name": "Golden River Bungalow",
+            "description": "Golden River Bungalow, Otres II",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1870956705",
+            "lat": "10.608528",
+            "lng": "103.525064",
+            "name": "Golden Sand Hotel",
+            "description": "Golden Sand Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1381660541",
+            "lat": "10.636770967856684",
+            "lng": "103.50278735261656",
+            "name": "Golden Sea Hotel & Casino",
+            "description": "Golden Sea Hotel & Casino",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1166279900",
+            "lat": "10.615083",
+            "lng": "103.525198",
+            "name": "Golden Star Inn",
+            "description": "Golden Star Inn",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1559515238",
+            "lat": "10.602512",
+            "lng": "103.530386",
+            "name": "Grand Seagull Hotel",
+            "description": "Grand Seagull Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1746737757",
+            "lat": "10.568562",
+            "lng": "103.560663",
+            "name": "Hacienda",
+            "description": "Hacienda, opposite Otres Market",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1717068826",
+            "lat": "10.617403",
+            "lng": "103.551939",
+            "name": "Hilton Park Villa",
+            "description": "Hilton Park Villa",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1388346260",
+            "lat": "10.610458",
+            "lng": "103.503013",
+            "name": "Holiday Palace Casino & Resort",
+            "description": "Holiday Palace Casino & Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1763967773",
+            "lat": "10.607914",
+            "lng": "103.521812",
+            "name": "Holiday Villa Nataya",
+            "description": "Holiday Villa Nataya",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1652747278",
+            "lat": "10.615366",
+            "lng": "103.528794",
+            "name": "Idea Source School",
+            "description": "Idea Source School",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1969303985",
+            "lat": "10.615381",
+            "lng": "103.523059",
+            "name": "Jerry's Place",
+            "description": "Jerry's Place. Small 2 floor building.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1649189300",
+            "lat": "10.559033",
+            "lng": "103.560406",
+            "name": "Jully Anna Guesthouse",
+            "description": "Jully Anna Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1669847417",
+            "lat": "10.631782",
+            "lng": "103.512904",
+            "name": "Kim Chi Bungalows",
+            "description": "Kim Chi Bungalows",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1383980004",
+            "lat": "10.617126",
+            "lng": "103.54314",
+            "name": "Kim Hour GuestHouse",
+            "description": "Kim Hour GuestHouse. Small blue building on the right side of the road, no visible name outside.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1652506019",
+            "lat": "10.626632",
+            "lng": "103.522357",
+            "name": "King Gold Hotel & Apartment Sihanoukville",
+            "description": "King Gold Hotel & Apartment Sihanoukville",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1336063998",
+            "lat": "10.607815",
+            "lng": "103.526685",
+            "name": "Landscape Boutique Hotel",
+            "description": "Landscape Boutique Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1635162167",
+            "lat": "10.632173",
+            "lng": "103.521641",
+            "name": "Life University",
+            "description": "Life University",
+            "instructions": ""
+        },
+        {
+            "spot_id": "726182915",
+            "lat": "10.60841",
+            "lng": "103.522475",
+            "name": "Lion City Casino",
+            "description": "Lion City Casino, Occheuteal Street #500",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1923921358",
+            "lat": "10.577882",
+            "lng": "103.549547",
+            "name": "Magic Tree Bungalows",
+            "description": "Magic Tree Bungalows",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1133849597",
+            "lat": "10.56243",
+            "lng": "103.558863",
+            "name": "Mangrove River Resort",
+            "description": "Mangrove River Resort. Otres 2",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1217686362",
+            "lat": "10.608402",
+            "lng": "103.524272",
+            "name": "Miiya Hotel",
+            "description": "Miiya Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1704998617",
+            "lat": "10.618682",
+            "lng": "103.548679",
+            "name": "Mila Residences",
+            "description": "Mila Residences, above Sovady Gold restaurant.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1787770824",
+            "lat": "10.621075",
+            "lng": "103.528695",
+            "name": "Milk and Honey School",
+            "description": "Milk and Honey School. Street 212",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1372499596",
+            "lat": "10.6156",
+            "lng": "103.522871",
+            "name": "Mister Brent's Place",
+            "description": "Mister Brent's Place. Brown/black gate.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1920259868",
+            "lat": "10.617575",
+            "lng": "103.527785",
+            "name": "Mlou Boutique Apartment",
+            "description": "Mlou Boutique Apartment - No 78, Street 206, Sangkat 04",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1053487819",
+            "lat": "10.620763",
+            "lng": "103.540974",
+            "name": "Mongkul Apartment",
+            "description": "Mongkul Apartment",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1648353026",
+            "lat": "10.608938",
+            "lng": "103.530932",
+            "name": "Mony Apartments",
+            "description": "Mony Apartments. Small 4-floor building close to the fields",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1506520186",
+            "lat": "10.609023",
+            "lng": "103.524612",
+            "name": "Moon Julie Hotel",
+            "description": "Moon Julie Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1460932639",
+            "lat": "10.635898",
+            "lng": "103.515142",
+            "name": "NA Boutique Hotel",
+            "description": "NA Boutique Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1510108961",
+            "lat": "10.558815",
+            "lng": "103.560024",
+            "name": "Naia Resort",
+            "description": "Naia Resort, Otres 2",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1410899315",
+            "lat": "10.626186",
+            "lng": "103.499957",
+            "name": "Nest Apartments",
+            "description": "Nest Apartments",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1724214248",
+            "lat": "10.63568",
+            "lng": "103.512736",
+            "name": "Nevada Home",
+            "description": "Nevada Home",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1034963007",
+            "lat": "10.567425",
+            "lng": "103.559205",
+            "name": "New Papa Pippo Resort",
+            "description": "New Papa Pippo Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1096792316",
+            "lat": "10.607882",
+            "lng": "103.523016",
+            "name": "Nice Beach Hotel",
+            "description": "Nice Beach Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1393479572",
+            "lat": "10.607556",
+            "lng": "103.525897",
+            "name": "OC Boutique Hotel",
+            "description": "OC Boutique Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1747352320",
+            "lat": "10.613425",
+            "lng": "103.521482",
+            "name": "Ocean View",
+            "description": "Ocean View. Building behind the fields.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1473028372",
+            "lat": "10.624937",
+            "lng": "103.518183",
+            "name": "OGA Bar",
+            "description": "OGA Bar",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1490140237",
+            "lat": "10.566609",
+            "lng": "103.560772",
+            "name": "OmHome",
+            "description": "OmHome",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1172614888",
+            "lat": "10.611274",
+            "lng": "103.523827",
+            "name": "One Stop Hostel Sihanoukville",
+            "description": "One Stop Hostel Sihanoukville",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1200723112",
+            "lat": "10.606122",
+            "lng": "103.526992",
+            "name": "Orchidee Guest House",
+            "description": "Orchidee Guest House",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1235691203",
+            "lat": "10.609417",
+            "lng": "103.524055",
+            "name": "Oriental Pearl Casino",
+            "description": "Oriental Pearl Casino",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1516586966",
+            "lat": "10.581144",
+            "lng": "103.54541",
+            "name": "Otres Corner Last Hippie Standing",
+            "description": "Otres Corner Last Hippie Standing, Otres 1",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1954575649",
+            "lat": "10.578659",
+            "lng": "103.547654",
+            "name": "Otres Lodge",
+            "description": "Otres Lodge",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1216569000",
+            "lat": "10.632771",
+            "lng": "103.50238",
+            "name": "Out of the Blue Retreat",
+            "description": "Out of the Blue Retreat, Victory Hill",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1236199947",
+            "lat": "10.570151",
+            "lng": "103.557405",
+            "name": "Palm Boutique",
+            "description": "Palm Boutique. Otres Village.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "827391827",
+            "lat": "10.6060456",
+            "lng": "103.5197973",
+            "name": "Paradise New Life on the Beach",
+            "description": "Serendipity Beach",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1896303268",
+            "lat": "10.614463",
+            "lng": "103.522925",
+            "name": "Patchouly Chill House",
+            "description": "Patchouly Chill House",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1974734291",
+            "lat": "10.620197",
+            "lng": "103.520329",
+            "name": "Phun Om Net Apartment",
+            "description": "Phun Om Net Apartment",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1205043747",
+            "lat": "10.617629",
+            "lng": "103.523593",
+            "name": "Power House 2 Apartments",
+            "description": "Power House 2 Apartments, down small alley opposite Chamka Spey Restaurant",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1185337382",
+            "lat": "10.615758",
+            "lng": "103.527646",
+            "name": "Power House Guesthouse",
+            "description": "Power House Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "726182918",
+            "lat": "10.637425",
+            "lng": "103.501019",
+            "name": "Queenco Hotel & Casino",
+            "description": "Queenco Hotel & Casino, Victory Beach",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1383863677",
+            "lat": "10.614575",
+            "lng": "103.524559",
+            "name": "Reaksmey Mean Rith Guesthouse",
+            "description": "Reaksmey Mean Rith Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1659632366",
+            "lat": "10.610073",
+            "lng": "103.522132",
+            "name": "Reef Resort",
+            "description": "Reef Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1129739123",
+            "lat": "10.558141",
+            "lng": "103.56025",
+            "name": "Ren Resort",
+            "description": "Ren Resort",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1182336821",
+            "lat": "10.609618",
+            "lng": "103.522014",
+            "name": "Sakal Guesthouse",
+            "description": "Sakal Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1422464429",
+            "lat": "10.568864",
+            "lng": "103.558602",
+            "name": "Sandy Clay Bungalows",
+            "description": "Sandy Clay Bungalows",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1234221107",
+            "lat": "10.606335",
+            "lng": "103.526748",
+            "name": "Santepheap Guesthouse",
+            "description": "Santepheap Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1397155801",
+            "lat": "10.622436",
+            "lng": "103.525825",
+            "name": "Sarang Guesthouse",
+            "description": "Sarang Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1122773087",
+            "lat": "10.606566",
+            "lng": "103.521249",
+            "name": "Seaside Bar",
+            "description": "Seaside Bar",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1801703390",
+            "lat": "10.608916",
+            "lng": "103.521973",
+            "name": "Seng Seng Beauty Salon",
+            "description": "Seng Seng Beauty Salon",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1010763940",
+            "lat": "10.608165",
+            "lng": "103.524964",
+            "name": "Sihanoukville Duty Free Store",
+            "description": "Sihanoukville Duty Free Store",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1555802917",
+            "lat": "10.602269",
+            "lng": "103.530686",
+            "name": "Sihanoukville Plaza Hotel",
+            "description": "Sihanoukville Plaza Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1284339404",
+            "lat": "10.611871",
+            "lng": "103.531798",
+            "name": "Sinan Guesthouse",
+            "description": "Sinan Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1993762365",
+            "lat": "10.617913",
+            "lng": "103.53029",
+            "name": "Sky Home Rent",
+            "description": "Sky Home Rent",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1592507101",
+            "lat": "10.627797",
+            "lng": "103.52778",
+            "name": "Sky Park Villas",
+            "description": "Sky Park Villas",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1263729409",
+            "lat": "10.620007",
+            "lng": "103.524315",
+            "name": "Sokunthea Apartments",
+            "description": "Sokunthea Apartments",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1058000961",
+            "lat": "10.609333",
+            "lng": "103.52148",
+            "name": "Spicy Society Sihanoukville",
+            "description": "Spicy Society Sihanoukville",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1263576034",
+            "lat": "10.570049",
+            "lng": "103.558828",
+            "name": "Stray Cats Guesthouse",
+            "description": "Stray Cats Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1350135675",
+            "lat": "10.612609",
+            "lng": "103.525136",
+            "name": "Sunday Guesthouse",
+            "description": "Sunday Guesthouse",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1185371427",
+            "lat": "10.586759",
+            "lng": "103.542264",
+            "name": "Sunset Lounge",
+            "description": "Sunset Lounge",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1313729201",
+            "lat": "10.632586",
+            "lng": "103.508104",
+            "name": "SV World Casino & Hotel",
+            "description": "SV World Casino & Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1892417214",
+            "lat": "10.568721",
+            "lng": "103.558336",
+            "name": "Ta Kloy Tip Bungalow",
+            "description": "Ta Kloy Tip Bungalow ",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1057607176",
+            "lat": "10.609552",
+            "lng": "103.531637",
+            "name": "The Beach Apartment",
+            "description": "The Beach Apartment",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1806519851",
+            "lat": "10.60923",
+            "lng": "103.523078",
+            "name": "The Black Bar",
+            "description": "The Black Bar, Pub Square.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1213478764",
+            "lat": "10.633351",
+            "lng": "103.501674",
+            "name": "The Harbor Lights Palace",
+            "description": "The Harbor Lights Palace",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1597482756",
+            "lat": "10.63249",
+            "lng": "103.50344",
+            "name": "The Harbour Boutique Hotel",
+            "description": "The Harbour Boutique Hotel, Victory Hill",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1222791693",
+            "lat": "10.6359",
+            "lng": "103.500856",
+            "name": "The Rich Resort & Casino",
+            "description": "The Rich Resort & Casino",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1273317504",
+            "lat": "10.604089",
+            "lng": "103.528901",
+            "name": "The Tamarind",
+            "description": "The Tamarind, 23 Tola Street",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1806654083",
+            "lat": "10.610753",
+            "lng": "103.525296",
+            "name": "The Terrace Restaurant and Bar",
+            "description": "The Terrace Restaurant and Bar",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1725322228",
+            "lat": "10.609773",
+            "lng": "103.522754",
+            "name": "Top Cat Cinema",
+            "description": "Top Cat Cinema",
+            "instructions": ""
+        },
+        {
+            "spot_id": "716383819",
+            "lat": "10.610932",
+            "lng": "103.522624",
+            "name": "Two Season Guest House",
+            "description": "Two Season Guest House, opposite Fortuna Casino.",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1340012730",
+            "lat": "10.632475",
+            "lng": "103.504537",
+            "name": "V Lounge Bar & Club",
+            "description": "V Lounge Bar & Club",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1084084346",
+            "lat": "10.610337",
+            "lng": "103.505912",
+            "name": "Van Nasea",
+            "description": "Van Nasea, pink building",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1642256706",
+            "lat": "10.641052",
+            "lng": "103.508094",
+            "name": "Victory Paradise Resort & Casino",
+            "description": "Victory Paradise Resort & Casino",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1136693360",
+            "lat": "10.624415",
+            "lng": "103.514498",
+            "name": "Villa Ta Ek",
+            "description": "Villa Ta Ek. Chocolate color building",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1146780667",
+            "lat": "10.616219",
+            "lng": "103.546848",
+            "name": "Visethana Boutique",
+            "description": "Visethana Boutique",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1287913813",
+            "lat": "10.604404",
+            "lng": "103.527153",
+            "name": "White Beach Hotel",
+            "description": "White Beach Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1489284056",
+            "lat": "10.561437",
+            "lng": "103.558182",
+            "name": "White Boutique Hotel",
+            "description": "White Boutique Hotel, Otres 2",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1672617469",
+            "lat": "10.605777",
+            "lng": "103.527563",
+            "name": "White Sand Palace Hotel",
+            "description": "White Sand Palace Hotel",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1830919988",
+            "lat": "10.563232",
+            "lng": "103.558697",
+            "name": "White Sea Boutique",
+            "description": "White Sea Boutique",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1988565981",
+            "lat": "10.57787",
+            "lng": "103.548148",
+            "name": "Wish You Were Here... Guesthouse & Bar",
+            "description": "Wish You Were Here... Guesthouse & Bar",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1130270536",
+            "lat": "10.608811",
+            "lng": "103.524755",
+            "name": "Yaduoli Casino",
+            "description": "Yaduoli Casino",
+            "instructions": ""
+        },
+        {
+            "spot_id": "1278485604",
+            "lat": "10.608388",
+            "lng": "103.526109",
+            "name": "Zana Beach Guesthouse",
+            "description": "Zana Beach Guesthouse",
+            "instructions": ""
+        }
+    ]
+}

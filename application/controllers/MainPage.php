@@ -6,8 +6,7 @@ class MainPage extends CI_Controller {
 	public function __construct() 
 	{
 		parent::__construct();
-		$this->food_language_ary = $this->language->load('food');
-		$this->load->model('Food_Model', 'food');	
+		$this->mainpage_language_ary = $this->language->load('mainpage');
     }
 	
 	
@@ -18,7 +17,12 @@ class MainPage extends CI_Controller {
 	
 	public function index()
 	{
-		
+	
+		$this->smarty->assign(
+			array(
+				'mainpage_language_ary'	=>$this->mainpage_language_ary
+			)
+		);
 		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
 	}
 }

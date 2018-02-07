@@ -7,6 +7,7 @@ class Api extends CI_Controller {
 	public function __construct() 
 	{
 		parent::__construct();	
+		
 		$this->request = json_decode(trim(file_get_contents('php://input'), 'r'), true);
 		$this->load->model('Food_Model', 'food');
 		$this->load->model('User_Model', 'user');
@@ -17,6 +18,38 @@ class Api extends CI_Controller {
     }
 
 	
+	public function getSetList()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='getSetList';
+		try 
+		{
+			$get = $this->input->get();
+			$f_id = $get['f_id'];
+			$temp = $this->food->getSetList($f_id);
+			if(!empty($temp))
+			{
+				foreach($temp as $value)
+				{
+					$rows['set']['ca_name']  =  $value['ca_name'];
+					$rows['set']['f_id']  =  $value['f_id'];
+					$rows['set']['setName']  =  $value['setName'];
+					$rows['set']['f_large_price']  =  $value['f_large_price'];
+					$rows['set']['f_id']  =  $value['f_id'];
+					$rows['select'][$value['fs_group_id']]['data'][] =  $value;
+					$rows['select'][$value['fs_group_id']]['ca_name'] =  $value['ca_name'];
+				}
+			}
+			$output['body']['rows'] = $rows;
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
 	
 	public function getSMDBalance ()
 	{

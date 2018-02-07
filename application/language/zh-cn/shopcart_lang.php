@@ -9,4 +9,6 @@
 	$lang['shopcart_delivery_message'] = "讯息";
 	$lang['shopcart_delivery_message_placeholder'] = "请在这理填写你的讯息";
 	$lang['shopcart_delivery_consignee'] = "收货人";
+	$lang['shopcart_subtotal'] = "小计";
+	$lang['shopcart_total'] = "总计";
 ?>
