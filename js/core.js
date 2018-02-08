@@ -17957,6 +17957,10 @@ if ("undefined" == typeof jQuery)
                         l[a].setIcon(s.locations[a].basic)
                 }));
 			myMaker = l;
+			  var markerCluster = new MarkerClusterer(myMap, myMaker,
+				{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'}
+			);
+      
             google.maps.event.addDomListener(window, "resize", function() {
                 i.setCenter(new google.maps.LatLng(parseFloat(s.map.y),parseFloat(s.map.x)))
             })
@@ -17965,7 +17969,6 @@ if ("undefined" == typeof jQuery)
 				var y = $(this).find('option:checked').data('y');
 				var x = $(this).find('option:checked').data('x');
 				var position_id = $(this).val();
-				// console.log( position_id)
 				if(position_id  ==0)
 				{
 					c.close();

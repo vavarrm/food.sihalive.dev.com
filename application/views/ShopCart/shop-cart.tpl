@@ -83,7 +83,7 @@
 								</div>
 							</div>
 							<div class="offset-top-15" >
-								<div ng-init="mapinit()"  data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
+								<div ng-init="mapinit()"  data-zoom="15" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
 									<ul class="map_locations">
 									  <li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
 										<p data-position_id ="1" style="width: 200px; text-align:  center;">

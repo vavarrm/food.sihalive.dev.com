@@ -23,6 +23,7 @@
 	$lang['js_required_error'] = "请输入必填资料";
 	$lang['js_please_select'] = "请选择";
 	$lang['js_text_set_postion'] = "地图定位";
+	$lang['js_text_set_my_postion'] = "定位我的位址";
 	$lang['js_text_please_drop'] = "请移动我到你的位置上";
 	$lang['js_text_i_am_here'] = "我在这理";
 

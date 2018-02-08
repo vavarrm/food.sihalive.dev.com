@@ -377,7 +377,6 @@ class Api extends CI_Controller {
 			$encrypt_user_data = $this->token->AesEncrypt(serialize($data), $randomKey);
 			$this->session->set_userdata('encrypt_user_data', $encrypt_user_data);
 			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
-			// var_dump($encrypt_user_data);
 			$urlRsaRandomKey = urlencode($rsaRandomKey) ;
 			return $urlRsaRandomKey ;
 		}
