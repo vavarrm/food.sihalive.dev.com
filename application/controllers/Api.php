@@ -18,6 +18,23 @@ class Api extends CI_Controller {
     }
 
 	
+	public function sendCheckPhoneSMS()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='传送手機驗證訊息';
+		try 
+		{
+			
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
+		
+		$this->response($output);
+	}
+	
 	public function getSetList()
 	{
 		$output['body']=array();
