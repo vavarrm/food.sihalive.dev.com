@@ -63,7 +63,7 @@
 									<p class="small text-uppercase">Or</p>
 								</div>
 								<!-- RD Mailform-->
-								<form class="rd-mailform form-register text-center offset-top-20">
+								<form class="rd-mailform form-register text-center offset-top-20" id="Register">
 									<div class="form-group">
 										<label for="register-form-name" class="form-label form-label-outside">USERNAME</label>
 										<input id="register-form-name" ng-blur="UserIsExist(name)" maxlength="20"   ng-model="name" type="text" name="u_name" data-constraints="@Required" class="form-control">

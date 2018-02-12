@@ -66,6 +66,7 @@
 			$bind = array(
 				$u_id
 			);
+			$this->db->join("user_position",'user.u_id=user_position.u_id');
 			$query = $this->db->query($sql, $bind);
 			$row =  $query->row_array();
 			$query->free_result();

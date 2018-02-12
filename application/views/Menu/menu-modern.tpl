@@ -47,7 +47,7 @@
 			<div class="thumbnail-menu-modern">
 			  <figure>
 				<{*<img src="images/food/<{$food.ca_id}>-<{$food.f_id}>-310x260.png" alt="" width="310" height="260" class="img-responsive"/>*}>
-				<img src="https://fakeimg.pl/310x260/" alt="" width="310" height="260" class="img-responsive"/>
+				<img src="/upload/<{$food.photo}>" alt="" width="310" height="260" class="img-responsive"/>
 			  </figure>
 			  <div class="caption">
 				<h5><a href="menu-single.html" class="link link-default"><{$food.f_name}></a></h5>

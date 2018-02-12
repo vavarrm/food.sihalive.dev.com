@@ -17883,7 +17883,7 @@ if ("undefined" == typeof jQuery)
         mapClass: "map_model",
         locationsClass: "map_locations",
         marker: {
-            basic: "/images/gmap_marker.png",
+            basic: "https://maps.google.com/mapfiles/ms/micons/blue.png",
             active: "/images/gmap_marker_active.png"
         },
         styles: [],

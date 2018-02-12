@@ -456,7 +456,7 @@ $document.ready(function () {
                 var marker = new google.maps.Marker(
                     {
                       map: map,
-                      icon: "images/gmap_marker.png",
+                      icon: "https://maps.google.com/mapfiles/ms/micons/blue.png",
                     }
                 );
                 var autocomplete = new google.maps.places.Autocomplete(inputAddress[0]);
