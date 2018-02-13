@@ -154,7 +154,7 @@
 		public function getProductForFid($f_id)
 		{
 			$sql="	SELECT * 
-					FROM `food` AS f LEFT JOIN category AS ca ON f.ca_id = ca.ca_id
+					FROM food AS f LEFT JOIN category AS ca ON f.ca_id = ca.ca_id
 					WHERE f_id =?";
 			$bind = array(
 				$f_id
@@ -181,7 +181,7 @@
 		
 		public function getFoodForMenu($where = array())
 		{
-			$where_str =" 1 = 1 AND f_is_del='0' AND f_status='sale_on'";
+			$where_str =" 1 = 1 AND f_is_del='0' AND f_status='sale_out'";
 			if(!empty($where) )
 			{
 				foreach($where as $key =>$vale)
@@ -196,6 +196,7 @@
 					WHERE ".$where_str."
 					ORDER BY f.f_id DESC";
 			$query = $this->db->query($sql, $bind);
+			//echo $this->db->last_query();
 			$rows  =  $query->result_array();
 			$query->free_result();
 			return $rows;

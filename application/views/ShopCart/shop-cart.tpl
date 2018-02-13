@@ -23,7 +23,6 @@
 
 	}
 </style>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <main class="page-content" ng-controller="shopCartCtrl" >
 	<!-- Breadcrumbs & Page title-->
@@ -38,7 +37,7 @@
 				</div>
 				<div class="col-xs-4">
 					<div class="product-image">
-						<img src="/images/shop-cart-1-130x130.png" width="130" height="130" alt="">
+						<img src="http://admin.sihalive.dev.com/upload/1518417582947.jpg" width="130" height="130" alt="">
 					</div>
 				</div>
 				<div class="col-xs-4  text-left">
@@ -211,3 +210,12 @@
 		</div>
 	</section>
 </main>
+<script type="text/javascript">
+    //document.getElementById('ac-wrapper').style.display="none";
+    function openLocation() {
+        document.getElementById('ac-wrapper').style.display = "block";
+    }
+    function PopUp(){
+        document.getElementById('ac-wrapper').style.display="none";
+    }
+</script>

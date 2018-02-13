@@ -572,7 +572,15 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 							click: function() 
 							{
 								$( this ).dialog( "close" );
-								location.href="/"+$scope.back; 		
+
+
+                                if( $('#o_phone').val()=="" ) {
+
+                                }else{
+
+                                    location.href="/";
+								}
+
 							}
 						}]
 					};
