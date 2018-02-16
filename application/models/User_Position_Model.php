@@ -5,7 +5,7 @@ class User_Position_Model extends CI_Model {
     public function __construct()
     {
         parent::__construct();
-        $this->load->database();
+       // $this->load->database();
         $this->table="user_position";
         $this->JoinTable="user";
         $this->InnerJoin="user.u_id=user_position.u_id";
