@@ -1,5 +1,5 @@
 <!-- Page Content-->
-<main class="page-content" >
+<main class="page-content"  >
 <!-- Swiper variant 3-->
 <section class="bg-gray-darker" style="max-height: 560px; background: white">
   <div class="swiper-variant-1" style="max-height: 560px">
@@ -52,9 +52,9 @@
 	</div>
   </div>
 </section>
-	<section class="container" style="margin-top: 10px">
+	<section class="container" style="margin-top: 10px; background: white">
 		<div class=" text-center">
-			<h3>餐厅类型</h3>
+			<h4>餐厅类型</h4>
 
 			<div class="row">
 				<{foreach from=$category item=row key=index}>
@@ -77,30 +77,36 @@
 
 	</section>
 <section class="section-50 section-sm-top-90 section-sm-bottom-100 " style="margin-top: -30px">
-  <div class="container text-center">
-	<h3><{$mainpage_language_ary.our_menu}></h3>
+  <div class="container text-center" style="padding: 0px">
 
+	<div  style="border-bottom: 2px solid #f16121; align-content: center; text-align: center; position:relative" >
+
+		<div style="padding: 4px; background:#f16121;width: 200px;  margin-top: -20px; position:relative; color: white;height: 30px">
+			<h6 style="color: white">受欢迎的餐厅</h6>
+		</div>
+
+	</div>
+
+<br/>
 	  <div class="row">
 		  <{foreach from=$category item=row key=index}>
 
-		  <div class="col-xs-6 col-md-2" style="padding: 5px;overflow-x: auto; overflow-y: hidden">
+		  <div class="col-xs-12 col-md-2" >
 			  <div class="restaurant" >
-				  <a href="/Menu?ca_id=<{$row.ca_id}>">
+				  <a href="/restaurant?ca_id=<{$row.ca_id}>">
 					  <img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
 				  </a>
 
-					  <p style="margin-top: -5px" >
-						  <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
-					  </p>
-				     <p> <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-					 </p>
+					 <div style="height: 50px">
+						 <p style="margin-top: -5px" >
+							 <a href="/restaurant?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
+						 </p>
+					 </div>
+
 
 			  </div>
 		  </div>
+
 
 		  <{/foreach}>
 	  </div>
