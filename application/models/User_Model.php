@@ -16,16 +16,34 @@
 			return $output;
 		}
 		
-		function isUserNameExist($u_name)
+		function isUserAccountExist($u_account)
 		{
-			$sql="SELECT COUNT(*) AS total FROM user WHERE u_name=?";
-			$bind = array(
-				$u_name
-			);
-			$query = $this->db->query($sql, $bind);
-			$row =  $query->row_array();
-			$query->free_result();
-			return $row;
+			try 
+			{
+				$sql="SELECT COUNT(*) AS total FROM user WHERE u_account=?";
+				$bind = array(
+					$u_account
+				);
+				$query = $this->db->query($sql, $bind);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'db_error_message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$row =  $query->row_array();
+				$query->free_result();
+				return $row;
+			}catch(MyException $e)
+			{
+				throw $MyException;
+			}
 		}
 		
 		function isEmailExist($u_email)
@@ -56,9 +74,8 @@
 		{
 			$sql ="
 			SELECT 
-				u_name,
+				u_account,
 				u_email,
-				u_consignee,
 				u_phone,
 				u_id,
 				fb_u_id
@@ -66,6 +83,7 @@
 			$bind = array(
 				$u_id
 			);
+			$this->db->join("user_position",'user.u_id=user_position.u_id');
 			$query = $this->db->query($sql, $bind);
 			$row =  $query->row_array();
 			$query->free_result();
@@ -74,50 +92,93 @@
 		
 		function getUserForLogin($ary= array())
 		{
-			$sql="	SELECT * 
-					FROM user 
-					WHERE (u_name =? OR u_email=? )  OR (fb_u_id =? AND  fb_u_id <> 'NULL') AND u_status ='on'";
-			$bind = array(
-				$ary['u_name'],
-				$ary['u_email'],
-				$ary['fb_u_id'],
-			);
-			$query = $this->db->query($sql, $bind);
-			$row =  $query->row_array();
-			$query->free_result();
-			return $row;
+			
+			try 
+			{
+				$sql="	SELECT * 
+						FROM user 
+						WHERE (u_account =?)  OR (fb_u_id =? AND  fb_u_id <> 'NULL')";
+				$bind = array(
+					$ary['u_account'],
+					$ary['fb_u_id'],
+				);
+				$query = $this->db->query($sql, $bind);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'db_error_message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$row =  $query->row_array();
+				$query->free_result();
+				return $row;
+			}catch(MyException $e)
+			{
+				throw $MyException;
+			}
 		}
 		
-		function isUserExist($ary = array())
+		function isAccountExist($ary = array())
 		{
-			$row = array();
-			$sql = "SELECT COUNT(*) AS  total FROM user WHERE u_name = ? OR u_email =?";
-			$bind = array(
-				$ary['u_name'],
-				$ary['u_email'],
-			);
-			$query = $this->db->query($sql, $bind);
-			$row =  $query->row_array();
-			$query->free_result();
-			return $row['total'];
+			try 
+			{
+				$row = array();
+				$sql = "SELECT COUNT(*) AS  total FROM user WHERE u_account = ?";
+				$bind = array(
+					$ary['u_account'],
+				);
+				$query = $this->db->query($sql, $bind);
+				$row =  $query->row_array();
+				$query->free_result();
+				return $row['total'];
+			}catch(Exception $e)
+			{
+				$output['status'] = '000';
+				$output['message'] = $e->getMessage();
+			}
 		}
 		
 		
 		function insert($ary = array())
 		{
-			$output = array();
-			$sql ="	INSERT INTO user (u_name, u_passwd, u_add_datetime, u_email ,fb_u_id, u_reg_type)
-					VALUES(?, ?, NOW(), ?,?,?)";
-			$bind = array(
-				$ary['u_name'],
-				md5($ary['u_passwd']),
-				$ary['u_email'],
-				$ary['fb_u_id'],
-				$ary['u_reg_type'],
+			$output = array(
+				'affected_rows' =>0
 			);
-			$query = $this->db->query($sql, $bind);
-			$output['affected_rows'] = $this->db->affected_rows();
-			return $output;
+			try 
+			{
+				$data = array(
+					'u_account' => $ary['u_account'],
+					'u_passwd' => MD5($ary['u_passwd']),
+					'fb_u_id' => $ary['fb_u_id'],
+					'fb_name' => $ary['fb_name'],
+				);
+				$this->db->insert('user',$data);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'db_error_message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				
+				$affected_rows = $this->db->affected_rows();
+				$output['affected_rows'] =$affected_rows;
+				return $output;
+			}catch(MyException $e)
+			{
+				throw $MyException;
+			}
 		}
 	}
 ?>

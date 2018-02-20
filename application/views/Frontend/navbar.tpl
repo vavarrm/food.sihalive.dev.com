@@ -1,5 +1,5 @@
-<div class="rd-navbar-wrap rd-navbar-default"  ng-controller="navCtrl" >
-  <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" class="rd-navbar">
+<div class="rd-navbar-wrap rd-navbar-default "  ng-controller="navCtrl" >
+  <nav data-layout="rd-navbar-fixed w3-card" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" class="rd-navbar">
 	<div class="shell shell-fluid">
 	  <div class="rd-navbar-inner">
 		<div class="rd-navbar-nav-wrap-outer"> 
@@ -18,7 +18,7 @@
 					</a>
 				</div>
 				<!-- RD Navbar Brand-->
-					<a href="index.html" class="rd-navbar-brand brand" >
+					<a href="/" class="rd-navbar-brand brand" >
 						<div class="brand-logo" >
 							<img src="/images/brand-232x49.png"  style="margin-top:6px;" alt="" width="232" height="49"/>
 						</div>

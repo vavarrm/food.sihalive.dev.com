@@ -7,17 +7,17 @@
 	<{include file="Frontend/breadcrumbs.tpl"}>
 
 	<!-- Buttons-->
-	<section class="bg-white text-center section-50 section-sm-100">
+	<section class="bg-white text-center section-50 section-sm-50">
 		<div class="shell">
 			<div class="range range-xs-center">
 				<div class="cell-sm-8 cell-lg-6">
 					<div class="responsive-tabs responsive-tabs-modern responsive-tabs-modern-mod-1 responsive-tabs-horizontal">
 						<ul class="resp-tabs-list">
-							<li>Login</li>
-							<li>Registration</li>
+							<li data-action="login"><{$language_ary.login_label}></li>
+							<li data-action="reg"><{$language_ary.reg_label}></li>
 						</ul>
 						<div class="resp-tabs-container">
-							<div>
+							<div class="action-div login-div">
 								<div class="group-sm">
 									<a id="FBloginBtn"  class="btn btn-facebook btn-icon btn-icon-left">
 										<span class="icon icon-lg fa-facebook"></span>
@@ -30,60 +30,46 @@
 								<!-- RD Mailform-->
 								<form class="rd-mailform form-register text-center offset-top-20" id="Loginfrm">
 									<div class="form-group">
-										<label for="contact-name" class="form-label form-label-outside">Username or E-mail</label>
-										<input id="contact-name" type="text" name="username_email" data-constraints="@Required" class="form-control">
+										<label for="contact-login-account" class="form-label form-label-outside"><{$language_ary.user_account}></label>
+										<input id="contact-login-account" ng-model="login.account" type="text" placeholder="<{$language_ary.please_enter}><{$language_ary.user_account}>"  data-constraints="@Required" class="form-control">
 									</div>
 									<div class="form-group">
-										<label for="contact-email" class="form-label form-label-outside">Password</label>
-										<input id="contact-email" type="password" name="u_passwd" data-constraints="@Required" class="form-control">
+										<label for="contact-login-passwd" class="form-label form-label-outside"><{$language_ary.user_passwd}></label>
+										<input id="contact-login-passwd" type="text" ng-model="login.passwd"  onfocus="this.type='password'" data-constraints="@Required" placeholder="<{$language_ary.please_enter}><{$language_ary.user_passwd}>" class="form-control">
 									</div>
 									<div class="offset-top-50">
-										<button type="submit" ng-click="doLogin()" class="btn btn-primary btn-fullwidth btn-shadow">Enter</button>
+										<input type="hidden" ng-model="login.logintype" value="account">
+										<button type="submit" ng-click="doLogin()" class="btn btn-primary btn-fullwidth btn-shadow"><{$language.from_button_sumbit}></button>
 									</div>
 								</form>
 							</div>
-							<div >
+							<div class="hide action-div reg-div">
 								<div class="group-sm">
-									<a href="#" class="btn btn-facebook btn-icon btn-icon-left"  id="fbReg">
+									<a  class="btn btn-facebook btn-icon btn-icon-left"  id="fbReg">
 										<span class="icon icon-xs fa-facebook"></span>
 										<span>Facebook</span>
 									</a>
-									<{*
-						<a href="#" class="btn btn-twitter btn-icon btn-icon-left">
-							<span class="icon icon-xs fa-twitter"></span>
-							<span>Twitter</span>
-						</a>
-						<a href="#" class="btn btn-google-plus btn-icon btn-icon-left">
-							<span class="icon icon-xs fa-google-plus"></span>
-							<span>Google +</span>
-						</a>
-						*}>
 								</div>
 								<div class="divider-custom offset-top-30">
 									<p class="small text-uppercase">Or</p>
 								</div>
 								<!-- RD Mailform-->
-								<form class="rd-mailform form-register text-center offset-top-20">
+								<form class="rd-mailform form-register text-center offset-top-20"  id="Register">
 									<div class="form-group">
-										<label for="register-form-name" class="form-label form-label-outside">USERNAME</label>
-										<input id="register-form-name" ng-blur="UserIsExist(name)" maxlength="20"   ng-model="name" type="text" name="u_name" data-constraints="@Required" class="form-control">
+										<label for="register-form-account class="form-label form-label-outside"><{$language_ary.user_account}></label>
+										<input id="register-form-account"  ng-blur="UserIsExist(input.u_account)" maxlength="20"   ng-model="input.u_account" type="text"  data-constraints="@Required" placeholder="<{$language_ary.please_enter}><{$language_ary.user_account}>" class="form-control">
 										<span  ng-show="username_isexist" class="small text-uppercase" style="color:red;" ><{$language.register_form_username_isexist}></span>
 									</div>
 									<div class="form-group">
-										<label for="register-form-email" class="form-label form-label-outside">E-mail</label>
-										<input id="register-form-email" ng-blur="EmailIsExist(email.text)" ng-model="email.text" type="email" name="u_email" data-constraints="@Required @Email" class="form-control">
-										<span  ng-show="email_isexist" class="small text-uppercase" style="color:red;" ><{$language.register_form_email_isexist}></span>
+										<label for="register-form-password" class="form-label form-label-outside"><{$language_ary.user_passwd}></label>
+										<input id="register-form-password"  onfocus="this.type='password'"   maxlength="12" ng-model="input.u_passwd" type="text"  data-constraints="@Required"   placeholder="<{$language_ary.please_enter}><{$language_ary.user_passwd}>" class="form-control">
 									</div>
 									<div class="form-group">
-										<label for="register-form-password" class="form-label form-label-outside">Password</label>
-										<input id="register-form-password"  maxlength="12" ng-model="u_passwd" type="password" name="u_passwd" data-constraints="@Required" class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="register-form-password-confirm" class="form-label form-label-outside">Confirm Password</label>
-										<input id="register-form-password-confirm" maxlength="12" ng-model="u_passwd_confirm" type="password" name="u_passwd_confirm" data-constraints="@Required" class="form-control">
+										<label for="register-form-password-confirm" class="form-label form-label-outside"><{$language_ary.user_confirm_passwd}></label>
+										<input id="register-form-password-confirm" onfocus="this.type='password'"   maxlength="12" ng-model="input.u_passwd_confirm" type="text"  data-constraints="@Required"  placeholder="<{$language_ary.please_enter_aegin}><{$language_ary.user_passwd}>"  class="form-control">
 									</div>
 									<div class="offset-top-50">
-										<button type="submit" ng-click="register($event);" class="btn btn-primary btn-fullwidth btn-shadow">Register</button>
+										<button type="submit" ng-click="register($event);" class="btn btn-primary btn-fullwidth btn-shadow"><{$language.from_button_sumbit}></button>
 									</div>
 								</form>
 							</div>
@@ -93,5 +79,4 @@
 			</div>
 		</div>
 	</section>
-
 </main>

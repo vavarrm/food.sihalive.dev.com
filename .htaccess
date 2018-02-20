@@ -1,10 +1,14 @@
+<IfModule mod_env.c>
+	SetEnv DB_USERNAME root
+	SetEnv DB_PASSWORD root
+	SetEnv DB_NAME sihalive
+	SetEnv FB_APP_ID 2089567007939408
+	SetEnv FB_APP_SECRECT aa90c373e6ce575923a94d368039e343
+	SetEnv CI_ENV development
+</IfModule>
 <IfModule mod_rewrite.c>
     RewriteEngine on
     RewriteBase /
     RewriteCond $1 !^(index\.php|demo|static|images|swf|third_party|uploads|js|css|assets|fonts|font-awesome|robots\.txt|$)
     RewriteRule ^(.*)$ /index.php/$1 [L,QSA]
-</IfModule>
-
-<IfModule mod_env.c>
-    SetEnv CI_ENV development
 </IfModule>

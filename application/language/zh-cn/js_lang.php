@@ -12,6 +12,7 @@
 	$lang['js_user_passwd_error'] = "密码错误";
 	$lang['js_user_logout_ok'] = "登出成功";
 	$lang['js_response_error'] = "回应错误";
+	$lang['js_systen_error'] = "系统错误";
 	$lang['js_please_login'] = "请登入";
 	$lang['js_o_consignee_empty'] = "請填寫收貨人欄位";
 	$lang['js_o_phone_empty'] = "請填寫手机欄位";

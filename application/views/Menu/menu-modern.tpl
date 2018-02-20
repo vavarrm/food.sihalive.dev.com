@@ -43,14 +43,14 @@
 		<!-- Isotope Content-->
 		<div data-isotope-layout="fitRows" data-isotope-group="gallery" data-photo-swipe-gallery="gallery" class="row isotope isotope-menu">
 		  <{foreach from=$foods item=food}>
-		  <div data-filter="Category <{$food.ca_id}>" class="col-xs-12 col-sm-6 col-md-4 isotope-item">
+		  <div data-filter="Category <{$food.ca_id}>" class="col-xs-12 col-sm-6 col-md-4 isotope-item ">
 			<div class="thumbnail-menu-modern">
 			  <figure>
 				<{*<img src="images/food/<{$food.ca_id}>-<{$food.f_id}>-310x260.png" alt="" width="310" height="260" class="img-responsive"/>*}>
-				<img src="https://fakeimg.pl/310x260/" alt="" width="310" height="260" class="img-responsive"/>
+				<img src="http://admin.sihalive.dev.com/upload/<{$food.photo}>" alt="" width="310" height="260" class="img-responsive"/>
 			  </figure>
 			  <div class="caption">
-				<h5><a href="menu-single.html" class="link link-default"><{$food.f_name}></a></h5>
+				<h5><a href="#menu-single.html" class="link link-default"><{$food.f_name}></a></h5>
 				<p class="price"><{$food.f_large_price}></p>
 			
 				<a href="/Menu/food/<{$food.f_id}>" class="btn btn-shape-circle btn-primary offset-top-15 btn btn-primary btn-shadow btn-shape-circle btn-xs"><{$food_language_ary.food_menu_check_food}></a>

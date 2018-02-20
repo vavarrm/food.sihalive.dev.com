@@ -1,4 +1,4 @@
-      <main class="page-content" ng-controller="productPageCtrl">
+<main class="page-content" ng-controller="productPageCtrl">
         <!-- Breadcrumbs & Page title-->
 		<{include file="Frontend/breadcrumbs.tpl"}>
 
@@ -7,7 +7,7 @@
             <div class="range range-xs-center">
               <div class="cell-sm-6 text-lg-left">
 				<div class="item">
-					<img src="/images/product-01-542x448.png" alt="" width="542" height="420"/>
+					<img src="http://admin.sihalive.dev.com/upload/<{$food.photo}>" alt="" width="542" height="420"/>
 				</div>
               </div>
               <div class="cell-sm-6 cell-lg-5 text-sm-left offset-top-60 offset-sm-top-30">

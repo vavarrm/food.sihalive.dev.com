@@ -1,10 +1,10 @@
 <!-- Page Content-->
 <main class="page-content" >
 <!-- Swiper variant 3-->
-<section class="bg-gray-darker">
-  <div class="swiper-variant-1">
-	<div data-slide-effect="fade" data-min-height="600px" class="swiper-container swiper-slider">
-	  <div class="swiper-wrapper">
+<section class="bg-gray-darker" style="max-height: 560px; background: white">
+  <div class="swiper-variant-1" style="max-height: 560px">
+	<div data-slide-effect="fade" data-min-height="550px" class="swiper-container swiper-slider" style="max-height: 560px">
+	  <div class="swiper-wrapper" style="max-height: 558px">
 		<div data-slide-bg="images/home-slide-3-1920x800.jpg" class="swiper-slide">
 		  <div class="swiper-slide-caption slide-caption-2 text-center">
 			<div class="shell">
@@ -52,25 +52,59 @@
 	</div>
   </div>
 </section>
-<section class="section-50 section-sm-top-90 section-sm-bottom-100 bg-image-6">
-  <div class="shell text-center">
-	<h3><{$mainpage_language_ary.our_menu}></h3>
-	<div class="range range-xs-center">
-		<{foreach from=$category item=row key=index}>
-			<div class="cell-sm-6 cell-md-4  offset-top-50">
-				<div class="menu-variant-1">
-					<a href="/Menu?ca_id=<{$row.ca_id}>">
-						<img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-					</a>
-					<div class="caption">
-						<h5 class="title">
-							<a href="/Menu?ca_id=<{$row.ca_id}>" class="link-white"><{$row.ca_name}></a>
-						</h5>
+	<section class="container" style="margin-top: 10px">
+		<div class=" text-center">
+			<h3>餐厅类型</h3>
+
+			<div class="row">
+				<{foreach from=$category item=row key=index}>
+
+				<div class="col-xs-4 col-md-2" style="padding: 5px;overflow-x: auto; overflow-y: hidden">
+					<div class="" style="border-radius: 100%; border: 1px solid silver;" >
+						<a href="/Menu?ca_id=<{$row.ca_id}>">
+							<img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
+						</a>
+
+						<p style="margin-top: -5px" >
+							<a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
+						</p>
 					</div>
 				</div>
-			</div>	</a>
-		<{/foreach}>
-	</div>
+
+				<{/foreach}>
+			</div>
+		</div>
+
+	</section>
+<section class="section-50 section-sm-top-90 section-sm-bottom-100 " style="margin-top: -30px">
+  <div class="container text-center">
+	<h3><{$mainpage_language_ary.our_menu}></h3>
+
+	  <div class="row">
+		  <{foreach from=$category item=row key=index}>
+
+		  <div class="col-xs-6 col-md-2" style="padding: 5px;overflow-x: auto; overflow-y: hidden">
+			  <div class="restaurant" >
+				  <a href="/Menu?ca_id=<{$row.ca_id}>">
+					  <img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
+				  </a>
+
+					  <p style="margin-top: -5px" >
+						  <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
+					  </p>
+				     <p> <span class="glyphicon glyphicon-star"></span>
+						 <span class="glyphicon glyphicon-star"></span>
+						 <span class="glyphicon glyphicon-star"></span>
+						 <span class="glyphicon glyphicon-star"></span>
+						 <span class="glyphicon glyphicon-star"></span>
+					 </p>
+
+			  </div>
+		  </div>
+
+		  <{/foreach}>
+	  </div>
+
   </div>
 </section>
 </main>
