@@ -34,7 +34,7 @@ class Mysmarty
 	
 		));
 		$this->smarty->clearAllCache();
-		// $this->smarty->caching = true;
+		$this->smarty->caching = false;
 		$this->smarty->display($tpl);
 	}
 	
@@ -63,7 +63,7 @@ class Mysmarty
 			'website'	=>$website,
 			'google_map_api_key'	=>$google_map_api_key
 		));
-		// $this->smarty->clearAllCache();
+		$this->smarty->clearAllCache();
 		$this->smarty->caching = false;
 		$this->smarty->display('Frontend/frame.tpl');
 	}
