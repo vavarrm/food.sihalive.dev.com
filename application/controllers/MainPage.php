@@ -30,4 +30,7 @@ class MainPage extends CI_Controller {
 	public function view(){
 	    $this->smarty->displayFrame('Restaurant/index.tpl');
     }
+    public  function search(){
+	    $this->load->view('search');
+    }
 }

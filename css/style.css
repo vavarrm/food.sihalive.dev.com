@@ -103,6 +103,7 @@ nav,
 section,
 summary {
   display: block;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
 }
 
 audio,
