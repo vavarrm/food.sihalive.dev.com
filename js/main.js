@@ -693,7 +693,6 @@ var userCtrl = function($scope, $cookies, $rootScope, User)
 	{
 		$scope.u_consignee = User.u_consignee;
 		$scope.u_phone = User.u_phone;
-		//$scope.u_email=User.u_email;
 	}
 	$scope.setProfile = function()
 	{
@@ -717,7 +716,6 @@ var userCtrl = function($scope, $cookies, $rootScope, User)
 		var postdata = {
 			u_consignee	:$('#o_consignee').val(),
 			u_phone	:$('#o_phone').val(),
-			//u_email:$('#o_email').val(),
 		};
 
 		var sess = $cookies.get('sess');
