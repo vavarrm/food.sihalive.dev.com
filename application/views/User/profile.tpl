@@ -22,7 +22,7 @@
 
 	}
 </style>
-<main class="page-content" ng-controller="userCtrl" ng-init="init()">
+<main class="page-content" ng-controller="userCtrl" ng-init="init()" >
 
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
@@ -192,12 +192,16 @@
 	</div>
 
 </main>
-<script type="text/javascript">
-    //document.getElementById('ac-wrapper').style.display="none";
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
     function openLocation() {
         $('#ac-wrapper').css("display", "block");
     }
     function PopUp(){
         $('#ac-wrapper').css("display", "none");
     }
+    $(document).ready(function(){
+        //$('#wrapper').css("display", "none");
+    });
+    PopUp();
 </script>
