@@ -1,58 +1,57 @@
 <!-- Page Content-->
-<main class="page-content" >
-<!-- Swiper variant 3-->
-<section class="bg-gray-darker" style="max-height: 560px; background: white">
-  <div class="swiper-variant-1" style="max-height: 560px">
-	<div data-slide-effect="fade" data-min-height="550px" class="swiper-container swiper-slider" style="max-height: 560px">
-	  <div class="swiper-wrapper" style="max-height: 558px">
-		<div data-slide-bg="images/home-slide-3-1920x800.jpg" class="swiper-slide">
-		  <div class="swiper-slide-caption slide-caption-2 text-center">
-			<div class="shell">
-			  <div class="range range-sm-center">
-				<div class="cell-sm-11 cell-lg-9">
-				  <h5 data-caption-animate="fadeInUpSmall" data-caption-delay="100" class="text-italic font-secondary text-white">Your Favourite</h5>
-				  <h2 data-caption-animate="fadeInUpSmall" data-caption-delay="400" class="text-uppercase text-white offset-top-0">Food delivery service</h2>
-				  <p data-caption-animate="fadeInUpSmall" data-caption-delay="700" class="text-white offset-top-18">Welcome to Food Delivery, a place where you can order your favorite restaurant dishes, drinks, and desserts at affordable price. We are glad to offer you the best food in the area to everyone.</p><a href="#" data-caption-animate="fadeInUpSmall" data-caption-delay="1000" class="btn btn-secondary btn-md btn-shape-circle offset-top-20">order online</a>
+<main class="page-content"  >
+	<!-- Swiper variant 3-->
+	<section class="bg-gray-darker" style="max-height: 560px; background: white">
+	  <div class="swiper-variant-1" style="max-height: 560px">
+		<div data-slide-effect="fade" data-min-height="550px" class="swiper-container swiper-slider" style="max-height: 560px">
+		  <div class="swiper-wrapper" style="max-height: 558px">
+			<div data-slide-bg="images/home-slide-3-1920x800.jpg" class="swiper-slide">
+			  <div class="swiper-slide-caption slide-caption-2 text-center">
+				<div class="shell">
+				  <div class="range range-sm-center">
+					<div class="cell-sm-11 cell-lg-9">
+					  <h5 data-caption-animate="fadeInUpSmall" data-caption-delay="100" class="text-italic font-secondary text-white">Your Favourite</h5>
+					  <h2 data-caption-animate="fadeInUpSmall" data-caption-delay="400" class="text-uppercase text-white offset-top-0">Food delivery service</h2>
+					  <p data-caption-animate="fadeInUpSmall" data-caption-delay="700" class="text-white offset-top-18">Welcome to Food Delivery, a place where you can order your favorite restaurant dishes, drinks, and desserts at affordable price. We are glad to offer you the best food in the area to everyone.</p><a href="#" data-caption-animate="fadeInUpSmall" data-caption-delay="1000" class="btn btn-secondary btn-md btn-shape-circle offset-top-20">order online</a>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<div data-slide-bg="images/home-slide-4-1920x800.jpg" class="swiper-slide">
+			  <div class="swiper-slide-caption slide-caption-2 text-center">
+				<div class="shell">
+				  <div class="range range-sm-center">
+					<div class="cell-sm-10 cell-lg-8">
+					  <h5 data-caption-animate="fadeInUpSmall" data-caption-delay="100" class="text-italic font-secondary text-white">Affordable Organic Food</h5>
+					  <h2 data-caption-animate="fadeInUpSmall" data-caption-delay="400" class="text-uppercase text-white offset-top-0">Healthy Breakfasts</h2>
+					  <p data-caption-animate="fadeInUpSmall" data-caption-delay="700" class="text-white offset-top-18">Looking for fresh and tasty breakfasts and lunches? At Food Delivery, you can order any kind of morning snack from local restaurants at reasonable prices without any extra charges.</p><a href="#" data-caption-animate="fadeInUpSmall" data-caption-delay="1000" class="btn btn-secondary btn-md btn-shape-circle offset-top-20">order online</a>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<div data-slide-bg="images/home-slide-2-1920x800.jpg" class="swiper-slide">
+			  <div class="swiper-slide-caption slide-caption-2 text-center">
+				<div class="shell">
+				  <div class="range range-sm-center">
+					<div class="cell-sm-10 cell-lg-8">
+					  <h5 data-caption-animate="fadeInUpSmall" data-caption-delay="100" class="text-italic font-secondary text-white">A Variety of Dishes</h5>
+					  <h2 data-caption-animate="fadeInUpSmall" data-caption-delay="400" class="text-uppercase text-white offset-top-0">pizzas and seafood</h2>
+					  <p data-caption-animate="fadeInUpSmall" data-caption-delay="700" class="text-white offset-top-18">In our menu you can find lots of tasty and interesting dishes, including pizzas of all kinds. We also offer a wide range of seafood dishes, even if you are just looking for an affordable snack.</p><a href="#" data-caption-animate="fadeInUpSmall" data-caption-delay="1000" class="btn btn-secondary btn-md btn-shape-circle offset-top-20">order online</a>
+					</div>
+				  </div>
 				</div>
 			  </div>
 			</div>
 		  </div>
-		</div>
-		<div data-slide-bg="images/home-slide-4-1920x800.jpg" class="swiper-slide">
-		  <div class="swiper-slide-caption slide-caption-2 text-center">
-			<div class="shell">
-			  <div class="range range-sm-center">
-				<div class="cell-sm-10 cell-lg-8">
-				  <h5 data-caption-animate="fadeInUpSmall" data-caption-delay="100" class="text-italic font-secondary text-white">Affordable Organic Food</h5>
-				  <h2 data-caption-animate="fadeInUpSmall" data-caption-delay="400" class="text-uppercase text-white offset-top-0">Healthy Breakfasts</h2>
-				  <p data-caption-animate="fadeInUpSmall" data-caption-delay="700" class="text-white offset-top-18">Looking for fresh and tasty breakfasts and lunches? At Food Delivery, you can order any kind of morning snack from local restaurants at reasonable prices without any extra charges.</p><a href="#" data-caption-animate="fadeInUpSmall" data-caption-delay="1000" class="btn btn-secondary btn-md btn-shape-circle offset-top-20">order online</a>
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-		<div data-slide-bg="images/home-slide-2-1920x800.jpg" class="swiper-slide">
-		  <div class="swiper-slide-caption slide-caption-2 text-center">
-			<div class="shell">
-			  <div class="range range-sm-center">
-				<div class="cell-sm-10 cell-lg-8">
-				  <h5 data-caption-animate="fadeInUpSmall" data-caption-delay="100" class="text-italic font-secondary text-white">A Variety of Dishes</h5>
-				  <h2 data-caption-animate="fadeInUpSmall" data-caption-delay="400" class="text-uppercase text-white offset-top-0">pizzas and seafood</h2>
-				  <p data-caption-animate="fadeInUpSmall" data-caption-delay="700" class="text-white offset-top-18">In our menu you can find lots of tasty and interesting dishes, including pizzas of all kinds. We also offer a wide range of seafood dishes, even if you are just looking for an affordable snack.</p><a href="#" data-caption-animate="fadeInUpSmall" data-caption-delay="1000" class="btn btn-secondary btn-md btn-shape-circle offset-top-20">order online</a>
-				</div>
-			  </div>
-			</div>
+		  <!-- Swiper Navigation-->
+		  <div class="swiper-pagination-wrap">
+			<div class="swiper-pagination"></div>
 		  </div>
 		</div>
 	  </div>
-	  <!-- Swiper Navigation-->
-	  <div class="swiper-pagination-wrap">
-		<div class="swiper-pagination"></div>
-	  </div>
-	</div>
-  </div>
-</section>
-<section class="container" style="margin-top: 10px">
+	</section>
 	<div class="container text-center   " style="padding: 10px  ">
 		<h5 class="h5 text-uppercase "> Sihalive food Delivery</h5>
 
@@ -87,13 +86,7 @@
 			<hr class="offset-top-50">
 		</section>
 	</div>
-<<<<<<< HEAD
-	</section>
-
-
-	</div>
 	<br/>
-
 	<section class="popular" style="margin-bottom: 20px">
 		<div class="container">
            <h5 class="h5 text-uppercase">Restaurants in Shihanoukville </h5>
@@ -112,24 +105,16 @@
 				</div>
 				<{/foreach}>
 				<!-- Each popular food item starts -->
-=======
-	<div class="row">
-		<{foreach from=$category item=row key=index}>
-
-		<div class="col-xs-4 col-md-2" style="padding: 5px;overflow-x: auto; overflow-y: hidden">
-			<div class="" style="border-radius: 100%; border: 1px solid silver;" >
-				<a href="/Menu?ca_id=<{$row.ca_id}>">
-					<img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
-				</a>
-
-				<p style="margin-top: -5px" >
-					<a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
-				</p>
->>>>>>> 60e0ccf57a0e4f11021eb7d646acf5b5d638e016
 			</div>
 		</div>
+	</section>
+	<section class="container-fluid w3-siliver" style="background-image: url('/images/pattern.png'); background-repeat: repeat-x, repeat;
+    background-position: bottom, center;
+    padding: 100px 0;
+    position: relative;background-size: cover">
+        <div class="container">
+            <div class="text-xs-center">
 
-<<<<<<< HEAD
                 <!-- 3 block sections starts -->
                 <div class="row how-it-works-solution">
                     <div class="col-xs-12 col-sm-12 col-md-4 how-it-works-steps white-txt col1">
@@ -159,40 +144,23 @@
                                 </svg>
                             </div>
                             <img src="/images/icon/arrow-big-dotted.png" class="this-hide-small" style="position: absolute; margin-left: 50px"/>
-=======
-		<{/foreach}>
-	</div>
-</section>
-<section class="section-50 section-sm-top-90 section-sm-bottom-100 " style="margin-top: -30px">
-  <div class="container text-center">
-	<h3><{$mainpage_language_ary.our_menu}></h3>
 
-	  <div class="row">
-		  <{foreach from=$category item=row key=index}>
-
-		  <div class="col-xs-6 col-md-2" style="padding: 5px;overflow-x: auto; overflow-y: hidden">
-			  <div class="restaurant" >
-				  <a href="/Menu?ca_id=<{$row.ca_id}>">
-					  <img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="310" height="260" class="img-responsive reveal-inline-block"/>
-				  </a>
-
-					  <p style="margin-top: -5px" >
-						  <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
-					  </p>
-				     <p> <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-						 <span class="glyphicon glyphicon-star"></span>
-					 </p>
->>>>>>> 60e0ccf57a0e4f11021eb7d646acf5b5d638e016
-
-			  </div>
-		  </div>
-
-		  <{/foreach}>
-	  </div>
-
-  </div>
-</section>
+                            <h6 class="text-white">Choose a tasty dish</h6>
+                            <p>We"ve got your covered with menus from over 345 delivery restaurants online.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 how-it-works-steps white-txt col3">
+                        <div class="step step-3">
+                            <div class="icon" data-step="3">
+                                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 612.001 612" width="70">
+                                    <path d="M604.131 440.17h-19.12V333.237c0-12.512-3.776-24.787-10.78-35.173l-47.92-70.975a62.99 62.99 0 0 0-52.169-27.698h-74.28c-8.734 0-15.737 7.082-15.737 15.738v225.043h-121.65c11.567 9.992 19.514 23.92 21.796 39.658H412.53c4.563-31.238 31.475-55.396 63.972-55.396 32.498 0 59.33 24.158 63.895 55.396h63.735c4.328 0 7.869-3.541 7.869-7.869V448.04c-.001-4.327-3.541-7.87-7.87-7.87zM525.76 312.227h-98.044a7.842 7.842 0 0 1-7.868-7.869v-54.372c0-4.328 3.541-7.869 7.868-7.869h59.724c2.597 0 4.957 1.259 6.452 3.305l38.32 54.451c3.619 5.194-.079 12.354-6.452 12.354zM476.502 440.17c-27.068 0-48.943 21.953-48.943 49.021 0 26.99 21.875 48.943 48.943 48.943 26.989 0 48.943-21.953 48.943-48.943 0-27.066-21.954-49.021-48.943-49.021zm0 73.495c-13.535 0-24.472-11.016-24.472-24.471 0-13.535 10.937-24.473 24.472-24.473 13.533 0 24.472 10.938 24.472 24.473 0 13.455-10.938 24.471-24.472 24.471zM68.434 440.17c-4.328 0-7.869 3.543-7.869 7.869v23.922c0 4.328 3.541 7.869 7.869 7.869h87.971c2.282-15.738 10.229-29.666 21.718-39.658H68.434v-.002zm151.864 0c-26.989 0-48.943 21.953-48.943 49.021 0 26.99 21.954 48.943 48.943 48.943 27.068 0 48.943-21.953 48.943-48.943.001-27.066-21.874-49.021-48.943-49.021zm0 73.495c-13.534 0-24.471-11.016-24.471-24.471 0-13.535 10.937-24.473 24.471-24.473s24.472 10.938 24.472 24.473c0 13.455-10.938 24.471-24.472 24.471zm117.716-363.06h-91.198c4.485 13.298 6.846 27.54 6.846 42.255 0 74.28-60.431 134.711-134.711 134.711-13.535 0-26.675-2.045-39.029-5.744v86.949c0 4.328 3.541 7.869 7.869 7.869h265.96c4.329 0 7.869-3.541 7.869-7.869V174.211c-.001-13.062-10.545-23.606-23.606-23.606zM118.969 73.866C53.264 73.866 0 127.129 0 192.834s53.264 118.969 118.969 118.969 118.97-53.264 118.97-118.969-53.265-118.968-118.97-118.968zm0 210.864c-50.752 0-91.896-41.143-91.896-91.896s41.144-91.896 91.896-91.896c50.753 0 91.896 41.144 91.896 91.896 0 50.753-41.143 91.896-91.896 91.896zm35.097-72.488c-1.014 0-2.052-.131-3.082-.407L112.641 201.5a11.808 11.808 0 0 1-8.729-11.396v-59.015c0-6.516 5.287-11.803 11.803-11.803 6.516 0 11.803 5.287 11.803 11.803v49.971l29.614 7.983c6.294 1.698 10.02 8.177 8.322 14.469-1.421 5.264-6.185 8.73-11.388 8.73z" fill="#FFF"></path> </svg>
+                            </div>
+                            <h6 class="text-white">Pick up or Delivery</h6>
+                            <p>Get your food delivered! And enjoy your meal! Pay online on pickup or delivery</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</section>
 </main>
