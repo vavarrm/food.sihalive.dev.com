@@ -62,7 +62,7 @@
 				<div class="form-group">
 					<input type="text" class="form-control form-control-has-validation form-control-last-child " id="search" placeholder="I would like to eat...."> </div>
 			</div>
-			<button  type="submit" class="btn btn-danger btn-sm">Search food</button>
+			<button  type="submit" class="this-btn this-btn-this">Search food</button>
 		</form>
 
 		<section class="popular">
