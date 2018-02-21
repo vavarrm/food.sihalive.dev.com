@@ -6,6 +6,21 @@ class MyFunc
 	{
 		$this->CI =& get_instance();
 	}
+	
+	public function response($output)
+	{
+		
+		$output = array(
+			'body'		=>$output['body'],
+			'title'		=>$output['title'],
+			'status'	=>$output['status'],
+			'message'	=>$output['message']
+		);
+		
+		header('Content-Type: application/json');
+		echo json_encode($output , true);
+	}
+	
 	public function readJson($parameter = array())
 	{
 		$default = array(
@@ -100,15 +115,22 @@ class MyFunc
 		return $output;
 	}
 	
+	private function decryptUser($rsa_randomKey, $encrypt_user_data)
+	{
+		$randomKey =  $this->CI->token->privateDecrypt($rsa_randomKey);
+		$encrypt_user_data = $_SESSION['encrypt_user_data'] ;
+		$decrypt_user_data = $this->CI->token->AesDecrypt($encrypt_user_data , $randomKey );
+		$user_data = unserialize($decrypt_user_data);
+		return $user_data;
+	}
+	
 	public function isLogin()
 	{
-		$item = $this->CI->session->userdata('crazybets');
-		if($item['islogin'] == false)
-		{
-			$this->gotoUrl('/Login', 'please login');
-			exit;
-		}
-		return $item;
+		$get = $this->CI->input->get();
+		$urlRsaRandomKey = 	$get["sess"];
+		$encrypt_user_data = $_SESSION['encrypt_user_data'] ;
+		$decrypt_user_data= $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
+		return $decrypt_user_data;
 		
 	}
 }
