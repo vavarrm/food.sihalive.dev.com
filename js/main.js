@@ -19,49 +19,49 @@
 
 
 
-var CategoryListApi ="/api/getCategory/";
-var GetProductApi ="/api/getProduct/";
-var CheckOutApi ="/api/checkout/";
-var RegistrationApi ="/api/registration/";
-var LoginApi ="/api/login/";
-var GetUserApi ="/api/getUser/";
-var LogoutApi ="/api/logout/";
-var FBRegApi ="/api/fbReg/";
-var FBLoginApi ="/api/fbLogin/";
-var DeliveryPositionApi ="/api/getDeliveryPosition/";
-var isUserExistApi ="/api/isUserExist/";
-var isEmailExistApi ="/api/isEmailExist/";
-var setProfileApi ="/api/setProfile/";
-var getOrderList ="/api/getOrderList/";
+var CategoryListApi ="/Api/getCategory/";
+var GetProductApi ="/Api/getProduct/";
+var CheckOutApi ="/Api/checkout/";
+var RegistrationApi ="/Api/registration/";
+var LoginApi ="/Api/login/";
+var GetUserApi ="/Api/getUser/";
+var LogoutApi ="/Api/logout/";
+var FBRegApi ="/Api/fbReg/";
+var FBLoginApi ="/Api/fbLogin/";
+var DeliveryPositionApi ="/Api/getDeliveryPosition/";
+var isUserAccountExistApi ="/Api/isUserAccountExist/";
+var isEmailExistApi ="/Api/isEmailExist/";
+var setProfileApi ="/Api/setProfile/";
+var getOrderList ="/Api/getOrderList/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
 
 sihaliveApp.factory('User',['$cookies','$rootScope' , function($cookies, $rootScope){
 	var user={} ;
-	var sess = $cookies.get('sess');
-	if(sess !='' && typeof sess !="undefined")
-	{
-		$.ajax({
-			async: false,
-			type: 'get',
-			dataType: 'json',
-			url: GetUserApi+'?sess='+sess ,
-			success: function (data) {
-				if(data.status =="200")
-				{
-					user = data['body']['user_data'];
-				}
+	// var sess = $cookies.get('sess');
+	// if(sess !='' && typeof sess !="undefined")
+	// {
+		// $.ajax({
+			// async: false,
+			// type: 'get',
+			// dataType: 'json',
+			// url: GetUserApi+'?sess='+sess ,
+			// success: function (data) {
+				// if(data.status =="200")
+				// {
+					// user = data['body']['user_data'];
+				// }
 					
-			},
-			error: function (data) {
-				var obj = {
-					message :js_user_login_error
-				}
-				dialog(obj)
-			}
-		});
-	}
+			// },
+			// error: function (data) {
+				// var obj = {
+					// message :js_user_login_error
+				// }
+				// dialog(obj)
+			// }
+		// });
+	// }
 	return user;
 }])
 
@@ -445,16 +445,16 @@ var navCtrl = function($scope, $cookies, $rootScope, User){
 	}
 };
 
-var loginCtrl = function($scope, $cookies, $rootScope){
+var loginCtrl = function($scope, $cookies, $rootScope, apiService){
 	$scope.user = false;
 	
-	$scope.UserIsExist = function(name)
+	$scope.UserIsExist = function(u_account)
 	{
 		$.ajax({
 			async: false,
 			type: 'GET',
 			dataType: 'json',
-			url: isUserExistApi+'?u_name='+name,
+			url: isUserAccountExistApi+'?u_account='+u_account,
 			contentType: "application/json",
 			success: function (data) {
 				var is_user_exist = data['body']['data']['is_user_exist'];
@@ -495,8 +495,9 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 			}
 		});
 	}
-	$scope.register = function()
+	$scope.register = function(event)
 	{
+		event.preventDefault();
 		if($scope.u_passwd_confirm !=$scope.u_passwd)
 		{
 			var obj = {
@@ -505,59 +506,60 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 			dialog(obj);
 			return false;
 		}
-		var postdata = $('#Register').serializeFormJSON();
-		$.ajax({
-			// async: false,
-			type: 'post',
-			dataType: 'json',
-			url: RegistrationApi,
-			data: JSON.stringify(postdata),
-			contentType: "application/json",
-			success: function (data) {
-				if(data.status =="200")
-				{
-					$scope.sess = data['body']['sess'];
-					$cookies.put('sess', $scope.sess, { path: '/'});
-					var obj = {
-						message :js_user_registration_ok,
-						buttons: [
-							{
-							  text: "OK",
-							  click: function() {
-								$( this ).dialog( "close" );
-								window.location.href="/";
-							  }
-							}
-						]
-					}
-					dialog(obj)
-				}else{
-					var obj = {
-						message :data.message
-					};
-					dialog(obj)
-				}
-			},
-			error: function (data) {
+		
+		$scope.registration_ok_auto_login = function(r)
+		{
+
+			if(r.data.status =='200')
+			{
+				$scope.sess = r.data.body.sess;
+				$cookies.put('sess', $scope.sess, { path: '/'});
 				var obj = {
-						message :js_response_error
+					message :js_user_registration_ok,
+					buttons: [
+					{
+						text: "ok",
+						click: function() 
+						{
+							$( this ).dialog( "close" );
+			
+							location.href = '/';
+						}
+					}]
+				};
+				dialog(obj);
+			}else
+			{
+				var obj = {
+					message :r.data.message,
+				};
+				dialog(obj);
+			}
+		}
+		
+		var promise = apiService.adminApi(RegistrationApi, 'post', $scope.input);
+		promise.then
+		(
+			function(r) { 
+				api_response(r,$scope.registration_ok_auto_login(r));
+			},
+			function () {
+				var obj = {
+					message :js_systen_error
 				}
 				dialog(obj)
 			}
-		});
-		
+		)
 	}
 	
 	$scope.doLogin = function()
 	{
-		postdata = $('#Loginfrm').serializeFormJSON();
-		postdata['logintype'] ='web';
+	
 		$.ajax({
-			// async: false,
 			type: 'post',
 			dataType: 'json',
 			url: LoginApi,
-			data: JSON.stringify(postdata),
+			data: JSON.stringify($scope.login),
 			contentType: "application/json",
 			success: function (data) {
 				if(data.status =="200")
@@ -592,7 +594,7 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 					dialog(obj)
 				}
 			},
-			error: function (data) {
+			error: function () {
 				var obj = {
 						message :js_user_login_error
 				}
@@ -605,7 +607,7 @@ var loginCtrl = function($scope, $cookies, $rootScope){
 }
 
 
-var bodyCtrl = function($scope, $cookies, $rootScope, User)
+var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
 {
 	$scope.islogin = false;
 	$scope.logout = function()
@@ -636,19 +638,41 @@ var bodyCtrl = function($scope, $cookies, $rootScope, User)
 			},
 			error: function (data) {
 				var obj = {
-						message :js_user_logout_error
+						message :js_systen_error
 				}
 				dialog(obj)
 			}
 		});
 	}
 
+	$scope.getUserCallBack = function(r)
+	{
+		$scope.islogin = true;
+	}
+	
 	$scope.init = function()
 	{
-		if(typeof User.u_id != 'undefined')
+		var sess = $cookies.get('sess');
+		if(typeof sess !="undefined")
 		{
-			$scope.islogin = true;
+			var promise = apiService.adminApi(GetUserApi,'get');
+			promise.then
+			(
+				function(r) 
+				{
+					api_response(r,$scope.getUserCallBack);
+				},
+				function() {
+					var obj ={
+						'message' :js_user_login_error
+					};
+					dialog(obj);
+				}
+			)
+			
 		}
+		
+		
 	}
 }
 
@@ -780,26 +804,44 @@ sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
 sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', 'apiService', productPageCtrl]);
 sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
-sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope',loginCtrl]);
-sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'User',bodyCtrl]);
+sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope','apiService',loginCtrl]);
+sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'apiService',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
 sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
-// sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
 
-var apiService = function($http)
+
+var apiService = function($http, $cookies)
 {
-	var apiUrl = {
-		
-	};
+	var sess = $cookies.get('sess');
 	return {
-		getSetList: function(f_id){
-			return $http.get('/Api/getSetList?f_id='+f_id);
+		adminApi :function(api_url, method='post', postdata){
+			var default_obj = {
+				
+			};
+			var object = $.extend(default_obj, postdata);
+			if(method =="post")
+			{
+				return $http.post(api_url+'?sess='+sess, object ,  {headers: {'Content-Type': 'application/json'} });
+			}else
+			{
+				return $http.get(api_url+'?sess='+sess, object ,  {headers: {'Content-Type': 'application/json'} });
+			}
+			
 		}
     };
 }
-sihaliveApp.factory('apiService', ['$http',apiService]);
+sihaliveApp.factory('apiService', ['$http', '$cookies',apiService]);
 
 
+
+function api_response(r,callback)
+{
+	if(typeof callback == 'function')
+	{
+		callback(r);
+	}
+	
+}
 
 function global(odj)
 {

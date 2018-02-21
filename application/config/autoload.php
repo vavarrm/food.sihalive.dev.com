@@ -67,7 +67,7 @@ $autoload['libraries'] = array(
 	'MyFBApi' =>'fb',
 	'MyToken' =>'token',
 	'MySocketIO' =>'socketIO',
-	'session'
+	// 'session'
 );
 
 /*

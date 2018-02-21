@@ -9,7 +9,7 @@ class Mysmarty
 		$this->CI = & get_instance();
 		$this->randseed = time().rand(1,9999);
 		$this->smarty = new Smarty;
-		$this->smarty->caching = false;
+		
 		$this->smarty->setTemplateDir(BASEPATH.'../application/views/');
 		$this->smarty->setCompileDir(BASEPATH.'../application/views/templates_c');
 		$this->smarty->left_delimiter ="<{";
@@ -34,6 +34,7 @@ class Mysmarty
 	
 		));
 		$this->smarty->clearAllCache();
+		$this->smarty->caching = false;
 		$this->smarty->display($tpl);
 	}
 	
@@ -63,6 +64,7 @@ class Mysmarty
 			'google_map_api_key'	=>$google_map_api_key
 		));
 		$this->smarty->clearAllCache();
+		$this->smarty->caching = false;
 		$this->smarty->display('Frontend/frame.tpl');
 	}
 	

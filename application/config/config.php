@@ -368,7 +368,7 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-$config['sess_driver'] = 'database';
+$config['sess_driver'] = 'files';
 $config['sess_table_name'] = 'ci_sessions';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
@@ -516,8 +516,8 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 $config['private_key'] = 'nmgfBxvHiRbNzRfE';
-$config['fb_app_id'] = '541985926144295';
-$config['fb_app_secret'] = '8028ae50abc2dc1df4068f459f219b79';
+$config['fb_app_id'] = $_SERVER['FB_APP_ID'];
+$config['fb_app_secret'] = $_SERVER['FB_APP_SECRECT'];
 $config['fb_version'] = 'v2.10';
 $config['google_map_api_key'] = 'AIzaSyA66yV4atZJx0ELMs8MFzefwk1CtqAJCJo';
 $config['sms'] = array(	

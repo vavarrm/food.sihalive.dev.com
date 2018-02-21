@@ -1,4 +1,5 @@
 <?php
+session_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Api extends CI_Controller {
 	
@@ -14,6 +15,7 @@ class Api extends CI_Controller {
 		$this->load->model('Order_Model', 'order');
 		$this->load->model('Position_Model', 'position');
 		$this->js = $this->language->load('js');
+		$this->response_code = $this->language->load('response');
 		$this->sms =$this->config->item('sms');
     }
 
@@ -162,7 +164,7 @@ class Api extends CI_Controller {
 		$this->response($output);
 	}
 	
-	public function isUserExist()
+	public function isUserAccountExist()
 	{
 		$output['body']=array();
 		$output['status'] = '200';
@@ -170,14 +172,17 @@ class Api extends CI_Controller {
 		try 
 		{
 			$get = $this->input->get();
-			$u_name = $get ['u_name'];
-			$isUserExist  = $this->user->isUserNameExist($u_name);
+			$u_account = $get ['u_account'];
+			$isUserExist  = $this->user->isUserAccountExist($u_account );
 			$output['body']['data']['is_user_exist'] =$isUserExist['total'] ;
 			
-		}catch(Exception $e)
+		}catch(MyException $e)
 		{
-			$output['status'] = '000';
-			$output['message'] = $e->getMessage();
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$output['status']	=$parames['status'];
+			$output['message'] = $this->response_code[$parames['status']]; 
 		}
 		
 		$this->response($output);
@@ -204,27 +209,23 @@ class Api extends CI_Controller {
 		$this->response($output);
 	}
 	
-	// public function test()
-	// {
-		// $output['body']=array();
-		// $output['status'] = '200';
-		// $output['title'] ='test';
-		// $get= $this->input->get();
-		// try 
-		// {
-			// $str = $get['str'];
-			// $encrypt = $this->rsa->privateEncrypt($str) ;
-			// $decrypt= $this->rsa->publicDecrypt($encrypt) ;
-			// $output['body']['encrypt'] = $encrypt  ;
-			// $output['body']['decrypt'] = $decrypt  ;
-		// }catch(Exception $e)
-		// {
-			// $output['status'] = '000';
-			// $output['message'] = $e->getMessage();
-		// }
+	public function test()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='test';
+		$get= $this->input->get();
+		try 
+		{
+			
+		}catch(Exception $e)
+		{
+			$output['status'] = '000';
+			$output['message'] = $e->getMessage();
+		}
 		
-		// $this->response($output);
-	// }
+		$this->response($output);
+	}
 	
 	public function getDeliveryPosition()
 	{
@@ -292,42 +293,64 @@ class Api extends CI_Controller {
 		{
 			if(empty($this->request))
 			{
-				$output['status'] ='000';
-				throw new Exception("request is empty");
+				$array = array(
+					'status'	=>'001'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			$response =  $this->fb->get('/me?fields=id,name,email', $this->request['accessToken']);
 			if(empty($response))
 			{
-				throw new Exception("fb response empty");
+				$array = array(
+					'status'	=>'008'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			$fbuser = $response->getGraphUser();
 			$user = $this->user->getUserForFBId($fbuser['id']);
 			if(!empty($user))
 			{
-				throw new Exception("fb user is exist");
+				$array = array(
+					'status'	=>'005'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
 			
 			$insert = array(
-				'u_name'		=>NULL,
+				'u_account'		=>NULL,
 				'u_passwd'		=>NULL,
 				'u_email'		=>NULL,
-				'u_reg_type'	=>'fb',
-				'fb_u_id'		=>$fbuser['id']
+				'fb_u_id'		=>$fbuser['id'],
+				'fb_name'		=>$fbuser['name']
 			);
 			$row = $this->user->insert($insert);
 			if($row['affected_rows'] <0)
 			{
-				throw new Exception("insert user error");
+				$array = array(
+					'status'	=>'009'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			$user = $this->user->getUserForFBId($fbuser['id']);
 			$sess = $this->doLogin($user);
 			$output['body']['sess'] = $sess;
 			
-		}catch(Exception $e)
+		}catch(MyException $e)
 		{
-			$output['status'] = '000';
-			$output['message'] = $e->getMessage();
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$output['status']	=$parames['status'];
+			$output['message'] = $this->response_code[$parames['status']]; 
 		}
 		
 		$this->response($output);
@@ -340,7 +363,7 @@ class Api extends CI_Controller {
 		$output['title'] ='登出';
 		try 
 		{
-			$this->session->unset_userdata('encrypt_user_data');
+			session_destroy();
 		}catch(Exception $e)
 		{
 			$output['message'] = $e->getMessage();
@@ -354,12 +377,22 @@ class Api extends CI_Controller {
 		$row = $this->user->getUserForLogin($ary);
 		if(empty($row))
 		{
-			$output['status'] ='001';
-			throw new Exception($this->js['js_user_empty']);
-		}elseif(md5($ary['u_passwd']) != $row['u_passwd'] && $ary['logintype'] =='web'){
+			$array = array(
+				'status'	=>'006'
+			);
+			$MyException = new MyException();
+			$MyException->setParams($array);
+			throw $MyException;
+		}elseif(md5($ary['u_passwd']) != $row['u_passwd'] && $ary['logintype'] =='account'){
 			$output['status'] ='002';
-			throw new Exception($this->js['js_user_passwd_error']);
+			$array = array(
+				'status'	=>'007'
+			);
+			$MyException = new MyException();
+			$MyException->setParams($array);
+			throw $MyException;
 		}else{
+				
 			$user = array(
 				'u_name'  =>$row['u_name'],
 				'u_email' =>$row['u_email'],
@@ -375,8 +408,7 @@ class Api extends CI_Controller {
 				'fb_u_id' =>$row['fb_u_id'],
 			);
 			$encrypt_user_data = $this->token->AesEncrypt(serialize($data), $randomKey);
-			$this->session->set_userdata('encrypt_user_data', $encrypt_user_data);
-			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			$_SESSION['encrypt_user_data'] = $encrypt_user_data;
 			$urlRsaRandomKey = urlencode($rsaRandomKey) ;
 			return $urlRsaRandomKey ;
 		}
@@ -386,7 +418,7 @@ class Api extends CI_Controller {
 	private function decryptUser($rsa_randomKey, $encrypt_user_data)
 	{
 		$randomKey =  $this->token->privateDecrypt($rsa_randomKey);
-		$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+		$encrypt_user_data = $_SESSION['encrypt_user_data'] ;
 		$decrypt_user_data = $this->token->AesDecrypt($encrypt_user_data , $randomKey );
 		$user_data = unserialize($decrypt_user_data);
 		return $user_data;
@@ -403,7 +435,7 @@ class Api extends CI_Controller {
 			{
 				$urlRsaRandomKey =$get['sess'];
 			}
-			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			$encrypt_user_data = $_SESSION['encrypt_user_data'] ;
 			$decrypt_user_data= $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
 			if(!$decrypt_user_data)
 			{
@@ -430,26 +462,40 @@ class Api extends CI_Controller {
 		{
 			if(empty($this->request))
 			{
-				throw new Exception("request is empty");
+				$array = array(
+					'status'	=>'001'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
-			if(empty($this->request['username_email']))
+			if(
+				empty($this->request['account']) ||
+				empty($this->request['passwd']) 
+			)
 			{
-				throw new Exception("username_email is empty");
+				$array = array(
+					'status'	=>'001'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
-			if(empty($this->request['u_passwd']))
-			{
-				throw new Exception("u_passwd is empty");
-			}
-			$this->request['u_name'] = $this->request['username_email'];
-			$this->request['u_email'] = $this->request['username_email'];
-			$sess = $this->doLogin($this->request);
+
+			$ary['u_account'] = $this->request['account'];
+			$ary['u_passwd'] = $this->request['passwd'];
+			$ary['logintype'] = $this->request['logintype'];
+			$sess = $this->doLogin($ary);
 			$output['body']['sess'] = $sess;
-		}catch(Exception $e)
+		}catch(MyException $e)
 		{
-			$output['status'] = '000';
-			$output['message'] = $e->getMessage();
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$output['status']	=$parames['status'];
+			$output['message'] = $this->response_code[$parames['status']]; 
 		}
 		
 		$this->response($output);
@@ -464,78 +510,109 @@ class Api extends CI_Controller {
 		{
 			if(empty($this->request))
 			{
-				throw new Exception("request is empty");
+				$array = array(
+					'status'	=>'001'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+		
+			if(empty($this->request['u_account']))
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
-			if(empty($this->request['u_name']))
-			{
-				throw new Exception("u_name is empty ");
-			}
-			
-			if(strlen($this->request['u_name']) > 20)
-			{
-				throw new Exception("u_name length over 20 ");
-			}
-			
-			if(strlen($this->request['u_name']) < 6)
-			{
-				throw new Exception("u_name length less 6 ");
-			}
-			
-			if(empty($this->request['u_email']))
-			{
-				throw new Exception("u_email is empty ");
-			}
-			
-			if(!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $this->request['u_email'])) 
-			{
-				throw new Exception("email format is wrong ");
+		
+			if(!ereg('^[a-z0-9]{6,12}$', $this->request['u_account'])){
+				$array = array(
+					'status'	=>'003'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
 			if(empty($this->request['u_passwd']))
 			{
-				throw new Exception("u_passwd is empty ");
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
-			if(strlen($this->request['u_passwd']) > 12)
-			{
-				throw new Exception("u_passwd length over 12 ");
+			if(!ereg('^[a-z0-9]{6,12}$', $this->request['u_passwd'])){
+				$array = array(
+					'status'	=>'010'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
-			if(strlen($this->request['u_passwd']) < 6)
-			{
-				throw new Exception("u_passwd length less 6 ");
-			}
+			
 			
 			if(empty($this->request['u_passwd_confirm']))
 			{
-				throw new Exception("u_passwd_confirm is empty ");
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
 			if($this->request['u_passwd'] != $this->request['u_passwd_confirm'] )
 			{
-				throw new Exception("password confirm error ");
+				$array = array(
+					'status'	=>'004'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 			
-			$isUserExist = $this->user->isUserExist($this->request);
+		
+			
+			$isUserExist = $this->user->isAccountExist($this->request);
 			if($isUserExist >0)
 			{
-				throw new Exception("username or email is exist");
+				$array = array(
+					'status'	=>'005'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
 			}
 
 			$row = $this->user->insert($this->request);
 			if($row['affected_rows'] <0)
 			{
-				throw new Exception("insert user error");
+				$array = array(
+					'status'	=>'009'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;;
 			}
-			$output['message'] ="insert OK";
+			$output['message'] =$this->response_code['201'];
 			$sess = $this->doLogin($this->request);
 			$output['body']['sess'] = $sess;
 			
-		}catch(Exception $e)
+		}catch(MyException $e)
 		{
-			$output['status'] = '000';
-			$output['message'] = $e->getMessage();
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$output['status']	=$parames['status'];
+			$output['message'] = $this->response_code[$parames['status']]; 
 		}
 		
 		$this->response($output);
