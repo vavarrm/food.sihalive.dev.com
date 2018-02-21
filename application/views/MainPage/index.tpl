@@ -52,30 +52,59 @@
 	</div>
   </div>
 </section>
-	<section class="container" style="margin-top: 10px">
-		<div class=" text-center">
-			<h3>餐厅类型</h3>
+<section class="container" style="margin-top: 10px">
+	<div class="container text-center   " style="padding: 10px  ">
+		<h5 class="h5 text-uppercase "> Sihalive food Delivery</h5>
 
-			<div class="row">
-				<{foreach from=$category item=row key=index}>
+		<form class="form-inline" style="margin-bottom: 10px"action="search">
+			<div class="form-group">
+				<label class="sr-only" for="exampleInputAmount">I would like to eat....</label>
+				<div class="form-group">
+					<input type="text" class="form-control form-control-has-validation form-control-last-child " id="search" placeholder="I would like to eat...."> </div>
+			</div>
+			<button  type="submit" class="this-btn this-btn-this">Search food</button>
+		</form>
 
-				<div class="col-xs-4 col-md-2" style="padding: 5px;overflow-x: auto; overflow-y: hidden">
-					<div class="" style="border-radius: 100%; border: 1px solid silver;" >
-						<a href="/Menu?ca_id=<{$row.ca_id}>">
-							<img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
-						</a>
+		<section class="popular">
+			<div class="container">
 
-						<p style="margin-top: -5px" >
-							<a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
-						</p>
+				<div class="row">
+					<{foreach from=$category item=row key=index}>
+					<!-- Each popular food item starts -->
+					<div class="col-xs-12 col-sm-6 col-md-2" ">
+					<div class="food-item-wrap restaurant  " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
+						<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive"/>
+						<div class="content">
+							<div class="product-name"><{$row.ca_name}></div>
+						</div>
+
 					</div>
 				</div>
-
 				<{/foreach}>
+				<!-- Each popular food item starts -->
+
+			</div>
+			<hr class="offset-top-50">
+		</section>
+	</div>
+	<div class="row">
+		<{foreach from=$category item=row key=index}>
+
+		<div class="col-xs-4 col-md-2" style="padding: 5px;overflow-x: auto; overflow-y: hidden">
+			<div class="" style="border-radius: 100%; border: 1px solid silver;" >
+				<a href="/Menu?ca_id=<{$row.ca_id}>">
+					<img src="images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
+				</a>
+
+				<p style="margin-top: -5px" >
+					<a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
+				</p>
 			</div>
 		</div>
 
-	</section>
+		<{/foreach}>
+	</div>
+</section>
 <section class="section-50 section-sm-top-90 section-sm-bottom-100 " style="margin-top: -30px">
   <div class="container text-center">
 	<h3><{$mainpage_language_ary.our_menu}></h3>

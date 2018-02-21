@@ -110,7 +110,7 @@
                             </ul>
 
                         </div>
-                        <div class="col-sm-9 w3-margin-bottom" style="padding: 0px;  cursor: pointer;overflow: auto  "  >
+                        <div class="col-sm-9 this-margin-bottom" style="padding: 0px;  cursor: pointer;overflow: auto  "  >
                             <div  style="position: relative">
 
 
@@ -119,7 +119,7 @@
 
                                     <div class=" restaurant-entry  ">
                                        <div class="row">
-                                           <div class="col-sm-12 restaurant w3-margin-top w3-border w3-padding">
+                                           <div class="col-sm-12 restaurant this-margin-top this-border this-padding">
                                                <div class="col-sm-9  text-xs-center text-sm-left">
                                                    <div class="col-sx-12 col-md-4">
                                                        <a class="img-responsive  " href="/reastaurant"><img src="/images/category-<{$row.ca_id}>-310X260.png" alt="Food logo"></a>
@@ -139,7 +139,7 @@
                                                    <div class="right-content bg-white">
                                                        <div class="right-review">
                                                            <div class="rating-block"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> </div>
-                                                           <p> 245 Reviews</p> <a href="/reastaurant" class="btn btn-sm​​​​​​​​​​​ w3-hover-text-deep-orange w3-text-deep-orange" style="border: dashed 1px orangered;">View Menu</a> </div>
+                                                           <p> 245 Reviews</p> <a href="/reastaurant" class="btn btn-sm​​​​​​​​​​​ this-hover-text-deep-orange this-text-deep-orange" style="border: dashed 1px orangered;">View Menu</a> </div>
                                                    </div>
                                                    <!-- end:right info -->
                                                </div>

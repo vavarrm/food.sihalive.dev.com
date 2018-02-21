@@ -20,6 +20,10 @@ class User extends CI_Controller {
 	
 	public function index()
 	{
+        $this->smarty->assign(array(
+            'userLanguageAry'	=>$this->user_language_ary,
+        ));
+        $this->smarty->displayFrame(__CLASS__.'/profile.tpl');
 		
 	}
 	
