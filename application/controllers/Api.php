@@ -529,7 +529,7 @@ class Api extends CI_Controller {
 			}
 			
 		
-			if(!ereg('^[a-z0-9]{6,12}$', $this->request['u_account'])){
+			if(!preg_match('/^[a-z0-9]{6,12}$/', $this->request['u_account'])){
 				$array = array(
 					'status'	=>'003'
 				);
@@ -548,7 +548,7 @@ class Api extends CI_Controller {
 				throw $MyException;
 			}
 			
-			if(!ereg('^[a-z0-9]{6,12}$', $this->request['u_passwd'])){
+			if(!preg_match('/^[a-z0-9]{6,12}$/', $this->request['u_passwd'])){
 				$array = array(
 					'status'	=>'010'
 				);

@@ -111,4 +111,18 @@ class MyFunc
 		return $item;
 		
 	}
+	
+	public function response($output)
+	{
+		
+		$output = array(
+			'body'		=>$output['body'],
+			'title'		=>$output['title'],
+			'status'	=>$output['status'],
+			'message'	=>$output['message']
+		);
+		
+		header('Content-Type: application/json');
+		echo json_encode($output , true);
+	}
 }
