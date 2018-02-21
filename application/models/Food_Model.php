@@ -181,7 +181,7 @@
 		
 		public function getFoodForMenu($where = array())
 		{
-			$where_str =" 1 = 1 AND f_is_del='0' AND f_status='sale_out'";
+			$where_str =" 1 = 1  AND f_status='sale_on'";
 			if(!empty($where) )
 			{
 				foreach($where as $key =>$vale)
@@ -190,15 +190,15 @@
 					$bind[] = $value;
 				}
 			}
-			$sql ="	SELECT * 
-					FROM `food` AS f
-						LEFT JOIN `category` AS ca ON f.ca_id = ca.ca_id
-					WHERE ".$where_str."
-					ORDER BY f.f_id DESC";
-			$query = $this->db->query($sql, $bind);
+			// $sql ="	SELECT * 
+					// FROM `food` AS f
+						// LEFT JOIN `category` AS ca ON f.ca_id = ca.ca_id
+					// WHERE ".$where_str."
+					// ORDER BY f.f_id DESC";
+			// $query = $this->db->query($sql, $bind);
 			//echo $this->db->last_query();
-			$rows  =  $query->result_array();
-			$query->free_result();
+			// $rows  =  $query->result_array();
+			// $query->free_result();
 			return $rows;
 		}
 	}
