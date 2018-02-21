@@ -14,6 +14,8 @@ class Menu extends CI_Controller {
 	{	
 		$categorys = $this->food->getCategory();
 		$foods = $this->food->getFoodForMenu();
+        //var_dump(($foods));
+		//echo "D";
 		$this->smarty->assign(array(
 			'categorys'	=>$categorys,
 			'foods'		=>$foods ,
@@ -26,6 +28,7 @@ class Menu extends CI_Controller {
 	{
 
 		$food =$this->food->getProductForFid($f_id);
+		 //var_dump($food );
 		$this->smarty->assign(array(
 			'f_id'				=>$f_id,
 			'food_language_ary'	=>$this->food_language_ary,
