@@ -83,23 +83,24 @@
 				<!-- Each popular food item starts -->
 
 			</div>
-			<hr class="offset-top-50">
+
 		</section>
 	</div>
 	<br/>
-	<section class="popular" style="margin-bottom: 20px">
+	<section class="popular container-fluid this-white this-padding-top" style="margin-bottom: 20px; padding-top: 20px">
 		<div class="container">
            <h5 class="h5 text-uppercase">Restaurants in Shihanoukville </h5>
+			<hr class="offset-top-50">
 			<div class="row">
 				<{foreach from=$category item=row key=index}>
 				<!-- Each popular food item starts -->
-				<div class="col-xs-12 col-sm-6 col-md-3" ">
+				<div class="col-xs-12 col-sm-6 col-md-3" style="margin-top: 10px" >
 					<div class="food-item-wrap restaurant this-center " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
-						<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive"/>
+						<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive" />
 						<div class="content">
 							<div class="product-name"><{$row.ca_name}></div>
 						</div>
-						<a href="/restaurant" class="btn btn-sm w3-text-deep-orange" style="border: dashed 1px orangered;">Order Now</a>
+						<a href="/restaurant" class="this-btn this-text-deep-orange" style="border: dashed 1px orangered;">Order Now</a>
 
 					</div>
 				</div>

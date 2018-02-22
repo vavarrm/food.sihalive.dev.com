@@ -57,7 +57,7 @@
                                         <{foreach from=$category item=row key=index}>
                                         <li class="list-group-item" style="cursor: pointer; color: black"><{$row.ca_name}>
                                             <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
-                                                <span class="glyphicon glyphicon-menu-right"></span>
+                                                <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
                                             </i></li>
 
                                         <{/foreach}>
@@ -103,17 +103,67 @@
                                                 <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
                                             </p>
                                             <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
-                                            <span class="btn-danger"
+                                            <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.ca_id}>').style.display='block'"
                                                   style="font-size: 12px; font-weight:normal;
                                               padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
                                                Price : 0.00$
-                                      </span>
+                                      </button>
                                             </div>
                                         </div>
 
 
+
+
                                     </div>
                                 </div>
+
+                                <!--  Open Modal Order --->
+
+                                <div id="<{$row.ca_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
+                                    <div class="this-modal-content">
+                                        <header class="this-container ">
+                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"
+                                                 class="this-button this-right this-btn-this" style="margin-right: -16px">&times;</span>
+                                            <h3><{$row.ca_name}></h3>
+                                        </header>
+                                        <div class="this-container this-padding">
+                                           <div class="row">
+                                               <div class="col-sm-6">
+                                                   <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"></span>
+
+                                                   <img src="/images/category-<{$row.ca_id}>-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
+
+                                               </div>
+                                               <div class="col-sm-6">
+                                                   <form>
+                                                       <p>Price : 0.00$ </p>
+                                                        <p>Quantity</p>
+                                                       <div class="stepper-type-1">
+                                                           <div class="stepper ">
+                                                               <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
+                                                               <span class="stepper-arrow up"></span>
+                                                               <span class="stepper-arrow down"></span>
+                                                           </div>
+                                                       </div>
+                                                       <button class="this-btn this-margin-top " id="Ins">
+                                                           <span class="glyphicon glyphicon-plus-sign"></span> Instructions
+                                                       </button>
+                                                       <textarea  class="form-control " rows="1" cols="2" id="show_Ins">
+                                                       </textarea>
+
+                                                       <hr class="offset-top-50">
+                                                       <button class="this-btn this-btn-this this-right this-margin-top "> ADD TO CART </button>
+                                                   </form>
+
+                                               </div>
+                                           </div>
+                                        </div>
+                                        <footer class="this-container this-padding this-right">
+
+                                        </footer>
+                                    </div>
+                                </div>
+                                <!--Close Modal -->
 
                                 <{/foreach}>
                                 <{foreach from=$category item=row key=index}>
@@ -229,7 +279,7 @@
                                     </div>
                                     <div class="" style="margin-top: 10px">
                                         <center>
-                                            <button class="btn-danger"> <span class="glyphicon glyphicon-log-out"></span> Checkout</button>
+                                            <button class="this-btn this-btn-this"> <span class="glyphicon glyphicon-log-out"></span> Checkout</button>
                                         </center>
                                     </div>
                                 </div>
@@ -246,10 +296,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
-        //$("#menu__").hide();
+        $("#show_Ins").hide();
         $("#menu_clcik").click(function(){
             $("#menu__").slideToggle("slow");
         });
+        $('#Ins').click(function () {
+            $('#show_Ins').slideToggle("slow");
+        })
     });
     //store the element
     $(window).scroll(function(){

@@ -26,21 +26,21 @@
 
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
-	<section class="bg-white container" style="padding: 0px; color: white!important; font-size: 14px">
+	<section class="bg-white container this-margin-top this-margin-button " style="padding: 0px; color: white!important; font-size: 14px">
 
 				<div class="">
 				<ul class="nav nav-tabs" style="background:#f16121; border: none; padding: 0px">
 					<li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-					<li><a data-toggle="tab" href="#menu1"><span class="glyphicon glyphicon-map-marker"></span>  Address</a></li>
-					<li><a data-toggle="tab" href="#menu1"><span class="glyphicon glyphicon-book"></span>  Order </a></li>
+					<li><a data-toggle="tab" href="#address"><span class="glyphicon glyphicon-map-marker"></span>  Address</a></li>
+					<li><a data-toggle="tab" href="#order_list"><span class="glyphicon glyphicon-book"></span>  Order </a></li>
 
 				</ul>
 
-				<div class="tab-content this-border this-padding-top this-padding " style="background:#f5f5f5; padding-top: 10px">
+				<div class="tab-content this-border this-padding-top this-padding ">
 
 						<div id="home" class="tab-pane this-animate-zoom in active ">
 							<div class="c">
-								<div class="well this-white">
+								<div class="well this-white" style="border: none">
 									<div class="row">
 										<div class="col-sm-3 align-center this-center">
 											<center>
@@ -101,17 +101,96 @@
 							</div>
 						</div>
 
-						<div id="menu1" class="tab-pane this-animate-zoom this-left-align">
-							<div class="well this-white">
-								<button onclick="openLocation()" class="this-btn this-btn-this "> Add New</button>
-								<hr class="hr-fullwidth" />
-								<div class="this-container">
-									<p> Address : ....</p>
+						<div id="address" class="tab-pane this-animate-zoom this-left-align">
+							<div class="well this-white " style="border: none">
 
-									<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-lg" style="padding: 2px;border-top-right-radius: 0px 0px ">
-										<option value="0">請選擇</option>
-										<option data-y="{{position.u_position_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
-									</select>
+								<div class="this-container">
+									<div class="row">
+										<div class="col-sm-7" style="padding: 0px">
+											<form  class="form" style="text-align: left" id="frm_add" action="/User_Position/doInsert" method="post" >
+												<div class="form-group ">
+													<div class="col-sm-12">
+														<label for="p_name">Address name :</label>
+														<select  id="o_position_id" data-constraints="@Required"  name="o_position_id"  class=" form-control"
+																 style="padding: 2px; padding-left: 10px; height: 38px;!important; border-radius: 4px" >
+															<option value="0">請選擇</option>
+															<option data-y="{{position.u_position_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+														</select>
+													</div>
+													<div class="col-sm-4 this-margin-top">
+														<span onclick="openLocation()" class="this-btn this-btn-this "> add new address </span>
+
+													</div>
+												</div>
+												<br/>
+
+												<div class="form-group ">
+													<div class="col-sm-12 this-margin-top">
+														<label for="p_desc">Plcese Description :</label>
+														<textarea class="form-control">
+
+													</textarea>
+														<hr/>
+														<button type="submit"class="this-btn this-btn-this"  style="height: 35px; padding: 2px; width: 100px">Save</button>
+														<button type="reset" id="close_add" class="this-btn" style="height: 35px; padding: 2px; width: 100px">Cancel</button>
+													</div>
+												</div>
+
+
+												<div id='response'></div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					    <div id="order_list" class="tab-pane this-animate-zoom this-left-align">
+							<div class="well this-white " style="border: none; padding: 0px">
+
+								<div class="this-container">
+									<div class="row">
+
+										<div class="col-sm-12" style="padding: 0px">
+											<div class="table-responsive" style="padding: 0px">
+												<table class="table table-primary">
+
+													<tbody>
+													<tr class="this-border">
+														<td>Order ID</td>
+														<td>Date/Time</td>
+														<td>Discount</td>
+														<td>Total</td>
+														<td>######</td>
+													</tr>
+													<tr>
+														<td>#0001</td>
+														<td>21-02-2018 8:45:50</td>
+														<td>$0.00</td>
+														<td>$3.00</td>
+														<td>
+															<span class="badge this-green"> Completed</span>
+															<a href="#"> <span class="badge this-orange this-text-white " >View</span>
+															</a>
+														</td>
+													</tr>
+													<tr>
+														<td>#0002</td>
+														<td>21-02-2018 8:45:50</td>
+														<td>$0.00</td>
+														<td>$3.00</td>
+														<td>
+															<span class="badge this-green"> Completed</span>
+															<a href="#"> <span class="badge this-orange this-text-white " >View</span>
+															</a>
+
+														</td>
+													</tr>
+
+												</table>
+											</div>
+										</div>
+									</div>
 								</div>
 
 							</div>
@@ -120,14 +199,10 @@
 
 				</div>
 			</div>
-		<hr class="offset-top-50">
 
-
-			<div class="range range-xs-center offset-top-50">
-			</div>
 	</section>
 
-	<div class="this-animate-zoom ac-wrapper"  id="this_map" >
+	<div class="this-animate-zoom ac-wrapper this-hide"  id="this_map" >
 		<div class="popup" id="this_Open">
 
 			<div class="this-container this-top" style="width:320px; position:relative!important; background-color:rgba(255,255,255,0.7);text-align:left; top:0px; padding-bottom: 5px; padding: 5px"	>
