@@ -70,6 +70,47 @@
 			return $row;
 		}	
 		
+		function setUserPhoneVerification($u_id)
+		{
+			$output = array(
+				'affected_rows'	=>0,
+				'phone_verification_code'	=>''
+			);
+			try 
+			{
+				$u_phone_verification_code = rand(100000,999999);
+				$output['phone_verification_code'] = $u_phone_verification_code ;
+				$sql = "UPDATE 
+							user
+						SET
+							u_phone_verification_code =? ,
+							u_phone_verification_code_add_datetime =NOW()
+						WHERE u_id =?";
+				$bind = array(
+					$u_phone_verification_code,
+					$u_id
+				);
+				$query = $this->db->query($sql, $bind);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'db_error_message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$output['affected_rows']  +=$this->db->affected_rows();
+				return $output;
+			}catch(MyException $e)
+			{
+				throw $MyException;
+			}
+		}
+		
 		function getUserForId($u_id)
 		{
 			$sql ="
@@ -78,7 +119,9 @@
 				u_email,
 				u_phone,
 				u_id,
-				fb_u_id
+				fb_u_id,
+				u_phone_verification,
+				u_phone_verification_code
 			FROM user WHERE u_id = ?";
 			$bind = array(
 				$u_id

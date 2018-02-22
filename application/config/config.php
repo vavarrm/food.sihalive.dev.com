@@ -521,8 +521,8 @@ $config['fb_app_secret'] = $_SERVER['FB_APP_SECRECT'];
 $config['fb_version'] = 'v2.10';
 $config['google_map_api_key'] = 'AIzaSyA66yV4atZJx0ELMs8MFzefwk1CtqAJCJo';
 $config['sms'] = array(	
-	'username'	=>'tsai_sms@smartmkn',
-	'password'	=>md5('3xxkdkj@c'),
+	'username'	=>$_SERVER['SMS_USERNAME'],
+	'password'	=>md5($_SERVER['SMS_PASSWD']),
 );
 $config['website'] = array(
 	'phone' =>"+85516995371",

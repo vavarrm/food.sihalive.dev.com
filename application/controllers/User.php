@@ -18,6 +18,8 @@ class User extends CI_Controller {
 	}
 	
 	
+	public function set
+	
 	public function index()
 	{
         $this->smarty->assign(array(
