@@ -1,6 +1,6 @@
 
 <style>
-	#ac-wrapper {
+	.ac-wrapper {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -9,7 +9,7 @@
 		background:transparent;
 		z-index: 1001;
 	}
-	#popup {
+	.popup {
 		width: 100%;
 		height: 100%;
 
@@ -107,6 +107,11 @@
 								<hr class="hr-fullwidth" />
 								<div class="this-container">
 									<p> Address : ....</p>
+
+									<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-lg" style="padding: 2px;border-top-right-radius: 0px 0px ">
+										<option value="0">請選擇</option>
+										<option data-y="{{position.u_position_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+									</select>
 								</div>
 
 							</div>
@@ -122,8 +127,8 @@
 			</div>
 	</section>
 
-	<div class="this-animate-zoom"  id="ac-wrapper" >
-		<div id="popup">
+	<div class="this-animate-zoom ac-wrapper"  id="this_map" >
+		<div class="popup" id="this_Open">
 
 			<div class="this-container this-top" style="width:320px; position:relative!important; background-color:rgba(255,255,255,0.7);text-align:left; top:0px; padding-bottom: 5px; padding: 5px"	>
 
@@ -146,7 +151,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div id="maping" ng-init="mapinit()"  data-zoom="15" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model"
 				 style="position:fixed; margin-bottom: 5px; height:100%; margin-top: -70px">
 				<ul class="map_locations" style="width: 80px" >
@@ -157,9 +161,10 @@
 					</li>
 				</ul>
 			</div>
+
 			<div id="add_location" class=" this-bottom" style="width: 100%; height:10%;  background: white; text-align: center; position: absolute">
 				<p style="font-size: 12px"> Drag drop and create your location Address </p>
-				<button class=" btn-primary " id="open_form" style="height: 35px; padding: 2px; width: 100px"> AddNew </button>
+				<button class="this-btn this-btn-this" id="open_form" style="height: 35px; padding: 2px; width: 100px"> AddNew </button>
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-2"></div>
@@ -174,7 +179,7 @@
 									<input type="text" class="form-control input-sm" id="p_desc" required minlength="5">
 								</div>
 
-								<button type="submit"class=" btn-primary " style="height: 35px; padding: 2px; width: 100px">Save</button>
+								<button type="submit"class="this-btn" " style="height: 35px; padding: 2px; width: 100px">Save</button>
 								<button type="reset" id="close_add" class=" btn-primary " style="height: 35px; padding: 2px; width: 100px">Back</button>
 								<div id='response'></div>
 							</form>
@@ -183,25 +188,16 @@
 				</div>
 			</div>
 
-
-
-
-
-
 		</div>
 	</div>
 
 </main>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     function openLocation() {
-        $('#ac-wrapper').css("display", "block");
+        $('#this_map').removeClass('this-hide');
     }
     function PopUp(){
-        $('#ac-wrapper').css("display", "none");
+        $('#this_map').addClass('this-hide');
     }
-    $(document).ready(function(){
-        //$('#wrapper').css("display", "none");
-    });
-    PopUp();
+
 </script>

@@ -817,7 +817,7 @@ var apiService = function($http, $cookies)
 				
 			};
 			var object = $.extend(default_obj, postdata);
-			if(method =="post")
+			if( method =="post")
 			{
 				return $http.post(api_url+'?sess='+sess, object ,  {headers: {'Content-Type': 'application/json'} });
 			}else
@@ -906,6 +906,7 @@ $('#FBloginBtn').bind('click', function(e){
 	fbAction = "FBLogin";
 	fbLogin();
 })
+
 
 
 

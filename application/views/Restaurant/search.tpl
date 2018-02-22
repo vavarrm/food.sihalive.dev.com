@@ -122,7 +122,9 @@
                                            <div class="col-sm-12 restaurant this-margin-top this-border this-padding">
                                                <div class="col-sm-9  text-xs-center text-sm-left">
                                                    <div class="col-sx-12 col-md-4">
-                                                       <a class="img-responsive  " href="/reastaurant"><img src="/images/category-<{$row.ca_id}>-310X260.png" alt="Food logo"></a>
+                                                       <a class="img-responsive  " href="/reastaurant">
+                                                           <img src="/images/category-<{$row.ca_id}>-310X260.png" alt="Food logo" class="img-responsive">
+                                                       </a>
                                                    </div>
                                                    <!-- end:Logo -->
                                                    <div class="col-xs-12 col-md-8">

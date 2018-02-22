@@ -7,6 +7,7 @@ class MainPage extends CI_Controller {
 	{
 		parent::__construct();
 		$this->mainpage_language_ary = $this->language->load('mainpage');
+
     }
 	
 	
