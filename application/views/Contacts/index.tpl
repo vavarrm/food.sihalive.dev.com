@@ -1,9 +1,9 @@
 <main class="page-content"  ng-controller="contactsCtrl">
 <!-- Breadcrumbs & Page title-->
 <{include file="Frontend/breadcrumbs.tpl"}>
-<section class="text-center text-sm-left section-50 section-sm-top-100 section-sm-bottom-100">
+<section class="text-center text-sm-left section-50 section-sm-top-100 section-sm-bottom-100 this-white">
   <div class="shell">
-	<div class="range range-xs-center">
+	<div class="range range-xs-center  this-padding">
 	  <div class="cell-md-8">
 		<h4 class="font-default text-center"><{$language.text_contacts}></h4>
 		<{*<p class="text-center">We are available 24/7 by fax, e-mail or by phone. You can also use our quick contact form to ask a question about our services that we offer on a regular basis. We would be pleased to answer your questions.</p>*}>

@@ -61,19 +61,7 @@
 			<li>
 				<a href="/Contacts"><{$language.nav_contact}></a>
 			</li>
-			<li><a href="#"><{$language.nav_menu}></a>
-			  <!-- RD Navbar Dropdown-->
-			  <ul class="rd-navbar-dropdown menu-img-wrap">
-				<{foreach from=$category item=row}>
-					<li class="menu-img">
-						<a href="/Menu?ca_id=<{$row.ca_id}>">
-							<img src="/images/menu-food-<{$row.ca_id|string_format:"%02d"}>.png" alt="" width="88" height="60">
-							<span><{$row.ca_name}></span>
-						</a>
-					</li>
-				<{/foreach}>
-			  </ul>
-			</li>
+
 			<li>
 				<a href="#"><{$language.nav_language}></a>
 				<!-- RD Navbar Dropdown-->

@@ -795,7 +795,7 @@ $document.ready(function () {
    * @description Enables search
    */
   if (plugins.search.length || plugins.searchResults) {
-    var handler = "bat/rd-search.tpl";
+    var handler = "bat/rd-search.php";
     var defaultTemplate = '<h5 class="search_title"><a target="_top" href="#{href}" class="search_link">#{title}</a></h5>' +
         '<p>...#{token}...</p>' +
         '<p class="match"><em>Terms matched: #{count} - URL: #{href}</em></p>';

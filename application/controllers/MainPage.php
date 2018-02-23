@@ -7,6 +7,7 @@ class MainPage extends CI_Controller {
 	{
 		parent::__construct();
 		$this->mainpage_language_ary = $this->language->load('mainpage');
+
     }
 	
 	
@@ -25,12 +26,7 @@ class MainPage extends CI_Controller {
 		);
 		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
 	}
-
-
 	public function view(){
 	    $this->smarty->displayFrame('Restaurant/index.tpl');
-    }
-    public  function search(){
-	    $this->load->view('search');
     }
 }
