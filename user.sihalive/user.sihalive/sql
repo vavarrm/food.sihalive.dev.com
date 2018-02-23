@@ -1,0 +1,691 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Feb 23, 2018 at 04:00 AM
+-- Server version: 10.1.22-MariaDB
+-- PHP Version: 7.0.18
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `golden`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_liked`
+--
+
+CREATE TABLE `client_liked` (
+  `like_id` int(11) NOT NULL,
+  `liked_pid` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_client`
+--
+
+CREATE TABLE `tbl_client` (
+  `client_id` int(11) NOT NULL,
+  `client_fname` varchar(200) NOT NULL,
+  `client_lname` varchar(200) NOT NULL,
+  `client_sex` varchar(250) NOT NULL,
+  `client_address` text NOT NULL,
+  `client_img` text NOT NULL,
+  `client_created_date` varchar(222) NOT NULL,
+  `client_phone` varchar(222) NOT NULL,
+  `client_email` varchar(222) NOT NULL,
+  `client_password` varchar(200) NOT NULL,
+  `client_note` text NOT NULL,
+  `client_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_country`
+--
+
+CREATE TABLE `tbl_country` (
+  `cont_id` int(11) NOT NULL,
+  `cont_name` varchar(250) NOT NULL,
+  `cont_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_dealer`
+--
+
+CREATE TABLE `tbl_dealer` (
+  `dealer_id` int(11) NOT NULL,
+  `dealer_fname` varchar(200) NOT NULL,
+  `dealer_lname` varchar(200) NOT NULL,
+  `dealer_sex` varchar(50) NOT NULL,
+  `dealer_add` text NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `dealer_email` varchar(111) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `img` text NOT NULL,
+  `dearler_note` text NOT NULL,
+  `dealer_join_date` varchar(100) NOT NULL,
+  `dealer_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_dealer`
+--
+
+INSERT INTO `tbl_dealer` (`dealer_id`, `dealer_fname`, `dealer_lname`, `dealer_sex`, `dealer_add`, `phone`, `dealer_email`, `password`, `img`, `dearler_note`, `dealer_join_date`, `dealer_remark`) VALUES
+(17, 'UM', 'Phearun', 'Male', 'Sihanoukville , Cambodia', '123', 'phearunum.dev@gmail.com', '123', '17_profile_c207cd_c6d386c1e2994958a481e9cc1e7559c7.jpg', '123', '', 0),
+(18, 'Yary', 'Muth', 'Female', 'Sihanoukville , Cambodia', '1234', 'phearun@gmail.com', '1234', '18_profile_12.jpg', '', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_dealer_account`
+--
+
+CREATE TABLE `tbl_dealer_account` (
+  `acc_id` int(11) NOT NULL,
+  `acc_username` varchar(200) NOT NULL,
+  `acc_password` varchar(250) NOT NULL,
+  `acc_active` int(11) NOT NULL,
+  `dealer_id` int(11) NOT NULL,
+  `dealer_code` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_dealer_account`
+--
+
+INSERT INTO `tbl_dealer_account` (`acc_id`, `acc_username`, `acc_password`, `acc_active`, `dealer_id`, `dealer_code`) VALUES
+(1, '123', '123', 0, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_dealer_address`
+--
+
+CREATE TABLE `tbl_dealer_address` (
+  `add_id` int(11) NOT NULL,
+  `dealer_id` int(11) NOT NULL,
+  `add_country` int(11) NOT NULL,
+  `add_provine` int(11) NOT NULL,
+  `add_district` varchar(222) NOT NULL,
+  `add_commune` varchar(222) NOT NULL,
+  `add_village` varchar(222) NOT NULL,
+  `add_note` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_golden_store`
+--
+
+CREATE TABLE `tbl_golden_store` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `logo` text NOT NULL,
+  `address` text NOT NULL,
+  `phone` varchar(222) NOT NULL,
+  `email` varchar(222) NOT NULL,
+  `note` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_product`
+--
+
+CREATE TABLE `tbl_product` (
+  `p_id` int(11) NOT NULL,
+  `pcat_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `p_date` varchar(100) NOT NULL,
+  `p_name` varchar(200) NOT NULL,
+  `p_price` double NOT NULL,
+  `p_description` text NOT NULL,
+  `p_view` int(11) NOT NULL,
+  `img1` text NOT NULL,
+  `img2` text NOT NULL,
+  `img3` text NOT NULL,
+  `img4` text NOT NULL,
+  `img5` text NOT NULL,
+  `img6` text NOT NULL,
+  `img7` text NOT NULL,
+  `img8` text NOT NULL,
+  `p_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_product`
+--
+
+INSERT INTO `tbl_product` (`p_id`, `pcat_id`, `store_id`, `p_date`, `p_name`, `p_price`, `p_description`, `p_view`, `img1`, `img2`, `img3`, `img4`, `img5`, `img6`, `img7`, `img8`, `p_remark`) VALUES
+(124, 1, 17, '', 'អាវបុរសម៉ូតស្អាតៗទើបមកដល់ពីប្រទេសតម្លៃ', 12, '•	GGood Quality \r\n•	High Products \r\n•	Best Price \r\n•	Good Condition \r\n•	Free Delivery \r\n•	Top Grad \r\n•	Grad A \r\n•	Tel: 093935357@@@@@ ', 32, '17_s320180103-9-18q743w20180103-9-io2y9s.jpg', '17_s320180103-9-wwplji20180103-9-httiui.jpg', '17_s320180103-9-xu468z20180103-9-di0191.jpg', '', '', '', '', '', 1),
+(125, 8, 17, '', 'ខោអាវទើបមកដល់ពីប្រទេសថៃ', 8, 'មកដល់ហើយផលិតផលថៃ????\r\n????????ស្អាតដូចក្នុងរូប\r\n????????ធានាគុណភាពនឹងតម្លៃ\r\n????រាល់ការកម្ម៉ង់មិនអាចលុបវិញបានទេ\r\n????016 50 44 88', 17, '17_26167950_1985845841674313_1537792215653316211_n.jpg', '17_26219091_1985845795007651_5724475025255545578_n.jpg', '17_26167945_1985845758340988_1072930389561627508_n.jpg', '17_26167194_1985845791674318_7585159109334043879_n.jpg', '17_26166183_1985845761674321_2794469320257871012_n.jpg', '', '', '', 1),
+(126, 6, 17, '', 'អាវឈុតគូរស្នេហ៍ ម៉ូតថ្មី', 18, 'មកដល់ហើយផលិតផលថៃ\r\nស្អាតដូចក្នុងរូប \r\nធានាគុណភាពនឹងតម្លៃ \r\nរាល់ការកម្ម៉ង់មិនអាចលុបវិញបានទេ\r\n016 50 44 88', 7, '17_26169346_1985831805009050_1255370609335351305_n.jpg', '17_26113897_1985831835009047_7451878709927342192_n.jpg', '17_26165673_1985831808342383_1839841290447670217_n.jpg', '', '', '', '', '', 1),
+(127, 7, 17, '', 'ខោរកាប៊យ ស្អាត', 9, 'មកដល់ហើយផលិតផលថៃ ស្អាតដូចក្នុងរូប ធានាគុណភាពនឹងតម្លៃ រាល់ការកម្ម៉ង់មិនអាចលុបវិញបានទេ 016 50 44 88', 6, '17_26168210_1985779805014250_4585400120561413923_n.jpg', '17_26169802_1985779785014252_8173769887220705189_n.jpg', '17_26112408_1985779821680915_5536646638281653006_n.jpg', '17_26113838_1985779818347582_7281400072161561938_n.jpg', '', '', '', '', 1),
+(138, 15, 18, '', 'Iphone 7+ 256g', 680, 'Full accessories \r\nអន់សំបកតិច\r\nCan talk', 2, '18_s320171227-8-1g5zwz920171227-8-1h85jfj.jpg', '18_s320171227-8-16ytsjt20171227-8-1op4s3p.jpg', '18_s320171227-8-c26o9z20171227-8-352nl0.jpg', '18_s320171227-8-r4a93k20171227-8-1jvgs7w.jpg', '', '', '', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_product_category`
+--
+
+CREATE TABLE `tbl_product_category` (
+  `pcat_id` int(11) NOT NULL,
+  `pcat_name` varchar(250) NOT NULL,
+  `pcat_note` text NOT NULL,
+  `pcat_remark` int(11) NOT NULL,
+  `stock_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_product_update_stock`
+--
+
+CREATE TABLE `tbl_product_update_stock` (
+  `pupdate_id` int(11) NOT NULL,
+  `pupdate_date` varchar(250) NOT NULL,
+  `pupdate_proid` varchar(250) NOT NULL,
+  `p_qty` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_province`
+--
+
+CREATE TABLE `tbl_province` (
+  `prov_id` int(11) NOT NULL,
+  `prov_name` varchar(250) NOT NULL,
+  `prov_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_pro_img`
+--
+
+CREATE TABLE `tbl_pro_img` (
+  `imgID` int(11) NOT NULL,
+  `imgName` text NOT NULL,
+  `imgUrl` text NOT NULL,
+  `p_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_pro_img`
+--
+
+INSERT INTO `tbl_pro_img` (`imgID`, `imgName`, `imgUrl`, `p_id`) VALUES
+(53, 'hello', 'g', 0),
+(54, 'hello', 'c', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sale_detial`
+--
+
+CREATE TABLE `tbl_sale_detial` (
+  `id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `qty` double NOT NULL,
+  `price` double NOT NULL,
+  `discount` double NOT NULL,
+  `AMT` double NOT NULL,
+  `inv_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sale_inv`
+--
+
+CREATE TABLE `tbl_sale_inv` (
+  `inv_id` int(11) NOT NULL,
+  `inv_date` varchar(250) NOT NULL,
+  `inv_client_id` int(11) NOT NULL,
+  `inv_payTotal` double NOT NULL,
+  `inv_payDiscount` double NOT NULL,
+  `inv_AMT` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_stock_dealer`
+--
+
+CREATE TABLE `tbl_stock_dealer` (
+  `stock_id` int(11) NOT NULL,
+  `stock_name` varchar(250) NOT NULL,
+  `stock_created` varchar(200) NOT NULL,
+  `dealer_id` int(11) NOT NULL,
+  `stock_note` text NOT NULL,
+  `stock_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_store`
+--
+
+CREATE TABLE `tbl_store` (
+  `store_id` int(11) NOT NULL,
+  `dealer_id` int(11) NOT NULL,
+  `store_name` varchar(250) NOT NULL,
+  `banner` text NOT NULL,
+  `store_number` varchar(200) NOT NULL,
+  `store_note` text NOT NULL,
+  `store_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_store`
+--
+
+INSERT INTO `tbl_store` (`store_id`, `dealer_id`, `store_name`, `banner`, `store_number`, `store_note`, `store_remark`) VALUES
+(17, 17, 'Phearun Phone Shop', '27_12_2017_04_23_42_17_1.jpg', '001', '            hELLO             ', 1),
+(18, 18, 'Dara Phone Shop', '03_01_2018_09_31_37_18_computer_shop_banner_by_w3soul-d5pdkj3.jpg', '1002', '    Phone Shop  ', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_store_category`
+--
+
+CREATE TABLE `tbl_store_category` (
+  `cat_id` int(11) NOT NULL,
+  `cat_name` varchar(250) NOT NULL,
+  `kh_cat_name` varchar(250) NOT NULL,
+  `icon` varchar(222) NOT NULL,
+  `cat_note` text NOT NULL,
+  `cat_remark` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_store_category`
+--
+
+INSERT INTO `tbl_store_category` (`cat_id`, `cat_name`, `kh_cat_name`, `icon`, `cat_note`, `cat_remark`) VALUES
+(1, 'Fashion ', 'សំលៀកបំពាក់', 'shopping-icon.png', 'Women’s Clothing', 0),
+(2, ' Cars and Vehicles', 'ឡាន និង​ គ្រឿងបន្លះ', 'car-icon.png', 'Men’s Clothing', 0),
+(3, 'Phones & Accessories', 'ទូរស័ព្ទ', 'Mobile-Smartphone-icon.png', '', 0),
+(4, 'Health & Beauty, Hair', 'គ្រឿងសំអាង', 'Makeup-icon.png', 'Health & Beauty, Hair', 0),
+(5, 'Bags & Shoes', 'កាតាប​និងស្បែកជើង', '809246_sports_512x512.png', 'Bags & Shoes', 0),
+(6, 'Consumer Electronics', 'គ្រឿងអេឡិចត្រូនិច', 'microwave_oven.png', 'Consumer Electronics', 0),
+(7, 'Toys, Kids & Baby', 'សំភារះក្មេង', 'Baby-boy-icon.png', 'Toys, Kids & Baby', 0),
+(8, 'Jewelry & Watches', 'នាឡិការដៃ', 'Desk-clock-icon.png', 'Jewelry & Watches', 0),
+(10, 'Computer & Office', 'កុំព្យូទ័រ', 'HellLess-Computer-icon.png', 'Computer & Office', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sub_category`
+--
+
+CREATE TABLE `tbl_sub_category` (
+  `sub_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `sub_name` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_sub_category`
+--
+
+INSERT INTO `tbl_sub_category` (`sub_id`, `cat_id`, `sub_name`) VALUES
+(1, 1, 'អាវយឺត T-Shirt '),
+(2, 1, 'អាវក្រៅ Jacket '),
+(3, 1, 'រ៉ូប​ Dress '),
+(4, 1, 'អាវក្រៅ Jacket '),
+(5, 1, 'សំពត់ Skirt '),
+(6, 1, 'ឈុតគូស្នេហ៍ Lover'),
+(7, 1, 'ខូវប៊យ Jeans '),
+(8, 1, 'ខោជើងខ្លី Shorts '),
+(9, 1, 'ខោអាវធ្វើការ Working '),
+(10, 1, 'ខោអាវក្នុង​ Bra & Panties '),
+(11, 2, 'Cars for Sale'),
+(12, 2, 'Car Parts & Accessories'),
+(13, 2, 'Motorcycles For Sale'),
+(14, 2, 'Motor Parts & Accessories'),
+(15, 3, 'Apple'),
+(16, 3, 'Samsung'),
+(17, 3, 'Samsung'),
+(18, 3, 'Huawei'),
+(19, 3, 'Oppo'),
+(20, 3, 'Oppo'),
+(21, 3, 'HTC'),
+(22, 3, 'Camfone');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_floor`
+--
+
+CREATE TABLE `tb_floor` (
+  `floor_id` int(11) NOT NULL,
+  `floor_number` varchar(250) NOT NULL,
+  `floor_name` varchar(200) NOT NULL,
+  `floor_note` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_floor`
+--
+
+INSERT INTO `tb_floor` (`floor_id`, `floor_number`, `floor_name`, `floor_note`) VALUES
+(1, '001', ' Floor 1', ''),
+(2, '002', 'Floor 2', '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `client_liked`
+--
+ALTER TABLE `client_liked`
+  ADD PRIMARY KEY (`like_id`),
+  ADD KEY `liked_pid` (`liked_pid`),
+  ADD KEY `client_id` (`client_id`);
+
+--
+-- Indexes for table `tbl_client`
+--
+ALTER TABLE `tbl_client`
+  ADD PRIMARY KEY (`client_id`);
+
+--
+-- Indexes for table `tbl_country`
+--
+ALTER TABLE `tbl_country`
+  ADD PRIMARY KEY (`cont_id`);
+
+--
+-- Indexes for table `tbl_dealer`
+--
+ALTER TABLE `tbl_dealer`
+  ADD PRIMARY KEY (`dealer_id`);
+
+--
+-- Indexes for table `tbl_dealer_account`
+--
+ALTER TABLE `tbl_dealer_account`
+  ADD PRIMARY KEY (`acc_id`),
+  ADD KEY `dealer_id` (`dealer_id`);
+
+--
+-- Indexes for table `tbl_dealer_address`
+--
+ALTER TABLE `tbl_dealer_address`
+  ADD PRIMARY KEY (`add_id`),
+  ADD KEY `dealer_id` (`dealer_id`),
+  ADD KEY `add_country` (`add_country`),
+  ADD KEY `add_provine` (`add_provine`);
+
+--
+-- Indexes for table `tbl_golden_store`
+--
+ALTER TABLE `tbl_golden_store`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_product`
+--
+ALTER TABLE `tbl_product`
+  ADD PRIMARY KEY (`p_id`),
+  ADD KEY `pcat_id` (`pcat_id`),
+  ADD KEY `store_id` (`store_id`);
+
+--
+-- Indexes for table `tbl_product_category`
+--
+ALTER TABLE `tbl_product_category`
+  ADD PRIMARY KEY (`pcat_id`),
+  ADD KEY `stock_id` (`stock_id`);
+
+--
+-- Indexes for table `tbl_product_update_stock`
+--
+ALTER TABLE `tbl_product_update_stock`
+  ADD PRIMARY KEY (`pupdate_id`);
+
+--
+-- Indexes for table `tbl_province`
+--
+ALTER TABLE `tbl_province`
+  ADD PRIMARY KEY (`prov_id`);
+
+--
+-- Indexes for table `tbl_pro_img`
+--
+ALTER TABLE `tbl_pro_img`
+  ADD PRIMARY KEY (`imgID`),
+  ADD KEY `p_id` (`p_id`);
+
+--
+-- Indexes for table `tbl_sale_detial`
+--
+ALTER TABLE `tbl_sale_detial`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `inv_id` (`inv_id`),
+  ADD KEY `p_id` (`p_id`);
+
+--
+-- Indexes for table `tbl_sale_inv`
+--
+ALTER TABLE `tbl_sale_inv`
+  ADD PRIMARY KEY (`inv_id`),
+  ADD KEY `inv_client_id` (`inv_client_id`);
+
+--
+-- Indexes for table `tbl_stock_dealer`
+--
+ALTER TABLE `tbl_stock_dealer`
+  ADD PRIMARY KEY (`stock_id`),
+  ADD KEY `dealer_id` (`dealer_id`);
+
+--
+-- Indexes for table `tbl_store`
+--
+ALTER TABLE `tbl_store`
+  ADD PRIMARY KEY (`store_id`),
+  ADD KEY `dealer_id` (`dealer_id`);
+
+--
+-- Indexes for table `tbl_store_category`
+--
+ALTER TABLE `tbl_store_category`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `tbl_sub_category`
+--
+ALTER TABLE `tbl_sub_category`
+  ADD PRIMARY KEY (`sub_id`),
+  ADD KEY `cat_id` (`cat_id`);
+
+--
+-- Indexes for table `tb_floor`
+--
+ALTER TABLE `tb_floor`
+  ADD PRIMARY KEY (`floor_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `client_liked`
+--
+ALTER TABLE `client_liked`
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_client`
+--
+ALTER TABLE `tbl_client`
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_country`
+--
+ALTER TABLE `tbl_country`
+  MODIFY `cont_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_dealer`
+--
+ALTER TABLE `tbl_dealer`
+  MODIFY `dealer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `tbl_dealer_account`
+--
+ALTER TABLE `tbl_dealer_account`
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tbl_dealer_address`
+--
+ALTER TABLE `tbl_dealer_address`
+  MODIFY `add_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_golden_store`
+--
+ALTER TABLE `tbl_golden_store`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_product`
+--
+ALTER TABLE `tbl_product`
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+--
+-- AUTO_INCREMENT for table `tbl_product_category`
+--
+ALTER TABLE `tbl_product_category`
+  MODIFY `pcat_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_product_update_stock`
+--
+ALTER TABLE `tbl_product_update_stock`
+  MODIFY `pupdate_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_province`
+--
+ALTER TABLE `tbl_province`
+  MODIFY `prov_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_pro_img`
+--
+ALTER TABLE `tbl_pro_img`
+  MODIFY `imgID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+--
+-- AUTO_INCREMENT for table `tbl_sale_detial`
+--
+ALTER TABLE `tbl_sale_detial`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_sale_inv`
+--
+ALTER TABLE `tbl_sale_inv`
+  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_stock_dealer`
+--
+ALTER TABLE `tbl_stock_dealer`
+  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_store`
+--
+ALTER TABLE `tbl_store`
+  MODIFY `store_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `tbl_store_category`
+--
+ALTER TABLE `tbl_store_category`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `tbl_sub_category`
+--
+ALTER TABLE `tbl_sub_category`
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `tb_floor`
+--
+ALTER TABLE `tb_floor`
+  MODIFY `floor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `client_liked`
+--
+ALTER TABLE `client_liked`
+  ADD CONSTRAINT `client_liked_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `tbl_client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `client_liked_ibfk_2` FOREIGN KEY (`liked_pid`) REFERENCES `tbl_product` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_dealer_address`
+--
+ALTER TABLE `tbl_dealer_address`
+  ADD CONSTRAINT `tbl_dealer_address_ibfk_3` FOREIGN KEY (`add_provine`) REFERENCES `tbl_province` (`prov_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_product`
+--
+ALTER TABLE `tbl_product`
+  ADD CONSTRAINT `tbl_product_ibfk_2` FOREIGN KEY (`store_id`) REFERENCES `tbl_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_product_ibfk_3` FOREIGN KEY (`pcat_id`) REFERENCES `tbl_sub_category` (`sub_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_sale_detial`
+--
+ALTER TABLE `tbl_sale_detial`
+  ADD CONSTRAINT `tbl_sale_detial_ibfk_1` FOREIGN KEY (`inv_id`) REFERENCES `tbl_sale_inv` (`inv_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_sale_detial_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `tbl_product` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_sale_inv`
+--
+ALTER TABLE `tbl_sale_inv`
+  ADD CONSTRAINT `tbl_sale_inv_ibfk_1` FOREIGN KEY (`inv_client_id`) REFERENCES `tbl_client` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_sub_category`
+--
+ALTER TABLE `tbl_sub_category`
+  ADD CONSTRAINT `tbl_sub_category_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `tbl_store_category` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
