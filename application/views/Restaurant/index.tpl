@@ -156,6 +156,83 @@
                                    <!--Close Modal -->
 
                                    <{/foreach}>
+                                   <{foreach from=$category item=row key=index}>
+
+                                   <div class="col-xs-12 col-md-4 " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
+                                       <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
+                                           <div class="col-xs-12 col-md-12 ">
+                                               <a href="/Menu?ca_id=<{$row.ca_id}>">
+                                                   <img src="/images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
+                                               </a>
+                                           </div>
+                                           <div class="col-sx-12 col-md-12 " style="padding: 5px" >
+                                               <p style="margin-top: 10px" >
+                                                   <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
+                                               </p>
+                                               <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
+                                                   <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.ca_id}>').style.display='block'"
+                                                           style="font-size: 12px; font-weight:normal;
+                                              padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
+                                                       Price : 0.00$
+                                                   </button>
+                                               </div>
+                                           </div>
+
+
+
+
+                                       </div>
+                                   </div>
+
+                               <!--  Open Modal Order --->
+
+                                   <div id="<{$row.ca_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
+                                       <div class="this-modal-content">
+                                           <header class="this-container ">
+                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"
+                                                  class="this-button this-right this-btn-this" style="margin-right: -16px">&times;</span>
+                                               <h3><{$row.ca_name}></h3>
+                                           </header>
+                                           <div class="this-container this-padding">
+                                               <div class="row">
+                                                   <div class="col-sm-6">
+                                                       <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"></span>
+
+                                                       <img src="/images/category-<{$row.ca_id}>-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
+
+                                                   </div>
+                                                   <div class="col-sm-6">
+                                                       <form>
+                                                           <p>Price : 0.00$ </p>
+                                                           <p>Quantity</p>
+                                                           <div class="stepper-type-1">
+                                                               <div class="stepper ">
+                                                                   <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
+                                                                   <span class="stepper-arrow up"></span>
+                                                                   <span class="stepper-arrow down"></span>
+                                                               </div>
+                                                           </div>
+                                                           <button class="this-btn this-margin-top " id="Ins">
+                                                               <span class="glyphicon glyphicon-plus-sign"></span> Instructions
+                                                           </button>
+                                                           <textarea  class="form-control " rows="1" cols="2" id="show_Ins">
+                                                       </textarea>
+
+                                                           <hr class="offset-top-50">
+                                                           <button class="this-btn this-btn-this this-right this-margin-top "> ADD TO CART </button>
+                                                       </form>
+
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           <footer class="this-container this-padding this-right">
+
+                                           </footer>
+                                       </div>
+                                   </div>
+                                   <!--Close Modal -->
+
+                                   <{/foreach}>
 
                                </div>
                            </div>
@@ -237,8 +314,10 @@
 
 
     jQuery(function($) {
+        var $cache = $('#pro_left');
+        var $inv=$('#inv');
         function fixDiv() {
-            var $cache = $('#pro_left');
+
 
             if ($(window).scrollTop() > 500) {
                 $cache.addClass("stuck");
@@ -253,6 +332,7 @@
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
         {
             $cache.removeClass("stuck");
+            $inv.addClass('this-hide');
 
         }else{
             fixDiv();
