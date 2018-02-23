@@ -18,7 +18,7 @@ class User extends CI_Controller {
 	}
 	
 	
-	public function set
+	// public function set
 	
 	public function index()
 	{
