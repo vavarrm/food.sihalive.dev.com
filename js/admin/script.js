@@ -94,7 +94,7 @@ var bodyCtrl = function($scope)
 	{
 		$('#myTab li').removeClass('active');
 		var index = $('#myTab li').length+1;
-		$('#myTab').append('<li role="presentation" class="active"><a href="#tab_content'+index+'" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home </a></li>')
+		$('#myTab').append('<li role="presentation" class="active"><a href="#tab_content'+index+'" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home <i class="fa fa-close"></i></a></li>')
 	}
 	
 	$scope.tableClose = function(index)
