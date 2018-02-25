@@ -10,19 +10,6 @@ var CURRENT_URL,
 	$NAV_MENU,
 	$FOOTER,
 	randNum ;
-var CURRENT_URL = window.location.href.split("#")[0].split("?")[0]
-  , $BODY = $("body")
-  , $MENU_TOGGLE = $("#menu_toggle")
-  , $SIDEBAR_MENU = $("#sidebar-menu")
-  , $SIDEBAR_FOOTER = $(".sidebar-footer")
-  , $LEFT_COL = $(".left_col")
-  , $RIGHT_COL = $(".right_col")
-  , $NAV_MENU = $(".nav_menu")
-  , $FOOTER = $("footer")
-  , randNum = function() {
-    return Math.floor(21 * Math.random()) + 20
-};
-
 function UrlExists(url, cb){
     $.ajax({
         url:      url,
@@ -38,7 +25,7 @@ function UrlExists(url, cb){
     });
 }
 
-function dialog(object2)
+function dialog(object2, cb, params)
 {
 	if(typeof object2 !="object")
 	{
@@ -47,10 +34,14 @@ function dialog(object2)
 	var  object1 ={
 		buttons: [
 			{
-			  text: "close",
-			  click: function() {
-				$( this ).dialog( "close" );
-			  }
+				text: "close",
+				click: function() {
+					if(typeof cb =="function")
+					{
+						cb(params);
+					}
+					$( this ).dialog( "close" );
+				}
 			}
 		]
 	};
@@ -59,96 +50,97 @@ function dialog(object2)
 	$( "#dialog" ).dialog(object1);
 }
 
-var bodyCtrl = function($scope, $compile, $cookies)
+var bodyCtrl = function($scope, $compile, $cookies, apiService)
 {
+	$scope.panelShow = false;
 	$scope.admin_sess = $cookies.get('admin_sess');
 	if(typeof $scope.admin_sess =="undefined")
 	{
 		location.href='/admin/login.html';
 	}
 	
-	$scope.templates =[ ];
-	// $scope.template = $scope.templates[0];
-	
-	onload =function()
+	$scope.templates ={};
+	$scope.sidebarMenuList={};
+
+	$scope.tableListInit = function()
 	{
-		CURRENT_URL = window.location.href.split("#")[0].split("?")[0],
-		$BODY = $("body"),
-		$MENU_TOGGLE = $("#menu_toggle"),
-	    $SIDEBAR_MENU = $("#sidebar-menu"),
-		$SIDEBAR_FOOTER = $(".sidebar-footer"),
-		$LEFT_COL = $(".left_col"),
-		$RIGHT_COL = $(".right_col"),
-		$NAV_MENU = $(".nav_menu"),
-		$FOOTER = $("footer"),
-		randNum = function() {
-			return Math.floor(21 * Math.random()) + 20
-		};
-		init_sparklines(),
-		init_flot_chart(),
-		init_sidebar(),
-		init_wysiwyg(),
-		init_InputMask(),
-		init_JQVmap(),
-		init_cropper(),
-		init_knob(),
-		init_IonRangeSlider(),
-		init_ColorPicker(),
-		init_TagsInput(),
-		init_parsley(),
-		init_daterangepicker(),
-		init_daterangepicker_right(),
-		init_daterangepicker_single_call(),
-		init_daterangepicker_reservation(),
-		init_SmartWizard(),
-		init_EasyPieChart(),
-		init_charts(),
-		init_echarts(),
-		init_morris_charts(),
-		init_skycons(),
-		init_select2(),
-		init_validator(),
-		init_DataTables(),
-		init_chart_doughnut(),
-		init_gauge(),
-		init_PNotify(),
-		init_starrr(),
-		init_calendar(),
-		init_compose(),
-		init_CustomNotification(),
-		init_autosize(),
-		init_autocomplete();
-		
-		
+		init_DataTables();
 	}
 	
-	$scope.sidebar_menu_click = function()
+	
+	$scope.sidebar_menu_click = function(control, child)
 	{
 		$('#myTab li').removeClass('active');
-		var index = $('#myTab li').length+1;
+		var index = $('#myTab li').length;
 		var target=$('#myTab');
 		var li ='<li role="presentation" data-tabindex="'+index +'" class="active">';
-		li +='<a href="#tab_content'+index+'" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home ';
+		li +='<a href="#tab_content'+index+'" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">'+child.pe_name ;
 		li +='<i ng-click="tableClose('+index+')" class="fa fa-close"></i>';
 		li +='</a></li>';
 		target.append($compile(li)($scope));
-
 		
 		var target =$('#myTabContent');
 		$('.tab-pane').removeClass('active in');
-		$scope.templates[index] ={'url':"views/user.html"};
-		var tabpanel   = '<div role="tabpanel" class="tab-pane fade" id="tab_content'+index+'" aria-labelledby="home-tab">';
+		$scope.templates[index] ={'url':"views/"+child.pe_page+".html","control":control,"func":child.func};
+		var tabpanel   = '<div role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" aria-labelledby="home-tab">';
 		    tabpanel  +='<div ng-include="templates['+index+'].url"></div>';
 			tabpanel +='</div>';
 		target.append($compile(tabpanel)($scope));
-		$('.tab-pane').eq(index-1).addClass('active in');
+		$('.tab-pane').eq(index).addClass('active in');
+		$scope.panelShow = true;
 	}
 	
+	$scope.sidebar_menu_click('user',{pe_page:"restaurant_list" ,pe_name:"Restaurant List"});
+		
+
+	$scope.init = function()
+	{
+		var promise = apiService.adminApi('AdminApi','getUser');
+		promise.then
+		(
+			function(r) 
+			{
+				$scope.ajaxload = false;
+				if(r.data.status =="200")
+				{
+					$scope.sidebarMenuList = r.data.body.menu_list;
+					$scope.admin = r.data.body.admin_user;
+				}else
+				{
+					var obj =
+					{
+						'message' :r.data.message,
+					};
+					dialog(obj);
+				}
+				
+			},
+			function() {
+				var obj ={
+					'message' :'system error'
+				};
+				 dialog(obj);
+			}
+		)
+		
+	}
 	
+	$scope.sidebarMenuListInit = function()
+	{	
+		$SIDEBAR_MENU = $("#sidebar-menu");
+		$MENU_TOGGLE = $("#menu_toggle") ;
+		init_sidebar();
+	}
 	
 	$scope.tableClose = function(index)
 	{
-		$('#myTab li[data-tabindex='+index+']').remove()
+		$('#myTab li[data-tabindex='+index+']').remove();
+		$('div[role=tabpanel][data-tabindex='+index+']').remove();
+		delete $scope.templates[index];
+		if( $('#myTab li').length ==0)
+		{
+			$scope.panelShow = false;
+		}
 	}
 }
 
@@ -171,8 +163,6 @@ var MainController = function($scope, $routeParams, apiService)
 			$scope.setting.controller =  $routeParams.controller;
 			$scope.setting.func =  $routeParams.func;
 		}
-		var obj ;
-		var promise = apiService.adminApi($scope.setting.controller,$scope.setting.func,obj);
 	}
 }
 
@@ -189,6 +179,11 @@ var loginCtrl = function($scope, $cookies, apiService)
 		input :{},
 		response:{}
 	};
+	
+	$scope.loginDone = function()
+	{
+		location.href="/admin/";
+	}
 	
 	$scope.login = function(){
 		var obj = 	$scope.data.input;
@@ -214,34 +209,13 @@ var loginCtrl = function($scope, $cookies, apiService)
 					var obj =
 					{
 						'message':'welcome',
-						buttons: 
-						[
-							{
-								text: "close",
-								click: function() 
-								{
-									location.href="/admin/";
-									$( this ).dialog( "close" );
-								}
-							}
-						]
 					};
-					dialog(obj);
+					dialog(obj, $scope.loginDone);
 				}else
 				{
 					var obj =
 					{
 						'message' :r.data.message,
-						buttons: 
-						[
-							{
-								text: "close",
-								click: function() 
-								{
-									$( this ).dialog( "close" );
-								}
-							}
-						]
 					};
 					dialog(obj);
 				}
@@ -258,7 +232,7 @@ var loginCtrl = function($scope, $cookies, apiService)
 	}
 }
 
-adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' , bodyCtrl]);
+adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' ,'apiService' , bodyCtrl]);
 adminApp.controller('loginCtrl',  ['$scope', '$cookies' ,'apiService', loginCtrl]);
 adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' , MainController]);
 
@@ -302,7 +276,7 @@ adminApp.config(function($routeProvider){
     }) .otherwise({redirectTo : '/'})
 });
 
- adminApp.directive('ngEnter', function() {
+adminApp.directive('ngEnter', function() {
     return function(scope, elem, attrs) {
       elem.bind("keydown keypress", function(event) {
         if (event.which === 13) {
@@ -314,4 +288,17 @@ adminApp.config(function($routeProvider){
         }
       });
     };
-  });
+});
+
+$( document ).ready(function() {
+	CURRENT_URL = window.location.href.split("#")[0].split("?")[0],
+	$BODY = $("body");
+	$SIDEBAR_FOOTER = $(".sidebar-footer");
+	$LEFT_COL = $(".left_col");
+	$RIGHT_COL = $(".right_col");
+	$NAV_MENU = $(".nav_menu");
+	$FOOTER = $("footer");
+	randNum = function() {
+		return Math.floor(21 * Math.random()) + 20
+	};
+});

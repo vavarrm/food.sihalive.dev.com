@@ -1,13 +1,18 @@
-<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+<div  id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 	<div class="menu_section">
-		<h3>General</h3>
 		<ul class="nav side-menu">
-			<li><a><i class="fa fa-home"></i> restaurant <span class="fa fa-chevron-down"></span></a>
-			<ul class="nav child_menu">
-				<li ng-click="sidebar_menu_click();$event.stopPropagation();"><a >Dashboard</a></li>
-				<li><a href="form.html">Dashboard2</a></li>
-			</ul>
-		  </li>
+			<li ng-repeat="menu in sidebarMenuList" ng-init="sidebarMenuListInit()">
+				<a>
+					<i class="fa fa-home"></i>
+					<span ng-bind="menu.pe_name">restaurant</span>
+					<span class="fa fa-chevron-down"></span>
+				</a>
+				<ul class="nav child_menu" ng-repeat="child in menu.child">
+					<li ng-click="sidebar_menu_click(menu.pe_control,child);$event.stopPropagation();">
+						<a ng-bind="child.pe_name">Dashboard</a>
+					</li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 </div>

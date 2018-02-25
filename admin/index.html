@@ -25,13 +25,15 @@
 		<link href="/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
 		<!-- bootstrap-daterangepicker -->
 		<link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
+		<!-- jquery-ui.css -->
+		<link rel="stylesheet" href="/css/jquery-ui.min.css">
+		
 		<!-- Custom Theme Style -->
 		<link href="/build/css/custom.min.css" rel="stylesheet">
 	</head>
 
-<body class="nav-md"  ng-controller="bodyCtrl">
-    <div class="container body">
+<body class="nav-md"  ng-controller="bodyCtrl" >
+    <div class="container body" >
       <div class="main_container">
 			<div class="col-md-3 left_col">
 			  <div class="left_col scroll-view">
@@ -48,7 +50,7 @@
 				  </div>
 				  <div class="profile_info">
 					<span>Welcome,</span>
-					<h2>John Doe</h2>
+					<h2 ng-bind="admin.account">John Doe</h2>
 				  </div>
 				</div>
 				<!-- /menu profile quick info -->
@@ -56,34 +58,17 @@
 				<br />
 
 				<!-- sidebar menu -->
-				<div ng-include="'/admin/layout/sidebar-menu.html'"></div>
+				<div  ng-include="'/admin/layout/sidebar-menu.html'" ></div>
 				<!-- /sidebar menu -->
-
-				<!-- /menu footer buttons -->
-				<div class="sidebar-footer hidden-small">
-				  <a data-toggle="tooltip" data-placement="top" title="Settings">
-					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-				  </a>
-				  <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-					<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-				  </a>
-				  <a data-toggle="tooltip" data-placement="top" title="Lock">
-					<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-				  </a>
-				  <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-				  </a>
-				</div>
-				<!-- /menu footer buttons -->
 			  </div>
 			</div>
 
 			<!-- top navigation -->
-			<div ng-include="'/admin/layout/top_navigatio.html'" ></div>
+			<div ng-include="'/admin/layout/top_navigatio.html'" ng-init="init()" ></div>
 			<!-- /top navigation -->
 			
 			<!-- page content -->
-			<div class="right_col" role="main">
+			<div class="right_col" role="main" ng-show="panelShow">
 				<div class="x_panel">
 					<div class="x_content">
 						<div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -109,9 +94,9 @@
 			<!-- /footer content -->
 		</div>
     </div>
-
     <!-- jQuery -->
     <script src="/vendors/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
     <!-- Bootstrap -->
     <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->

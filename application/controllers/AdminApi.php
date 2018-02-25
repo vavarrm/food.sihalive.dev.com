@@ -92,6 +92,7 @@ class AdminApi extends CI_Controller {
 			$rsaRandomKey = $this->token->publicEncrypt($randomKey);
 			$data = array(
 				'ad_id'  =>$admin_user['ad_id'],
+				'account'  =>$admin_user['ad_account'],
 			);
 			$encrypt_user_data = $this->token->AesEncrypt(serialize($data), $randomKey);
 			$_SESSION['encrypt_admin_user_data'] = $encrypt_user_data;
@@ -110,7 +111,6 @@ class AdminApi extends CI_Controller {
 		$output['title'] ='get login info';
 		try 
 		{
-			
 		
 			$urlRsaRandomKey =$this->get['sess'];
 			$encrypt_data = $_SESSION['encrypt_admin_user_data'] ;
@@ -125,6 +125,20 @@ class AdminApi extends CI_Controller {
 				throw $MyException;
 			}
 			$output['body']['admin_user'] = $decrypt_data;
+			$output['body']['menu_list']	=array(
+				array(
+					'pe_name'		=>'Manage Restaurant',
+					'pe_control'	=>'AdminRestaurant',
+					'child'			=>array(
+						array(
+							'pe_name'	=>'Restaurant List',	
+							'pe_func'	=>'list',
+							'pe_page'	=>'restaurant_list',
+							'pe_id'	=>'2',
+						)
+					)
+				)
+			);
 		}catch(MyException $e)
 		{
 			$parames = $e->getParams();
@@ -138,6 +152,8 @@ class AdminApi extends CI_Controller {
 		
 		$this->myfunc->response($output);
 	}
+	
+	
 	
 	public function login()
 	{
