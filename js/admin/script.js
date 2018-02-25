@@ -38,8 +38,38 @@ function UrlExists(url, cb){
     });
 }
 
-var bodyCtrl = function($scope)
+function dialog(object2)
 {
+	if(typeof object2 !="object")
+	{
+		object2 ={};
+	}
+	var  object1 ={
+		buttons: [
+			{
+			  text: "close",
+			  click: function() {
+				$( this ).dialog( "close" );
+			  }
+			}
+		]
+	};
+	$.extend( object1, object2 );
+	$( "#dialog p").text(object1.message); 
+	$( "#dialog" ).dialog(object1);
+}
+
+var bodyCtrl = function($scope, $compile, $cookies)
+{
+	$scope.admin_sess = $cookies.get('admin_sess');
+	if(typeof $scope.admin_sess =="undefined")
+	{
+		location.href='/admin/login.html';
+	}
+	
+	$scope.templates =[ ];
+	// $scope.template = $scope.templates[0];
+	
 	onload =function()
 	{
 		CURRENT_URL = window.location.href.split("#")[0].split("?")[0],
@@ -87,15 +117,34 @@ var bodyCtrl = function($scope)
 		init_compose(),
 		init_CustomNotification(),
 		init_autosize(),
-		init_autocomplete()
+		init_autocomplete();
+		
+		
 	}
 	
 	$scope.sidebar_menu_click = function()
 	{
 		$('#myTab li').removeClass('active');
 		var index = $('#myTab li').length+1;
-		$('#myTab').append('<li role="presentation" class="active"><a href="#tab_content'+index+'" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home <i class="fa fa-close"></i></a></li>')
+		var target=$('#myTab');
+		var li ='<li role="presentation" data-tabindex="'+index +'" class="active">';
+		li +='<a href="#tab_content'+index+'" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home ';
+		li +='<i ng-click="tableClose('+index+')" class="fa fa-close"></i>';
+		li +='</a></li>';
+		target.append($compile(li)($scope));
+
+		
+		var target =$('#myTabContent');
+		$('.tab-pane').removeClass('active in');
+		$scope.templates[index] ={'url':"views/user.html"};
+		var tabpanel   = '<div role="tabpanel" class="tab-pane fade" id="tab_content'+index+'" aria-labelledby="home-tab">';
+		    tabpanel  +='<div ng-include="templates['+index+'].url"></div>';
+			tabpanel +='</div>';
+		target.append($compile(tabpanel)($scope));
+		$('.tab-pane').eq(index-1).addClass('active in');
 	}
+	
+	
 	
 	$scope.tableClose = function(index)
 	{
@@ -103,7 +152,7 @@ var bodyCtrl = function($scope)
 	}
 }
 
-var MainController = function($scope, $http, $routeParams, apiService)
+var MainController = function($scope, $routeParams, apiService)
 {
 	$scope.setting = 
 	{
@@ -127,15 +176,98 @@ var MainController = function($scope, $http, $routeParams, apiService)
 	}
 }
 
-adminApp.controller('bodyCtrl',  ['$scope', '$http', bodyCtrl]);
-adminApp.controller('MainController',  ['$scope', '$http' ,'$routeParams', 'apiService' , MainController]);
+var loginCtrl = function($scope, $cookies, apiService)
+{
+	$scope.ajaxload = false;
+	$scope.setting = 
+	{
+		controller 	:'AdminApi',
+		func 		:'login'
+	};
+	$scope.data =
+	{
+		input :{},
+		response:{}
+	};
+	
+	$scope.login = function(){
+		var obj = 	$scope.data.input;
+		if($scope.ajaxload ==true)
+		{
+			var obj ={
+				'message':'isloading....',
+			}
+			dialog(obj);
+			return false;
+		}
+		$scope.ajaxload = true;
+		var promise = apiService.adminApi($scope.setting.controller,$scope.setting.func,obj);
+		promise.then
+		(
+			function(r) 
+			{
+				$scope.ajaxload = false;
+				if(r.data.status =="200")
+				{
+					$scope.sess = r.data.body.sess;
+					$cookies.put('admin_sess', $scope.sess, { path: '/'});
+					var obj =
+					{
+						'message':'welcome',
+						buttons: 
+						[
+							{
+								text: "close",
+								click: function() 
+								{
+									location.href="/admin/";
+									$( this ).dialog( "close" );
+								}
+							}
+						]
+					};
+					dialog(obj);
+				}else
+				{
+					var obj =
+					{
+						'message' :r.data.message,
+						buttons: 
+						[
+							{
+								text: "close",
+								click: function() 
+								{
+									$( this ).dialog( "close" );
+								}
+							}
+						]
+					};
+					dialog(obj);
+				}
+				
+			},
+			function() {
+				$scope.ajaxload = false;
+				var obj ={
+					'message' :'system error'
+				};
+				 dialog(obj);
+			}
+		)
+	}
+}
+
+adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' , bodyCtrl]);
+adminApp.controller('loginCtrl',  ['$scope', '$cookies' ,'apiService', loginCtrl]);
+adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' , MainController]);
 
 
 var apiService = function($http, $cookies)
 {
-	var sess = $cookies.get('admin_sess');
 	return {
 		adminApi :function(controller, func, obj){
+			var sess = $cookies.get('admin_sess');
 			var default_obj = {
 					
 			};
@@ -144,7 +276,7 @@ var apiService = function($http, $cookies)
 		}
     };
 }
-adminApp.factory('apiService', ['$http','$cookies',apiService]);
+adminApp.factory('apiService', ['$http', '$cookies', apiService]);
 adminApp.config(function($routeProvider){
 	$routeProvider.when("/",{
 		templateUrl: function(params) {
@@ -169,3 +301,17 @@ adminApp.config(function($routeProvider){
 		controller: 'MainController'
     }) .otherwise({redirectTo : '/'})
 });
+
+ adminApp.directive('ngEnter', function() {
+    return function(scope, elem, attrs) {
+      elem.bind("keydown keypress", function(event) {
+        if (event.which === 13) {
+          scope.$apply(function() {
+            scope.$eval(attrs.ngEnter);
+          });
+
+          event.preventDefault();
+        }
+      });
+    };
+  });
