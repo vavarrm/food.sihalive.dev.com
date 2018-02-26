@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['user/profile'] = '/user';
+$route['shop/(:any)'] = "/shop/id/$1";

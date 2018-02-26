@@ -52,17 +52,20 @@
 		</div>
 	  </div>
 	</section>
-	<div class="container text-center   " style="padding: 10px  ">
+	<div class="this-container this-white">
 		<h5 class="h5 text-uppercase "> Sihalive food Delivery</h5>
 
 		<form class="form-inline" style="margin-bottom: 10px"action="search">
 			<div class="form-group">
 				<label class="sr-only" for="exampleInputAmount">I would like to eat....</label>
 				<div class="form-group">
-					<input type="text" class="form-control form-control-has-validation form-control-last-child " id="search" placeholder="I would like to eat...."> </div>
+					<input type="text" class="form-control form-control-has-validation form-control-last-child " id="search" placeholder="I would like to eat...." style="min-width: 300px"> </div>
 			</div>
-			<button  type="submit" class="btn btn-danger btn-sm"><{$mainpage_language_ary.our_menu}></button>
+			<button  type="submit" class="this-btn this-btn-this" style="height: 40px"><{$mainpage_language_ary.our_menu}></button>
 		</form>
+	</div>
+	<div class="container text-center   " style="padding: 10px  ">
+
 
 		<section class="popular">
 			<div class="container">
@@ -70,15 +73,17 @@
 				<div class="row">
 					<{foreach from=$category item=row key=index}>
 					<!-- Each popular food item starts -->
-					<div class="col-xs-12 col-sm-6 col-md-2" ">
-					<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
-						<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive"/>
-						<div class="content">
-							<div class="product-name"><{$row.ca_name}></div>
-						</div>
+					<a href="/shop/<{$row.ca_name}>">
+						<div class="col-xs-12 col-sm-6 col-md-2" ">
+						<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
+							<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive"/>
+							<div class="content">
+								<div class="product-name"><{$row.ca_name}></div>
+							</div>
 
-					</div>
-				</div>
+						</div>
+				        </div>
+					</a>
 				<{/foreach}>
 				<!-- Each popular food item starts -->
 

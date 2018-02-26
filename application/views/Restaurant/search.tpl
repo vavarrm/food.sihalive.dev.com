@@ -128,7 +128,7 @@
                                                    </div>
                                                    <!-- end:Logo -->
                                                    <div class="col-xs-12 col-md-8">
-                                                       <h5><a href="/reastaurant">Maenaam Thai Restaurant</a></h5>
+                                                       <h5><a href="/restaurant">Maenaam Thai Restaurant</a></h5>
                                                        <span style="font-weight: 300;font-size: 14px;    font-family: 'Lato', Helvetica, Arial, sans-serif;">Burgers, American, Sandwiches, Fast Food, BBQ,urgers, American, Sandwiches <a href="#">...</a></span>
                                                        <ul class="list-inline">
                                                            <li class="list-inline-item"><i class="fa fa-check"></i> Min $ 10,00</li>

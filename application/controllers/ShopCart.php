@@ -17,7 +17,7 @@ class ShopCart extends CI_Controller {
 	
 	public function order()
 	{
-        $user_location= $this->User_Position_Model->listLocation();
+       // $user_location= $this->User_Position_Model->listLocation();
 
 		$this->smarty->assign(array(
 			'shopLanguageAry'	=>$this->shopcart_language_ary,

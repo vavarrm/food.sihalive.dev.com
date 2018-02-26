@@ -8,7 +8,7 @@
 
         overflow: auto;
         top: 50px;
-        min-width: 250px;
+        min-width: 290px;
 
 
     }
@@ -81,7 +81,7 @@
                                    </form>
                                    <{foreach from=$category item=row key=index}>
 
-                                   <div class="col-xs-12 col-md-4 " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
+                                   <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
                                        <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
                                            <div class="col-xs-12 col-md-12 ">
                                                <a href="/Menu?ca_id=<{$row.ca_id}>">
@@ -135,11 +135,6 @@
                                                                    <span class="stepper-arrow down"></span>
                                                                </div>
                                                            </div>
-                                                           <button class="this-btn this-margin-top " id="Ins">
-                                                               <span class="glyphicon glyphicon-plus-sign"></span> Instructions
-                                                           </button>
-                                                           <textarea  class="form-control " rows="1" cols="2" id="show_Ins">
-                                                       </textarea>
 
                                                            <hr class="offset-top-50">
                                                            <button class="this-btn this-btn-this this-right this-margin-top "> ADD TO CART </button>
@@ -158,7 +153,7 @@
                                    <{/foreach}>
                                    <{foreach from=$category item=row key=index}>
 
-                                   <div class="col-xs-12 col-md-4 " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
+                                   <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
                                        <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
                                            <div class="col-xs-12 col-md-12 ">
                                                <a href="/Menu?ca_id=<{$row.ca_id}>">
