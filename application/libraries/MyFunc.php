@@ -118,6 +118,21 @@ class MyFunc
 		
 	}
 	
+	public function checkAdmin($gitignore)
+	{
+		
+		$get = $this->CI->input->get();
+		if(!in_array($this->CI->uri->segment(2),$gitignore))
+		{
+			if($get['sess'] =='')
+			{
+				return  '002' ;
+			}
+		}
+		
+		return '200';
+	}
+	
 	public function response($output)
 	{
 		

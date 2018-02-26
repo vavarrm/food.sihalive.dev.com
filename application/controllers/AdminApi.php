@@ -12,6 +12,7 @@ class AdminApi extends CI_Controller {
 		$this->request = json_decode(trim(file_get_contents('php://input'), 'r'), true);
 		$this->get = $this->input->get();
 		$this->post = $this->input->post();
+		
 		$gitignore =array(
 			'login',
 			'logout'
@@ -19,23 +20,17 @@ class AdminApi extends CI_Controller {
 			
 		try 
 		{
-			if(!in_array($this->uri->segment(2),$gitignore))
-			{
-				
-				if(
-					$this->get['sess']	==""
-				){
-					$array = array(
-						'status'	=>'002'
-					);
-					$MyException = new MyException();
-					$MyException->setParams($array);
-					throw $MyException;
-				}	
-
-			}
 			
-			// $this->checkPermissions();
+			$checkAdmin = $this->myfunc->checkAdmin($gitignore);
+			if($checkAdmin !="200")
+			{
+				$array = array(
+					'status'	=>$checkAdmin
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
 		}catch(MyException $e)
 		{
 			$parames = $e->getParams();
@@ -132,7 +127,7 @@ class AdminApi extends CI_Controller {
 					'child'			=>array(
 						array(
 							'pe_name'	=>'Restaurant List',	
-							'pe_func'	=>'list',
+							'pe_func'	=>'getList',
 							'pe_page'	=>'restaurant_list',
 							'pe_id'	=>'2',
 						)

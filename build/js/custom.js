@@ -1707,7 +1707,6 @@ function init_calendar() {
     }
 }
 function init_DataTables() {
-	alert($.fn.DataTable);
     if (xxx("run_datatables"),
     void 0 !== $.fn.DataTable) {
         xxx("init_DataTables"),
@@ -1715,7 +1714,6 @@ function init_DataTables() {
             "use strict";
             return {
                 init: function() {
-					alert('d');
                     $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
                         dom: "Blfrtip",
                         buttons: [{
