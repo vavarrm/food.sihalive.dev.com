@@ -100,13 +100,12 @@ class MyFunc
 		return $output;
 	}
 	
-	private function decryptUser($rsa_randomKey, $encrypt_user_data)
+	public function decryptUser($rsa_randomKey, $encrypt_data)
 	{
 		$randomKey =  $this->CI->token->privateDecrypt($rsa_randomKey);
-		$encrypt_user_data = $_SESSION['encrypt_user_data'] ;
-		$decrypt_user_data = $this->CI->token->AesDecrypt($encrypt_user_data , $randomKey );
-		$user_data = unserialize($decrypt_user_data);
-		return $user_data;
+		$decrypt_data = $this->CI->token->AesDecrypt($encrypt_data , $randomKey );
+		$data = unserialize($decrypt_data);
+		return $data;
 	}
 	
 	public function isLogin()
