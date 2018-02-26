@@ -5,6 +5,7 @@ class MainPage extends CI_Controller {
 	
 	public function __construct() 
 	{
+	   // phpinfo();
 		parent::__construct();
 		$this->mainpage_language_ary = $this->language->load('mainpage');
 
