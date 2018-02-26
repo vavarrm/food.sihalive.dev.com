@@ -76,5 +76,111 @@ class CI_Model {
 		//	most likely a typo in your model code.
 		return get_instance()->$key;
 	}
+	
+	public function  getListFromat($ary)
+	{
+		try
+		{	
+			if($ary['limit']==0)
+			{
+				$MyException = new MyException();
+				$array = array(
+					'system_error' 	=>'limit zero',
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			if($ary['sql']=='')
+			{
+				$MyException = new MyException();
+				$array = array(
+					'system_error' 	=>'no setting sql',
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$where .=" WHERE 1 = 1";
+			$gitignore = array(
+				'limit',
+				'p',
+				'order',
+				'sql',
+				'fields'
+			);
+			$limit = sprintf(" LIMIT %d, %d",abs($ary['p']-1)*$ary['limit'],$ary['limit']);
+
+			if(is_array($ary))
+			{
+				foreach($ary as $key => $value)
+				{
+					if(in_array($key, $gitignore) ||  $value['value'] ==="" )	
+					{
+						continue;
+					}
+					if($key =="start_time" || $key=="end_time"  )
+					{
+						if($value['value']!='')
+						{
+							$where .=sprintf(" AND DATE_FORMAT(`add_datetime`, '%s') %s ?", '%Y-%m-%d', $value['operator']);					
+							$bind[] = $value['value'];
+						}
+					}else
+					{
+						$where .=sprintf(" AND %s %s ?", $key, $value['operator']);					
+						$bind[] = $value['value'];
+					}
+				}
+			}
+			
+			if(is_array($ary['order']))
+			{
+				$order =" ORDER BY ";
+				foreach($ary['order'] AS $key =>$value)
+				{
+					$order.=sprintf( ' %s %s ', $key, $value);
+				}
+			}
+			
+			$sql =$ary['sql'];
+			$search_sql = $sql.$where.$order.$limit ;
+			$query = $this->db->query($search_sql, $bind);
+			$rows = $query->result_array();
+			
+			$total_sql = sprintf("SELECT COUNT(*) AS total FROM(%s) AS t",$sql.$where) ;
+			$query = $this->db->query($total_sql, $bind);
+			$row = $query->row_array();
+			
+			$query->free_result();
+			$output['list'] = $rows;
+			$output['pageinfo']  = array(
+				'total'	=>$row['total'],
+				'pages'	=>ceil($row['total']/$ary['limit']),
+				'p'		=>$ary['p']
+			);
+			
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+				$MyException = new MyException();
+				$array = array(
+					'message' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			return 	$output  ;
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+	}
 
 }

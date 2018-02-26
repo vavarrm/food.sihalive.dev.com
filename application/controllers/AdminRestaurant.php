@@ -50,7 +50,16 @@ class AdminRestaurant extends CI_Controller {
 		$output['title'] ='Get Restaurant List';
 		try 
 		{
-			
+			$ary['limit'] = (isset($this->request['limit']))?$this->request['limit']:5;
+			$ary['p'] = (isset($this->request['p']))?$this->request['p']:1;
+			$ary['fields'] = array(
+				'r_id'	=>'r_id',
+				'r_name'	=>'r_name',
+				'r_name_en'	=>'r_name_en',
+			);
+			$list = $this->restaurant->getList($ary);
+			$output['body'] = $list;
+			$output['body']['fields'] = $ary['fields'] ;
 		}catch(MyException $e)
 		{
 			$parames = $e->getParams();

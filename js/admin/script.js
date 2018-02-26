@@ -62,6 +62,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 	$scope.templates ={};
 	$scope.sidebarMenuList={};
 	$scope.table_row={};
+	$scope.table_fields={};
 
 	$scope.tableListInit = function(tableindex)
 	{
@@ -75,7 +76,8 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 			{
 				if(r.status =="200")
 				{
-					console.log(r);
+					$scope.table_row[tableindex] = r.data.body.list;
+					$scope.table_fields[tableindex] = r.data.body.fields;
 				}else
 				{
 					var obj =
@@ -109,7 +111,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		
 		var target =$('#myTabContent');
 		$('.tab-pane').removeClass('active in');
-		$scope.templates[index] ={'url':"views/"+child.pe_page+".html","control":control,"func":child.func};
+		$scope.templates[index] ={'url':"views/"+child.pe_page+".html","control":control,"func":child.pe_func};
 		var tabpanel   = '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" aria-labelledby="home-tab">';
 		    tabpanel  +='<div  ng-include="templates['+index+'].url"></div>';
 			tabpanel +='</div>';
@@ -118,7 +120,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		$scope.panelShow = true;
 	}
 	
-	$scope.sidebar_menu_click('AdminRestaurant',{pe_page:"restaurant_list" ,pe_name:"Restaurant List", func:"getList"});
+	$scope.sidebar_menu_click('AdminRestaurant',{pe_page:"restaurant_list" ,pe_name:"Restaurant List", pe_func:"getList"});
 		
 
 	$scope.init = function()

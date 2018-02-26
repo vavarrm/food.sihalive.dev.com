@@ -50,7 +50,7 @@
 			}	
 			catch(MyException $e)
 			{
-				throw $MyException;
+				throw $e;
 			}
 		}
 	}
