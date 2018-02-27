@@ -5,5 +5,6 @@
 /cache
 /*.DS_Store
 /.idea
+/application/views/Frontend/js.tpl
 
 /application/*.DS_Store

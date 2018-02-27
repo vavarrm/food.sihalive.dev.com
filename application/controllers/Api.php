@@ -135,6 +135,8 @@ class Api extends CI_Controller {
 		
 		$this->response($output);
 	}
+
+
 	
 	public function setProfile()
 	{
@@ -146,7 +148,7 @@ class Api extends CI_Controller {
 			$get = $this->input->get();
 			$sess= $get ['sess'];
 			$urlRsaRandomKey = 	$get["sess"];
-			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			$encrypt_user_data =$_SESSION['encrypt_user_data'];
 			$user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
 			if(!$user_data)
 			{
@@ -163,6 +165,9 @@ class Api extends CI_Controller {
 		
 		$this->response($output);
 	}
+
+
+
 	
 	public function isUserAccountExist()
 	{

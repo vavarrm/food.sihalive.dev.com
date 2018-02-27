@@ -691,7 +691,11 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
 {
 	$scope.sending =false;
 	$scope.getUserProfile = function(r){
-		$scope.u_phone = r.data.body.user.u_first_name
+		$scope.u_fname = r.data.body.user.u_first_name;
+		$scope.u_lname=r.data.body.user.u_last_name;
+        $scope.u_phone=r.data.body.user.u_phone;
+        $scope.u_email=r.data.body.user.u_email;
+
 	}
 	$scope.init = function()
 	{
@@ -720,7 +724,7 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
 			global({show:true ,message:js_respond_200,type:'finsh'});
 			return false;
 		}
-		if($('#o_consignee').val() =="" || $('#o_phone').val() =="")
+		if($('#o_fname').val() =="" || $('#o_lname').val() =="")
 		{
 			var obj = {
 				message :js_required_error
@@ -731,8 +735,8 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
 		global({show:true});
 		$scope.sending = true;
 		var postdata = {
-			u_consignee	:$('#o_consignee').val(),
-			u_phone	:$('#o_phone').val(),
+			u_first_name:$('#o_fname').val(),
+            u_last_name	:$('#o_lname').val(),
 		};
 
 		var sess = $cookies.get('sess');
