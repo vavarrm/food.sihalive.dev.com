@@ -1,9 +1,0 @@
-/application/views/templates_c/
-/application/views/templates_c/*.php
-/application/views/templates_c
-/images/food
-/cache
-/*.DS_Store
-/.idea
-
-/application/*.DS_Store
