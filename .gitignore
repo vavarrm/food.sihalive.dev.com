@@ -4,7 +4,6 @@
 /images/food
 /cache
 /*.DS_Store
-/.idea
-/application/views/Frontend/js.tpl
+/.idea/*.*
 
 /application/*.DS_Store

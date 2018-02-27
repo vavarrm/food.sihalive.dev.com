@@ -31,7 +31,7 @@
 		<div class="range range-xs-center">
 		  <div class="cell-md-5 text-center">
 			<p class="copyright">
-			  Sihalive Food Delivery Is Shihanoukville <br/>
+			  Food Delivery
 			  &nbsp;&#169;&nbsp;<span id="copyright-year"></span>&nbsp;<br class="veil-sm"><a href="/MainPage/privacy">Privacy Policy</a>
 			</p>
 		  </div>
