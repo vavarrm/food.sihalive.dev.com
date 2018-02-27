@@ -29,7 +29,12 @@
 									<font style="vertical-align: inherit;">
 										<font style="vertical-align: inherit;">show </font>
 									</font>
-									<select name="datatable_length" aria-controls="datatable" class="form-control input-sm">
+									<select  ng-change="changeLimit(tableindex)" ng-model="table_pageinfo[tableindex].limit"    name="datatable_length" aria-controls="datatable" class="form-control input-sm">
+										<option value="1">
+											<font style="vertical-align: inherit;">
+												<font style="vertical-align: inherit;">1</font>
+											</font>
+										</option>
 										<option value="10">
 											<font style="vertical-align: inherit;">
 												<font style="vertical-align: inherit;">10</font>
@@ -86,19 +91,19 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-5">
-							<div class="dataTables_info"  role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+							<div class="dataTables_info"  role="status" aria-live="polite">Showing 1 to 10 of <span ng-bind="table_pageinfo[tableindex].total">57<span> entries</div>
 						</div>
 						<div class="col-sm-7">
 							<div class="dataTables_paginate paging_simple_numbers" >
 								<ul class="pagination">
-									<li class="paginate_button previous disabled" >
-										<a href="#" aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
+									<li class="paginate_button previous"  ng-class="table_pageinfo[tableindex].p =='1'?'disabled':''">
+										<a href="#"  ng-click="pagePrevious(tableindex)" >Previous</a>
 									</li>
-									<li class="paginate_button active">
-										<a href="#" aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a>
+									<li class="paginate_button"  ng-class="($index +1)==table_pageinfo[tableindex].p?'active':''" ng-repeat="n in [] | range:table_pageinfo[tableindex].pages">
+										<a href="#" ng-click="changePage(tableindex, $index+1)"  ng-bind="$index+1"></a>
 									</li>
-									<li class="paginate_button next" id="datatable_next">
-										<a href="#" aria-controls="datatable" data-dt-idx="7" tabindex="0">Next</a>
+									<li class="paginate_button next"   ng-class="table_pageinfo[tableindex].p ==table_pageinfo[tableindex].pages?'disabled':''">
+										<a href="#" ng-click="pageNext(tableindex)">Next</a>
 									</li>
 								</ul>
 							</div>

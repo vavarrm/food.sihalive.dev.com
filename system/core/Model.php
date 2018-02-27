@@ -161,7 +161,8 @@ class CI_Model {
 			$output['pageinfo']  = array(
 				'total'	=>$row['total'],
 				'pages'	=>ceil($row['total']/$ary['limit']),
-				'p'		=>$ary['p']
+				'p'		=>$ary['p'],
+				'limit'	=>$ary['limit']
 			);
 			
 			$error = $this->db->error();

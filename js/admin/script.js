@@ -63,19 +63,39 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 	$scope.sidebarMenuList={};
 	$scope.table_row={};
 	$scope.table_fields={};
+	$scope.table_pageinfo={};
 
 	$scope.tableListInit = function(tableindex)
 	{
+		$scope.table_pageinfo[tableindex] ={p:"1",limit:"10"};
+		$scope.search(tableindex);
+	}
+	
+	$scope.pagePrevious = function(tableindex)
+	{
+		if($scope.table_pageinfo[tableindex].p  ==1)
+		{
+			return false;
+		}
+		$scope.table_pageinfo[tableindex].p -=1;
+	}
+	
+	$scope.search = function(tableindex)
+	{
 		var control = $scope.templates[tableindex].control;
 		var func = $scope.templates[tableindex].func;
-		
-		var promise = apiService.adminApi(control,func);
+		var obj={
+			p :$scope.table_pageinfo[tableindex].p,
+			limit :$scope.table_pageinfo[tableindex].limit,
+		}
+		var promise = apiService.adminApi(control,func, obj);
 		promise.then
 		(
 			function(r) 
 			{
 				if(r.status =="200")
 				{
+					$scope.table_pageinfo[tableindex] = r.data.body.pageinfo;
 					$scope.table_row[tableindex] = r.data.body.list;
 					$scope.table_fields[tableindex] = r.data.body.fields;
 				}else
@@ -95,6 +115,31 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 				 dialog(obj);
 			}
 		)
+	}
+	
+	$scope.pageNext = function(tableindex)
+	{
+		if($scope.table_pageinfo[tableindex].p  ==$scope.table_pageinfo[tableindex].pages)
+		{
+			return false;
+		}
+		$scope.table_pageinfo[tableindex].p +=1;
+		$scope.search(tableindex);
+	}
+	
+	$scope.changeLimit = function(tableindex)
+	{
+		$scope.search(tableindex);
+	}
+	
+	$scope.changePage =function(tableindex, p)
+	{
+		if($scope.table_pageinfo[tableindex].p ==p)
+		{
+			return false;
+		}
+		$scope.table_pageinfo[tableindex].p =p;
+		$scope.search(tableindex);
 	}
 	
 	
@@ -323,7 +368,6 @@ adminApp.directive('ngEnter', function() {
 adminApp.filter('range', function() {
   return function(page, total) {
     total = parseInt(total);
-
     for (var i=0; i<total; i++) {
 		page.push(i);
     }
