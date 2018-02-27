@@ -1,5 +1,5 @@
 <!-- Page Content-->
-<main class="page-content"  >
+<main class="page-content" style="background-image: url('/images/bg-image-1.jpg'); background-position: center; background-size:cover; background-attachment: fixed"  >
 	<!-- Swiper variant 3-->
 	<section class="bg-gray-darker" style="max-height: 560px; background: white">
 	  <div class="swiper-variant-1" style="max-height: 560px">
@@ -168,5 +168,8 @@
                 </div>
             </div>
         </div>
+	</section>
+	<section class="container-fluid" style="min-height: 300px; background-color: transparent">
+
 	</section>
 </main>
