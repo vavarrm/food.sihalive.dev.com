@@ -21,12 +21,18 @@
 
 
 	}
+	main{
+		min-height: 800px;
+	}
+	.tab-pane{
+		margin-top: 20px!important;
+	}
 </style>
-<main class="page-content" ng-controller="userCtrl" ng-init="init()" >
+<main class="page-content" ng-controller="userCtrl" ng-init="init()"  >
 
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
-	<section class="bg-white container this-margin-top this-margin-button " style="padding: 0px; color: white!important; font-size: 14px">
+	<section class="bg-white container this-margin-top this-margin-button " style="padding: 0px; color: white!important; font-size: 14px;">
 
 				<div class="">
 				<ul class="nav nav-tabs" style="background:#f16121; border: none; padding: 0px">
@@ -36,11 +42,11 @@
 
 				</ul>
 
-				<div class="tab-content this-border this-padding-top this-padding ">
+				<div class="tab-content this-border this-padding-top this-padding " style="border: none!important; margin-bottom: 50px">
 
-						<div id="home" class="tab-pane this-animate-zoom in active ">
+						<div id="home" class="tab-pane this-animate-right in active " style="margin-top: 20px">
 							<div class="c">
-								<div class="well this-white" style="border: none">
+								<div class=" this-white" style="border: none">
 									<div class="row">
 										<div class="col-sm-3 align-center this-center">
 											<center>
@@ -101,7 +107,7 @@
 							</div>
 						</div>
 
-						<div id="address" class="tab-pane this-animate-zoom this-left-align">
+						<div id="address" class="tab-pane this-animate-right this-left-align">
 							<div class="well this-white " style="border: none">
 
 								<div class="this-container">
@@ -145,7 +151,7 @@
 
 							</div>
 						</div>
-					    <div id="order_list" class="tab-pane this-animate-zoom this-left-align">
+					    <div id="order_list" class="tab-pane this-animate-right this-left-align">
 							<div class="well this-white " style="border: none; padding: 0px">
 
 								<div class="this-container">

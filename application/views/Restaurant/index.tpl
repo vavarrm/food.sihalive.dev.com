@@ -471,41 +471,6 @@
 
                             </div>
                             <div id="open" class="tab-pane fade in active">
-                                <li class="active"> <div class="box-grey rounded merchant-opening-hours" style="margin-top:0;">
-                                        <div class="section-label bottom20">
-                                            <a class="section-label-a">
-                                                <span class="bold" style="background:#fff;"> Opening Hours</span>
-                                                <b></b> </a> </div> <div class="row"> <div class="col-md-3 col-xs-3 ">
-                                                <i class="green-color ion-ios-plus-empty"></i> monday</div>
-                                            <div class="col-md-6 col-xs-6 ">9:00 AM - 9:00 PM&nbsp;&nbsp;</div>
-                                            <div class="col-md-3 col-xs-3">
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3 col-xs-3 "><i class="green-color ion-ios-plus-empty"></i> tuesday</div>
-                                            <div class="col-md-6 col-xs-6 ">9:00 AM - 9:00 PM&nbsp;&nbsp;</div>
-                                            <div class="col-md-3 col-xs-3"></div>
-                                        </div> <div class="row">
-                                            <div class="col-md-3 col-xs-3 "><i class="green-color ion-ios-plus-empty"></i> wednesday</div>
-                                            <div class="col-md-6 col-xs-6 ">9:00 AM - 9:00 PM&nbsp;&nbsp;</div>
-                                            <div class="col-md-3 col-xs-3"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3 col-xs-3 "><i class="green-color ion-ios-plus-empty"></i> thursday</div>
-                                            <div class="col-md-6 col-xs-6 ">9:00 AM - 9:00 PM&nbsp;&nbsp;</div>
-                                            <div class="col-md-3 col-xs-3"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3 col-xs-3 "><i class="green-color ion-ios-plus-empty"></i> friday</div>
-                                            <div class="col-md-6 col-xs-6 ">9:00 AM - 9:00 PM&nbsp;&nbsp;</div>
-                                            <div class="col-md-3 col-xs-3"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3 col-xs-3 "><i class="green-color ion-ios-plus-empty"></i> saturday</div>
-                                            <div class="col-md-6 col-xs-6 ">9:00 AM - 9:00 PM&nbsp;&nbsp;</div>
-                                            <div class="col-md-3 col-xs-3"></div> </div> <div class="row">
-                                            <div class="col-md-3 col-xs-3 "><i class="green-color ion-ios-plus-empty"></i> sunday</div> <div class="col-md-6 col-xs-6 ">9:00 AM - 9:00 PM&nbsp;&nbsp;</div> <div class="col-md-3 col-xs-3"></div> </div></div> <!--box-grey--> </li>
                             </div>
 
                         </div>
@@ -520,11 +485,13 @@
 
         </div>
 
-    </section>
+
+
 
 </main>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="/js/rAF.js"></script>
+
 <script type="text/javascript" src="/js/ResizeSensor.js"></script>
 <script type="text/javascript" src="/js/sticky-sidebar.js"></script>
 <script>
