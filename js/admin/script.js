@@ -320,6 +320,18 @@ adminApp.directive('ngEnter', function() {
     };
 });
 
+adminApp.filter('range', function() {
+  return function(page, total) {
+    total = parseInt(total);
+
+    for (var i=0; i<total; i++) {
+		page.push(i);
+    }
+
+    return page;
+  };
+});
+
 $( document ).ready(function() {
 	CURRENT_URL = window.location.href.split("#")[0].split("?")[0],
 	$BODY = $("body");

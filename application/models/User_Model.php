@@ -116,6 +116,8 @@
 			$sql ="
 			SELECT 
 				u_account,
+				u_first_name,
+				u_last_name,
 				u_email,
 				u_phone,
 				u_id,

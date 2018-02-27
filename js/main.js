@@ -33,6 +33,7 @@ var isUserAccountExistApi ="/Api/isUserAccountExist/";
 var isEmailExistApi ="/Api/isEmailExist/";
 var setProfileApi ="/Api/setProfile/";
 var getOrderList ="/Api/getOrderList/";
+var setProfileInitApi ="/User/setProfileInit/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -686,14 +687,30 @@ var breadcrumbsCtrl = function ($scope)
 	})
 }
 
-var userCtrl = function($scope, $cookies, $rootScope, User)
+var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
 {
 	$scope.sending =false;
+	$scope.getUserProfile = function(r){
+		$scope.u_phone = r.data.body.user.u_first_name
+	}
 	$scope.init = function()
 	{
-		$scope.u_consignee = User.u_consignee;
-		$scope.u_phone = User.u_phone;
+		var promise = apiService.adminApi(setProfileInitApi);
+		promise.then
+		(
+			function(r) 
+			{
+				api_response(r,$scope.getUserProfile);
+			},
+			function() {
+				var obj ={
+					'message' :js_user_login_error
+				};
+				dialog(obj);
+			}
+			)
 	}
+	
 	$scope.setProfile = function()
 	{
 
@@ -796,7 +813,7 @@ var contactsCtrl = function ($scope){
 	}
 }
 
-sihaliveApp.controller('userCtrl', ['$scope' , '$cookies', '$rootScope', 'User',userCtrl]);
+sihaliveApp.controller('userCtrl', ['$scope' , '$cookies', '$rootScope', 'User','apiService',userCtrl]);
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
