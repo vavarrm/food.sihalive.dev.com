@@ -6,5 +6,4 @@
 /*.DS_Store
 
 
-/application/*.DS_Store
-/.idea/
+/application/*.DS_Stores
