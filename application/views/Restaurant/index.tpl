@@ -79,6 +79,7 @@
             <div class="col-sm-12" style="padding: 0px">
                 <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  id="" >
                     <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; overflow: hidden ;margin-bottom: 20px">
+
                         <ul class="nav nav-tabs bg-primary "  style="margin-top: 5px" >
                             <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
                             <li><a data-toggle="tab" href="#menu1">MAP </a></li>
@@ -169,7 +170,7 @@
                                             <div class="this-modal-content">
                                                 <header class="this-container ">
                                             <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"
-                                                  class="this-button this-right this-btn-this" style="margin-right: -16px">&times;</span>
+                                                  class="this-button this-right this-btn-this" style="margin-right: -16px; border-radius: 0px">&times;</span>
                                                     <h3><{$row.ca_name}></h3>
                                                 </header>
                                                 <div class="this-container this-padding">
@@ -495,11 +496,7 @@
                                 </div>
                             </div>
 
-
-
                             <div id="menu1" class="tab-pane fade">
-
-
 
                                 <div id="hideMapOverflow">
                                     <div id="map_canvas" style="height:100%"></div>
@@ -507,7 +504,7 @@
                             </div>
 
 
-                            <div id="open" class="tab-pane fade in active">
+                            <div id="open" class="tab-pane fade in ">
                                 <div class="this-container this-padding">
                                    <h5> Opening Hours</h5>
                                     <hr class="offset-top-20">
@@ -667,5 +664,6 @@
      } catch (e) {
         alert(e);
      }
+
 
 </script>
