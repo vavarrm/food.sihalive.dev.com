@@ -59,88 +59,16 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		location.href='/admin/login.html';
 	}
 	
+
 	$scope.templates ={};
 	$scope.sidebarMenuList={};
 	$scope.table_row={};
 	$scope.table_fields={};
 	$scope.table_pageinfo={};
 
-	$scope.tableListInit = function(tableindex)
-	{
-		$scope.table_pageinfo[tableindex] ={p:"1",limit:"10"};
-		$scope.search(tableindex);
-	}
+
 	
-	$scope.pagePrevious = function(tableindex)
-	{
-		if($scope.table_pageinfo[tableindex].p  ==1)
-		{
-			return false;
-		}
-		$scope.table_pageinfo[tableindex].p -=1;
-	}
 	
-	$scope.search = function(tableindex)
-	{
-		var control = $scope.templates[tableindex].control;
-		var func = $scope.templates[tableindex].func;
-		var obj={
-			p :$scope.table_pageinfo[tableindex].p,
-			limit :$scope.table_pageinfo[tableindex].limit,
-		}
-		var promise = apiService.adminApi(control,func, obj);
-		promise.then
-		(
-			function(r) 
-			{
-				if(r.status =="200")
-				{
-					$scope.table_pageinfo[tableindex] = r.data.body.pageinfo;
-					$scope.table_row[tableindex] = r.data.body.list;
-					$scope.table_fields[tableindex] = r.data.body.fields;
-				}else
-				{
-					var obj =
-					{
-						'message' :r.data.message,
-					};
-					dialog(obj);
-				}
-				
-			},
-			function() {
-				var obj ={
-					'message' :'system error'
-				};
-				 dialog(obj);
-			}
-		)
-	}
-	
-	$scope.pageNext = function(tableindex)
-	{
-		if($scope.table_pageinfo[tableindex].p  ==$scope.table_pageinfo[tableindex].pages)
-		{
-			return false;
-		}
-		$scope.table_pageinfo[tableindex].p +=1;
-		$scope.search(tableindex);
-	}
-	
-	$scope.changeLimit = function(tableindex)
-	{
-		$scope.search(tableindex);
-	}
-	
-	$scope.changePage =function(tableindex, p)
-	{
-		if($scope.table_pageinfo[tableindex].p ==p)
-		{
-			return false;
-		}
-		$scope.table_pageinfo[tableindex].p =p;
-		$scope.search(tableindex);
-	}
 	
 	
 	$scope.sidebar_menu_click = function(control, child)
@@ -156,16 +84,16 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		
 		var target =$('#myTabContent');
 		$('.tab-pane').removeClass('active in');
-		$scope.templates[index] ={'url':"views/"+child.pe_page+".html","control":control,"func":child.pe_func};
-		var tabpanel   = '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" aria-labelledby="home-tab">';
-		    tabpanel  +='<div  ng-include="templates['+index+'].url"></div>';
-			tabpanel +='</div>';
+		$scope.templates[index] ={'url':child.pe_page,"control":control,"func":child.pe_func};
+		var tabpanel   	= '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" >';
+		    tabpanel  	+='<iframe height="960px" src="/admin/layout/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'" scrolling="no" frameBorder="0"></iframe>';
+			tabpanel 	+='</div>';
 		target.append($compile(tabpanel)($scope));
 		$('.tab-pane').eq(index).addClass('active in');
 		$scope.panelShow = true;
 	}
 	
-	$scope.sidebar_menu_click('AdminRestaurant',{pe_page:"restaurant_list" ,pe_name:"Restaurant List", pe_func:"getList"});
+	$scope.sidebar_menu_click('AdminRestaurant',{pe_page:"table_list" ,pe_name:"Restaurant List", pe_func:"getList"});
 		
 
 	$scope.init = function()
@@ -221,23 +149,101 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 
 var MainController = function($scope, $routeParams, apiService)
 {
-	$scope.setting = 
-	{
-		controller 	:'AdminHome',
-		func 		:'index'
-	};
 	$scope.data =
 	{
-		input :{},
-		response:{}
+		table_pageinfo :{},
+		table_row:{},
+		table_fields:{},
+		table_pageinfo:{},
 	};
-	$scope.init = function()
+	$scope.tableListInit = function()
 	{
-		if(typeof $routeParams.controller !="undefined")
+		$scope.search();
+	}
+
+	
+	$scope.tableClose = function()
+	{
+		var a =window.parent.document; 
+		console.log(a);
+	}
+	
+	$scope.pagePrevious = function()
+	{
+		if($scope.data.table_pageinfo.p  ==1)
 		{
-			$scope.setting.controller =  $routeParams.controller;
-			$scope.setting.func =  $routeParams.func;
+			return false;
 		}
+		$scope.data.table_pageinfo.p -=1;
+		$scope.search();
+	}
+
+	
+	$scope.pageNext = function()
+	{
+		if($scope.data.table_pageinfo.p  ==$scope.data.table_pageinfo.pages)
+		{
+			return false;
+		}
+		$scope.data.table_pageinfo.p +=1;
+		$scope.search();
+	}
+	
+	$scope.changeLimit = function()
+	{
+		$scope.data.table_pageinfo.p =1;
+		$scope.search();
+	}
+	
+	$scope.changePage =function(p)
+	{
+		if($scope.data.table_pageinfop ==p)
+		{
+			return false;
+		}
+		$scope.data.table_pageinfo.p =p;
+		$scope.search();
+	}
+		
+	$scope.search = function()
+	{
+		var controller = $routeParams.controller;
+		var func = $routeParams.func;
+		var obj={
+			p :$scope.data.table_pageinfo.p,
+			limit :$scope.data.table_pageinfo.limit,
+		}
+		var promise = apiService.adminApi(controller,func, obj);
+		promise.then
+		(
+			function(r) 
+			{
+				if(r.status =="200")
+				{
+					$scope.data.table_row= r.data.body.list;
+					$scope.data.table_title =r.data.title;
+					$scope.data.table_pageinfo= r.data.body.pageinfo;
+					$scope.data.table_pageinfo.start=(parseInt($scope.data.table_pageinfo.p)-1)*parseInt($scope.data.table_pageinfo.limit)+1;
+					$scope.data.table_pageinfo.end=(parseInt($scope.data.table_pageinfo.p)-1)*parseInt($scope.data.table_pageinfo.limit)+parseInt($scope.data.table_row.length);
+
+					$scope.data.table_fields = r.data.body.fields;
+				}else
+				{
+					var obj =
+					{
+						'message' :r.data.message,
+					};
+					dialog(obj);
+				}
+				
+			},
+			function() {
+				var obj ={
+					'message' :'system error'
+				};
+				 dialog(obj);
+			}
+		)
 	}
 }
 
@@ -329,26 +335,25 @@ adminApp.factory('apiService', ['$http', '$cookies', apiService]);
 adminApp.config(function($routeProvider){
 	$routeProvider.when("/",{
 		templateUrl: function(params) {
-			return 'views/home.html';
+			return 'views/';
 		},
 		controller: 'MainController'
-    }).when("/:controller/:func/:page",{
+    }).when("/:controller/:func/:page/:tabindex",{
 		templateUrl: function(params) {
-			var page ='views/'+params.page+'.html';
-			console.log(page);
-			UrlExists('views/'+params.page+'.html', function(status){
-				if(status === 200){
-				   page ='views/'+params.page+'.html';
-				}
-				else if(status === 404){
-				   page ='views/page_404.html';
+			var page ='/admin/layout/'+params.page+'.html';
+			// UrlExists(page, function(status){
+				// if(status === 200){
+				   // page ='/loyout/'+params.page+'.html';
+				// }
+				// else if(status === 404){
+				   // page ='views/page_404.html';
 				   
-				}
-			});
+				// }
+			// });
 			return page;
 		},
 		controller: 'MainController'
-    }) .otherwise({redirectTo : '/'})
+    }).otherwise({redirectTo : '/'})
 });
 
 adminApp.directive('ngEnter', function() {
@@ -364,6 +369,8 @@ adminApp.directive('ngEnter', function() {
       });
     };
 });
+
+
 
 adminApp.filter('range', function() {
   return function(page, total) {

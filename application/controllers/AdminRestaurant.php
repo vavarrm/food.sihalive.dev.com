@@ -47,7 +47,7 @@ class AdminRestaurant extends CI_Controller {
 	{
 		$output['body']=array();
 		$output['status'] = '200';
-		$output['title'] ='Get Restaurant List';
+		$output['title'] ='Restaurant List';
 		try 
 		{
 			$ary['limit'] = (isset($this->request['limit']))?$this->request['limit']:1;

@@ -128,7 +128,7 @@ class AdminApi extends CI_Controller {
 						array(
 							'pe_name'	=>'Restaurant List',	
 							'pe_func'	=>'getList',
-							'pe_page'	=>'restaurant_list',
+							'pe_page'	=>'table_list',
 							'pe_id'	=>'2',
 						)
 					)
