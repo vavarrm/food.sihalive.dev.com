@@ -17,6 +17,8 @@ class Api extends CI_Controller {
 		$this->js = $this->language->load('js');
 		$this->response_code = $this->language->load('response');
 		$this->sms =$this->config->item('sms');
+
+		$this->load->model('Restaurant_Model','Restaurant');
     }
 
 	

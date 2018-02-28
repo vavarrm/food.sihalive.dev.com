@@ -8,6 +8,7 @@ class MainPage extends CI_Controller {
 	   // phpinfo();
 		parent::__construct();
 		$this->mainpage_language_ary = $this->language->load('mainpage');
+        $this->load->model('Restaurant_Model', 'restaurant');
 
     }
 	
@@ -19,10 +20,12 @@ class MainPage extends CI_Controller {
 	
 	public function index()
 	{
-	
+        $shop = $this->restaurant->Restaurant();
+
 		$this->smarty->assign(
 			array(
-				'mainpage_language_ary'	=>$this->mainpage_language_ary
+				'mainpage_language_ary'	=>$this->mainpage_language_ary,
+                'shop'	=>$shop
 			)
 		);
 		$this->smarty->displayFrame(__CLASS__.'/index.tpl');

@@ -59,7 +59,7 @@
 				<a href="/"><{$language.nav_home}></a>
 			</li>		
 			<li>
-				<a href="/Contacts"><{$language.nav_contact}></a>
+				<a href="/contacts"><{$language.nav_contact}></a>
 			</li>
 
 			<li>
@@ -82,7 +82,7 @@
 						<a href="/Food/orderList"><{$language.nav_user_orderlist}></a>
 					</li>
 					<li>
-						<a href="/User/Profile"><{$language.nav_user_profile}></a>
+						<a href="/profile"><{$language.nav_user_profile}></a>
 					</li>
 					<li>
 						<a ng-click="logout()"><{$language.nav_user_logout}></a>
@@ -90,7 +90,7 @@
 				</ul>
 			</li>
 			<li  ng-show="islogin == false">
-				<a href="/Login/"><{$language.nav_login}></a>
+				<a href="/login/"><{$language.nav_login}></a>
 			</li>
 		  </ul>
 		  <div class="rd-navbar-aside-right">

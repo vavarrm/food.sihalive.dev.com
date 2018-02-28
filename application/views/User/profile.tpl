@@ -28,6 +28,7 @@
 		margin-top: 20px!important;
 	}
 </style>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 <main class="page-content" ng-controller="userCtrl" ng-init="init()"  >
 
 	<!-- Breadcrumbs & Page title-->
@@ -61,18 +62,18 @@
 												<div class="form-inline-flex">
 													<div class="form-group">
 														<label for="o_consignee" class="form-label form-label-outside rd-input-label">First name :</label>
-														<input id="o_consignee" ng-model="u_phone"  type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+														<input id="o_consignee" ng-model="u_fname"  type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
 														<span class="form-validation"></span>
 													</div>
 													<div class="form-group">
 														<label for="o_phone" class="form-label form-label-outside rd-input-label">Last name :</label>
-														<input id="o_phone" ng-model="u_phone" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+														<input id="o_phone" ng-model="u_lname" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
 													</div>
 												</div>
 												<div class="form-inline-flex this-margin-top">
 													<div class="form-group">
 														<label for="o_consignee" class="form-label form-label-outside rd-input-label">Phone : </label>
-														<input id="o_consignee" ng-model="u_consignee"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+														<input id="o_consignee" ng-model="u_phone"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
 														<span class="form-validation"></span>
 													</div>
 													<div class="form-group">
@@ -83,12 +84,12 @@
 												<div class="form-inline-flex this-margin-top">
 													<div class="form-group">
 														<label for="o_consignee" class="form-label form-label-outside rd-input-label">Password :</label>
-														<input id="o_consignee" ng-model="u_consignee"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+														<input id="o_consignee" ng-model="u_pwd"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
 														<span class="form-validation"></span>
 													</div>
 													<div class="form-group">
 														<label for="o_phone" class="form-label form-label-outside rd-input-label">Confirm password</label>
-														<input id="o_email" ng-model="u_email" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+														<input id="o_email" ng-model="u_confpwd" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
 													</div>
 												</div>
 												<div class="offset-top-30">
