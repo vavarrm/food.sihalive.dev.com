@@ -31,17 +31,52 @@
         transform: translate3d(0, 0, 0);
         will-change: position, transform;
     }
+    #map {
+        height: 100%;
+    }
+    .map-marker-label {
+        position: absolute;
+        color: blue;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    #hideMapOverflow {
+        overflow: hidden;
+        height: 500px;
+        width: 100%;
+    }
+    #maphere {
+        height: 100%;
+    }
 
 </style>
 
-
+<{$lat=""}>
+<{$lng=""}>
+<{$r_name=""}>
+<{$r_about=""}>
 <main class="page-content this-white" style="background: #F0F0F0">
     <!-- Breadcrumbs & Page title-->
+<section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center">
+    <{foreach from=$shopId item=row}>
+    <{$lat=$row.r_lat}>
+    <{$lng=$row.r_lng}>
+    <{$r_name=$row.r_name}>
+    <{$r_about=$row.r_description}>
 
-    <{include file="Frontend/breadcrumbs.tpl"}>
+<center>
+    <img src="http://freedesignfile.com/upload/2017/07/chef-restaurant-logo-design-vector.jpg"
+         width="120" class="img-responsive img-circle" style=" margin-top: 50px">
+</center>
+
+    <h2 class="this-text-white" style="margin-top:30px;text-transform: uppercase"><{$row.r_name}></h2>
+    <span class="this-text-white">Open :<{$row.r_open_start}> - Close <{$row.r_open_end}></span>
+    <{/foreach}>
+</section>
+
     <section class=" text-left container " style="background: #fff; position:inherit"   >
         <div class=" row " >
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="padding: 0px">
                 <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  id="" >
                     <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; overflow: hidden ;margin-bottom: 20px">
                         <ul class="nav nav-tabs bg-primary "  style="margin-top: 5px" >
@@ -57,12 +92,7 @@
                                    <div class="sidebar__inner">
                                        <ul class="list-group" style="border:none; margin-bottom: 40px"  >
                                            <div  style="width:auto"  id="pro_left"  >
-                                               <li class="list-group-item" style="padding-top: 2px">
-                                                   <center>
-                                                       <img src="http://freedesignfile.com/upload/2017/07/chef-restaurant-logo-design-vector.jpg" width="120" class="img-responsive img-circle">
 
-                                                   </center>
-                                               </li>
                                                <li class="list-group-item" id="menu_clcik" style="background:#f16121;color: white;"> <span class="glyphicon glyphicon-th"></span> MENU </li>
                                                <div id="menu__">
                                                    <{foreach from=$category item=row key=index}>
@@ -465,12 +495,56 @@
                                 </div>
                             </div>
 
+
+
                             <div id="menu1" class="tab-pane fade">
 
-                                <div id="map"> </div>
+
+
+                                <div id="hideMapOverflow">
+                                    <div id="map_canvas" style="height:100%"></div>
+                                </div>
+                            </div>
+
+
+                            <div id="open" class="tab-pane fade in active">
+                                <div class="this-container this-padding">
+                                   <h5> Opening Hours</h5>
+                                    <hr class="offset-top-20">
+                                    <ul class="this-ul">
+
+
+                                    <{foreach from=$operation item=row }>
+
+
+                                        <li>
+                                            <div class="row">
+
+                                                <div class="col-sm-4">
+                                                    + <{$row.open_day}>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <{$row.open_time_start}>  - <{$row.open_time_end}>
+                                                </div>
+
+                                            </div>
+                                        </li>
+
+                                    <{/foreach}>
+
+                                    </ul>
+
+                                </div>
 
                             </div>
-                            <div id="open" class="tab-pane fade in active">
+                            <div id="about" class="tab-pane fade">
+                                <div class="this-container this-padding">
+                                    <h4> <{$r_name}> </h4>
+                                    <hr class="offset-top-20">
+
+                                    <{$r_about}>
+
+                                </div>
                             </div>
 
                         </div>
@@ -489,9 +563,8 @@
 
 
 </main>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 <script type="text/javascript" src="/js/ResizeSensor.js"></script>
 <script type="text/javascript" src="/js/sticky-sidebar.js"></script>
 <script>
@@ -522,5 +595,77 @@
         containerSelector: '.container',
         innerWrapperSelector: '.inv'
     });
+
+       var lat="<{$lat}>";
+       var lang="<{$lng}>";
+       var r_name="<{$r_name}>";
+
+    // The following example creates a marker in Stockholm, Sweden using a DROP
+
+    try {
+
+        var point = {
+            lat: lat,
+            lng: lang,
+        };
+        var markerSize = {
+            x: 22,
+            y: 40
+        };
+
+
+        google.maps.Marker.prototype.setLabel = function(label) {
+            this.label = new MarkerLabel({
+                map: this.map,
+                marker: this,
+                text: label
+            });
+            this.label.bindTo('position', this, 'position');
+        };
+
+        var MarkerLabel = function(options) {
+            this.setValues(options);
+            this.span = document.createElement('span');
+            this.span.className = 'map-marker-label';
+        };
+
+        MarkerLabel.prototype = $.extend(new google.maps.OverlayView(), {
+            onAdd: function() {
+                this.getPanes().overlayImage.appendChild(this.span);
+                var self = this;
+                this.listeners = [
+                    google.maps.event.addListener(this, 'position_changed', function() {
+                        self.draw();
+                    })
+                ];
+            },
+            draw: function() {
+                var text = String(this.get('text'));
+                var position = this.getProjection().fromLatLngToDivPixel(this.get('position'));
+                this.span.innerHTML = text;
+                this.span.style.left = (position.x - (markerSize.x / 2)) - (text.length * 3) + 10 + 'px';
+                this.span.style.top = (position.y - markerSize.y + 40) + 'px';
+            }
+        });
+
+        function initialize() {
+            var myLatLng = new google.maps.LatLng(point.lat, point.lng);
+            var gmap = new google.maps.Map(document.getElementById('map_canvas'), {
+                zoom:16,
+                center: myLatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var myMarker = new google.maps.Marker({
+                map: gmap,
+                position: myLatLng,
+                label: r_name,
+                draggable: true
+            });
+        }
+
+        initialize();
+     } catch (e) {
+        alert(e);
+     }
 
 </script>

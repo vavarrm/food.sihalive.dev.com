@@ -28,6 +28,7 @@
 		margin-top: 20px!important;
 	}
 </style>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 <main class="page-content" ng-controller="userCtrl" ng-init="init()"  >
 
 	<!-- Breadcrumbs & Page title-->

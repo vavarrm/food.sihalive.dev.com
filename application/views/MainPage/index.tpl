@@ -55,11 +55,11 @@
 	<div class="this-container this-white">
 		<h5 class="h5 text-uppercase "> Sihalive food Delivery</h5>
 
-		<form class="form-inline" style="margin-bottom: 10px"action="search">
+		<form class="form-inline" style="margin-bottom: 10px"action="search" method="get">
 			<div class="form-group">
 				<label class="sr-only" for="exampleInputAmount">I would like to eat....</label>
 				<div class="form-group">
-					<input type="text" class="form-control form-control-has-validation form-control-last-child " id="search" placeholder="I would like to eat...." style="min-width: 300px"> </div>
+					<input type="text" class="form-control form-control-has-validation form-control-last-child " name="q" placeholder="I would like to eat...." style="min-width: 300px"> </div>
 			</div>
 			<button  type="submit" class="this-btn this-btn-this" style="height: 40px"><{$mainpage_language_ary.our_menu}></button>
 		</form>
@@ -73,7 +73,7 @@
 				<div class="row">
 					<{foreach from=$category item=row key=index}>
 					<!-- Each popular food item starts -->
-					<a href="/shop/<{$row.ca_name}>">
+					<a href="/shop/<{$row.ca_id}>">
 						<div class="col-xs-12 col-sm-6 col-md-2" ">
 						<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
 							<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive"/>
@@ -97,15 +97,15 @@
            <h5 class="h5 text-uppercase">Restaurants in Shihanoukville </h5>
 			<hr class="offset-top-50">
 			<div class="row">
-				<{foreach from=$category item=row key=index}>
+				<{foreach from=$shop item=row key=index}>
 				<!-- Each popular food item starts -->
 				<div class="col-xs-12 col-sm-6 col-md-3" style="margin-top: 10px" >
 					<div class="food-item-wrap restaurant this-center " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
-						<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive" />
+						<img src="/images/category-<{$row.r_id}>-310X260.png" class="img-responsive" />
 						<div class="content">
-							<div class="product-name"><{$row.ca_name}></div>
+							<div class="product-name"><{$row.r_name}></div>
 						</div>
-						<a href="/restaurant" class="this-btn this-text-deep-orange" style="border: dashed 1px orangered;">Order Now</a>
+						<a href="/<{$row.r_id}>" class="this-btn this-text-deep-orange" style="border: dashed 1px orangered;">Order Now</a>
 
 					</div>
 				</div>
@@ -169,7 +169,7 @@
             </div>
         </div>
 	</section>
-	<section class="container-fluid" style="min-height: 300px; background-color: transparent">
+	<section class="container-fluid this-padding" style="min-height: 300px; background-color: transparent">
 
 	</section>
 </main>
