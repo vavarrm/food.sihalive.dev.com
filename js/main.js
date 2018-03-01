@@ -185,7 +185,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 				  text: "close",
 				  click: function() {
 					$( this ).dialog( "close" );
-					window.location.href="/Menu";
+					//window.location.href="/Menu";
 				  }
 				}
 			]

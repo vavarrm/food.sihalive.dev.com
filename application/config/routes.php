@@ -58,6 +58,7 @@ $route['user/profile'] = '/user';
 $route['shop'] = 'MainPage';
 $route['search'] = "search";
 $route['login'] = "login";
+$route['ShopCart'] = "ShopCart";
 $route['profile'] = "user/profile";
 $route['contacts'] = "contacts";
 $route['shop/(:any)'] = "/shop/id/$1";

@@ -6,8 +6,19 @@
 			
 			parent::__construct();
 			$this->load->database();
+            $this->table="food";
+            $this->JoinTable="restaurant";
+            $this->innerJoin="restaurant.r_id=food.r_id";
+
 		}
-	
+
+
+        function escapeString($val) {
+            $db = get_instance()->db->conn_id;
+            $val = mysqli_real_escape_string($db, $val);
+            return $val;
+        }
+
 		public function getSetList($f_id)
 		{
 			$sql="	SELECT 
@@ -201,5 +212,28 @@
 			// $query->free_result();
 			return $rows;
 		}
+
+		function foodList_By_RestaurantId($userId){
+		    $data=$this->escapeString($userId);
+
+            $this->db->select('*');
+            $this->db->from($this->table);
+            $this->db->join($this->JoinTable,$this->innerJoin);
+            $this->db->where('restaurant.r_id', $data);
+            $query=$this->db->get();
+            $rows=$query->result_array();
+            if(count($rows))
+            {
+                $query->free_result();
+                return $rows;
+            }
+            else
+            {
+                return FALSE;
+            }
+
+
+        }
+
 	}
 ?>

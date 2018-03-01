@@ -11,18 +11,20 @@ class restaurant extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Restaurant_Model', 'restaurant');
+        $this->load->model('Food_Model', 'food');
 
     }
     public function index(){
         $this->smarty->displayFrame('Restaurant/index.tpl');
     }
     public function id($x){
-
+        $foodList = $this->food->foodList_By_RestaurantId($x);
         $shopId = $this->restaurant->getRestaurant_byId($x);
         $operation=$this->restaurant->get_operation($x);
         $this->smarty->assign(array(
             'shopId'	=>$shopId,
-            'operation'      =>$operation
+            'operation'      =>$operation,
+            'foodList'=>$foodList
         ));
          if($shopId >0){
              $this->smarty->displayFrame('Restaurant/index.tpl');
@@ -37,9 +39,11 @@ class restaurant extends CI_Controller{
 
 
     function listShop(){
+
         $shop = $this->restaurant->Restaurant();
         $this->smarty->assign(array(
-            'shop'	=>$shop
+            'shop'	=>$shop,
+
         ));
 
 
