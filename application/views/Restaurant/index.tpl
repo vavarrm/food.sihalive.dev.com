@@ -55,7 +55,7 @@
 <{$lng=""}>
 <{$r_name=""}>
 <{$r_about=""}>
-<main class="page-content this-white" style="background: #F0F0F0">
+<main class="page-content this-white" style="background: #F0F0F0"  >
     <!-- Breadcrumbs & Page title-->
 <section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center">
     <{foreach from=$shopId item=row}>
@@ -122,7 +122,7 @@
                                    </div>
 
                                 </div>
-                                <div class="col-sm-6" style="padding: 0px;  cursor: pointer;overflow: auto;  " id="this_center"  >
+                                <div class="col-sm-6" style="padding: 0px;  cursor: pointer;overflow: auto;  " id="this_center" ng-controller="productPageCtrl"  >
                                     <div id="content">
                                         <form class="form this-white" style="padding: 5px; ">
                                             <select class="form-control input-sm  " style="background: white!important;" >
@@ -136,29 +136,27 @@
                                                 <{/foreach}>
                                             </select>
                                         </form>
-                                        <{foreach from=$category item=row key=index}>
+                                        <{foreach from=$foodList item=row key=index}>
 
                                         <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
                                                 <div class="col-xs-12 col-md-12 ">
-                                                    <a href="/Menu?ca_id=<{$row.ca_id}>">
-                                                        <img src="/images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
+                                                    <a href="/Menu?ca_id=<{$row.r_id}>">
+                                                        <img src="/images/category-1-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
                                                     </a>
                                                 </div>
                                                 <div class="col-sx-12 col-md-12 " style="padding: 5px" >
                                                     <p style="margin-top: 10px" >
-                                                        <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
+                                                        <a href="/Menu?ca_id=<{$row.f_id}>" class="link"><{$row.f_name}></a>
                                                     </p>
                                                     <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
-                                                        <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.ca_id}>').style.display='block'"
+                                                        <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.f_id}>').style.display='block'"
                                                                 style="font-size: 12px; font-weight:normal;
                                               padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
-                                                            Price : 0.00$
+                                                            <p>Price : <{$row.f_large_price}> $ </p>
                                                         </button>
                                                     </div>
                                                 </div>
-
-
 
 
                                             </div>
@@ -166,24 +164,24 @@
 
                                     <!--  Open Modal Order --->
 
-                                        <div id="<{$row.ca_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
+                                        <div id="<{$row.f_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
                                             <div class="this-modal-content">
                                                 <header class="this-container ">
-                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"
+                                            <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"
                                                   class="this-button this-right this-btn-this" style="margin-right: -16px; border-radius: 0px">&times;</span>
-                                                    <h3><{$row.ca_name}></h3>
+                                                    <h3><{$row.f_name}></h3>
                                                 </header>
                                                 <div class="this-container this-padding">
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"></span>
+                                                            <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
 
-                                                            <img src="/images/category-<{$row.ca_id}>-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
+                                                            <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
 
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <form>
-                                                                <p>Price : 0.00$ </p>
+                                                                <p>Price : <{$row.f_large_price}> $ </p>
                                                                 <p>Quantity</p>
                                                                 <div class="stepper-type-1">
                                                                     <div class="stepper ">
@@ -194,84 +192,10 @@
                                                                 </div>
 
                                                                 <hr class="offset-top-50">
-                                                                <button class="this-btn this-btn-this this-right this-margin-top "> ADD TO CART </button>
-                                                            </form>
+                                                                <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"  class="this-btn this-btn-this this-right this-margin-top " >
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <footer class="this-container this-padding this-right">
-
-                                                </footer>
-                                            </div>
-                                        </div>
-                                        <!--Close Modal -->
-
-                                        <{/foreach}>
-                                        <{foreach from=$category item=row key=index}>
-
-                                        <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
-                                            <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
-                                                <div class="col-xs-12 col-md-12 ">
-                                                    <a href="/Menu?ca_id=<{$row.ca_id}>">
-                                                        <img src="/images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
-                                                    </a>
-                                                </div>
-                                                <div class="col-sx-12 col-md-12 " style="padding: 5px" >
-                                                    <p style="margin-top: 10px" >
-                                                        <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
-                                                    </p>
-                                                    <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
-                                                        <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.ca_id}>').style.display='block'"
-                                                                style="font-size: 12px; font-weight:normal;
-                                              padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
-                                                            Price : 0.00$
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-
-                                    <!--  Open Modal Order --->
-
-                                        <div id="<{$row.ca_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
-                                            <div class="this-modal-content">
-                                                <header class="this-container ">
-                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"
-                                                  class="this-button this-right this-btn-this" style="margin-right: -16px">&times;</span>
-                                                    <h3><{$row.ca_name}></h3>
-                                                </header>
-                                                <div class="this-container this-padding">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"></span>
-
-                                                            <img src="/images/category-<{$row.ca_id}>-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
-
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <form>
-                                                                <p>Price : 0.00$ </p>
-                                                                <p>Quantity</p>
-                                                                <div class="stepper-type-1">
-                                                                    <div class="stepper ">
-                                                                        <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
-                                                                        <span class="stepper-arrow up"></span>
-                                                                        <span class="stepper-arrow down"></span>
-                                                                    </div>
-                                                                </div>
-                                                                <button class="this-btn this-margin-top " id="Ins">
-                                                                    <span class="glyphicon glyphicon-plus-sign"></span> Instructions
+                                                                    ADD TO CART
                                                                 </button>
-                                                                <textarea  class="form-control " rows="1" cols="2" id="show_Ins">
-                                                       </textarea>
-
-                                                                <hr class="offset-top-50">
-                                                                <button class="this-btn this-btn-this this-right this-margin-top "> ADD TO CART </button>
                                                             </form>
 
                                                         </div>
@@ -285,174 +209,25 @@
                                         <!--Close Modal -->
 
                                         <{/foreach}>
-                                        <{foreach from=$category item=row key=index}>
-
-                                        <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
-                                            <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
-                                                <div class="col-xs-12 col-md-12 ">
-                                                    <a href="/Menu?ca_id=<{$row.ca_id}>">
-                                                        <img src="/images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
-                                                    </a>
-                                                </div>
-                                                <div class="col-sx-12 col-md-12 " style="padding: 5px" >
-                                                    <p style="margin-top: 10px" >
-                                                        <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
-                                                    </p>
-                                                    <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
-                                                        <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.ca_id}>').style.display='block'"
-                                                                style="font-size: 12px; font-weight:normal;
-                                              padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
-                                                            Price : 0.00$
-                                                        </button>
-                                                    </div>
-                                                </div>
 
 
-
-
-                                            </div>
-                                        </div>
-
-                                    <!--  Open Modal Order --->
-
-                                        <div id="<{$row.ca_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
-                                            <div class="this-modal-content">
-                                                <header class="this-container ">
-                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"
-                                                  class="this-button this-right this-btn-this" style="margin-right: -16px">&times;</span>
-                                                    <h3><{$row.ca_name}></h3>
-                                                </header>
-                                                <div class="this-container this-padding">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"></span>
-
-                                                            <img src="/images/category-<{$row.ca_id}>-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
-
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <form>
-                                                                <p>Price : 0.00$ </p>
-                                                                <p>Quantity</p>
-                                                                <div class="stepper-type-1">
-                                                                    <div class="stepper ">
-                                                                        <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
-                                                                        <span class="stepper-arrow up"></span>
-                                                                        <span class="stepper-arrow down"></span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <hr class="offset-top-50">
-                                                                <button class="this-btn this-btn-this this-right this-margin-top "> ADD TO CART </button>
-                                                            </form>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <footer class="this-container this-padding this-right">
-
-                                                </footer>
-                                            </div>
-                                        </div>
-                                        <!--Close Modal -->
-
-                                        <{/foreach}>
-                                        <{foreach from=$category item=row key=index}>
-
-                                        <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
-                                            <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
-                                                <div class="col-xs-12 col-md-12 ">
-                                                    <a href="/Menu?ca_id=<{$row.ca_id}>">
-                                                        <img src="/images/category-<{$row.ca_id}>-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
-                                                    </a>
-                                                </div>
-                                                <div class="col-sx-12 col-md-12 " style="padding: 5px" >
-                                                    <p style="margin-top: 10px" >
-                                                        <a href="/Menu?ca_id=<{$row.ca_id}>" class="link"><{$row.ca_name}></a>
-                                                    </p>
-                                                    <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
-                                                        <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.ca_id}>').style.display='block'"
-                                                                style="font-size: 12px; font-weight:normal;
-                                              padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
-                                                            Price : 0.00$
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-
-                                    <!--  Open Modal Order --->
-
-                                        <div id="<{$row.ca_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
-                                            <div class="this-modal-content">
-                                                <header class="this-container ">
-                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"
-                                                  class="this-button this-right this-btn-this" style="margin-right: -16px">&times;</span>
-                                                    <h3><{$row.ca_name}></h3>
-                                                </header>
-                                                <div class="this-container this-padding">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <span onclick="document.getElementById('<{$row.ca_id}>').style.display='none'"></span>
-
-                                                            <img src="/images/category-<{$row.ca_id}>-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
-
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <form>
-                                                                <p>Price : 0.00$ </p>
-                                                                <p>Quantity</p>
-                                                                <div class="stepper-type-1">
-                                                                    <div class="stepper ">
-                                                                        <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
-                                                                        <span class="stepper-arrow up"></span>
-                                                                        <span class="stepper-arrow down"></span>
-                                                                    </div>
-                                                                </div>
-                                                                <button class="this-btn this-margin-top " id="Ins">
-                                                                    <span class="glyphicon glyphicon-plus-sign"></span> Instructions
-                                                                </button>
-                                                                <textarea  class="form-control " rows="1" cols="2" id="show_Ins">
-                                                       </textarea>
-
-                                                                <hr class="offset-top-50">
-                                                                <button class="this-btn this-btn-this this-right this-margin-top "> ADD TO CART </button>
-                                                            </form>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <footer class="this-container this-padding this-right">
-
-                                                </footer>
-                                            </div>
-                                        </div>
-                                        <!--Close Modal -->
-
-                                        <{/foreach}>
 
                                     </div>
                                 </div>
-                                <div class="col-sm-3 this-hide-small " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  ">
+                                <div class="col-sm-3 this-hide-small " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  " ng-controller="shopCartCtrl">
                                     <div id="inv">
                                         <div class="row">
-                                            <div class="col-sm-12" style="
-                       background:#f16121;height: 46px; color: white; padding: 10px; ">
+                                            <div class="col-sm-12" style="background:#f16121;height: 46px; color: white; padding: 10px; ">
                                                 Order Information
                                             </div>
-                                            <div class="col-sm-12 restaurant" style="border-bottom: 1px solid silver;
-                      ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
+                                            <div class="col-sm-12 restaurant" style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
                                                 <div class="inner line-top relative">
 
                                                     <p class="bold center">Your Order</p>
-                                                    <div class="item-order-wrap" style="border-top: 1px solid silver">
-                                                        <div class="item-order-list item-row">
-                                                            <div class="b">2. Thai Tomyum Noodle <p class="uk-text-small">
-                                                                    <span class="base-price">$1.75</span></p>
+                                                    <div class="item-order-wrap" style="border-top: 1px solid silver" >
+                                                        <div class="item-order-list item-row"  ng-repeat="item in items|filter as filterAry" ng-show="!item.del" >
+                                                            <div class="b"><span  class=" grid-element-mod-2"　ng-bind="item.f_name"></span> <p class="uk-text-small">
+                                                                    <span class="base-price" ng-bind="'$'+item.price"></span></p>
                                                             </div>
                                                             <span class="glyphicon glyphicon-edit" style="font-size: 15px"></span>
                                                             <span class="glyphicon glyphicon-trash" style="font-size: 15px"></span>
@@ -462,7 +237,9 @@
                                                         <div class="summary-wrap" style="border-top: 1px solid silver">
                                                             <div class="row">
                                                                 <div class="col-md-6 col-xs-6 text-right ">Sub Total</div>
-                                                                <div class="col-md-6 col-xs-6 text-right cart_subtotal">$1.75</div>
+                                                                <div class="col-md-6 col-xs-6 text-right cart_subtotal">
+                                                                    <span  data-index="{{$index}}" data-subtotal="{{item.subtotal}}" class="h5 text-sbold subtotal" ng-model="item.subtotal" ng-bind="item.subtotal" ng-init="item.subtotal =  (item.price*item.order_num)"></span>
+                                                                </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-xs-6 text-right ">Delivery Fee</div>
@@ -470,7 +247,9 @@
                                                             </div>
                                                             <div class="row cart_total_wrap bold">
                                                                 <div class="col-md-6 col-xs-6  text-right">Total</div>
-                                                                <div class="col-md-6 col-xs-6  text-right cart_total">$2.75</div>
+                                                                <div class="col-md-6 col-xs-6  text-right cart_total">
+                                                                    <span ng-bind="'Total:'+Total(filterAry)"></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="summary-wrap" style="border-top: 1px solid silver">
