@@ -141,13 +141,13 @@
                                         <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
                                                 <div class="col-xs-12 col-md-12 ">
-                                                    <a href="/Menu?ca_id=<{$row.r_id}>">
+
                                                         <img src="/images/category-1-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
-                                                    </a>
+
                                                 </div>
                                                 <div class="col-sx-12 col-md-12 " style="padding: 5px" >
                                                     <p style="margin-top: 10px" >
-                                                        <a href="/Menu?ca_id=<{$row.f_id}>" class="link"><{$row.f_name}></a>
+                                                       <{$row.f_name}>
                                                     </p>
                                                     <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
                                                         <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.f_id}>').style.display='block'"

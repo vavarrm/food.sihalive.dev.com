@@ -255,7 +255,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 					  text: "close",
 					  click: function() {
 						$( this ).dialog( "close" );
-						location.href="/Login/?back=ShopCart";
+						location.href="/login/?back=ShopCart";
 					  }
 					}
 				]

@@ -12,11 +12,22 @@ class User extends CI_Controller {
 		$this->get = $this->input->get();
 		$this->post = $this->input->post();
 		$this->load->model('User_Model', 'user');
+        $this->load->model('Food_Model', 'food');
+        $this->load->model('Order_Model', 'order');
+        $this->load->library('session');
+        $this->my_data= $_SESSION['27'] ;
+
+
     }
 	
 	public function Profile()
 	{
+
+        $order = $this->order->User_OrderList($this->my_data);
+
 		$this->smarty->assign(array(
+
+            'order'		=>$order,
 			'userLanguageAry'	=>$this->user_language_ary,
 		));
 		$this->smarty->displayFrame(__CLASS__.'/profile.tpl');
@@ -64,5 +75,8 @@ class User extends CI_Controller {
 		
 		$this->myfunc->response($output);
 	}
-	
+
+
+
+
 }

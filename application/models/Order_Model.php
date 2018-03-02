@@ -40,7 +40,26 @@
 			$query->free_result();
 			return $rows;
 		}
-		
+
+		function User_OrderList($Id){
+		    $this->db->select("*");
+		    $this->db->from("order_list");
+            $this->db->where('u_id',$Id);
+            $query=$this->db->get();
+            $rows=$query->result_array();
+            if(count($rows))
+            {
+                $query->free_result();
+                return $rows;
+            }
+            else
+            {
+                return FALSE;
+            }
+
+        }
+
+
 		public function getOrderStatus()
 		{
 			$sql = "SELECT * FROM order_status ORDER BY os_id ASC";

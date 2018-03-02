@@ -152,7 +152,7 @@
 
 							</div>
 						</div>
-					    <div id="order_list" class="tab-pane this-animate-right this-left-align">
+					    <div id="order_list" class="tab-pane this-animate-right this-left-align" >
 							<div class="well this-white " style="border: none; padding: 0px">
 
 								<div class="this-container">
@@ -170,10 +170,11 @@
 														<td>Total</td>
 														<td>######</td>
 													</tr>
-													<tr>
-														<td>#0001</td>
-														<td>21-02-2018 8:45:50</td>
-														<td>$0.00</td>
+													<{foreach from=$order  item=row key=index}>
+													<tr >
+														<td><{$row.o_id}></td>
+														<td><{$row.u_id}></td>
+														<td><{$row.o_total}></td>
 														<td>$3.00</td>
 														<td>
 															<span class="badge this-green"> Completed</span>
@@ -181,18 +182,12 @@
 															</a>
 														</td>
 													</tr>
-													<tr>
-														<td>#0002</td>
-														<td>21-02-2018 8:45:50</td>
-														<td>$0.00</td>
-														<td>$3.00</td>
-														<td>
-															<span class="badge this-green"> Completed</span>
-															<a href="#"> <span class="badge this-orange this-text-white " >View</span>
-															</a>
+														<{/foreach}>
+													<{foreach from=$my_data  item=row key=index}>
+													<{$row.my_data}>
 
-														</td>
-													</tr>
+													<{/foreach}>
+
 
 												</table>
 											</div>
