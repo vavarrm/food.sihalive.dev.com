@@ -114,7 +114,6 @@ class CI_Model {
 				'fields'
 			);
 			$limit = sprintf(" LIMIT %d, %d",abs($ary['p']-1)*$ary['limit'],$ary['limit']);
-
 			if(is_array($ary))
 			{
 				foreach($ary as $key => $value)
@@ -130,21 +129,27 @@ class CI_Model {
 							$where .=sprintf(" AND DATE_FORMAT(`add_datetime`, '%s') %s ?", '%Y-%m-%d', $value['operator']);					
 							$bind[] = $value['value'];
 						}
-					}else
+					}elseif($value['operator'] =='like'){
+							
+						$where .=sprintf(" %s %s LIKE ?", $value['logic'], $key, $value['operator']);							
+						$bind[] = "%".$value['value']."%";
+					}
+					else
 					{
-						$where .=sprintf(" AND %s %s ?", $key, $value['operator']);					
+						$where .=sprintf(" %s %s %s ?", $value['logic'], $key, $value['operator']);					
 						$bind[] = $value['value'];
 					}
 				}
 			}
-			
+	
 			if(is_array($ary['order']))
 			{
 				$order =" ORDER BY ";
 				foreach($ary['order'] AS $key =>$value)
 				{
-					$order.=sprintf( ' %s %s ', $key, $value);
+					$order_ary[]=sprintf( ' %s %s ', $key, $value);
 				}
+				$order .=join(',',$order_ary);
 			}
 			
 			$sql =$ary['sql'];
@@ -164,6 +169,7 @@ class CI_Model {
 				'p'		=>$ary['p'],
 				'limit'	=>$ary['limit']
 			);
+			
 			
 			$error = $this->db->error();
 			if($error['message'] !="")

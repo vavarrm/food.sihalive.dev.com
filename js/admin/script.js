@@ -62,13 +62,6 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 
 	$scope.templates ={};
 	$scope.sidebarMenuList={};
-	$scope.table_row={};
-	$scope.table_fields={};
-	$scope.table_pageinfo={};
-
-
-	
-	
 	
 	
 	$scope.sidebar_menu_click = function(control, child)
@@ -78,7 +71,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		var target=$('#myTab');
 		var li ='<li role="presentation" data-tabindex="'+index +'" class="active">';
 		li +='<a href="#tab_content'+index+'" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">'+child.pe_name ;
-		li +='<i ng-click="tableClose('+index+')" class="fa fa-close"></i>';
+		li +='<i ng-click="tableClose('+index+') ;$event.preventDefault();" class="fa fa-close tabclose'+index+'"></i>';
 		li +='</a></li>';
 		target.append($compile(li)($scope));
 		
@@ -137,6 +130,10 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 	
 	$scope.tableClose = function(index)
 	{
+		$('#myTab li[data-tabindex='+index+']').prev().addClass('active');
+		var pervtabindex = $('#myTab li[data-tabindex='+index+']').prev().data('tabindex');
+		$('#tab_content'+pervtabindex).eq(0).addClass('active');
+		$('#tab_content'+pervtabindex).addClass('in');
 		$('#myTab li[data-tabindex='+index+']').remove();
 		$('div[role=tabpanel][data-tabindex='+index+']').remove();
 		delete $scope.templates[index];
@@ -145,29 +142,69 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 			$scope.panelShow = false;
 		}
 	}
+	
 }
 
-var MainController = function($scope, $routeParams, apiService)
+var MainController = function($scope, $routeParams, apiService, $templateCache)
 {
+	$templateCache.removeAll();
 	$scope.data =
 	{
 		table_pageinfo :{},
 		table_row:{},
 		table_fields:{},
 		table_pageinfo:{},
+		table_form:{},
+		table_search:{},
+		table_order:{},
+		form:{}
 	};
+	
+	
+	
+	$scope.addFormInit = function()
+	{
+		$scope.data.form.action ='/'+$routeParams.controller+'/add';
+	}
+	
 	$scope.tableListInit = function()
 	{
 		$scope.search();
 	}
+	
+	$scope.searchClick = function()
+	{
+		$scope.search();
+	}
 
+	$scope.back = function()
+	{
+		window.history.back();
+	}
+
+	$scope.order = function(field)
+	{
+	
+		if(typeof $scope.data.table_order[field] =='undefined' || $scope.data.table_order[field]=='')
+		{
+			$scope.data.table_order[field] = 'DESC';
+		}else if($scope.data.table_order[field] == 'ASC')
+		{
+			$scope.data.table_order[field] = 'DESC';
+		}else
+		{
+			$scope.data.table_order[field] ='ASC';
+		}
+		$scope.search();
+	}
+	
 	
 	$scope.tableClose = function()
 	{
-		var a =window.parent.document; 
-		console.log(a);
+		var parent =window.parent.document; 
+		var tabindex = $routeParams.tabindex;
+		$(parent).find('.tabclose'+tabindex ).click();
 	}
-	
 	$scope.pagePrevious = function()
 	{
 		if($scope.data.table_pageinfo.p  ==1)
@@ -178,6 +215,15 @@ var MainController = function($scope, $routeParams, apiService)
 		$scope.search();
 	}
 
+	
+	$scope.searchReset = function()
+	{
+		$scope.data.table_search={};
+		$scope.data.table_order={};
+		$scope.data.table_pageinfo.p =1;
+		$scope.data.table_pageinfo.limit = '25';
+		$scope.search();
+	}
 	
 	$scope.pageNext = function()
 	{
@@ -205,6 +251,15 @@ var MainController = function($scope, $routeParams, apiService)
 		$scope.search();
 	}
 		
+	$scope.tableAdd = function()
+	{
+		var controller = $routeParams.controller;
+		var func = $routeParams.add;
+		var tabindex = $routeParams.tabindex;
+		var page =controller+'Add';
+		location.href="/admin/layout/form_panel.html#!/form/"+controller+'/'+func+'/'+page+'/'+tabindex ;
+	}		
+		
 	$scope.search = function()
 	{
 		var controller = $routeParams.controller;
@@ -213,6 +268,8 @@ var MainController = function($scope, $routeParams, apiService)
 			p :$scope.data.table_pageinfo.p,
 			limit :$scope.data.table_pageinfo.limit,
 		}
+		obj = $.extend(obj, $scope.data.table_search);
+		obj.order = $scope.data.table_order;
 		var promise = apiService.adminApi(controller,func, obj);
 		promise.then
 		(
@@ -221,11 +278,12 @@ var MainController = function($scope, $routeParams, apiService)
 				if(r.status =="200")
 				{
 					$scope.data.table_row= r.data.body.list;
+					$scope.data.table_order= r.data.body.order;
 					$scope.data.table_title =r.data.title;
+					$scope.data.table_form =r.data.body.form;
 					$scope.data.table_pageinfo= r.data.body.pageinfo;
 					$scope.data.table_pageinfo.start=(parseInt($scope.data.table_pageinfo.p)-1)*parseInt($scope.data.table_pageinfo.limit)+1;
 					$scope.data.table_pageinfo.end=(parseInt($scope.data.table_pageinfo.p)-1)*parseInt($scope.data.table_pageinfo.limit)+parseInt($scope.data.table_row.length);
-
 					$scope.data.table_fields = r.data.body.fields;
 				}else
 				{
@@ -241,7 +299,7 @@ var MainController = function($scope, $routeParams, apiService)
 				var obj ={
 					'message' :'system error'
 				};
-				 dialog(obj);
+				dialog(obj);
 			}
 		)
 	}
@@ -313,9 +371,10 @@ var loginCtrl = function($scope, $cookies, apiService)
 	}
 }
 
-adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' ,'apiService' , bodyCtrl]);
+adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' ,'apiService' , bodyCtrl])
 adminApp.controller('loginCtrl',  ['$scope', '$cookies' ,'apiService', loginCtrl]);
-adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' , MainController]);
+adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' ,'$templateCache', MainController])
+
 
 
 var apiService = function($http, $cookies)
@@ -340,18 +399,17 @@ adminApp.config(function($routeProvider){
 		controller: 'MainController'
     }).when("/:controller/:func/:page/:tabindex",{
 		templateUrl: function(params) {
-			var page ='/admin/layout/'+params.page+'.html';
-			// UrlExists(page, function(status){
-				// if(status === 200){
-				   // page ='/loyout/'+params.page+'.html';
-				// }
-				// else if(status === 404){
-				   // page ='views/page_404.html';
-				   
-				// }
-			// });
+			var page ='/admin/layout/'+params.page+'.html?'+Math.random();
 			return page;
 		},
+		cache: false,
+		controller: 'MainController'
+    }).when("/form/:controller/:func/:page/:tabindex",{
+		templateUrl: function(params) {
+			var page ='/admin/views/'+params.page+'.html?'+Math.random();
+			return page;
+		},
+		cache: false,
 		controller: 'MainController'
     }).otherwise({redirectTo : '/'})
 });
@@ -370,6 +428,76 @@ adminApp.directive('ngEnter', function() {
     };
 });
 
+adminApp.directive('ngOpenSelect', function() {
+	var week =[
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday'
+	];
+	var option ="";
+	angular.forEach(week, function(value, key) {
+		option+='<option value="'+value+'">'+value+'</option>';
+	})
+	var template ="";
+	template+='<select name ="{{name}}" style="width : 120px;  height:30px;  display:inline;" class="form-control OpenSelect">'+option+'</select>';
+	template+='&nbsp;&nbsp;&nbsp;';
+	template+='<input   style="width : 100px ; height:30px; display:inline;" required="required" min="0" max="24" class="form-control" type="number" name="start[]" placeholder ="start time 24HR" >';
+	template+='&nbsp;&nbsp;&nbsp;';
+	template+='<input   style="width : 100px ; height:30px; display:inline;" required="required" min="0" max="24" class="form-control"  type="number" name="end[]" placeholder ="end time 24HR" >';
+	template+='&nbsp;&nbsp;&nbsp;';
+	template+='<a href="#" class="delOpenDatetime" ng-click="del(); $event.preventDefault();">del</a>';
+	template+='&nbsp;&nbsp;&nbsp;';
+	template+='<a href="#" class="addOpenDatetime" ng-click="add(); $event.preventDefault();">add</a>';
+	
+	return {
+		// replace: true,
+		scope: {
+			name: '@',
+		},
+		restrict: 'A',
+		template: template,
+		controller: function($scope, $element, $attrs, $compile) {
+            $scope.add = function()
+			{
+				$('.addOpenDatetime').hide();
+				if($('.OpenSelect').length >6)
+				{
+					var obj ={
+						'message':'one week only 7 day',
+					}
+					dialog(obj);
+					return false;
+				}
+				var div ='<div ng-open-Select name="openDateTime[]" ></div>'
+				$element.parent().append($compile(div)($scope));
+				$('.delOpenDatetime').eq(0).show();
+			};
+		  $scope.del = function()
+		  {
+			$element.remove();
+			if($('.delOpenDatetime').length ==1)
+			{
+				$('.delOpenDatetime').eq(0).hide();
+				$('.addOpenDatetime').eq(0).show();
+			}else
+			{
+				$('.addOpenDatetime:last').show();
+			}
+		  }
+        },link: function(scope, element, attrs){
+			if($('.delOpenDatetime').length >0)
+			{
+				$('.delOpenDatetime').eq(0).hide();
+			}else{
+				$('.delOpenDatetime').show();
+			}
+			
+        }
+	}
+});
 
 
 adminApp.filter('range', function() {

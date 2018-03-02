@@ -43,6 +43,67 @@ class AdminRestaurant extends CI_Controller {
 		}
     }
 	
+	public function add()
+	{
+			$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Restaurant List';
+		try 
+		{
+			$ary['limit'] = (isset($this->request['limit']))?$this->request['limit']:1;
+			$ary['p'] = (isset($this->request['p']))?$this->request['p']:1;
+			$form['inputSearchControl'] = array(
+				'r_name'	=>array('type'	=>'text'),
+				'r_name_en'	=>array('type'	=>'text'),
+			);
+			if(!empty($form['inputSearchControl']))
+			{
+				foreach($form['inputSearchControl'] as $key => $value)
+				{
+					$$key= (isset($this->request[$key]))?$this->request[$key]:'';
+				}
+			}
+			
+			$ary['order'] = (empty($this->request['order']))?array("r_id"=>'DESC'):$this->request['order'];
+		
+			
+			$ary['r_name'] = array(
+				'value' =>$r_name,
+				'logic' =>'AND',
+				'operator' =>'like',
+			);
+			$ary['r_name_en'] = array(
+				'value' =>$r_name_en,
+				'logic' =>'AND',
+				'operator' =>'like',
+			);
+			$ary['fields'] = array(
+				'r_id'	=>'r_id',
+				'r_name'	=>'r_name',
+				'r_name_en'	=>'r_name_en',
+			);
+			$list = $this->restaurant->getList($ary);
+			
+			
+			$output['body'] = $list;
+			$output['body']['fields'] = $ary['fields'] ;
+			$output['body']['form'] =$form;
+			$output['body']['order'] =$ary['order'];
+		}catch(MyException $e)
+		{
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->response($output);
+	}
+	
+	
 	public function getList($ary=array())
 	{
 		$output['body']=array();
@@ -52,14 +113,43 @@ class AdminRestaurant extends CI_Controller {
 		{
 			$ary['limit'] = (isset($this->request['limit']))?$this->request['limit']:1;
 			$ary['p'] = (isset($this->request['p']))?$this->request['p']:1;
+			$form['inputSearchControl'] = array(
+				'r_name'	=>array('type'	=>'text'),
+				'r_name_en'	=>array('type'	=>'text'),
+			);
+			if(!empty($form['inputSearchControl']))
+			{
+				foreach($form['inputSearchControl'] as $key => $value)
+				{
+					$$key= (isset($this->request[$key]))?$this->request[$key]:'';
+				}
+			}
+			
+			$ary['order'] = (empty($this->request['order']))?array("r_id"=>'DESC'):$this->request['order'];
+		
+			
+			$ary['r_name'] = array(
+				'value' =>$r_name,
+				'logic' =>'AND',
+				'operator' =>'like',
+			);
+			$ary['r_name_en'] = array(
+				'value' =>$r_name_en,
+				'logic' =>'AND',
+				'operator' =>'like',
+			);
 			$ary['fields'] = array(
 				'r_id'	=>'r_id',
 				'r_name'	=>'r_name',
 				'r_name_en'	=>'r_name_en',
 			);
 			$list = $this->restaurant->getList($ary);
+			
+			
 			$output['body'] = $list;
 			$output['body']['fields'] = $ary['fields'] ;
+			$output['body']['form'] =$form;
+			$output['body']['order'] =$ary['order'];
 		}catch(MyException $e)
 		{
 			$parames = $e->getParams();
