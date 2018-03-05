@@ -58,20 +58,7 @@
 <main class="page-content this-white" style="background: #F0F0F0"  >
     <!-- Breadcrumbs & Page title-->
 <section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center">
-    <{foreach from=$shopId item=row}>
-    <{$lat=$row.r_lat}>
-    <{$lng=$row.r_lng}>
-    <{$r_name=$row.r_name}>
-    <{$r_about=$row.r_description}>
 
-<center>
-    <img src="http://freedesignfile.com/upload/2017/07/chef-restaurant-logo-design-vector.jpg"
-         width="120" class="img-responsive img-circle" style=" margin-top: 50px">
-</center>
-
-    <h2 class="this-text-white" style="margin-top:30px;text-transform: uppercase"><{$row.r_name}></h2>
-    <span class="this-text-white">Open :<{$row.r_open_start}> - Close <{$row.r_open_end}></span>
-    <{/foreach}>
 </section>
 
     <section class=" text-left container " style="background: #fff; position:inherit"   >
@@ -91,30 +78,42 @@
                             <div id="home" class="tab-pane fade in active">
                                 <div class="col-sm-3 this-hide-small " style="padding: 2px; margin-top: 4px; position:relative; z-index: 0" id="sidebar"   >
                                    <div class="sidebar__inner">
-                                       <ul class="list-group" style="border:none; margin-bottom: 40px"  >
+                                       <ul class="list-group nav nav-pills nav-stacked" style="border:none; margin-bottom: 40px"  >
                                            <div  style="width:auto"  id="pro_left"  >
+                                               <li class="list-group-item">
+                                                   <{foreach from=$shopId item=row}>
+                                                   <{$lat=$row.r_lat}>
+                                                   <{$lng=$row.r_lng}>
+                                                   <{$r_name=$row.r_name}>
+                                                   <{$r_about=$row.r_description}>
+
+                                                   <center>
+                                                       <img src="http://freedesignfile.com/upload/2017/07/chef-restaurant-logo-design-vector.jpg"
+                                                            width="120" class="img-responsive img-circle" style=" margin-top: 0px">
+                                                   </center>
+
+                                                   <h2 class="this-text-black" style="font-size: 18px;text-transform: uppercase"><{$row.r_name}></h2>
+                                                   <span class="this-text-black">Open :<{$row.r_open_start}> - Close <{$row.r_open_end}></span>
+                                                   <{/foreach}>
+                                               </li>
 
                                                <li class="list-group-item" id="menu_clcik" style="background:#f16121;color: white;"> <span class="glyphicon glyphicon-th"></span> MENU </li>
                                                <div id="menu__">
-                                                   <{foreach from=$category item=row key=index}>
-                                                   <li class="list-group-item" style="cursor: pointer; color: black"><{$row.ca_name}>
-                                                       <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
-                                                           <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
-                                                       </i></li>
-
-                                                   <{/foreach}>
-                                                   <{foreach from=$category item=row key=index}>
-                                                   <li class="list-group-item" style="cursor: pointer; color: black"><{$row.ca_name}>
+                                                   <{foreach from=$list_category_by_restaurant item=row key=index}>
+                                                   <li class="list-group-item" style="cursor: pointer; color: black">
+                                                       <a href="#section2">
+                                                       <{$row.ca_name}>
                                                        <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
                                                            <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
                                                        </i>
+                                                       </a>
                                                    </li>
 
                                                    <{/foreach}>
                                                </div>
 
-                                               <li class="list-group-item" style="padding: 0px; margin-top: 20px; margin-bottom: 20px">
-                                                   <img src="https://www.hostgator.com/images/banners/336x280/WordPress-336x280.gif" class="img-responsive" width="260">
+                                               <li class="list-group-item" style="padding: 0px; margin-top: 20px; margin-bottom: 20px ">
+                                                   <img src="https://www.hostgator.com/images/banners/336x280/WordPress-336x280.gif" class="img-responsive" width="300">
                                                </li>
                                            </div>
 
@@ -142,14 +141,14 @@
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
                                                 <div class="col-xs-12 col-md-12 ">
 
-                                                        <img src="/images/category-1-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
+                                                    <img src="/images/category-1-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
 
                                                 </div>
                                                 <div class="col-sx-12 col-md-12 " style="padding: 5px" >
                                                     <p style="margin-top: 10px" >
-                                                       <{$row.f_name}>
+                                                        <{$row.f_name}>
                                                     </p>
-                                                    <div class="col-sm-12 "  style="text-align: center; margin-top: 10px">
+                                                    <div class="col-sm-12 " id="<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
                                                         <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.f_id}>').style.display='block'"
                                                                 style="font-size: 12px; font-weight:normal;
                                               padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
@@ -209,6 +208,7 @@
                                         <!--Close Modal -->
 
                                         <{/foreach}>
+                                        
 
 
 

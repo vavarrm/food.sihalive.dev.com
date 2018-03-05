@@ -52,6 +52,7 @@
 		</div>
 	  </div>
 	</section>
+<section class="container-fluid">
 	<div class="this-container this-white">
 		<h5 class="h5 text-uppercase "> Sihalive food Delivery</h5>
 
@@ -82,8 +83,8 @@
 							</div>
 
 						</div>
-				        </div>
-					</a>
+				</div>
+				</a>
 				<{/foreach}>
 				<!-- Each popular food item starts -->
 
@@ -91,6 +92,7 @@
 
 		</section>
 	</div>
+</section>
 	<br/>
 	<section class="popular container-fluid this-white this-padding-top" style="margin-bottom: 20px; padding-top: 20px">
 		<div class="container">

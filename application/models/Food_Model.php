@@ -219,6 +219,7 @@
             $this->db->select('*');
             $this->db->from($this->table);
             $this->db->join($this->JoinTable,$this->innerJoin);
+            $this->db->join("food_category_link","food_category_link.f_id=food.f_id");
             $this->db->where('restaurant.r_id', $data);
             $query=$this->db->get();
             $rows=$query->result_array();
