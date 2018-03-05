@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f07be857-a1bc-4fe3-8cb3-87a6251a638f" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.htaccess" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/restaurant.php" afterPath="$PROJECT_DIR$/application/controllers/restaurant.php" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/MyFBApi.php" afterPath="$PROJECT_DIR$/application/libraries/MyFBApi.php" />
-      <change beforePath="$PROJECT_DIR$/application/models/Food_Model.php" afterPath="$PROJECT_DIR$/application/models/Food_Model.php" />
-      <change beforePath="$PROJECT_DIR$/application/models/Restaurant_cat_Model.php" afterPath="$PROJECT_DIR$/application/models/Restaurant_cat_Model.php" />
-      <change beforePath="$PROJECT_DIR$/application/views/MainPage/index.tpl" afterPath="$PROJECT_DIR$/application/views/MainPage/index.tpl" />
-      <change beforePath="$PROJECT_DIR$/application/views/Restaurant/index.tpl" afterPath="$PROJECT_DIR$/application/views/Restaurant/index.tpl" />
-    </list>
+    <list default="true" id="f07be857-a1bc-4fe3-8cb3-87a6251a638f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/application/views/Restaurant/index.tpl">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="698">
-              <caret line="210" column="40" lean-forward="false" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
+              <caret line="210" column="0" lean-forward="false" selection-start-line="210" selection-start-column="0" selection-end-line="210" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#section#0;n#main#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#center#0;n#li#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#1;n#main#0;n#!!top" expanded="true" />
@@ -224,7 +215,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
@@ -346,7 +337,7 @@
       <workItem from="1519873614784" duration="6880000" />
       <workItem from="1519976559015" duration="5133000" />
       <workItem from="1520235074662" duration="2674000" />
-      <workItem from="1520238241348" duration="7467000" />
+      <workItem from="1520238241348" duration="7720000" />
     </task>
     <task id="LOCAL-00001" summary="phearun">
       <created>1519404100067</created>
@@ -408,11 +399,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87170000" />
+    <option name="totallyTimeSpent" value="87423000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1703125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -557,6 +547,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="3" lean-forward="false" selection-start-line="9" selection-start-column="3" selection-end-line="12" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -813,7 +804,7 @@
     <entry file="file://$PROJECT_DIR$/application/views/Restaurant/index.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="698">
-          <caret line="210" column="40" lean-forward="false" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
+          <caret line="210" column="0" lean-forward="false" selection-start-line="210" selection-start-column="0" selection-end-line="210" selection-end-column="0" />
           <folding>
             <element signature="n#style#0;n#section#0;n#main#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#center#0;n#li#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#1;n#main#0;n#!!top" expanded="true" />
