@@ -1,4 +1,4 @@
-<div class="row" ng-init="addFormInit()">
+ <div class="row" ng-init="editFormInit()">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 		  <div class="x_title">
@@ -17,49 +17,51 @@
 				<label class="control-label col-md-3 col-sm-3 col-xs-12" >ch name<span class="required">*</span>
 				</label>
 				<div class="col-md-6 col-sm-6 col-xs-12">
-					<input type="text" name="r_name" required="required" class="form-control col-md-7 col-xs-12">
+					<input type="text" name="r_name" ng-model="data.form_row.r_name" required="required" class="form-control col-md-7 col-xs-12">
 				</div>
 			  </div>
 			  <div class="form-group">
 				<label class="control-label col-md-3 col-sm-3 col-xs-12" >en name<span class="required">*</span>
 				</label>
 				<div class="col-md-6 col-sm-6 col-xs-12">
-					<input type="text" name="r_name_en" required="required" class="form-control col-md-7 col-xs-12">
+					<input type="text" name="r_name_en" ng-model="data.form_row.r_name_en" required="required" class="form-control col-md-7 col-xs-12">
 				</div>
 			  </div>	 
 			  <div class="form-group">
 				<label class="control-label col-md-3 col-sm-3 col-xs-12" >lat lng<span class="required"></span>
 				</label>
 				<div class="col-md-6 col-sm-6 col-xs-12">
-					<my-map zoom="15" lat="10.6268305" lng="103.5230393"></my-map>
+					<div class="myGamp">
+						
+					</div>
 				</div>
 			  </div>
 			  <div class="form-group">
 				<label class="control-label col-md-3 col-sm-3 col-xs-12">address 
 				</label>
 				<div class="col-md-6 col-sm-6 col-xs-12">
-				  <input type="text" name="r_address" required="required" class="form-control col-md-7 col-xs-12">
+				  <input type="text" name="r_address"  ng-model="data.form_row.r_address"   class="form-control col-md-7 col-xs-12">
 				</div>
 			  </div>	  
 			  <div class="form-group">
 				<label class="control-label col-md-3 col-sm-3 col-xs-12">ch description 
 				</label>
 				<div class="col-md-6 col-sm-6 col-xs-12">
-				  <textarea class="form-control" name="r_description" rows="3" ></textarea>
+				  <textarea class="form-control" name="r_description"  ng-model="data.form_row.r_description" rows="3" ></textarea>
 				</div>
 			  </div>
 			  <div class="form-group">
 				<label class="control-label col-md-3 col-sm-3 col-xs-12">en description 
 				</label>
 				<div class="col-md-6 col-sm-6 col-xs-12">
-				  <textarea class="form-control" name="r_description_en" rows="3" ></textarea>
+				  <textarea class="form-control" name="r_description_en" ng-model="data.form_row.r_description_en" rows="3" ></textarea>
 				</div>
 			  </div>
 			   <div class="form-group">
 				<label class="control-label col-md-3 col-sm-3 col-xs-12">en description 
 				</label>
 				<div class="col-md-5 col-sm-5 col-xs-12 ">
-					<div ng-open-Select  name="operation_day[]" ></div>
+					<div ng-open-Select ng-repeat="row in data.form_row.operation"  name="operation_day[]" ></div>
 				</div>
 				<div class="col-md-1 col-sm-1 col-xs-12 ">
 				</div>

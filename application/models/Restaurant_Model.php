@@ -13,6 +13,7 @@ class Restaurant_Model extends CI_Model{
 	
 	public function getRowById($r_id)
 	{
+		$output = array();
 		try
 		{
 			$sql="SELECT * FROM restaurant WHERE r_id =?";
@@ -31,10 +32,31 @@ class Restaurant_Model extends CI_Model{
 				$MyException->setParams($array);
 				throw $MyException;
 			}
-			
 			$row=$query->row_array();
+			$output['info'] = $row;
+			
+			$sql ="SELECT * FROM restaurant_operation WHERE r_id =?";
+			$bind = array($r_id);
+			$query =$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$rows=$query->result_array();
+			$output['operation'] = $rows;
+			
 			$query->free_result();
-            return $row;
+            return $output;
 			
 		}catch(MyException $e)
 		{

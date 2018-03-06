@@ -46,8 +46,15 @@ function dialog(object2, cb, params)
 		]
 	};
 	$.extend( object1, object2 );
-	$( "#dialog p").text(object1.message); 
-	$( "#dialog" ).dialog(object1);
+	if($( "#dialog").length ==1)
+	{
+		$( "#dialog p").text(object1.message); 
+		$( "#dialog").dialog(object1);
+	}else
+	{
+		$( "#dialog p", parent.document).text(object1.message); 
+		$( "#dialog" , parent.document).dialog(object1);
+	}
 }
 
 var bodyCtrl = function($scope, $compile, $cookies, apiService)
@@ -115,7 +122,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 				var obj ={
 					'message' :'system error'
 				};
-				 dialog(obj);
+				dialog(obj);
 			}
 		)
 		
@@ -145,7 +152,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 	
 }
 
-var MainController = function($scope, $routeParams, apiService, $templateCache)
+var MainController = function($scope, $routeParams, apiService, $templateCache, $compile, $cookies)
 {
 	$templateCache.removeAll();
 	$scope.data =
@@ -157,14 +164,59 @@ var MainController = function($scope, $routeParams, apiService, $templateCache)
 		table_form:{},
 		table_search:{},
 		table_order:{},
-		form:{}
+		form:{},
+		form_row :{}
 	};
 	
+	$scope.edit = function(id)
+	{
+		var controller = $routeParams.controller;
+		var func = 'edit';
+		var page =controller+'Edit';
+		location.href="/admin/layout/form_panel.html#!/formEdit/"+controller+'/'+func+'/'+page+'/'+id ;
+	}
 	
+	$scope.editFormInit = function()
+	{
+		var controller = $routeParams.controller;
+		var obj={
+			id : $routeParams.id
+		}
+		var promise = apiService.adminApi(controller,'getRow', obj);
+		promise.then
+		(
+			function(r) 
+			{
+				if(r.status =="200")
+				{
+					$scope.data.form_row = r.data.body.row.info;
+					$scope.data.form_row.operation = r.data.body.row.operation;
+					var div ='<my-map  zoom="15" lat="'+$scope.data.form_row.r_lat+'" lng="'+$scope.data.form_row.r_lng+'"></my-map>'
+					
+					$('.myGamp').append($compile(div)($scope));
+				}else
+				{
+					var obj =
+					{
+						'message' :r.data.message,
+					};
+					dialog(obj);
+				}
+				
+			},
+			function() {
+				var obj ={
+					'message' :'system error'
+				};
+				dialog(obj);
+			}
+		)
+	}
 	
 	$scope.addFormInit = function()
 	{
-		$scope.data.form.action ='/'+$routeParams.controller+'/add';
+		var sess = $cookies.get('admin_sess');
+		$scope.data.form.action ='/'+$routeParams.controller+'/add?sess='+sess;
 	}
 	
 	$scope.tableListInit = function()
@@ -373,7 +425,7 @@ var loginCtrl = function($scope, $cookies, apiService)
 
 adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' ,'apiService' , bodyCtrl])
 adminApp.controller('loginCtrl',  ['$scope', '$cookies' ,'apiService', loginCtrl]);
-adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' ,'$templateCache', MainController])
+adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' ,'$templateCache', '$compile', '$cookies', MainController])
 
 
 
@@ -411,6 +463,13 @@ adminApp.config(function($routeProvider){
 		},
 		cache: false,
 		controller: 'MainController'
+    }).when("/formEdit/:controller/:func/:page/:id",{
+		templateUrl: function(params) {
+			var page ='/admin/views/'+params.page+'.html?'+Math.random();
+			return page;
+		},
+		cache: false,
+		controller: 'MainController'
     }).otherwise({redirectTo : '/'})
 });
 
@@ -426,6 +485,74 @@ adminApp.directive('ngEnter', function() {
         }
       });
     };
+});
+
+adminApp.directive('myMap', function() {
+	return {
+		replace: true,
+		scope: {
+			lat :'@',
+			lng :'@',
+			zoom: '@'
+		},
+		restrict: 'E',
+		template: '<div><div class="mapdiv" style="width:100%; height: 400px;"></div><input type="hidden" name="lat" value="{{lat}}"><input type="hidden" name="lng" value="{{lng}}"></div>',
+		controller: function($scope, $element, $attrs, $compile) 
+		{
+        },link: function(scope, element, attrs)
+		{
+			var map;
+			var center_point  ={lat: parseFloat(scope.lat), lng:  parseFloat(scope.lng)};
+			var mapdiv = $(element).find('.mapdiv')[0];
+			map = new google.maps.Map(mapdiv, {
+				center: center_point ,
+				zoom: parseInt(scope.zoom),
+				scrollwheel: false,
+				disableDefaultUI: true,
+				zoomControl: true,
+			});
+			google.maps.event.clearListeners(map, 'bounds_changed');
+			var contentString ="<div>dorp my set position <br> or click map for set</div>";
+			var infowindow = new google.maps.InfoWindow({
+				content: contentString
+			});
+			var marker = new google.maps.Marker({
+				position: center_point ,
+				map: map,
+				draggable: true,
+			});
+			infowindow.open(map, marker);
+			
+			marker.addListener("dragstart", function() {
+				infowindow.close();
+			});
+			
+			marker.addListener("dragend", function(event) {
+				infowindow.open(map, marker);
+				$(element).find('input[name=lat]').val(event.latLng.lat());
+				$(element).find('input[name=lng]').val(event.latLng.lng());
+			});
+			
+			map.addListener("click", function(event) {
+				
+				var point ={
+					lat:event.latLng.lat(),
+					lng:event.latLng.lng()
+				};
+
+				marker.setMap(null);
+				marker = new google.maps.Marker({
+					position: point ,
+					map: map,
+					draggable: true,
+				});
+				infowindow.open(map, marker);
+				map.setCenter(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+				$(element).find('input[name=lat]').val(event.latLng.lat());
+				$(element).find('input[name=lng]').val(event.latLng.lng());
+			});
+        }
+	}
 });
 
 adminApp.directive('ngOpenSelect', function() {
@@ -444,9 +571,9 @@ adminApp.directive('ngOpenSelect', function() {
 	var template ="";
 	template+='<select name ="{{name}}" style="width : 120px;  height:30px;  display:inline;" class="form-control OpenSelect">'+option+'</select>';
 	template+='&nbsp;&nbsp;&nbsp;';
-	template+='<input   style="width : 100px ; height:30px; display:inline;" required="required" min="0" max="24" class="form-control" type="number" name="start[]" placeholder ="start time 24HR" >';
+	template+='<input  ng-blur="checkTime()"  style="width : 150px ; height:30px; display:inline;" required="required"  class="form-control operation_start"  type="time" name="start[]"  >';
 	template+='&nbsp;&nbsp;&nbsp;';
-	template+='<input   style="width : 100px ; height:30px; display:inline;" required="required" min="0" max="24" class="form-control"  type="number" name="end[]" placeholder ="end time 24HR" >';
+	template+='<input  ng-blur="checkTime()"  style="width : 150px ; height:30px; display:inline;" required="required"  class="form-control operation_end"   type="time" name="end[]" >';
 	template+='&nbsp;&nbsp;&nbsp;';
 	template+='<a href="#" class="delOpenDatetime" ng-click="del(); $event.preventDefault();">del</a>';
 	template+='&nbsp;&nbsp;&nbsp;';
@@ -459,8 +586,9 @@ adminApp.directive('ngOpenSelect', function() {
 		},
 		restrict: 'A',
 		template: template,
-		controller: function($scope, $element, $attrs, $compile) {
-            $scope.add = function()
+		controller: function($scope, $element, $attrs, $compile) 
+		{
+			$scope.add = function()
 			{
 				$('.addOpenDatetime').hide();
 				if($('.OpenSelect').length >6)
@@ -471,23 +599,43 @@ adminApp.directive('ngOpenSelect', function() {
 					dialog(obj);
 					return false;
 				}
-				var div ='<div ng-open-Select name="openDateTime[]" ></div>'
+				var div ='<div ng-open-Select name="{{name}}" ></div>'
 				$element.parent().append($compile(div)($scope));
 				$('.delOpenDatetime').eq(0).show();
 			};
-		  $scope.del = function()
-		  {
-			$element.remove();
-			if($('.delOpenDatetime').length ==1)
+			$scope.del = function()
 			{
-				$('.delOpenDatetime').eq(0).hide();
-				$('.addOpenDatetime').eq(0).show();
-			}else
+				$element.remove();
+				if($('.delOpenDatetime').length ==1)
+				{
+					$('.delOpenDatetime').eq(0).hide();
+					$('.addOpenDatetime').eq(0).show();
+				}else
+				{
+					$('.addOpenDatetime:last').show();
+				}
+			};
+			$scope.checkTime = function()
 			{
-				$('.addOpenDatetime:last').show();
+				angular.forEach($('input.operation_start'), function(value, key) {
+					if($(value).val() !="" && $('input.operation_end').eq(key).val()!="" )
+					{
+						console.log($(value).val());
+						console.log($('input.operation_end').eq(key).val());
+						if($(value).val() >= $('input.operation_end').eq(key).val())
+						{
+							var obj ={
+								'message':'start time over end time',
+							}
+							alert('d');
+							dialog(obj);
+						}
+					}
+				});
 			}
-		  }
-        },link: function(scope, element, attrs){
+        },
+		link: function(scope, element, attrs)
+		{
 			if($('.delOpenDatetime').length >0)
 			{
 				$('.delOpenDatetime').eq(0).hide();
