@@ -10,6 +10,39 @@ class Restaurant_Model extends CI_Model{
         $this->JoinTable="";
 
     }
+	
+	public function getRowById($r_id)
+	{
+		try
+		{
+			$sql="SELECT * FROM restaurant WHERE r_id =?";
+			$bind = array($r_id);
+			$query =$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$row=$query->row_array();
+			$query->free_result();
+            return $row;
+			
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+		
+	}
+	
     public  function getList($ary =array())
 	{
 		try
@@ -28,7 +61,7 @@ class Restaurant_Model extends CI_Model{
 			
 			$fields = join(',' ,$ary['fields']);
 			
-			$sql ="	SELECT " 
+			$sql ="	SELECT r_id AS id," 
 					.$fields.	
 					" FROM
 						 restaurant";
@@ -40,12 +73,41 @@ class Restaurant_Model extends CI_Model{
 			throw $e;
 		}
     }
-    function escapeString($val) {
+	
+	public function del($id)
+	{
+		try
+		{
+			$bind = array(
+				$id
+			);
+			$sql="DELETE FROM restaurant WHERE r_id=?";
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+		}catch(MyException $e){
+			throw $e;
+		}
+    }
+	
+    public function escapeString($val) {
         $db = get_instance()->db->conn_id;
         $val = mysqli_real_escape_string($db, $val);
         return $val;
     }
-    function Restaurant(){
+	
+    public function Restaurant(){
         $sql="SELECT * FROM `restaurant` ORDER BY r_id";
         $query = $this->db->query($sql, $bind);
         $rows  =  $query->result_array();
@@ -55,7 +117,7 @@ class Restaurant_Model extends CI_Model{
 
     }
 
-    function  getRestaurant_byId($data){
+    public function  getRestaurant_byId($data){
         $q=$this->escapeString($data);
         $this->db->select('*');
         $this->db->from($this->table);
@@ -75,7 +137,89 @@ class Restaurant_Model extends CI_Model{
         }
     }
 
-    function  get_operation($data){
+	public function insert($ary)
+	{
+		$output= array(
+			'affected_rows'	=>0
+		);
+		try
+		{
+			$this->db->trans_begin();
+			$sql =" INSERT INTO restaurant (
+						r_name,
+						r_name_en,
+						r_description,
+						r_description_en,
+						r_lat,
+						r_lng,
+						r_address
+					)
+					VALUES(?,?,?,?,?,?,?)";
+			$bind=array(
+				$ary['r_name'],
+				$ary['r_name_en'],
+				$ary['r_description'],
+				$ary['r_description_en'],
+				$ary['lat'],
+				$ary['lng'],
+				$ary['r_address'],
+			);
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$output['affected_rows'] += $this->db->affected_rows();
+			$insert_id = $this->db->insert_id();
+			
+			if(count($ary['operation_day']) >0)
+			{
+				foreach($ary['operation_day'] as $key =>$value)
+				{
+					$bind =array(
+						$value,
+						$ary['start'][$key],
+						$ary['end'][$key],
+						$insert_id
+					);
+					$sql =" INSERT INTO restaurant_operation(ro_open_day,ro_open_time_start,ro_open_time_end,r_id)
+							VALUES(?,?,?,?)";
+					$this->db->query($sql, $bind); 
+					$error = $this->db->error();
+					if($error['message'] !="")
+					{
+
+						$MyException = new MyException();
+						$array = array(
+							'el_system_error' 	=>$error['message'] ,
+							'status'	=>'000'
+						);
+						
+						$MyException->setParams($array);
+						throw $MyException;
+					}
+				}
+			}
+			
+			$this->db->trans_commit();
+			return $output;
+		}catch(MyException $e)
+		{
+			$this->db->trans_rollback();
+			throw $e;
+		}	
+	}
+	
+    public function  get_operation($data){
         // $q=$this->escapeString($data);
         // $this->db->select('*');
         // $this->db->from('restaurant_operation');
@@ -99,7 +243,7 @@ class Restaurant_Model extends CI_Model{
 
 
 
-    function search_Res($data){
+    public function search_Res($data){
         $q=$this->escapeString($data);
 
         $this->db->select('*');

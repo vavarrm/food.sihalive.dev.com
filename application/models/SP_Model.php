@@ -13,9 +13,9 @@
 			try
 			{
 				$query = $this->db->query("CALL get_serial_number('order')");
-				// $res      = $query->result();
-				var_dump($query->row_array());
+				$row  = $query->row_array();
 				$query->next_result(); 
+				return $row ;
 				
 			}catch(MyException $e)
 			{

@@ -66,12 +66,17 @@
 					<table  class="table table-striped table-bordered bulk_action dataTable no-footer">
 						<thead>
 							<tr role="row">
-							  <th class="sorting" ng-class="data.table_order[filed] == 'DESC'?'sorting_desc':(data.table_order[filed] == 'ASC' ? 'sorting_asc':'')" ng-click="order(filed);" ng-repeat="filed in data.table_fields" >{{filed}}</th>
+								<th class="sorting" ng-class="data.table_order[filed] == 'DESC'?'sorting_desc':(data.table_order[filed] == 'ASC' ? 'sorting_asc':'')" ng-click="order(filed);" ng-repeat="filed in data.table_fields" >{{filed}}</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="row in data.table_row">
 								<td ng-repeat="filed in data.table_fields" ng-bind="row[filed]"></td>
+								<td>
+									<button type="button" ng-click="del(row.id)" class="btn btn-default btn-xs">del</button>
+									<button type="button" ng-click="edit(row.id)" class="btn btn-default btn-xs">edit</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>

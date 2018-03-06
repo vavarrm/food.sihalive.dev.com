@@ -6,7 +6,4 @@
 	$lang['004'] = "account onlock";
 	$lang['005'] = "passwd is error";
 	$lang['006'] = "login is empty";
-
-	
-	
 ?>
