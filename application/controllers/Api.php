@@ -637,21 +637,25 @@ class Api extends CI_Controller {
 				throw new Exception("request is empty");
 			}
 			
-			$user  = $this->session->userdata('encrypt_user_data');
+			$user  =$_SESSION['encrypt_user_data'];
 			
 			if(empty($user))
 			{
 				throw new Exception("user no login");
 			}
-			$get = $this->input->get();
-			$urlRsaRandomKey = 	$get["sess"];
-			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
-			$user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
-			if(!$user_data)
+            $get = $this->input->get();
+            if(isset($get['sess']))
+            {
+                $urlRsaRandomKey =$get['sess'];
+            }
+
+            $encrypt_user_data = $user ;
+            $decrypt_user_data= $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
+			if(!$decrypt_user_data)
 			{
 				throw new Exception("get user error");
 			}
-			$this->request['u_id'] = $user_data['u_id'];
+			$this->request['u_id'] = $decrypt_user_data['u_id'];
 			$this->food->inserdOrder($this->request);
 			$ary =array(
 				'action'	=>'order_alert'
@@ -663,10 +667,10 @@ class Api extends CI_Controller {
 			$output['status'] ='000';
 			$output['message'] = $e->getMessage();
 		}
-		
 		$this->response($output);
 	}
-	
+
+
 	public function getProduct()
 	{
 		$get= $this->input->get();

@@ -30,7 +30,7 @@ class Restaurant_cat_Model extends CI_Model{
 
         $q=$this->escapeString($data);
         $this->db->select('*');
-        $this->db->from($this->tb_category);
+        $this->db->from($this->tb_restaurant);
         $this->db->join($this->JoinTable,$this->innerJoin);
         // $this->db->join('restaurant_operation', 'restaurant_operation.r_id = restaurant.r_id');
         $this->db->where('category.ca_id', $q);

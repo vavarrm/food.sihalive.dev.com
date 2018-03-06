@@ -165,20 +165,20 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 var categoryCtrl = function($scope, $http){
 };
 
-var shopCartCtrl = function($scope, $cookies, $rootScope, User){
+var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
 	var shopcart =  $cookies.getObject('shopcart');
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
 	$('.container').removeClass('hidden');
-	
+
 	$scope.data = {
-		o_consignee :User.u_consignee,
-		o_phone :User.u_phone,
+		o_consignee :apiService.u_email,
+		o_phone :apiService.u_phone,
 	};
-	
+
 	if($scope.cartnums ==0)
 	{
-		$( "#dialog p").text(js_cart_num_is_zero); 
+		$( "#dialog p").text(js_cart_num_is_zero);
 		$( "#dialog" ).dialog({
 			buttons: [
 				{
@@ -230,6 +230,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 
 	$scope.checkout = function()
 	{
+
 		if($scope.cartnums ==0)
 		{
 			$( "#dialog p").text(js_cart_num_is_zero); 
@@ -246,8 +247,9 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 			return false;
 		}
 
-		if(typeof User.u_id == 'undefined')
+		/*if(typeof User.u_id == 'undefined')
 		{
+
 			$( "#dialog p").text(js_please_login); 
 			$( "#dialog" ).dialog({
 				buttons: [
@@ -261,7 +263,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 				]
 			});
 			return false;
-		}
+		}*/
 		
 		
 		if($('input[name=o_consignee]').val() =="")

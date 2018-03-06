@@ -55,12 +55,12 @@
 <{$lng=""}>
 <{$r_name=""}>
 <{$r_about=""}>
-<main class="page-content this-white" style="background: #F0F0F0"  >
+<main class="page-content this-white" style="background: #F0F0F0"  ng-controller="shopCartCtrl"  >
     <!-- Breadcrumbs & Page title-->
-<section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center">
-
-</section>
-
+    <!--
+<section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center"></section>
+-->
+    <{include file="Frontend/breadcrumbs.tpl"}>
     <section class=" text-left container " style="background: #fff; position:inherit"   >
         <div class=" row " >
             <div class="col-sm-12" style="padding: 0px">
@@ -101,7 +101,7 @@
                                                <div id="menu__">
                                                    <{foreach from=$list_category_by_restaurant item=row key=index}>
                                                    <li class="list-group-item" style="cursor: pointer; color: black">
-                                                       <a href="#section2">
+                                                       <a href="#<{$row.ca_id}>">
                                                        <{$row.ca_name}>
                                                        <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
                                                            <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
@@ -156,13 +156,9 @@
                                                         </button>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
-
                                     <!--  Open Modal Order --->
-
                                         <div id="<{$row.f_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
                                             <div class="this-modal-content">
                                                 <header class="this-container ">
@@ -191,7 +187,9 @@
                                                                 </div>
 
                                                                 <hr class="offset-top-50">
-                                                                <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"  class="this-btn this-btn-this this-right this-margin-top " >
+                                                                <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"
+                                                                         ng-model="$item.order_num"
+                                                                         class="this-btn this-btn-this this-right this-margin-top " >
 
                                                                     ADD TO CART
                                                                 </button>
@@ -206,31 +204,31 @@
                                             </div>
                                         </div>
                                         <!--Close Modal -->
-
                                         <{/foreach}>
-
-
-
-
                                     </div>
                                 </div>
                                 <div class="col-sm-3 this-hide-small " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  " ng-controller="shopCartCtrl">
                                     <div id="inv">
                                         <div class="row">
-                                            <div class="col-sm-12" style="background:#f16121;height: 46px; color: white; padding: 10px; ">
+                                            <div class="containerj" style="background:#f16121;height: 46px; color: white; padding: 10px; ">
                                                 Order Information
                                             </div>
-                                            <div class="col-sm-12 restaurant" style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
+                                            <div class="col-sm-12 " style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
                                                 <div class="inner line-top relative">
 
                                                     <p class="bold center">Your Order</p>
                                                     <div class="item-order-wrap" style="border-top: 1px solid silver" >
                                                         <div class="item-order-list item-row"  ng-repeat="item in items|filter as filterAry" ng-show="!item.del" >
-                                                            <div class="b"><span  class=" grid-element-mod-2"　ng-bind="item.f_name"></span> <p class="uk-text-small">
+                                                            <div class="b"><span  class="
+                                                            grid-element-mod-2"　ng-bind="item.f_name"></span>
+                                                                <p class="uk-text-small">
                                                                     <span class="base-price" ng-bind="'$'+item.price"></span></p>
                                                             </div>
                                                             <span class="glyphicon glyphicon-edit" style="font-size: 15px"></span>
-                                                            <span class="glyphicon glyphicon-trash" style="font-size: 15px"></span>
+                                                            <span class="glyphicon glyphicon-trash"
+                                                                  style="font-size:15px; cursor: pointer" ng-click="delete
+                                                                  ($index);
+                                                                  $event.stopPropagation();"></span>
                                                             <div class="clear">
                                                             </div>
                                                         </div>
@@ -238,7 +236,10 @@
                                                             <div class="row">
                                                                 <div class="col-md-6 col-xs-6 text-right ">Sub Total</div>
                                                                 <div class="col-md-6 col-xs-6 text-right cart_subtotal">
-                                                                    <span  data-index="{{$index}}" data-subtotal="{{item.subtotal}}" class="h5 text-sbold subtotal" ng-model="item.subtotal" ng-bind="item.subtotal" ng-init="item.subtotal =  (item.price*item.order_num)"></span>
+                                                                    <div class="offset-top-0">
+					<span class="h5 text-sbold">$<span>
+					<span data-index="{{$index}}" data-subtotal="{{item.subtotal}}" class="h5 text-sbold subtotal" ng-model="item.subtotal" ng-bind="item.subtotal" ng-init="item.subtotal =  (item.price*item.order_num)"></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -248,21 +249,29 @@
                                                             <div class="row cart_total_wrap bold">
                                                                 <div class="col-md-6 col-xs-6  text-right">Total</div>
                                                                 <div class="col-md-6 col-xs-6  text-right cart_total">
-                                                                    <span ng-bind="'Total:'+Total(filterAry)"></span>
+                                                                    <span class="total"  ng-bind="'Total:'+Total
+                                                                    (filterAry)"
+                                                                    ></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="summary-wrap" style="border-top: 1px solid silver">
 
+                                                            <input type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge"
+                                                                   class="form-control form-control-has-validation
+                                                                   form-control-last-child " style="margin-top: 10px">
+
                                                             <div style="margin-top: 10px">
                                                                 <select class="form-control input-sm" >
-                                                                    <option> Delivery</option>
-                                                                    <option> Pickup </option>
+                                                                    <option value="Delivery"> Delivery</option>
+
                                                                 </select>
                                                             </div>
                                                             <div class="" style="margin-top: 10px">
                                                                 <center>
-                                                                    <button class="this-btn this-btn-this"> <span class="glyphicon glyphicon-log-out"></span> Checkout</button>
+                                                                    <button  ng-click="checkout();$event
+                                                                    .preventDefault();" class="this-btn this-btn-this"> <span
+                                                                                class="glyphicon glyphicon-log-out"></span> <{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
                                                                 </center>
                                                             </div>
                                                         </div>
