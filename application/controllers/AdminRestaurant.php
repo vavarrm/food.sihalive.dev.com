@@ -118,6 +118,53 @@ class AdminRestaurant extends CI_Controller {
 		$this->myfunc->response($output);
 	}
 	
+	public function doEdit()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Restaurant List';
+		$output['message'] ='upload ok';
+		$back =-2;
+		try 
+		{
+			if(
+				$this->post['r_id'] =='' ||
+				$this->post['r_name'] =='' ||
+				$this->post['r_name_en']  =='' ||
+				count($this->post['operation_day'])==0 ||
+				count($this->post['start'])==0 ||
+				count($this->post['end'])==0
+			)
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->update($this->post);
+			
+			if($data['affected_rows'] ==0)
+			{
+				$output['message'] ="nothing upload";
+				$back = -1;
+			}
+		}catch(MyException $e)
+		{
+			$back++;
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->back($back,$output['message']);
+	}
+	
 	public function getRow()
 	{
 		$output['body']=array();

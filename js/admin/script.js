@@ -55,6 +55,8 @@ function dialog(object2, cb, params)
 		$( "#dialog p", parent.document).text(object1.message); 
 		$( "#dialog" , parent.document).dialog(object1);
 	}
+	$('.ui-dialog').css({left:"875px"});
+	$('.ui-dialog',parent.document).css({left:"875px"});
 }
 
 var bodyCtrl = function($scope, $compile, $cookies, apiService)
@@ -86,7 +88,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		$('.tab-pane').removeClass('active in');
 		$scope.templates[index] ={'url':child.pe_page,"control":control,"func":child.pe_func};
 		var tabpanel   	= '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" >';
-		    tabpanel  	+='<iframe height="960px" src="/admin/layout/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'" scrolling="no" frameBorder="0"></iframe>';
+		    tabpanel  	+='<iframe height="1000px" src="/admin/layout/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'" " scrolling="auto"   frameBorder="0"></iframe>';
 			tabpanel 	+='</div>';
 		target.append($compile(tabpanel)($scope));
 		$('.tab-pane').eq(index).addClass('active in');
@@ -176,6 +178,76 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		location.href="/admin/layout/form_panel.html#!/formEdit/"+controller+'/'+func+'/'+page+'/'+id ;
 	}
 	
+	$scope.del  = function(id)
+	{
+		var obj ={
+			'message' :'confirm delete',
+			'title'	  :'confirm',
+			buttons: 
+			[
+				{
+					text: "YES",
+					click: function() {
+						$( this ).dialog( "close" );
+						var controller = $routeParams.controller;
+						var obj ={
+							id :id
+						}
+						if($scope.ajaxload ==true)
+						{
+							var obj =
+							{
+								'message' :'loading...',
+							};
+							dialog(obj);
+							$scope.search();
+						}
+						$scope.ajaxload = true;
+						var promise = apiService.adminApi(controller,'del', obj);
+						promise.then
+						(
+							function(r) 
+							{
+								$scope.ajaxload = false;
+								if(r.status =="200")
+								{
+									var obj =
+									{
+										'message' :'delete ok',
+									};
+									dialog(obj);
+									$scope.search();
+								}else
+								{
+									var obj =
+									{
+										'message' :r.data.message,
+									};
+									dialog(obj);
+								}
+								
+							},
+							function() {
+								$scope.ajaxload = false;
+								var obj ={
+									'message' :'system error'
+								};
+								dialog(obj);
+							}
+						)
+					}
+				},
+				{
+					text: "NO",
+					click: function() {
+						$( this ).dialog( "close" );
+					}
+				},
+			]
+		};
+		dialog(obj);
+	}
+	
 	$scope.editFormInit = function()
 	{
 		var controller = $routeParams.controller;
@@ -191,8 +263,9 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 				{
 					$scope.data.form_row = r.data.body.row.info;
 					$scope.data.form_row.operation = r.data.body.row.operation;
-					var div ='<my-map  zoom="15" lat="'+$scope.data.form_row.r_lat+'" lng="'+$scope.data.form_row.r_lng+'"></my-map>'
-					
+					var div ='<my-map  zoom="15" lat="'+$scope.data.form_row.r_lat+'" lng="'+$scope.data.form_row.r_lng+'"></my-map>';
+					var sess = $cookies.get('admin_sess');
+					$scope.data.form.action="/"+controller+"/doEdit?sess="+sess;
 					$('.myGamp').append($compile(div)($scope));
 				}else
 				{
@@ -569,11 +642,11 @@ adminApp.directive('ngOpenSelect', function() {
 		option+='<option value="'+value+'">'+value+'</option>';
 	})
 	var template ="";
-	template+='<select name ="{{name}}" style="width : 120px;  height:30px;  display:inline;" class="form-control OpenSelect">'+option+'</select>';
+	template+='<select name ="{{name}}"   style="width : 120px;  height:30px;  display:inline;" class="form-control OpenSelect">'+option+'</select>';
 	template+='&nbsp;&nbsp;&nbsp;';
-	template+='<input  ng-blur="checkTime()"  style="width : 150px ; height:30px; display:inline;" required="required"  class="form-control operation_start"  type="time" name="start[]"  >';
+	template+='<input  ng-blur="checkTime()" value="{{start}}" style="width : 150px ; height:30px; display:inline;" required="required"  class="form-control operation_start"  type="time" name="start[]"  >';
 	template+='&nbsp;&nbsp;&nbsp;';
-	template+='<input  ng-blur="checkTime()"  style="width : 150px ; height:30px; display:inline;" required="required"  class="form-control operation_end"   type="time" name="end[]" >';
+	template+='<input  ng-blur="checkTime()" value="{{end}}" style="width : 150px ; height:30px; display:inline;" required="required"  class="form-control operation_end"   type="time" name="end[]" >';
 	template+='&nbsp;&nbsp;&nbsp;';
 	template+='<a href="#" class="delOpenDatetime" ng-click="del(); $event.preventDefault();">del</a>';
 	template+='&nbsp;&nbsp;&nbsp;';
@@ -583,6 +656,8 @@ adminApp.directive('ngOpenSelect', function() {
 		// replace: true,
 		scope: {
 			name: '@',
+			start: '@',
+			end: '@',
 		},
 		restrict: 'A',
 		template: template,
@@ -590,7 +665,6 @@ adminApp.directive('ngOpenSelect', function() {
 		{
 			$scope.add = function()
 			{
-				$('.addOpenDatetime').hide();
 				if($('.OpenSelect').length >6)
 				{
 					var obj ={
@@ -599,9 +673,11 @@ adminApp.directive('ngOpenSelect', function() {
 					dialog(obj);
 					return false;
 				}
-				var div ='<div ng-open-Select name="{{name}}" ></div>'
+				var div ='<div ng-open-Select name="{{name}}"></div>'
 				$element.parent().append($compile(div)($scope));
 				$('.delOpenDatetime').eq(0).show();
+				$('.addOpenDatetime').hide();
+				$('.addOpenDatetime').eq(0).show();
 			};
 			$scope.del = function()
 			{
@@ -612,7 +688,7 @@ adminApp.directive('ngOpenSelect', function() {
 					$('.addOpenDatetime').eq(0).show();
 				}else
 				{
-					$('.addOpenDatetime:last').show();
+					// $('.addOpenDatetime:last').show();
 				}
 			};
 			$scope.checkTime = function()
@@ -620,14 +696,11 @@ adminApp.directive('ngOpenSelect', function() {
 				angular.forEach($('input.operation_start'), function(value, key) {
 					if($(value).val() !="" && $('input.operation_end').eq(key).val()!="" )
 					{
-						console.log($(value).val());
-						console.log($('input.operation_end').eq(key).val());
 						if($(value).val() >= $('input.operation_end').eq(key).val())
 						{
 							var obj ={
 								'message':'start time over end time',
 							}
-							alert('d');
 							dialog(obj);
 						}
 					}
@@ -636,13 +709,12 @@ adminApp.directive('ngOpenSelect', function() {
         },
 		link: function(scope, element, attrs)
 		{
-			if($('.delOpenDatetime').length >0)
+			if($('.delOpenDatetime').length ==1)
 			{
 				$('.delOpenDatetime').eq(0).hide();
-			}else{
-				$('.delOpenDatetime').show();
 			}
-			
+			$('.addOpenDatetime').hide();
+			$('.addOpenDatetime').eq(0).show();
         }
 	}
 });

@@ -65,6 +65,109 @@ class Restaurant_Model extends CI_Model{
 		
 	}
 	
+	public function update($ary)
+	{
+		$output= array(
+			'affected_rows'	=>0
+		);
+		try
+		{
+			$this->db->trans_begin();
+			$sql =" UPDATE restaurant SET 
+						r_name = ?,
+						r_name_en= ?,
+						r_description= ?,
+						r_description_en= ?,
+						r_lat= ?,
+						r_lng= ?,
+						r_address= ?
+					WHERE r_id = ?
+					";
+			$bind=array(
+				$ary['r_name'],
+				$ary['r_name_en'],
+				$ary['r_description'],
+				$ary['r_description_en'],
+				$ary['lat'],
+				$ary['lng'],
+				$ary['r_address'],
+				$ary['r_id']
+			);
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$output['affected_rows'] += $this->db->affected_rows();
+			
+			$sql ="DELETE FROM restaurant_operation WHERE r_id =?";
+			$bind = array(
+				$ary['r_id']
+			);
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			if(count($ary['operation_day']) >0)
+			{
+				foreach($ary['operation_day'] as $key =>$value)
+				{
+					$bind =array(
+						$value,
+						$ary['start'][$key],
+						$ary['end'][$key],
+						$ary['r_id']
+					);
+					$sql =" INSERT INTO restaurant_operation(ro_open_day,ro_open_time_start,ro_open_time_end,r_id)
+							VALUES(?,?,?,?)";
+					$this->db->query($sql, $bind); 
+					$error = $this->db->error();
+					if($error['message'] !="")
+					{
+
+						$MyException = new MyException();
+						$array = array(
+							'el_system_error' 	=>$error['message'] ,
+							'status'	=>'000'
+						);
+						
+						$MyException->setParams($array);
+						throw $MyException;
+					}
+					$output['affected_rows'] += $this->db->affected_rows();
+				}
+			}
+			
+			
+			$this->db->trans_commit();
+			return $output;
+		}catch(MyException $e)
+		{
+			$this->db->trans_rollback();
+			throw $e;
+		}	
+	}
+	
     public  function getList($ary =array())
 	{
 		try
@@ -143,7 +246,6 @@ class Restaurant_Model extends CI_Model{
         $q=$this->escapeString($data);
         $this->db->select('*');
         $this->db->from($this->table);
-       // $this->db->join('restaurant_operation', 'restaurant_operation.r_id = restaurant.r_id');
         $this->db->where('restaurant.r_id', $q);
         $query = $this->db->get();
 
