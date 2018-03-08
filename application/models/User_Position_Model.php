@@ -6,9 +6,11 @@ class User_Position_Model extends CI_Model {
     {
         parent::__construct();
        // $this->load->database();
-        $this->table="user_position";
+        $this->table="user_position_book";
         $this->JoinTable="user";
-        $this->InnerJoin="user.u_id=user_position.u_id";
+        $this->joinTable_postion="position";
+        $this->InnerJoin="user.u_id=user_position_book.u_id";
+        $this->InnerJoin_pos="position.p_id=user_position_book.p_id";
     }
 
     public function index(){
@@ -17,13 +19,13 @@ class User_Position_Model extends CI_Model {
 
     }
 
-    public function listLocation(){
+    public function listLocation($id){
 
-        $this->db->select("u_position_lat,u_position_lng");
+        $this->db->select("*");
         $this->db->from($this->table);
         $this->db->join($this->JoinTable,$this->InnerJoin);
-        //$this->db->where('u_id',$user_id);
-
+        $this->db->join($this->joinTable_postion,$this->InnerJoin_pos);
+        $this->db->where('user.u_id',$id);
         $query=$this->db->get();
         if($query->num_rows() >0){
             return $query->result();
@@ -32,16 +34,12 @@ class User_Position_Model extends CI_Model {
             return false;
         }
 
-
     }
 
     public function insert($post)
     {
-        $data=array(
+        $this->db->insert($this->table, $post);
 
-            'u_position_name'=>$post['u_position_name'],
-        );
-        $this->db->insert($this->table,$data);
     }
 
     public function update($where, $data)

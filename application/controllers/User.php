@@ -16,6 +16,7 @@ class User extends CI_Controller {
         $this->load->model('Order_Model', 'order');
         $this->load->library('session');
         $this->load->helper('url');
+        $this->load->model('Position_Model', 'adds');
 
 
 
@@ -24,13 +25,12 @@ class User extends CI_Controller {
 	public function Profile()
 	{
 
-       // var_dump($_SESSION['encrypt_user_data']);
-       // exit();
-        $order = $this->order->User_OrderList('27');
+
+        $location = $this->adds->getDeliveryPosition();
 
 		$this->smarty->assign(array(
-            'order'		=>$order,
-			'userLanguageAry'	=>$this->user_language_ary,
+            'location'		=>$location,
+			'userLanguageAry'	=>$this->user_language_ary
 		));
 		$this->smarty->displayFrame(__CLASS__.'/profile.tpl');
 	}
@@ -40,8 +40,10 @@ class User extends CI_Controller {
 	
 	public function index()
 	{
+        $location = $this->adds->getDeliveryPosition();
         $this->smarty->assign(array(
-            'userLanguageAry'	=>$this->user_language_ary,
+            'location'		=>$location,
+            'userLanguageAry'	=>$this->user_language_ary
         ));
         $this->smarty->displayFrame(__CLASS__.'/profile.tpl');
 		

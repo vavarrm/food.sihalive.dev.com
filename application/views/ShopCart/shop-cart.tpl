@@ -66,6 +66,14 @@
 													<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child ">
 														<option value="0">請選擇</option>
 														<option data-y="{{position.p_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+
+													</select>
+
+													<select    class="form-control form-control-has-validation form-control-last-child ">
+														<option value="0">請選擇</option>
+														<{foreach from=$user_location item=row key=index}>
+														<option value="<{$row.p_title}>"><{$row.p_title}> </option>
+														<{/foreach}>
 													</select>
 												</div>
 

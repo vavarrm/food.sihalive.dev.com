@@ -32,11 +32,12 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 
-<main class="page-content" ng-controller="userCtrl" ng-init="init()"  >
+<main class="page-content this-white" ng-controller="userCtrl" ng-init="init()"  >
 
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
-	<section class="bg-white container this-margin-top this-margin-button " style="padding: 0px; color: white!important; font-size: 14px;">
+	<section class="bg-white container this-margin-top this-margin-button " style="padding: 0px; color:
+	white!important; font-size: 14px; ">
 
 				<div class="">
 				<ul class="nav nav-tabs" style="background:#f16121; border: none; padding: 0px">
@@ -114,17 +115,20 @@
 						<div id="address" class="tab-pane this-animate-right this-left-align">
 							<div class="well this-white " style="border: none">
 
-								<div class="this-container">
+								<div class="this-container" style="padding: 0px">
 									<div class="row">
-										<div class="col-sm-7" style="padding: 0px">
+										<div class="col-sm-4" style="padding: 0px">
 											<form  class="form" style="text-align: left" id="frm_add" action="/User_Position/doInsert" method="post" >
+												<input type="text" id="o_consignee" ng-model="u_id" name="u_id"
+													   style="display: none" required>
 												<div class="form-group ">
 													<div class="col-sm-12">
 														<label for="p_name">Address name :</label>
-														<select  id="o_position_id" data-constraints="@Required"  name="o_position_id"  class=" form-control"
-																 style="padding: 2px; padding-left: 10px; height: 38px;!important; border-radius: 4px" >
+														<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm" style="padding: 2px; padding-left: 10px">
 															<option value="0">請選擇</option>
-															<option data-y="{{position.u_position_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+															<{foreach from=$location item=row key=index}>
+															<option value="<{$row.p_id}>"><{$row.p_title}> </option>
+															<{/foreach}>
 														</select>
 													</div>
 													<div class="col-sm-4 this-margin-top">
@@ -137,7 +141,7 @@
 												<div class="form-group ">
 													<div class="col-sm-12 this-margin-top">
 														<label for="p_desc">Plcese Description :</label>
-														<textarea class="form-control">
+														<textarea class="form-control" name="desc">
 
 													</textarea>
 														<hr/>
@@ -149,6 +153,17 @@
 
 												<div id='response'></div>
 											</form>
+										</div>
+										<div class="col-sm-7" style="padding: 0px">
+											<div ng-init="mapinit()"  data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
+												<ul class="map_locations">
+													<li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
+														<p data-position_id ="1" style="width: 200px; text-align:  center;">
+															<span style="width:28px">{{position.p_name}}</span>
+														</p>
+													</li>
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -227,7 +242,9 @@
 						<div class="form-group" style="width: 90%">
 							<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm" style="padding: 2px; padding-left: 10px">
 								<option value="0">請選擇</option>
-								<option data-y="{{position.p_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+								<{foreach from=$location item=row key=index}>
+								<option value="<{$row.p_title}>"><{$row.p_title}> </option>
+								<{/foreach}>
 							</select>
 
 						</div>

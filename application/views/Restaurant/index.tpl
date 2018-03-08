@@ -187,7 +187,7 @@
                                                                 </div>
 
                                                                 <hr class="offset-top-50">
-                                                                <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"
+                                 <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"
                                                                          ng-model="$item.order_num"
                                                                          class="this-btn this-btn-this this-right this-margin-top " >
 
@@ -207,7 +207,6 @@
                                         <{/foreach}>
                                     </div>
                                 </div>
-                                
                                 <div class="col-sm-3 this-hide-small " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  " ng-controller="shopCartCtrl">
                                     <div id="inv">
                                         <div class="row">

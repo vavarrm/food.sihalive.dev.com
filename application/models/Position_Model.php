@@ -10,7 +10,7 @@
 		
 		function getDeliveryPosition()
 		{
-			$sql ="SELECT * FROM position ORDER BY p_id";
+			$sql ="SELECT * FROM position ORDER BY p_id DESC";
 			$query = $this->db->query($sql, $bind);
 			$rows =  $query->result_array();
 			$query->free_result();
