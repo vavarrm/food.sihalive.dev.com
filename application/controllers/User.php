@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+session_start();
 class User extends CI_Controller {
 	
 	public function __construct() 
@@ -15,18 +15,20 @@ class User extends CI_Controller {
         $this->load->model('Food_Model', 'food');
         $this->load->model('Order_Model', 'order');
         $this->load->library('session');
-        $this->my_data= $_SESSION['27'] ;
+        $this->load->helper('url');
+
 
 
     }
-	
+
 	public function Profile()
 	{
 
-        $order = $this->order->User_OrderList($this->my_data);
+       // var_dump($_SESSION['encrypt_user_data']);
+       // exit();
+        $order = $this->order->User_OrderList('27');
 
 		$this->smarty->assign(array(
-
             'order'		=>$order,
 			'userLanguageAry'	=>$this->user_language_ary,
 		));
@@ -75,6 +77,33 @@ class User extends CI_Controller {
 		
 		$this->myfunc->response($output);
 	}
+
+    function inv($inv)
+    {
+        $order = $this->user->inv_view($inv);
+        $sum = $this->user->sum_price_order_by_rId($inv);
+        if($order==true){
+            $this->smarty->assign(array(
+                'order'            =>$order,
+                'sum'            =>$sum,
+                'userLanguageAry'	=>$this->user_language_ary,
+            ));
+            $this->smarty->displayFrame(__CLASS__.'/order_detail.tpl');
+        }else{
+
+            redirect(base_url().'profile');
+
+        }
+
+
+
+
+
+    }
+
+
+
+
 
 
 

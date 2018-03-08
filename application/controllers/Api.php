@@ -121,13 +121,13 @@ class Api extends CI_Controller {
 			$get = $this->input->get();
 			$sess= $get ['sess'];
 			$urlRsaRandomKey = 	$get["sess"];
-			$encrypt_user_data = $this->session->userdata('encrypt_user_data');
+			$encrypt_user_data =$_SESSION['encrypt_user_data'];
 			$user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
 			if(!$user_data)
 			{
 				throw new Exception("get user error");
 			}
-			$get['u_id'] = $user_data['u_id'];
+			$get = $user_data['u_id'];
 			$output['body']['data']['orders'] = $this->order->getOrderList($get);
 		}catch(Exception $e)
 		{
@@ -624,7 +624,9 @@ class Api extends CI_Controller {
 		
 		$this->response($output);
 	}
-	
+
+
+
 	public function checkout()
 	{
 		$output['body']=array();

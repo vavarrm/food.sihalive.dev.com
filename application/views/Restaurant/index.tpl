@@ -207,6 +207,7 @@
                                         <{/foreach}>
                                     </div>
                                 </div>
+                                
                                 <div class="col-sm-3 this-hide-small " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  " ng-controller="shopCartCtrl">
                                     <div id="inv">
                                         <div class="row">

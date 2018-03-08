@@ -28,7 +28,10 @@
 		margin-top: 20px!important;
 	}
 </style>
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+
 <main class="page-content" ng-controller="userCtrl" ng-init="init()"  >
 
 	<!-- Breadcrumbs & Page title-->
@@ -152,41 +155,45 @@
 
 							</div>
 						</div>
-					    <div id="order_list" class="tab-pane this-animate-right this-left-align" >
+					    <div id="order_list" class="tab-pane this-animate-right this-left-align" style="padding: 0px;" >
 							<div class="well this-white " style="border: none; padding: 0px">
 
-								<div class="this-container">
+								<div class="this-container"  ng-controller="orderCtrl" ng-init="orderList()">
 									<div class="row">
 
-										<div class="col-sm-12" style="padding: 0px">
+										<div class="col-sm-12" style="padding: 0px" >
 											<div class="table-responsive" style="padding: 0px">
-												<table class="table table-primary">
+												<table id="tb_order" class="table table-striped table-bordered"
+													   cellspacing="0" width="100%">
 
-													<tbody>
+													<thead>
 													<tr class="this-border">
 														<td>Order ID</td>
 														<td>Date/Time</td>
 														<td>Discount</td>
 														<td>Total</td>
-														<td>######</td>
+														<td>Status</td>
 													</tr>
-													<{foreach from=$order  item=row key=index}>
-													<tr >
-														<td><{$row.o_id}></td>
-														<td><{$row.u_id}></td>
-														<td><{$row.o_total}></td>
-														<td>$3.00</td>
-														<td>
-															<span class="badge this-green"> Completed</span>
-															<a href="#"> <span class="badge this-orange this-text-white " >View</span>
-															</a>
-														</td>
-													</tr>
-														<{/foreach}>
-													<{foreach from=$my_data  item=row key=index}>
-													<{$row.my_data}>
+													</thead
 
-													<{/foreach}>
+													<tbody>
+											      			<tr  ng-repeat="row in data.orders" >
+															<td>{{row.o_id}}</td>
+															<td>{{row.add_datetime}}</td>
+															<td>{{row.o_discount}}</td>
+															<td>{{row.o_total}}</td>
+
+															<td>
+																<span class="badge this-green"> {{row.o_status}}</span>
+																<a href="/user/inv/{{row.o_id}}"> <span class="badge
+																this-orange
+																this-text-white " >View</span>
+																</a>
+															</td>
+														</tr>
+
+													</tbody>
+
 
 
 												</table>
@@ -269,6 +276,7 @@
 	</div>
 
 </main>
+
 <script>
     function openLocation() {
         $('#this_map').removeClass('this-hide');
@@ -278,3 +286,14 @@
     }
 
 </script>
+<!--
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script >
+    $.noConflict();
+    jQuery( document ).ready(function( $ ) {
+        $('#tb_order').DataTable();
+    });
+</script>\
+-->

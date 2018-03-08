@@ -7,7 +7,11 @@
 			parent::__construct();
 			$this->load->database();
 		}
-		
+        function escapeString($val) {
+            $db = get_instance()->db->conn_id;
+            $val = mysqli_real_escape_string($db, $val);
+            return $val;
+        }
 		function setsetProfile($ary,$u_id)
 		{
 			$this->db->where('u_id', $u_id);
@@ -225,5 +229,40 @@
 				throw $MyException;
 			}
 		}
+
+        function inv_view($inv)
+        {
+            $q=$this->escapeString($inv);
+            $this->db->select('*');
+            $this->db->from('order_detail');
+            $this->db->join('food', 'food.f_id = order_detail.f_id');
+            $this->db->where('o_id', $q);
+            $query = $this->db->get();
+            $rows = $query->result_array();
+            if (count($rows) >0) {
+                $query->free_result();
+                return $rows;
+            } else {
+                return FALSE;
+            }
+        }
+
+        function sum_price_order_by_rId($inv){
+            $q=$this->escapeString($inv);
+            $this->db->select('SUM(od_price) as total,add_datetime,o_id');
+            $this->db->select('od_price');
+            $this->db->from('order_detail');
+            $this->db->where('o_id', $q);
+            $query = $this->db->get();
+            $rows = $query->result_array();
+            if (count($rows) >0) {
+                $query->free_result();
+                return $rows;
+            } else {
+                return FALSE;
+            }
+        }
+
+
 	}
 ?>

@@ -91,12 +91,12 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 		)
 	}
 	
-	$scope.click = function(f_id, order_num, price, f_name, is_set) 
+	$scope.click = function(f_id, od_num, od_price, f_name, od_is_set)
 	{	
 		var set_include = new Array();
 		var set_select_empty = false;
 		var error
-		if(typeof is_set != 'undefined' && is_set == '1')
+		if(typeof is_set != 'undefined' && od_is_set == '1')
 		{
 			
 			$.each($('.setSelect'), function(i, e){
@@ -773,7 +773,7 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
 	}
 }
 
-var orderCtrl = function($scope, $cookies, $rootScope, User)
+var orderCtrl = function($scope, $cookies, $rootScope, apiService)
 {	
 	$scope.data={
 		orders :{},
