@@ -5,6 +5,7 @@ class MyFunc
 	public function __construct() 
 	{
 		$this->CI =& get_instance();
+		$this->CI->load->model('AdminUser_Model', 'admin_user');
 	}
 	public function readJson($parameter = array())
 	{
@@ -118,18 +119,41 @@ class MyFunc
 		
 	}
 	
+	public function getAdminUser($sess)
+	{
+		$urlRsaRandomKey =$sess;
+		$encrypt_data = $_SESSION['encrypt_admin_user_data'] ;
+		$decrypt_data= $this->decryptUser($urlRsaRandomKey, $encrypt_data);
+		return $decrypt_data;
+	}
+	
 	public function checkAdmin($gitignore)
 	{
 		
 		$get = $this->CI->input->get();
-		if(!in_array($this->CI->uri->segment(2),$gitignore))
+		$default = array(
+			"getUser",
+		);
+		
+		$result = array_merge($gitignore, $default);
+		if(!in_array($this->CI->uri->segment(2), $result ))
 		{
 			if($get['sess'] =='')
 			{
 				return  '002' ;
 			}
+			
+			$admin_data = $this->getAdminUser($get['sess']);
+			$ary = array(
+				'ad_id'	=>$admin_data['ad_id'],
+				'pe_id'	=>$get['pe_id']
+			);
+			$row = $this->CI->admin_user->getAdminPermissions($ary);
+			if(count($row) ==0)
+			{
+				return '007';
+			}
 		}
-		
 		return '200';
 	}
 	

@@ -95,7 +95,7 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 	{	
 		var set_include = new Array();
 		var set_select_empty = false;
-		var error
+		var error;
 		if(typeof is_set != 'undefined' && is_set == '1')
 		{
 			

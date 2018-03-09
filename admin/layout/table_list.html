@@ -1,6 +1,7 @@
 <div class="x_panel" ng-init="table_pageinfo.p ='1'" style="height:960px;">
 	<div class="x_title">
 		<ul class="nav navbar-right panel_toolbox">
+			<li><a class="collapse-link" ng-click="back();"><i class="fa fa-arrow-left"></i></a></li>
 			<li><a ng-click="tableAdd()" class="close-link"><i class="fa fa-plus"></i></a></li>
 			<li><a ng-click="tableClose()" class="close-link"><i class="fa fa-close"></i></a></li>
 		</ul>
@@ -66,16 +67,17 @@
 					<table  class="table table-striped table-bordered bulk_action dataTable no-footer">
 						<thead>
 							<tr role="row">
-								<th class="sorting" ng-class="data.table_order[filed] == 'DESC'?'sorting_desc':(data.table_order[filed] == 'ASC' ? 'sorting_asc':'')" ng-click="order(filed);" ng-repeat="filed in data.table_fields" >{{filed}}</th>
+								<th class="sorting" ng-class="data.table_order[filed] == 'DESC'?'sorting_desc':(data.table_order[filed] == 'ASC' ? 'sorting_asc':'')" ng-click="order(filed);" ng-repeat="(filed,value) in data.table_fields" ng-bind="filed" ></th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="row in data.table_row">
-								<td ng-repeat="filed in data.table_fields" ng-bind="row[filed]"></td>
+								<td ng-repeat="(filed,value) in data.table_fields" ng-bind="row[filed]"></td>
 								<td>
 									<button type="button" ng-click="del(row.id)" class="btn btn-default btn-xs">del</button>
 									<button type="button" ng-click="edit(row.id)" class="btn btn-default btn-xs">edit</button>
+									<a ng-repeat="action in data.table_action_list" ng-bind="action.pe_name" href="/admin/layout/tabpanel.html#!{{action.pe_control}}/{{action.pe_func}}/{{action.pe_page}}/{{data.tabindex}}/{{data.pe_id}}/{{row.id}}" class="btn btn-default btn-xs"> </a>
 								</td>
 							</tr>
 						</tbody>

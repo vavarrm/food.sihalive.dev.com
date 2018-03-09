@@ -199,6 +199,86 @@ class Restaurant_Model extends CI_Model{
 		}
     }
 	
+	public function getRestaurantCategory($ary =array())
+	{
+		try
+		{
+			if(empty($ary))
+			{
+				$MyException = new MyException();
+				$array = array(
+					'message' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$sql = "SELECT 
+						ca_id,
+						ca_name,
+						ca_name_en
+					FROM category
+					WHERE ca_r_id=?";
+			$bind=array(
+				$ary['r_id']
+			);
+			$query = $this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+				
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$rows = $query->result_array();
+			return 	$rows  ;
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+	}
+	
+	public function getFoodList($ary =array())
+	{
+		try
+		{
+			if(empty($ary))
+			{
+				$MyException = new MyException();
+				$array = array(
+					'message' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$fields = join(',' ,$ary['fields']);
+			
+			$sql ="	SELECT f.f_id AS id," 
+					.$fields.	
+					" FROM
+						restaurant As r 
+							INNER JOIN food AS f ON f.f_r_id = r.r_id
+							LEFT JOIN category AS ca on ca.ca_r_id = r.r_id  AND f.f_ca_id = ca.ca_id
+							";
+			$ary['sql'] =$sql;
+			$output = $this->getListFromat($ary);
+			return 	$output  ;
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+	}
+	
 	public function del($id)
 	{
 		try

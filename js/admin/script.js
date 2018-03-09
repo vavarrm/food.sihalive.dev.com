@@ -19,7 +19,7 @@ function UrlExists(url, cb){
         error:  function(xhr){
             if(typeof cb === 'function')
 			{
-				cb.apply(this, [xhr.status]);
+				cb.apply(this, [xhr.data.status]);
 			}
         }
     });
@@ -83,19 +83,18 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		li +='<i ng-click="tableClose('+index+') ;$event.preventDefault();" class="fa fa-close tabclose'+index+'"></i>';
 		li +='</a></li>';
 		target.append($compile(li)($scope));
-		
 		var target =$('#myTabContent');
 		$('.tab-pane').removeClass('active in');
 		$scope.templates[index] ={'url':child.pe_page,"control":control,"func":child.pe_func};
 		var tabpanel   	= '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" >';
-		    tabpanel  	+='<iframe height="1000px" src="/admin/layout/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'" " scrolling="auto"   frameBorder="0"></iframe>';
+		    tabpanel  	+='<iframe height="1000px" src="/admin/layout/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'/'+child.pe_id+'" scrolling="auto"   frameBorder="0"></iframe>';
 			tabpanel 	+='</div>';
 		target.append($compile(tabpanel)($scope));
 		$('.tab-pane').eq(index).addClass('active in');
 		$scope.panelShow = true;
 	}
 	
-	$scope.sidebar_menu_click('AdminRestaurant',{pe_page:"table_list" ,pe_name:"Restaurant List", pe_func:"getList"});
+	
 		
 
 	$scope.init = function()
@@ -110,6 +109,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 				{
 					$scope.sidebarMenuList = r.data.body.menu_list;
 					$scope.admin = r.data.body.admin_user;
+					$scope.sidebar_menu_click($scope.sidebarMenuList[0].pe_control, $scope.sidebarMenuList[0].child[0]);
 				}else
 				{
 					var obj =
@@ -167,7 +167,10 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		table_search:{},
 		table_order:{},
 		form:{},
-		form_row :{}
+		form_row :{},
+		pe_id :$routeParams.pe_id,
+		tabindex: $routeParams.tabindex,
+		table_action_list :{}
 	};
 	
 	$scope.edit = function(id)
@@ -175,7 +178,7 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		var controller = $routeParams.controller;
 		var func = 'edit';
 		var page =controller+'Edit';
-		location.href="/admin/layout/form_panel.html#!/formEdit/"+controller+'/'+func+'/'+page+'/'+id ;
+		location.href="/admin/layout/form_panel.html#!/formEdit/"+controller+'/'+func+'/'+page+'/'+id+'/'+$routeParams.pe_id ;
 	}
 	
 	$scope.del  = function(id)
@@ -203,13 +206,13 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 							$scope.search();
 						}
 						$scope.ajaxload = true;
-						var promise = apiService.adminApi(controller,'del', obj);
+						var promise = apiService.adminApi(controller,'del', obj, $routeParams.pe_id);
 						promise.then
 						(
 							function(r) 
 							{
 								$scope.ajaxload = false;
-								if(r.status =="200")
+								if(r.data.status =="200")
 								{
 									var obj =
 									{
@@ -254,18 +257,18 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		var obj={
 			id : $routeParams.id
 		}
-		var promise = apiService.adminApi(controller,'getRow', obj);
+		var promise = apiService.adminApi(controller,'getRow', obj,$routeParams.pe_id);
 		promise.then
 		(
 			function(r) 
 			{
-				if(r.status =="200")
+				if(r.data.status =="200")
 				{
 					$scope.data.form_row = r.data.body.row.info;
 					$scope.data.form_row.operation = r.data.body.row.operation;
 					var div ='<my-map  zoom="15" lat="'+$scope.data.form_row.r_lat+'" lng="'+$scope.data.form_row.r_lng+'"></my-map>';
 					var sess = $cookies.get('admin_sess');
-					$scope.data.form.action="/"+controller+"/doEdit?sess="+sess;
+					$scope.data.form.action="/"+controller+"/doEdit?sess="+sess+"&pe_id="+$routeParams.pe_id;
 					$('.myGamp').append($compile(div)($scope));
 				}else
 				{
@@ -286,14 +289,47 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		)
 	}
 	
-	$scope.addFormInit = function()
+	$scope.addFormInit = function(initFunc)
 	{
 		var sess = $cookies.get('admin_sess');
-		$scope.data.form.action ='/'+$routeParams.controller+'/add?sess='+sess;
+		$scope.data.form.action ='/'+$routeParams.controller+'/'+$routeParams.func+'?sess='+sess+'&pe_id='+$routeParams.pe_id;
+		$scope.data.form.id  = $routeParams.id;
+		if(typeof initFunc !="undefined")
+		{
+			var obj ={
+				id :$routeParams.id
+			}
+			var promise = apiService.adminApi($routeParams.controller,initFunc, obj,$routeParams.pe_id);
+			promise.then
+			(
+				function(r) 
+				{
+					if(r.data.status =="200")
+					{
+						$scope.data.form.controller_list = r.data.body.controller_list;
+					}else
+					{
+						var obj =
+						{
+							'message' :r.data.message,
+						};
+						dialog(obj);
+					}
+					
+				},
+				function() {
+					var obj ={
+						'message' :'system error'
+					};
+					dialog(obj);
+				}
+			)
+		}
 	}
 	
 	$scope.tableListInit = function()
 	{
+ 
 		$scope.search();
 	}
 	
@@ -378,38 +414,43 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		
 	$scope.tableAdd = function()
 	{
-		var controller = $routeParams.controller;
-		var func = $routeParams.add;
 		var tabindex = $routeParams.tabindex;
-		var page =controller+'Add';
-		location.href="/admin/layout/form_panel.html#!/form/"+controller+'/'+func+'/'+page+'/'+tabindex ;
+		var url ="/admin/layout/form_panel.html#!/formAdd/"+$scope.data.form.table_add+tabindex+'/'+$routeParams.pe_id;
+		if(typeof $routeParams.id !="undefined")
+		{
+			url+="/"+$routeParams.id;
+		}
+		location.href=url;
 	}		
 		
 	$scope.search = function()
 	{
 		var controller = $routeParams.controller;
+		var pe_id = $routeParams.pe_id;
 		var func = $routeParams.func;
 		var obj={
 			p :$scope.data.table_pageinfo.p,
 			limit :$scope.data.table_pageinfo.limit,
+			id:$routeParams.id
 		}
 		obj = $.extend(obj, $scope.data.table_search);
 		obj.order = $scope.data.table_order;
-		var promise = apiService.adminApi(controller,func, obj);
+		var promise = apiService.adminApi(controller,func, obj, pe_id);
 		promise.then
 		(
 			function(r) 
 			{
-				if(r.status =="200")
+				if(r.data.status =="200")
 				{
 					$scope.data.table_row= r.data.body.list;
-					$scope.data.table_order= r.data.body.order;
 					$scope.data.table_title =r.data.title;
 					$scope.data.table_form =r.data.body.form;
 					$scope.data.table_pageinfo= r.data.body.pageinfo;
 					$scope.data.table_pageinfo.start=(parseInt($scope.data.table_pageinfo.p)-1)*parseInt($scope.data.table_pageinfo.limit)+1;
 					$scope.data.table_pageinfo.end=(parseInt($scope.data.table_pageinfo.p)-1)*parseInt($scope.data.table_pageinfo.limit)+parseInt($scope.data.table_row.length);
 					$scope.data.table_fields = r.data.body.fields;
+					$scope.data.table_action_list = r.data.body.action_list;
+					$scope.data.form.table_add = r.data.body.form.table_add;
 				}else
 				{
 					var obj =
@@ -505,13 +546,13 @@ adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' ,
 var apiService = function($http, $cookies)
 {
 	return {
-		adminApi :function(controller, func, obj){
+		adminApi :function(controller, func, obj, pe_id){
 			var sess = $cookies.get('admin_sess');
 			var default_obj = {
 					
 			};
 			var object = $.extend(default_obj, obj);
-			return $http.post('/'+controller+'/'+func+'?sess='+sess, object ,  {headers: {'Content-Type': 'application/json'} });
+			return $http.post('/'+controller+'/'+func+'?sess='+sess+'&pe_id='+pe_id, object ,  {headers: {'Content-Type': 'application/json'} });
 		}
     };
 }
@@ -522,23 +563,40 @@ adminApp.config(function($routeProvider){
 			return 'views/';
 		},
 		controller: 'MainController'
-    }).when("/:controller/:func/:page/:tabindex",{
+    }).when("/formAdd/:controller/:func/:page/:tabindex/:pe_id/:id",{
 		templateUrl: function(params) {
+					
+			var page ='/admin/views/'+params.page+'.html?'+Math.random();
+			return page;
+		},
+		cache: false,
+		controller: 'MainController'
+    }).when("/formAdd/:controller/:func/:page/:tabindex/:pe_id",{
+		templateUrl: function(params) {
+					
+			var page ='/admin/views/'+params.page+'.html?'+Math.random();
+			return page;
+		},
+		cache: false,
+		controller: 'MainController'
+    }).when("/formEdit/:controller/:func/:page/:id/:pe_id",{
+		templateUrl: function(params) {
+			var page ='/admin/views/'+params.page+'.html?'+Math.random();
+			return page;
+		},
+		cache: false,
+		controller: 'MainController'
+    }).when("/:controller/:func/:page/:tabindex/:pe_id/:id",{
+		templateUrl: function(params) {
+			
 			var page ='/admin/layout/'+params.page+'.html?'+Math.random();
 			return page;
 		},
 		cache: false,
 		controller: 'MainController'
-    }).when("/form/:controller/:func/:page/:tabindex",{
+    }).when("/:controller/:func/:page/:tabindex/:pe_id",{
 		templateUrl: function(params) {
-			var page ='/admin/views/'+params.page+'.html?'+Math.random();
-			return page;
-		},
-		cache: false,
-		controller: 'MainController'
-    }).when("/formEdit/:controller/:func/:page/:id",{
-		templateUrl: function(params) {
-			var page ='/admin/views/'+params.page+'.html?'+Math.random();
+			var page ='/admin/layout/'+params.page+'.html?'+Math.random();
 			return page;
 		},
 		cache: false,
@@ -628,6 +686,8 @@ adminApp.directive('myMap', function() {
 	}
 });
 
+
+
 adminApp.directive('ngOpenSelect', function() {
 	var week =[
 		'Monday',
@@ -688,7 +748,7 @@ adminApp.directive('ngOpenSelect', function() {
 					$('.addOpenDatetime').eq(0).show();
 				}else
 				{
-					// $('.addOpenDatetime:last').show();
+					$('.addOpenDatetime').eq(0).show();
 				}
 			};
 			$scope.checkTime = function()

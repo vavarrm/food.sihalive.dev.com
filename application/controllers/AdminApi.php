@@ -120,20 +120,8 @@ class AdminApi extends CI_Controller {
 				throw $MyException;
 			}
 			$output['body']['admin_user'] = $decrypt_data;
-			$output['body']['menu_list']	=array(
-				array(
-					'pe_name'		=>'Manage Restaurant',
-					'pe_control'	=>'AdminRestaurant',
-					'child'			=>array(
-						array(
-							'pe_name'	=>'Restaurant List',	
-							'pe_func'	=>'getList',
-							'pe_page'	=>'table_list',
-							'pe_id'	=>'2',
-						)
-					)
-				)
-			);
+			$data = $this->admin_user->getAdminMenuList();
+			$output['body']['menu_list'] =$data['list'];
 		}catch(MyException $e)
 		{
 			$parames = $e->getParams();
