@@ -74,12 +74,14 @@
                 $row['o_id'],
                 $ary['u_id'],
                 $ary['o_message'],
-                $ary['o_position_id'],
+                $ary['o_position_id']
+
             );
+
             $query = $this->db->query($sql,$bind);
 
-
             $in_f_id = array();
+
             if(!empty($ary['order_list']))
             {
                 $index =0;
@@ -108,6 +110,8 @@
                                     $value['order_num'],
                                     $temp['f_large_price']
                                 );
+
+
                                 $query = $this->db->query($sql, $insert);
                             }
                             $total_sql[] =sprintf("SELECT	f_large_price*f_discount AS price FROM food WHERE f_id = %s", $value['f_id']);

@@ -50,7 +50,6 @@
     }
 
 </style>
-
 <{$lat=""}>
 <{$lng=""}>
 <{$r_name=""}>
@@ -149,7 +148,8 @@
                                                         <{$row.f_name}>
                                                     </p>
                                                     <div class="col-sm-12 " id="<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
-                                                        <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.f_id}>').style.display='block'"
+                                                        <button class="this-btn this-btn-this this-small" data-toggle="modal" data-target="#<{$row.f_id}>"
+
                                                                 style="font-size: 12px; font-weight:normal;
                                               padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
                                                             <p>Price : <{$row.f_large_price}> $ </p>
@@ -159,50 +159,53 @@
                                             </div>
                                         </div>
                                     <!--  Open Modal Order --->
-                                        <div id="<{$row.f_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
-                                            <div class="this-modal-content">
-                                                <header class="this-container ">
-                                            <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"
-                                                  class="this-button this-right this-btn-this" style="margin-right: -16px; border-radius: 0px">&times;</span>
-                                                    <h3><{$row.f_name}></h3>
-                                                </header>
-                                                <div class="this-container this-padding">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
 
-                                                            <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
+                                           <div id="<{$row.f_id}>" class="modal fade this-center"  role="dialog"
+                                                style="margin-top: 30px; padding: 0px!important; margin: 0px;
+                                                border-radius:0px!important; margin-top: 50px">
+                                               <div class="modal-dialog" style="border-radius: 0px">
+                                               <div class="modal-content ">
+                                                   <div class="modal-header">
+                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                       <h3><{$row.f_name}></h3>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                       <div class="row">
+                                                           <div class="col-sm-6">
+                                                               <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
 
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <form>
-                                                                <p>Price : <{$row.f_large_price}> $ </p>
-                                                                <p>Quantity</p>
-                                                                <div class="stepper-type-1">
-                                                                    <div class="stepper ">
-                                                                        <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
-                                                                        <span class="stepper-arrow up"></span>
-                                                                        <span class="stepper-arrow down"></span>
-                                                                    </div>
-                                                                </div>
+                                                               <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
 
-                                                                <hr class="offset-top-50">
-                                 <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"
-                                                                         ng-model="$item.order_num"
-                                                                         class="this-btn this-btn-this this-right this-margin-top " >
+                                                           </div>
+                                                           <div class="col-sm-6">
+                                                               <form>
+                                                                   <p>Price : <{$row.f_large_price}> $ </p>
+                                                                   <p>Quantity</p>
+                                                                   <div class="stepper-type-1">
+                                                                       <div class="stepper ">
+                                                                           <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
+                                                                           <span class="stepper-arrow up"></span>
+                                                                           <span class="stepper-arrow down"></span>
+                                                                       </div>
+                                                                   </div>
 
-                                                                    ADD TO CART
-                                                                </button>
-                                                            </form>
+                                                                   <hr class="offset-top-50">
+                                                                   <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"
+                                                                            ng-model="$item.order_num"
+                                                                            class="this-btn this-btn-this this-right this-margin-top " >
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <footer class="this-container this-padding this-right">
+                                                                       ADD TO CART
+                                                                   </button>
+                                                               </form>
 
-                                                </footer>
-                                            </div>
-                                        </div>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+
+                                               </div>
+                                               </div>
+                                           </div>
+
                                         <!--Close Modal -->
                                         <{/foreach}>
                                     </div>
@@ -256,7 +259,11 @@
                                                             </div>
                                                         </div>
                                                         <div class="summary-wrap" style="border-top: 1px solid silver">
-
+                                                            <{foreach from=$r_id item=row key=index}>
+                                                            <input type="text" id="r_id" value="<{$row.r_id}>"
+                                                                   name="o_r_id" style="display: none"
+                                                                   class="form-control form-control-has-validation form-control-last-child ">
+                                                            <{/foreach}>
                                                             <input type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge"
                                                                    class="form-control form-control-has-validation
                                                                    form-control-last-child " style="margin-top: 10px">

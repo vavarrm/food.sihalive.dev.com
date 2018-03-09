@@ -53,13 +53,7 @@
 							<div class="c">
 								<div class=" this-white" style="border: none">
 									<div class="row">
-										<div class="col-sm-3 align-center this-center">
-											<center>
-												<img src="https://www.thestylease.com/images/user.png" width="150px" class="img-responsive">
-											</center>
-											<button class=" btn-danger">Browser
-											</button>
-										</div>
+										<div class="col-sm-1"></div>
 
 										<div class="col-sm-8">
 											<form method="post"  class="rd-mailform form-contact-line text-left" >

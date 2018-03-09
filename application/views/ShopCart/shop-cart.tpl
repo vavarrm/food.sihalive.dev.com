@@ -23,7 +23,7 @@
 						<span  class=" grid-element-mod-2"　ng-bind="item.f_name"></span>
 					</div>
 					<div class="offset-top-0">
-						<span class="h5 text-sbold" ng-bind="'$'+item.price"></span>
+						<span class="h5 text-sbold" ng-bind="'$'+item.price"> frff</span>
 					</div>
 				</div>
 				<div class="col-xs-2  text-left">
@@ -66,18 +66,8 @@
 													<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child ">
 														<option value="0">請選擇</option>
 														<option data-y="{{position.p_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
-
-													</select>
-
-													<select    class="form-control form-control-has-validation form-control-last-child ">
-														<option value="0">請選擇</option>
-														<{foreach from=$user_location item=row key=index}>
-														<option value="<{$row.p_title}>"><{$row.p_title}> </option>
-														<{/foreach}>
 													</select>
 												</div>
-
-
 											</div>
 											<div class="form-group ">
 												<div class="col-sm-12" style="padding: 0px">
@@ -85,23 +75,16 @@
 													<input type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge"  class="form-control form-control-has-validation form-control-last-child ">
 													<span class="form-validation"></span>
 												</div>
-
 											</div>
-
-
 										</div>
-
 										<div class="offset-top-15">
 											<div class="form-inline-flex">
 												<div class="form-group">
 													<button ng-click="checkout();$event.preventDefault();"  class="btn btn-primary btn-fullwidth"><{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
 												</div>
 											</div>
-
 										</div>
 									</form>
-
-
 								</div>
 
 							</div>

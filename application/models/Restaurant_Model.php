@@ -102,23 +102,13 @@ class Restaurant_Model extends CI_Model{
     function search_Res($data){
         $q=$this->escapeString($data);
 
-        $this->db->select('*');
-        $this->db->like('r_id',$q);
-        $this->db->or_like('r_name',$q);
-        $query=$this->db->get($this->table);
-        $rows=$query->result_array();
-        if(count($rows))
-        {
-            $query->free_result();
-            return $rows;
-        }
-        else
-        {
-            return FALSE;
-        }
 
-
-
+        $sql=" select DISTINCT(r.r_name),r.r_description,r.r_address from restaurant as r INNER join food AS f ON r.r_id=f.r_id
+WHERE f.f_name LIKE  '%".$q."%' OR f.f_name_en LIKE '%".$q."%' ";
+        $query = $this->db->query($sql);
+        $rows  =  $query->result_array();
+        $query->free_result();
+        return $rows;
     }
 
 

@@ -31,6 +31,7 @@ class restaurant extends CI_Controller{
         $list_category_by_restaurant=$this->cat->list_category_by_restaurant($x);
 
         $this->smarty->assign(array(
+            'r_id'      =>$x,
             'shopId'	=>$shopId,
             'operation'      =>$operation,
             'foodList'=>$foodList,

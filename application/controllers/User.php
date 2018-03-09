@@ -84,10 +84,12 @@ class User extends CI_Controller {
     {
         $order = $this->user->inv_view($inv);
         $sum = $this->user->sum_price_order_by_rId($inv);
+        $status = $this->user->order_status($inv);
         if($order==true){
             $this->smarty->assign(array(
                 'order'            =>$order,
                 'sum'            =>$sum,
+                'status'        =>$status,
                 'userLanguageAry'	=>$this->user_language_ary,
             ));
             $this->smarty->displayFrame(__CLASS__.'/order_detail.tpl');

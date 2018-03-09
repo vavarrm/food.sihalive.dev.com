@@ -634,6 +634,7 @@ class Api extends CI_Controller {
 		$output['title'] ='结帐';
 		try 
 		{
+
 			if(empty($this->request))
 			{
 				throw new Exception("request is empty");
@@ -646,11 +647,12 @@ class Api extends CI_Controller {
 				throw new Exception("user no login");
 			}
             $get = $this->input->get();
+
+
             if(isset($get['sess']))
             {
                 $urlRsaRandomKey =$get['sess'];
             }
-
             $encrypt_user_data = $user ;
             $decrypt_user_data= $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
 			if(!$decrypt_user_data)
@@ -658,6 +660,9 @@ class Api extends CI_Controller {
 				throw new Exception("get user error");
 			}
 			$this->request['u_id'] = $decrypt_user_data['u_id'];
+
+
+
 			$this->food->inserdOrder($this->request);
 			$ary =array(
 				'action'	=>'order_alert'
