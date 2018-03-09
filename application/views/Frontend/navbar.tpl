@@ -46,7 +46,7 @@
 		<!-- RD Navbar Nav-->
 		<div class="rd-navbar-nav-wrap" >
 		  <!-- RD Navbar Shop-->
-		  <div class="rd-navbar-shop">
+		  <div class="rd-navbar-shop this-hide-large this-hide-medium">
 			<a href="/ShopCart/" class="link link-shop link-default">
 			  <span class="big text-gray-light">Cart</span>
 			  <span class="icon icon-sm mdi mdi-cart-outline" ></span>
@@ -78,9 +78,11 @@
 				<a href="#"><{$language.nav_user}></a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
+					<!--
 					<li>
 						<a href="/Food/orderList"><{$language.nav_user_orderlist}></a>
-					</li>
+					</li>\
+					-->
 					<li>
 						<a href="/profile"><{$language.nav_user_profile}></a>
 					</li>

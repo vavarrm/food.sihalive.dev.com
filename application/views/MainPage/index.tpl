@@ -1,10 +1,10 @@
 <!-- Page Content-->
 <main class="page-content" style="background-image: url('/images/bg-image-1.jpg'); background-position: center; background-size:cover; background-attachment: fixed"  >
 	<!-- Swiper variant 3-->
-	<section class="bg-gray-darker" style="max-height: 560px; background: white">
-	  <div class="swiper-variant-1" style="max-height: 560px">
-		<div data-slide-effect="fade" data-min-height="550px" class="swiper-container swiper-slider" style="max-height: 560px">
-		  <div class="swiper-wrapper" style="max-height: 558px">
+	<section class="bg-gray-darker" style=" background: white">
+	  <div class="swiper-variant-1" style="">
+		<div data-slide-effect="fade" data-min-height="550px" class="swiper-container swiper-slider" >
+		  <div class="swiper-wrapper" style="">
 			<div data-slide-bg="images/home-slide-3-1920x800.jpg" class="swiper-slide">
 			  <div class="swiper-slide-caption slide-caption-2 text-center">
 				<div class="shell">
@@ -52,24 +52,18 @@
 		</div>
 	  </div>
 	</section>
-	<div class="this-container this-white">
-		<h5 class="h5 text-uppercase "> Sihalive food Delivery</h5>
+<section class="this-container" >
 
-		<form class="form-inline" style="margin-bottom: 10px"action="search" method="get">
-			<div class="form-group">
-				<label class="sr-only" for="exampleInputAmount">I would like to eat....</label>
-				<div class="form-group">
-					<input type="text" class="form-control form-control-has-validation form-control-last-child " name="q" placeholder="I would like to eat...." style="min-width: 300px"> </div>
-			</div>
-			<button  type="submit" class="this-btn this-btn-this" style="height: 40px"><{$mainpage_language_ary.our_menu}></button>
-		</form>
-	</div>
-	<div class="container text-center   " style="padding: 10px  ">
-
-
-		<section class="popular">
-			<div class="container">
-
+			<div class="container" style="padding: 0px">
+				<h5 class="h5 text-uppercase " style="margin-top: 20px"> Sihalive food Delivery</h5>
+				<form class="form-inline" style="margin-bottom: 10px"action="search" method="get">
+					<div class="form-group">
+						<label class="sr-only" for="exampleInputAmount">I would like to eat....</label>
+						<div class="form-group">
+							<input type="text" class="form-control form-control-has-validation form-control-last-child " name="q" placeholder="I would like to eat...." style="min-width: 300px"> </div>
+					</div>
+					<button  type="submit" class="this-btn this-btn-this" style="height: 40px"><{$mainpage_language_ary.our_menu}></button>
+				</form>
 				<div class="row">
 					<{foreach from=$category item=row key=index}>
 					<!-- Each popular food item starts -->
@@ -82,17 +76,17 @@
 							</div>
 
 						</div>
-				        </div>
-					</a>
+				</div>
+				</a>
 				<{/foreach}>
 				<!-- Each popular food item starts -->
 
 			</div>
 
-		</section>
-	</div>
+
+</section>
 	<br/>
-	<section class="popular container-fluid this-white this-padding-top" style="margin-bottom: 20px; padding-top: 20px">
+	<section class="popular container-fluid this-white this-padding" >
 		<div class="container">
            <h5 class="h5 text-uppercase">Restaurants in Shihanoukville </h5>
 			<hr class="offset-top-50">

@@ -91,7 +91,7 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 		)
 	}
 	
-	$scope.click = function(f_id, order_num, price, f_name, is_set) 
+	$scope.click = function(f_id, order_num, price, f_name, is_set)
 	{	
 		var set_include = new Array();
 		var set_select_empty = false;
@@ -165,27 +165,27 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 var categoryCtrl = function($scope, $http){
 };
 
-var shopCartCtrl = function($scope, $cookies, $rootScope, User){
+var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
 	var shopcart =  $cookies.getObject('shopcart');
 	$scope.items=shopcart;
 	$scope.cartnums= shopcart.length;
 	$('.container').removeClass('hidden');
-	
+
 	$scope.data = {
-		o_consignee :User.u_consignee,
-		o_phone :User.u_phone,
+		o_consignee :apiService.u_email,
+		o_phone :apiService.u_phone,
 	};
-	
+
 	if($scope.cartnums ==0)
 	{
-		$( "#dialog p").text(js_cart_num_is_zero); 
+		$( "#dialog p").text(js_cart_num_is_zero);
 		$( "#dialog" ).dialog({
 			buttons: [
 				{
 				  text: "close",
 				  click: function() {
 					$( this ).dialog( "close" );
-					window.location.href="/Menu";
+					//window.location.href="/Menu";
 				  }
 				}
 			]
@@ -230,6 +230,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 
 	$scope.checkout = function()
 	{
+
 		if($scope.cartnums ==0)
 		{
 			$( "#dialog p").text(js_cart_num_is_zero); 
@@ -246,8 +247,9 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 			return false;
 		}
 
-		if(typeof User.u_id == 'undefined')
+		/*if(typeof User.u_id == 'undefined')
 		{
+
 			$( "#dialog p").text(js_please_login); 
 			$( "#dialog" ).dialog({
 				buttons: [
@@ -255,13 +257,13 @@ var shopCartCtrl = function($scope, $cookies, $rootScope, User){
 					  text: "close",
 					  click: function() {
 						$( this ).dialog( "close" );
-						location.href="/Login/?back=ShopCart";
+						location.href="/login/?back=ShopCart";
 					  }
 					}
 				]
 			});
 			return false;
-		}
+		}*/
 		
 		
 		if($('input[name=o_consignee]').val() =="")
@@ -691,6 +693,7 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
 {
 	$scope.sending =false;
 	$scope.getUserProfile = function(r){
+        $scope.u_id=r.data.body.user.u_id;
 		$scope.u_fname = r.data.body.user.u_first_name;
 		$scope.u_lname=r.data.body.user.u_last_name;
         $scope.u_phone=r.data.body.user.u_phone;
@@ -771,7 +774,7 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
 	}
 }
 
-var orderCtrl = function($scope, $cookies, $rootScope, User)
+var orderCtrl = function($scope, $cookies, $rootScope, apiService)
 {	
 	$scope.data={
 		orders :{},

@@ -28,12 +28,16 @@
 		margin-top: 20px!important;
 	}
 </style>
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-<main class="page-content" ng-controller="userCtrl" ng-init="init()"  >
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+
+<main class="page-content this-white" ng-controller="userCtrl" ng-init="init()"  >
 
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
-	<section class="bg-white container this-margin-top this-margin-button " style="padding: 0px; color: white!important; font-size: 14px;">
+	<section class="bg-white container this-margin-top this-margin-button " style="padding: 0px; color:
+	white!important; font-size: 14px; ">
 
 				<div class="">
 				<ul class="nav nav-tabs" style="background:#f16121; border: none; padding: 0px">
@@ -111,17 +115,20 @@
 						<div id="address" class="tab-pane this-animate-right this-left-align">
 							<div class="well this-white " style="border: none">
 
-								<div class="this-container">
+								<div class="this-container" style="padding: 0px">
 									<div class="row">
-										<div class="col-sm-7" style="padding: 0px">
+										<div class="col-sm-4" style="padding: 0px">
 											<form  class="form" style="text-align: left" id="frm_add" action="/User_Position/doInsert" method="post" >
+												<input type="text" id="o_consignee" ng-model="u_id" name="u_id"
+													   style="display: none" required>
 												<div class="form-group ">
 													<div class="col-sm-12">
 														<label for="p_name">Address name :</label>
-														<select  id="o_position_id" data-constraints="@Required"  name="o_position_id"  class=" form-control"
-																 style="padding: 2px; padding-left: 10px; height: 38px;!important; border-radius: 4px" >
+														<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm" style="padding: 2px; padding-left: 10px">
 															<option value="0">請選擇</option>
-															<option data-y="{{position.u_position_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+															<{foreach from=$location item=row key=index}>
+															<option value="<{$row.p_id}>"><{$row.p_title}> </option>
+															<{/foreach}>
 														</select>
 													</div>
 													<div class="col-sm-4 this-margin-top">
@@ -134,7 +141,7 @@
 												<div class="form-group ">
 													<div class="col-sm-12 this-margin-top">
 														<label for="p_desc">Plcese Description :</label>
-														<textarea class="form-control">
+														<textarea class="form-control" name="desc">
 
 													</textarea>
 														<hr/>
@@ -147,52 +154,62 @@
 												<div id='response'></div>
 											</form>
 										</div>
+										<div class="col-sm-7" style="padding: 0px">
+											<div ng-init="mapinit()"  data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
+												<ul class="map_locations">
+													<li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
+														<p data-position_id ="1" style="width: 200px; text-align:  center;">
+															<span style="width:28px">{{position.p_name}}</span>
+														</p>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 
 							</div>
 						</div>
-					    <div id="order_list" class="tab-pane this-animate-right this-left-align">
+					    <div id="order_list" class="tab-pane this-animate-right this-left-align" style="padding: 0px;" >
 							<div class="well this-white " style="border: none; padding: 0px">
 
-								<div class="this-container">
+								<div class="this-container"  ng-controller="orderCtrl" ng-init="orderList()">
 									<div class="row">
 
-										<div class="col-sm-12" style="padding: 0px">
+										<div class="col-sm-12" style="padding: 0px" >
 											<div class="table-responsive" style="padding: 0px">
-												<table class="table table-primary">
+												<table id="tb_order" class="table table-striped table-bordered"
+													   cellspacing="0" width="100%">
 
-													<tbody>
+													<thead>
 													<tr class="this-border">
 														<td>Order ID</td>
 														<td>Date/Time</td>
 														<td>Discount</td>
 														<td>Total</td>
-														<td>######</td>
+														<td>Status</td>
 													</tr>
-													<tr>
-														<td>#0001</td>
-														<td>21-02-2018 8:45:50</td>
-														<td>$0.00</td>
-														<td>$3.00</td>
-														<td>
-															<span class="badge this-green"> Completed</span>
-															<a href="#"> <span class="badge this-orange this-text-white " >View</span>
-															</a>
-														</td>
-													</tr>
-													<tr>
-														<td>#0002</td>
-														<td>21-02-2018 8:45:50</td>
-														<td>$0.00</td>
-														<td>$3.00</td>
-														<td>
-															<span class="badge this-green"> Completed</span>
-															<a href="#"> <span class="badge this-orange this-text-white " >View</span>
-															</a>
+													</thead
 
-														</td>
-													</tr>
+													<tbody>
+											      			<tr  ng-repeat="row in data.orders" >
+															<td>{{row.o_id}}</td>
+															<td>{{row.add_datetime}}</td>
+															<td>{{row.o_discount}}</td>
+															<td>{{row.o_total}}</td>
+
+															<td>
+																<span class="badge this-green"> {{row.o_status}}</span>
+																<a href="/user/inv/{{row.o_id}}"> <span class="badge
+																this-orange
+																this-text-white " >View</span>
+																</a>
+															</td>
+														</tr>
+
+													</tbody>
+
+
 
 												</table>
 											</div>
@@ -225,7 +242,9 @@
 						<div class="form-group" style="width: 90%">
 							<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm" style="padding: 2px; padding-left: 10px">
 								<option value="0">請選擇</option>
-								<option data-y="{{position.p_lat}}"     data-x="{{position.p_lng}}" value="{{position.p_id}}" ng-repeat="position in positions">{{position.p_name}}</option>
+								<{foreach from=$location item=row key=index}>
+								<option value="<{$row.p_title}>"><{$row.p_title}> </option>
+								<{/foreach}>
 							</select>
 
 						</div>
@@ -274,6 +293,7 @@
 	</div>
 
 </main>
+
 <script>
     function openLocation() {
         $('#this_map').removeClass('this-hide');
@@ -283,3 +303,14 @@
     }
 
 </script>
+<!--
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script >
+    $.noConflict();
+    jQuery( document ).ready(function( $ ) {
+        $('#tb_order').DataTable();
+    });
+</script>\
+-->

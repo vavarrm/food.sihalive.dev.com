@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+session_start();
 class User extends CI_Controller {
 	
 	public function __construct() 
@@ -12,12 +12,25 @@ class User extends CI_Controller {
 		$this->get = $this->input->get();
 		$this->post = $this->input->post();
 		$this->load->model('User_Model', 'user');
+        $this->load->model('Food_Model', 'food');
+        $this->load->model('Order_Model', 'order');
+        $this->load->library('session');
+        $this->load->helper('url');
+        $this->load->model('Position_Model', 'adds');
+
+
+
     }
-	
+
 	public function Profile()
 	{
+
+
+        $location = $this->adds->getDeliveryPosition();
+
 		$this->smarty->assign(array(
-			'userLanguageAry'	=>$this->user_language_ary,
+            'location'		=>$location,
+			'userLanguageAry'	=>$this->user_language_ary
 		));
 		$this->smarty->displayFrame(__CLASS__.'/profile.tpl');
 	}
@@ -27,8 +40,10 @@ class User extends CI_Controller {
 	
 	public function index()
 	{
+        $location = $this->adds->getDeliveryPosition();
         $this->smarty->assign(array(
-            'userLanguageAry'	=>$this->user_language_ary,
+            'location'		=>$location,
+            'userLanguageAry'	=>$this->user_language_ary
         ));
         $this->smarty->displayFrame(__CLASS__.'/profile.tpl');
 		
@@ -64,5 +79,35 @@ class User extends CI_Controller {
 		
 		$this->myfunc->response($output);
 	}
-	
+
+    function inv($inv)
+    {
+        $order = $this->user->inv_view($inv);
+        $sum = $this->user->sum_price_order_by_rId($inv);
+        if($order==true){
+            $this->smarty->assign(array(
+                'order'            =>$order,
+                'sum'            =>$sum,
+                'userLanguageAry'	=>$this->user_language_ary,
+            ));
+            $this->smarty->displayFrame(__CLASS__.'/order_detail.tpl');
+        }else{
+
+            redirect(base_url().'profile');
+
+        }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 }

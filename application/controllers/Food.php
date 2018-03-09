@@ -70,6 +70,13 @@ class Food extends CI_Controller {
 		));
 		$this->smarty->display(__CLASS__.'/shopInfo.tpl');
 	}
+
+
+	function foodList_by_Id($userId){
+
+
+
+    }
 	
 	
 }

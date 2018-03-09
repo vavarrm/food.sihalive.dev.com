@@ -10,14 +10,18 @@ class User_Position extends CI_Controller{
     public function __construct()
     {
         parent::__construct();
+        $this->load->Model('User_Position_Model','position');
     }
     public function doInsert(){
-        $u_position_name=null;
 
-        extract($_POST);
-        $param['u_position_name']=$u_position_name;
-        $this->load->model('User_Position_Model');
-        $result=$this->User_Position_Model->insert($param);
+        $data = array(
+            'p_id' => $this->input->post('o_position_id'),
+            'p_description' => $this->input->post('desc'),
+            'u_id' => $this->input->post('u_id'),
+
+        );
+
+        $result=$this->position->insert($data);
 
 
     }

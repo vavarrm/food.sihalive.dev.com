@@ -7,7 +7,7 @@ class ShopCart extends CI_Controller {
 	{
 		parent::__construct();
 		$this->shopcart_language_ary = $this->language->load('shopcart');
-        $this->load->model("User_Position_Model");
+        $this->load->model("User_Position_Model",'position');
     }
 	
 	public function index()
@@ -17,10 +17,11 @@ class ShopCart extends CI_Controller {
 	
 	public function order()
 	{
-       // $user_location= $this->User_Position_Model->listLocation();
 
+        $user_location=$this->position->listLocation('27');
 		$this->smarty->assign(array(
-			'shopLanguageAry'	=>$this->shopcart_language_ary,
+		    'user_location'     =>$user_location,
+			'shopLanguageAry'	=>$this->shopcart_language_ary
 		));
 		$this->smarty->displayFrame(__CLASS__.'/shop-cart.tpl');
 	}

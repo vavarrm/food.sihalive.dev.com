@@ -6,6 +6,7 @@ class MyFBApi
 	public function __construct() 
 	{
 		require_once (APPPATH.'/third_party/Facebook/autoload.php');
+
 		$this->CI = & get_instance();
 		$fb = new Facebook\Facebook ([
 			'app_id' => $this->CI->config->item('fb_app_id'),
