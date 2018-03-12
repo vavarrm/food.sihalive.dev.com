@@ -81,6 +81,7 @@ class CI_Model {
 	{
 		try
 		{	
+
 			if($ary['limit']==0)
 			{
 				$MyException = new MyException();
@@ -152,6 +153,8 @@ class CI_Model {
 				$order .=join(',',$order_ary);
 			}
 			
+			
+			
 			$sql =$ary['sql'];
 			$search_sql = $sql.$where.$order.$limit ;
 			$query = $this->db->query($search_sql, $bind);
@@ -176,7 +179,7 @@ class CI_Model {
 			{
 				$MyException = new MyException();
 				$array = array(
-					'message' 	=>$error['message'] ,
+					'system_error' 	=>$error['message'] ,
 					'status'	=>'000'
 				);
 				

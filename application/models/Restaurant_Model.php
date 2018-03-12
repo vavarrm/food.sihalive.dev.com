@@ -11,6 +11,63 @@ class Restaurant_Model extends CI_Model{
 
     }
 	
+	public function getFoodRowById($f_id)
+	{
+		$output = array();
+		try
+		{
+			$sql="SELECT * FROM food WHERE f_id =?";
+			$bind = array($f_id);
+			$query =$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$row=$query->row_array();
+			$output['info'] = $row;
+			
+			$sql="	SELECT c.* 
+					FROM 
+						restaurant AS r
+							INNER JOIN  category AS c ON c.ca_r_id = r.r_id 
+					WHERE r.r_id =?
+			";
+			$bind = array($row['f_r_id']);
+			$query =$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$rows=$query->result_array();
+			$output['info']['category'] = $rows;
+			
+			
+			$query->free_result();
+            return $output;
+			
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+	}
+	
 	public function getRowById($r_id)
 	{
 		$output = array();
@@ -63,6 +120,282 @@ class Restaurant_Model extends CI_Model{
 			throw $e;
 		}
 		
+	}
+	
+	public function updateCategory($ary)
+	{
+		$output= array(
+			'affected_rows'	=>0
+		);
+		try
+		{
+			$this->db->trans_begin();
+			$sql =" UPDATE category SET 
+						ca_name = ?,
+						ca_name_en= ?
+					WHERE ca_id = ?
+					";
+			$bind=array(
+				$ary['ca_name'],
+				$ary['ca_name_en'],
+				$ary['ca_id'],
+			);
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$output['affected_rows'] += $this->db->affected_rows();
+			$this->db->trans_commit();
+			return $output;
+		}catch(MyException $e)
+		{
+			$this->db->trans_rollback();
+			throw $e;
+		}
+	}
+	
+	public function getCategoryRowById($id)
+	{
+		$output = array();
+		try
+		{
+			$sql="SELECT * FROM category WHERE ca_id =?";
+			$bind = array($id);
+			$query =$this->db->query($sql, $bind); 
+		
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$row=$query->row_array();
+			$output['row'] = $row;
+			$query->free_result();
+            return $output;
+			
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+	}
+	
+	public function delCategory($id)
+	{
+		try
+		{
+			$bind = array(
+				$id
+			);
+			$sql="DELETE FROM  category WHERE ca_id=?";
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+		}catch(MyException $e){
+			throw $e;
+		}
+	}
+	
+	public function insertCategory($ary)
+	{
+		$output= array(
+			'affected_rows'	=>0
+		);
+		try
+		{
+			$this->db->trans_begin();
+			if(empty($ary))
+			{
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$sql = "SELECT COUNT(*) AS total FROM category WHERE ca_r_id =? AND ca_name =? AND ca_name_en =?";
+			$bind = array(
+				$ary['r_id'],
+				$ary['ca_name'],
+				$ary['ca_name_en'],
+			);
+			
+			$query =$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$row = $query->row_array();
+			
+			if($row['total'] >0)
+			{
+				$MyException = new MyException();
+				$array = array(
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$query->free_result();
+			
+			$sql ="INSERT INTO category (ca_name, ca_name_en,  ca_r_id)
+			      VALUES (?,?,?)";
+			$bind = array(
+				$ary['ca_name'],
+				$ary['ca_name_en'],
+				$ary['r_id'],
+			);
+			$this->db->query($sql, $bind); 
+			$output['affected_rows'] += $this->db->affected_rows();
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$this->db->trans_commit();
+			return $output;
+			
+		}catch(MyException $e)
+		{
+			$this->db->trans_rollback();
+			throw $e;
+		}
+	}
+	
+	
+	public function getCategoryList($ary)
+	{
+		try
+		{
+			if(empty($ary))
+			{
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$fields = join(',' ,$ary['fields']);
+			
+			$sql ="	SELECT ca_id AS id," 
+					.$fields.	
+					" FROM
+						 category AS ca";
+			$ary['sql'] =$sql;
+			$output = $this->getListFromat($ary);
+			return 	$output  ;
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+	}
+	
+	public function foodUpdate($ary)
+	{
+		$output= array(
+			'affected_rows'	=>0
+		);
+		try
+		{
+			$this->db->trans_begin();
+			$sql =" UPDATE food SET 
+						f_name = ?,
+						f_name_en= ?,
+						f_status= ?,
+						f_large_price= ?,
+						f_medium_price= ?,
+						f_small_price= ?,
+						f_ca_id= ?
+					WHERE f_r_id = ? AND  f_id =?
+					";
+			$bind=array(
+				$ary['f_name'],
+				$ary['f_name_en'],
+				$ary['f_status'],
+				$ary['f_large_price'],
+				$ary['f_medium_price'],
+				$ary['f_small_price'],
+				$ary['f_ca_id'],
+				$ary['f_r_id'],
+				$ary['f_id']
+			);
+			$this->db->query($sql, $bind); 
+			// echo $this->db->last_query();
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$output['affected_rows'] += $this->db->affected_rows();
+			$this->db->trans_commit();
+			return $output;
+		}catch(MyException $e)
+		{
+			$this->db->trans_rollback();
+			throw $e;
+		}	
 	}
 	
 	public function update($ary)
@@ -198,6 +531,88 @@ class Restaurant_Model extends CI_Model{
 			throw $e;
 		}
     }
+	
+	public function delFood($id , $r_id)
+	{
+		try
+		{
+			$bind = array(
+				$id
+			);
+			$sql="DELETE FROM food WHERE f_id=?";
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+		}catch(MyException $e){
+			throw $e;
+		}
+	}
+	
+	public function insertFood($ary =array())
+	{
+		$output= array(
+			'affected_rows'	=>0
+		);
+		try
+		{
+			if(empty($ary))
+			{
+				$MyException = new MyException();
+				$array = array(
+					'message' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$sql ="INSERT INTO food (f_name, f_name_en, f_status, f_large_price, f_medium_price, f_small_price, f_r_id, f_ca_id)
+			      VALUES (?,?,?,?,?,?,?,?)";
+			$bind = array(
+				$ary['f_name'],
+				$ary['f_name_en'],
+				$ary['f_status'],
+				$ary['f_large_price'],
+				$ary['f_medium_price'],
+				$ary['f_small_price'],
+				$ary['f_r_id'],
+				$ary['f_ca_id'],
+			);
+			$this->db->query($sql, $bind); 
+			$output['affected_rows'] += $this->db->affected_rows();
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			return $output;
+			
+		}catch(MyException $e)
+		{
+			throw $e;
+		}
+	}
 	
 	public function getRestaurantCategory($ary =array())
 	{

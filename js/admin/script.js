@@ -172,13 +172,11 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		tabindex: $routeParams.tabindex,
 		table_action_list :{}
 	};
-	
 	$scope.edit = function(id)
 	{
-		var controller = $routeParams.controller;
-		var func = 'edit';
-		var page =controller+'Edit';
-		location.href="/admin/layout/form_panel.html#!/formEdit/"+controller+'/'+func+'/'+page+'/'+id+'/'+$routeParams.pe_id ;
+		var url ="/admin/layout/form_panel.html#!/formEdit/"+$scope.data.form.table_edit+id+'/'+$routeParams.pe_id ;
+		
+		location.href=url;
 	}
 	
 	$scope.del  = function(id)
@@ -206,7 +204,7 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 							$scope.search();
 						}
 						$scope.ajaxload = true;
-						var promise = apiService.adminApi(controller,'del', obj, $routeParams.pe_id);
+						var promise = apiService.adminApi(controller,$scope.data.form.table_del, obj, $routeParams.pe_id);
 						promise.then
 						(
 							function(r) 
@@ -251,13 +249,13 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		dialog(obj);
 	}
 	
-	$scope.editFormInit = function()
+	$scope.editFormInit = function(func)
 	{
 		var controller = $routeParams.controller;
 		var obj={
 			id : $routeParams.id
 		}
-		var promise = apiService.adminApi(controller,'getRow', obj,$routeParams.pe_id);
+		var promise = apiService.adminApi(controller,func, obj,$routeParams.pe_id);
 		promise.then
 		(
 			function(r) 
@@ -265,11 +263,17 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 				if(r.data.status =="200")
 				{
 					$scope.data.form_row = r.data.body.row.info;
-					$scope.data.form_row.operation = r.data.body.row.operation;
-					var div ='<my-map  zoom="15" lat="'+$scope.data.form_row.r_lat+'" lng="'+$scope.data.form_row.r_lng+'"></my-map>';
 					var sess = $cookies.get('admin_sess');
-					$scope.data.form.action="/"+controller+"/doEdit?sess="+sess+"&pe_id="+$routeParams.pe_id;
-					$('.myGamp').append($compile(div)($scope));
+					$scope.data.form.action=r.data.body.row.form.action+"?sess="+sess+"&pe_id="+r.data.body.row.form.pe_id;
+					// $scope.data.form.action="/"+controller+"/doEdit?sess="+sess+"&pe_id="+$routeParams.pe_id;
+					if(typeof r.data.body.row.operation !="undefined")
+					{
+						$scope.data.form_row.operation = r.data.body.row.operation;
+						var div ='<my-map  zoom="15" lat="'+$scope.data.form_row.r_lat+'" lng="'+$scope.data.form_row.r_lng+'"></my-map>';
+					
+						
+						$('.myGamp').append($compile(div)($scope));
+					}
 				}else
 				{
 					var obj =
@@ -451,6 +455,8 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 					$scope.data.table_fields = r.data.body.fields;
 					$scope.data.table_action_list = r.data.body.action_list;
 					$scope.data.form.table_add = r.data.body.form.table_add;
+					$scope.data.form.table_del = r.data.body.form.table_del;
+					$scope.data.form.table_edit = r.data.body.form.table_edit;
 				}else
 				{
 					var obj =

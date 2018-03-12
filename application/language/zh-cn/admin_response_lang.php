@@ -7,4 +7,5 @@
 	$lang['005'] = "passwd is error";
 	$lang['006'] = "login is empty";
 	$lang['007'] = "no permissions";
+	$lang['008'] = "Duplicate data";
 ?>

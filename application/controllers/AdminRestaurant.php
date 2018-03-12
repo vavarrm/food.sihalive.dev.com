@@ -93,7 +93,7 @@ class AdminRestaurant extends CI_Controller {
 	{
 		$output['body']=array();
 		$output['status'] = '200';
-		$output['title'] ='Restaurant List';
+		$output['title'] ='Restaurant  Del';
 		try 
 		{
 	
@@ -126,7 +126,7 @@ class AdminRestaurant extends CI_Controller {
 	{
 		$output['body']=array();
 		$output['status'] = '200';
-		$output['title'] ='Restaurant List';
+		$output['title'] ='Edit Restaurant';
 		$output['message'] ='upload ok';
 		$back =-2;
 		try 
@@ -169,6 +169,269 @@ class AdminRestaurant extends CI_Controller {
 		$this->myfunc->back($back,$output['message']);
 	}
 	
+	public function doFoodEdit()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Edit Food';
+		$output['message'] ='upload ok';
+		$back =-2;
+		try 
+		{
+			if(
+				$this->post['f_id'] =='' ||
+				$this->post['f_r_id'] ==''  ||
+				$this->post['f_name'] ==''  ||
+				$this->post['f_name_en'] ==''  ||
+				$this->post['f_large_price'] ==0 
+			)
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->foodUpdate($this->post);
+			
+			if($data['affected_rows'] ==0)
+			{
+				$output['message'] ="nothing upload";
+				$back = -1;
+			}
+		}catch(MyException $e)
+		{
+			$back++;
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		$this->myfunc->back($back,$output['message']);
+	}
+	
+	public function addCategory()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Add Category Form Init';
+		$output['message'] = "Add Ok";
+		$back =-2;
+		try 
+		{
+			$r_id = (!empty($this->post['r_id']))?$this->post['r_id']:'';
+			if(	$r_id  =='')
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->insertCategory($this->post);
+			
+			if($data['affected_rows'] ==0)
+			{
+				$output['message'] ="nothing upload";
+				$back = -1;
+			}
+		}catch(MyException $e)
+		{
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			echo $parames['message'];
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->back($back,$output['message']);
+	}
+	
+	public function doCategoryEdit()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Edit Category';
+		$output['message'] ='upload ok';
+		$back =-2;
+		try 
+		{
+			if(
+				$this->post['ca_id'] =='' ||
+				$this->post['ca_name'] =='' ||
+				$this->post['ca_name_en']  =='' 
+			)
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->updateCategory($this->post);
+			
+			if($data['affected_rows'] ==0)
+			{
+				$output['message'] ="nothing upload";
+				$back = -1;
+			}
+		}catch(MyException $e)
+		{
+			$back++;
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->back($back,$output['message']);
+	}
+	
+	public function getCategoryRow()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Category Row';
+		try 
+		{
+			$id= (isset($this->request['id']))?$this->request['id']:'';
+			if($id=="")
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->getCategoryRowById($id);
+			$output['body']['row']['info'] = $data['row'];
+			$output['body']['row']['form'] = array(
+				'action'	=> '/'.__CLASS__.'/doCategoryEdit',
+				'pe_id'		=>$this->get['pe_id']
+			);
+		}catch(MyException $e)
+		{
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->response($output);
+	}
+	
+	public function delCategory()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Category  Del';
+		try 
+		{
+	
+			$id= (isset($this->request['id']))?$this->request['id']:'';
+			if($id=="")
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->delCategory($id);
+			
+		}catch(MyException $e)
+		{
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		$this->myfunc->response($output);
+	}
+	
+	public function getCategoryList()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Restaurant List';
+		try 
+		{
+			$r_id = (!empty($this->request['id']))?$this->request['id']:'';
+			if(	$r_id  =='')
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$ary['limit'] = (isset($this->request['limit']))?$this->request['limit']:10;
+			$ary['p'] = (isset($this->request['p']))?$this->request['p']:1;
+			
+			$form['inputSearchControl'] = array(
+				'ca_name'	=>array('type'	=>'text'),
+				'ca_name_en'	=>array('type'	=>'text')
+			);
+			$form['table_add'] = __CLASS__."/addCategory/".__CLASS__."CategoryAdd/";
+			$form['table_del'] = "delCategory";
+			$form['table_edit'] =  __CLASS__."/editCategory/".__CLASS__.'CategoryEdit/';
+			if(!empty($form['inputSearchControl']))
+			{
+				foreach($form['inputSearchControl'] as $key => $value)
+				{
+					$$key= (isset($this->request[$key]))?$this->request[$key]:'';
+				}
+			}
+			
+			$ary['order'] = (empty($this->request['order']))?array("ca_id"=>'DESC'):$this->request['order'];
+			$ary['fields'] = array(
+				'ca_id'			=>'ca.ca_id',
+				'ca_name'		=>'ca.ca_name',
+				'ca_name_en'	=>'ca.ca_name_en',
+			);
+			
+			$list = $this->restaurant->getCategoryList($ary);
+			
+			$output['body'] = $list;
+			$output['body']['fields'] = $ary['fields'] ;
+			$output['body']['form'] =$form;
+			$output['body']['action_list'] =$action_list;
+		}catch(MyException $e)
+		{
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->response($output);
+	}
+	
 	public function getRow()
 	{
 		$output['body']=array();
@@ -188,6 +451,10 @@ class AdminRestaurant extends CI_Controller {
 			}
 			$row = $this->restaurant->getRowById($id);
 			$output['body']['row'] = $row;
+			$output['body']['row']['form'] = array(
+				'action'	=> '/'.__CLASS__.'/doEdit',
+				'pe_id'		=>$this->get['pe_id']
+			);
 		}catch(MyException $e)
 		{
 			$parames = $e->getParams();
@@ -200,6 +467,50 @@ class AdminRestaurant extends CI_Controller {
 		}
 		
 		$this->myfunc->response($output);
+	}
+	
+	public function addFood()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Restaurant add food';
+		$output['message'] ='add ok';
+		$back =-2;
+		try 
+		{
+			if(
+				$this->post['f_r_id'] ==''  ||
+				$this->post['f_name'] ==''  ||
+				$this->post['f_name_en'] ==''  ||
+				$this->post['f_large_price'] ==0 
+			)
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->insertFood($this->post);
+			if($data['affected_rows'] ==0)
+			{
+				$output['message'] ="nothing upload";
+				$back = -1;
+			}
+		}catch(MyException $e)
+		{
+			$back++;
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->back($back,$output['message']);
 	}
 	
 	public function addFoodInit()
@@ -222,6 +533,78 @@ class AdminRestaurant extends CI_Controller {
 			
 			$ary['r_id'] =$r_id ;
 			$output['body']['controller_list']['category_list'] = $this->restaurant->getRestaurantCategory($ary);
+		}catch(MyException $e)
+		{
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		
+		$this->myfunc->response($output);
+	}
+	
+	public function delFood()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Restaurant Food Del';
+		try 
+		{
+	
+			$id= (isset($this->request['id']))?$this->request['id']:'';
+			if($id=="")
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$data = $this->restaurant->delFood($id);
+			// if($data
+		}catch(MyException $e)
+		{
+			$parames = $e->getParams();
+			$parames['class'] = __CLASS__;
+			$parames['function'] = __function__;
+			$parames['message'] =  $this->response_code[$parames['status']]; 
+			$output['message'] = $parames['message']; 
+			$output['status'] = $parames['status']; 
+			$this->myLog->error_log($parames);
+		}
+		$this->myfunc->response($output);
+	}
+	
+	public function getFoodRow()
+	{
+		$output['body']=array();
+		$output['status'] = '200';
+		$output['title'] ='Restaurant Row';
+		try 
+		{
+			$id= (isset($this->request['id']))?$this->request['id']:'';
+			if($id=="")
+			{
+				$array = array(
+					'status'	=>'002'
+				);
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$ary['f_id'] = $id;
+			$row = $this->restaurant->getFoodRowById($id);
+			
+			$output['body']['row'] = $row;
+			$output['body']['row']['form'] = array(
+				'action'	=> '/'.__CLASS__.'/doFoodEdit',
+				'pe_id'		=>$this->get['pe_id']
+			);
 		}catch(MyException $e)
 		{
 			$parames = $e->getParams();
@@ -261,7 +644,9 @@ class AdminRestaurant extends CI_Controller {
 				'f_name'	=>array('type'	=>'text'),
 				'f_name_en'	=>array('type'	=>'text'),
 			);
-			$form['table_add'] = __CLASS__."/addFood/addFoodForm/";
+			$form['table_add'] = __CLASS__."/addFood/".__CLASS__."FoodAdd/";
+			$form['table_del'] = "delFood";
+			$form['table_edit'] =  __CLASS__."/add/".__CLASS__.'FoodEdit/';
 			if(!empty($form['inputSearchControl']))
 			{
 				foreach($form['inputSearchControl'] as $key => $value)
@@ -317,6 +702,8 @@ class AdminRestaurant extends CI_Controller {
 				'r_name_en'	=>array('type'	=>'text'),
 			);
 			$form['table_add'] = __CLASS__."/add/".__CLASS__.'Add/';
+			$form['table_del'] = "del";
+			$form['table_edit'] =  __CLASS__."/add/".__CLASS__.'edit/';
 			if(!empty($form['inputSearchControl']))
 			{
 				foreach($form['inputSearchControl'] as $key => $value)
