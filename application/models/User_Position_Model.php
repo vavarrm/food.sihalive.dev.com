@@ -33,12 +33,26 @@ class User_Position_Model extends CI_Model {
         }else{
             return false;
         }
+    }
+
+    public function My_loac($id){
+
+        $this->db->select("*");
+        $this->db->from('user_position_book');
+        $this->db->where('u_id',$id);
+        $query=$this->db->get();
+        if($query->num_rows() >0){
+            return $query->result();
+        }else{
+            return false;
+        }
 
     }
 
     public function insert($post)
     {
         $this->db->insert($this->table, $post);
+        return true;
 
     }
 

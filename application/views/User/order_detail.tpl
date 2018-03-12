@@ -32,7 +32,8 @@
 
                            <p ><span class="this-hide-small" style="font-weight: bold"> STATUS: </span> <span
                                        class="icon icon-sm icon-primary fa fa-truck this-hide-large"> :</span>
-                               <i > <{$row.o_status}></i></p>
+                               <i class=" this-spin fa fa-refresh" style="color: limegreen"></i>
+                               <i > <{$row.o_status}></i>...</p>
                        </div>
                    <{/foreach}>
                </div>

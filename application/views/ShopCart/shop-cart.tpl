@@ -20,10 +20,10 @@
 				</div>
 				<div class="col-xs-4  text-left">
 					<div class="h5 text-sbold offset-top-20 ">
-						<span  class=" grid-element-mod-2"　ng-bind="item.f_name"></span>
+						<span  class=" grid-element-mod-2"　ng-bind="item.f_name"> {{item.f_name}}</span>
 					</div>
 					<div class="offset-top-0">
-						<span class="h5 text-sbold" ng-bind="'$'+item.price"> frff</span>
+						<span class="h5 text-sbold" ng-bind="'$'+item.price"> {{item.price}}</span>
 					</div>
 				</div>
 				<div class="col-xs-2  text-left">
@@ -32,7 +32,12 @@
 					</div>
 					<div class="offset-top-0">
 					<span class="h5 text-sbold">$<span>
-					<span data-index="{{$index}}" data-subtotal="{{item.subtotal}}" class="h5 text-sbold subtotal" ng-model="item.subtotal" ng-bind="item.subtotal" ng-init="item.subtotal =  (item.price*item.order_num)"></span>
+					<span data-index="{{$index}}" data-subtotal="{{item.subtotal}}"
+						  class="h5 text-sbold subtotal"
+						  ng-model="item.subtotal" ng-bind="item.subtotal"
+						  ng-init="item.subtotal=(item.price*item.order_num)">
+
+					</span>
 					</div>
 				</div>
 				<div class="col-xs-1">

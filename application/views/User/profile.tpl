@@ -41,82 +41,140 @@
 
 				<div class="">
 				<ul class="nav nav-tabs" style="background:#f16121; border: none; padding: 0px">
-					<li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+					<li class="active"><a data-toggle="tab" href="#order_list"><span class="glyphicon glyphicon-book"></span>
+							Order </a></li>
+
+					<li ><a data-toggle="tab" href="#home"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 					<li><a data-toggle="tab" href="#address"><span class="glyphicon glyphicon-map-marker"></span>  Address</a></li>
-					<li><a data-toggle="tab" href="#order_list"><span class="glyphicon glyphicon-book"></span>  Order </a></li>
 
 				</ul>
 
 				<div class="tab-content this-border this-padding-top this-padding " style="border: none!important; margin-bottom: 50px">
+					<div id="home" class="tab-pane this-animate-right " style="margin-top: 20px">
+						<div class="c">
+							<div class=" this-white" style="border: none">
+								<div class="row">
+									<div class="col-sm-1"></div>
 
-						<div id="home" class="tab-pane this-animate-right in active " style="margin-top: 20px">
-							<div class="c">
-								<div class=" this-white" style="border: none">
-									<div class="row">
-										<div class="col-sm-1"></div>
-
-										<div class="col-sm-8">
-											<form method="post"  class="rd-mailform form-contact-line text-left" >
+									<div class="col-sm-8">
+										<form method="post"  class="rd-mailform form-contact-line text-left" >
+											<div class="form-inline-flex">
+												<div class="form-group">
+													<label for="o_consignee" class="form-label form-label-outside rd-input-label">First name :</label>
+													<input id="o_consignee" ng-model="u_fname"  type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+													<span class="form-validation"></span>
+												</div>
+												<div class="form-group">
+													<label for="o_phone" class="form-label form-label-outside rd-input-label">Last name :</label>
+													<input id="o_phone" ng-model="u_lname" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+												</div>
+											</div>
+											<div class="form-inline-flex this-margin-top">
+												<div class="form-group">
+													<label for="o_consignee" class="form-label form-label-outside rd-input-label">Phone : </label>
+													<input id="o_consignee" ng-model="u_phone"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+													<span class="form-validation"></span>
+												</div>
+												<div class="form-group">
+													<label for="o_phone" class="form-label form-label-outside rd-input-label">E-mail : </label>
+													<input id="o_email" ng-model="u_email" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+												</div>
+											</div>
+											<div class="form-inline-flex this-margin-top">
+												<div class="form-group">
+													<label for="o_consignee" class="form-label form-label-outside rd-input-label">Password :</label>
+													<input id="o_consignee" ng-model="u_pwd"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
+													<span class="form-validation"></span>
+												</div>
+												<div class="form-group">
+													<label for="o_phone" class="form-label form-label-outside rd-input-label">Confirm password</label>
+													<input id="o_email" ng-model="u_confpwd" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+												</div>
+											</div>
+											<div class="offset-top-30">
 												<div class="form-inline-flex">
 													<div class="form-group">
-														<label for="o_consignee" class="form-label form-label-outside rd-input-label">First name :</label>
-														<input id="o_consignee" ng-model="u_fname"  type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
-														<span class="form-validation"></span>
-													</div>
-													<div class="form-group">
-														<label for="o_phone" class="form-label form-label-outside rd-input-label">Last name :</label>
-														<input id="o_phone" ng-model="u_lname" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
+														<button ng-click="setProfile();$event.preventDefault();"  class="this-btn this-btn-this"><{$language.from_button_sumbit}></button>
 													</div>
 												</div>
-												<div class="form-inline-flex this-margin-top">
-													<div class="form-group">
-														<label for="o_consignee" class="form-label form-label-outside rd-input-label">Phone : </label>
-														<input id="o_consignee" ng-model="u_phone"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
-														<span class="form-validation"></span>
-													</div>
-													<div class="form-group">
-														<label for="o_phone" class="form-label form-label-outside rd-input-label">E-mail : </label>
-														<input id="o_email" ng-model="u_email" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
-													</div>
-												</div>
-												<div class="form-inline-flex this-margin-top">
-													<div class="form-group">
-														<label for="o_consignee" class="form-label form-label-outside rd-input-label">Password :</label>
-														<input id="o_consignee" ng-model="u_pwd"  type="text" placeholder="<{$userLanguageAry.user_delivery_consignee}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
-														<span class="form-validation"></span>
-													</div>
-													<div class="form-group">
-														<label for="o_phone" class="form-label form-label-outside rd-input-label">Confirm password</label>
-														<input id="o_email" ng-model="u_confpwd" type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
-													</div>
-												</div>
-												<div class="offset-top-30">
-													<div class="form-inline-flex">
-														<div class="form-group">
-															<button ng-click="setProfile();$event.preventDefault();"  class="this-btn this-btn-this"><{$language.from_button_sumbit}></button>
-														</div>
-													</div>
-												</div>
-											</form>
-
-										</div>
+											</div>
+										</form>
 
 									</div>
+
 								</div>
 							</div>
 						</div>
+					</div>
+					<div id="order_list" class="tab-pane this-animate-right this-left-align in active " style="padding: 0px;" >
+						<div class="well this-white " style="border: none; padding: 0px">
+
+							<div class="this-container"  >
+								<div class="row">
+
+									<div class="col-sm-12" style="padding: 0px" >
+										<div class="table-responsive" style="padding: 0px" ng-controller="orderCtrl" ng-init="orderList()"  >
+											<table id="tb_order" class="table table-striped table-bordered"
+												   cellspacing="0" width="100%"  >
+
+												<thead>
+												<tr class="this-border">
+													<td class="this-hide-small">Order ID</td>
+													<td>Date/Time</td>
+													<td  class="this-hide-small">Discount</td>
+													<td>Total</td>
+													<td>Status</td>
+												</tr>
+												</thead
+
+												<tbody >
+
+												<tr  ng-repeat="row in data.orders" >
+													<td  class="this-hide-small">{{row.o_id}}</td>
+													<td>{{row.add_datetime}}</td>
+													<td  class="this-hide-small">{{row.o_discount}}</td>
+													<td>{{row.o_total}}</td>
+
+													<td>
+														<span class="badge this-green"> {{row.o_status}}</span>
+														<a href="/user/inv/{{row.o_id}}"> <span class="badge
+																this-orange
+																this-text-white " >View</span>
+														</a>
+													</td>
+												</tr>
+
+												</tbody>
+
+
+
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+
 
 						<div id="address" class="tab-pane this-animate-right this-left-align">
 							<div class="well this-white " style="border: none">
 
 								<div class="this-container" style="padding: 0px">
 									<div class="row">
-										<div class="col-sm-4" style="padding: 0px">
+										<div class="col-sm-12" style="padding: 0px">
+											<div class="col-sm-12" style="padding: 0px; margin-bottom: 20px">
+												<span class="this-btn
+														this-btn-this" style="margin-top: 5px" id="show_add" > Add
+													Address </span>
+											</div>
 											<form  class="form" style="text-align: left" id="frm_add" action="/User_Position/doInsert" method="post" >
 												<input type="text" id="o_consignee" ng-model="u_id" name="u_id"
 													   style="display: none" required>
 												<div class="form-group ">
-													<div class="col-sm-12">
+													<div class="col-sm-4" style="padding: 0px">
 														<label for="p_name">Address name :</label>
 														<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm" style="padding: 2px; padding-left: 10px">
 															<option value="0">請選擇</option>
@@ -124,82 +182,49 @@
 															<option value="<{$row.p_id}>"><{$row.p_title}> </option>
 															<{/foreach}>
 														</select>
+														<span onclick="openLocation()"  class="this-btn
+														this-btn-this" style="margin-top: 5px" >Google Map </span>
 													</div>
-													<div class="col-sm-4 this-margin-top">
-														<span onclick="openLocation()" class="this-btn this-btn-this "> add new address </span>
-
-													</div>
-												</div>
-												<br/>
-
-												<div class="form-group ">
-													<div class="col-sm-12 this-margin-top">
+													<div class="col-sm-7" style="padding: 0px">
 														<label for="p_desc">Plcese Description :</label>
-														<textarea class="form-control" name="desc">
-
-													</textarea>
-														<hr/>
-														<button type="submit"class="this-btn this-btn-this"  style="height: 35px; padding: 2px; width: 100px">Save</button>
-														<button type="reset" id="close_add" class="this-btn" style="height: 35px; padding: 2px; width: 100px">Cancel</button>
+														<input class="form-control" name="desc"/>
+													</div>
+													<div class="col-sm-1" style="padding: 0px">
+														<button type="submit"class="this-btn this-btn-this"
+																style="height: 35px; padding: 2px; width: 100px;
+																margin-top: 30px;">Save</button>
 													</div>
 												</div>
-
-
 												<div id='response'></div>
 											</form>
-										</div>
-										<div class="col-sm-7" style="padding: 0px">
-											<div ng-init="mapinit()"  data-zoom="17" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model">
-												<ul class="map_locations">
-													<li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
-														<p data-position_id ="1" style="width: 200px; text-align:  center;">
-															<span style="width:28px">{{position.p_name}}</span>
-														</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					    <div id="order_list" class="tab-pane this-animate-right this-left-align" style="padding: 0px;" >
-							<div class="well this-white " style="border: none; padding: 0px">
-
-								<div class="this-container"  ng-controller="orderCtrl" ng-init="orderList()">
-									<div class="row">
-
-										<div class="col-sm-12" style="padding: 0px" >
-											<div class="table-responsive" style="padding: 0px">
+											<div class="col-sm-12" style="margin-top: 20px; padding: 0px;"  >
 												<table id="tb_order" class="table table-striped table-bordered"
-													   cellspacing="0" width="100%">
+													   cellspacing="0" width="100%"  >
 
 													<thead>
 													<tr class="this-border">
-														<td>Order ID</td>
-														<td>Date/Time</td>
-														<td>Discount</td>
-														<td>Total</td>
-														<td>Status</td>
+
+														<td>Address</td>
+														<td>Description</td>
+														<td> </td>
 													</tr>
 													</thead
 
-													<tbody>
-											      			<tr  ng-repeat="row in data.orders" >
-															<td>{{row.o_id}}</td>
-															<td>{{row.add_datetime}}</td>
-															<td>{{row.o_discount}}</td>
-															<td>{{row.o_total}}</td>
+													<tbody >
 
-															<td>
-																<span class="badge this-green"> {{row.o_status}}</span>
-																<a href="/user/inv/{{row.o_id}}"> <span class="badge
+
+													<tr  >
+														<td>{{row.o_id}}</td>
+
+														<td>{{row.o_id}}</td>
+														<td>
+															<span class="badge this-green"> edit</span>
+															<a href="/user/inv/"> <span class="badge
 																this-orange
 																this-text-white " >View</span>
-																</a>
-															</td>
-														</tr>
+															</a>
+														</td>
+													</tr>
 
 													</tbody>
 
@@ -213,6 +238,7 @@
 
 							</div>
 						</div>
+
 
 
 				</div>
@@ -297,14 +323,20 @@
     }
 
 </script>
-<!--
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script >
-    $.noConflict();
+   // $.noConflict();
+  //  jQuery( document ).ready(function( $ ) {
+   //     $('#tb_order').DataTable();
+   // });
+   // $.noConflict();
     jQuery( document ).ready(function( $ ) {
-        $('#tb_order').DataTable();
+        $('#frm_add').hide();
+        $('#show_add').click(function () {
+            $('#frm_add').slideToggle();
+        });
     });
-</script>\
--->
+</script>

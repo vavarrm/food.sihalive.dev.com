@@ -34,6 +34,7 @@ var isEmailExistApi ="/Api/isEmailExist/";
 var setProfileApi ="/Api/setProfile/";
 var getOrderList ="/Api/getOrderList/";
 var setProfileInitApi ="/User/setProfileInit/";
+//var getUserAddress ="/User/getUserAddress/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -151,7 +152,6 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
             $rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
         }
 
-
         if($(document).width()<=1024)
         {
             $('.cartnums').removeClass('text-white').addClass('text-black');
@@ -220,11 +220,18 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
 
     $scope.delete = function($index)
     {
-        $scope.items.splice($index,1);
-        $cookies.putObject('shopcart', $scope.items, { path: '/'});
-        $scope.cartnums= $scope.items.length;
-        $rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
+        if (confirm('Are you sure you want remove?')) {
+            $scope.items.splice($index,1);
+            $cookies.putObject('shopcart', $scope.items, { path: '/'});
+            $scope.cartnums= $scope.items.length;
+            $rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
+        } else {
+
+        }
+
+
     }
+
     $scope.ischeckout = false;
     $scope.checkout_confirm  = false;
 
@@ -814,6 +821,46 @@ var orderCtrl = function($scope, $cookies, $rootScope, apiService)
     }
 }
 
+/*var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
+{
+    $scope.data={
+        orders :{},
+        order_status :{},
+        o_status :'1'
+    };
+    $scope.address = function()
+    {
+        var sess = $cookies.get('sess');
+        $.ajax({
+            async: false,
+            type: 'get',
+            dataType: 'json',
+            url: getUserAddress+"?sess="+sess,
+            contentType: "application/json",
+            success: function (data) {
+                if(data.status =="200")
+                {
+                    $scope.data.orders = data['body']['data']['orders'];
+                    $scope.data.order_status = data['body']['data']['order_status'];
+                }else{
+                    var obj = {
+                        message :data.message
+                    };
+                    dialog(obj)
+                }
+            },
+            error: function (data) {
+                var obj = {
+                    message :js_order_list_error
+                }
+                dialog(obj)
+            }
+        });
+        return false;
+    }
+}*/
+
+
 var contactsCtrl = function ($scope){
     $scope.send = function()
     {
@@ -831,6 +878,7 @@ sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope','apiSer
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'apiService',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
 sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
+//sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',userAddressCtrl]);
 
 
 var apiService = function($http, $cookies)
@@ -916,8 +964,6 @@ function dialog(object2)
     $( "#dialog p").text(object1.message);
     $( "#dialog" ).dialog(object1);
 }
-
-
 
 var fbAction ='';
 $('#fbReg').bind('click', function(e){

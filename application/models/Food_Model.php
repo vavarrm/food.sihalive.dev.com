@@ -159,7 +159,24 @@
 
             }
         }
-
+        public function get_InvById($Id){
+            $this->db->select('o_id');
+            $this->db->from('order_list');
+            $this->db->where('u_id',$Id);
+            $this->db->order_by('o_id', 'DESC');
+            $this->db->limit('1');
+            $query=$this->db->get();
+            $rows=$query->result_array();
+            if(count($rows))
+            {
+                $query->free_result();
+                return $rows;
+            }
+            else
+            {
+                return FALSE;
+            }
+        }
 
 
 	
