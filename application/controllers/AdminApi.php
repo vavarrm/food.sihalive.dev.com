@@ -120,6 +120,9 @@ class AdminApi extends CI_Controller {
 				throw $MyException;
 			}
 			$output['body']['admin_user'] = $decrypt_data;
+			$output['body']['socket_push_data'] = array(
+				'order_total'	=>10
+			);
 			$data = $this->admin_user->getAdminMenuList();
 			$output['body']['menu_list'] =$data['list'];
 		}catch(MyException $e)

@@ -59,7 +59,7 @@ function dialog(object2, cb, params)
 	$('.ui-dialog',parent.document).css({left:"875px"});
 }
 
-var bodyCtrl = function($scope, $compile, $cookies, apiService)
+var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 {
 	$scope.panelShow = false;
 	$scope.admin_sess = $cookies.get('admin_sess');
@@ -68,7 +68,8 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 		location.href='/admin/login.html';
 	}
 	
-
+	$scope.socket_push_data ={};
+	$scope.test="D";
 	$scope.templates ={};
 	$scope.sidebarMenuList={};
 	
@@ -95,8 +96,29 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 	}
 	
 	
-		
 
+	$scope.update_data = function(data)
+	{
+		data = (angular.fromJson(data));
+		$scope.$apply(function() {
+			$scope.socket_push_data  = data;
+		});
+	}
+
+	$scope.$watch('socket_push_data.order_total', function(newValue, oldValue) {
+		//這裡輸入觸發$watch之後，欲觸發的行為
+		if(typeof newValue !="undefined" && typeof oldValue!="undefined")
+		{
+			if(newValue >=oldValue)
+			{
+				$scope.socket_push_data.order_total_add = true;
+			}else
+			{
+				$scope.socket_push_data.order_total_add = false;
+			}
+		}
+		
+	},true);
 	$scope.init = function()
 	{
 		var promise = apiService.adminApi('AdminApi','getUser');
@@ -108,7 +130,10 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 				if(r.data.status =="200")
 				{
 					$scope.sidebarMenuList = r.data.body.menu_list;
+					console.log(r.data.body.socket_push_data);
+					$scope.socket_push_data = r.data.body.socket_push_data;
 					$scope.admin = r.data.body.admin_user;
+					$scope.test="AA";
 					$scope.sidebar_menu_click($scope.sidebarMenuList[0].pe_control, $scope.sidebarMenuList[0].child[0]);
 				}else
 				{
@@ -118,7 +143,12 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService)
 					};
 					dialog(obj);
 				}
-				
+				var socket = Websokect.open();
+				var uid = '001';
+				socket.on('connect', function(){
+					socket.emit('login', uid);
+				});
+				socket.on('update_data',$scope.update_data);
 			},
 			function() {
 				var obj ={
@@ -543,7 +573,7 @@ var loginCtrl = function($scope, $cookies, apiService)
 	}
 }
 
-adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' ,'apiService' , bodyCtrl])
+adminApp.controller('bodyCtrl',  ['$scope', '$compile', '$cookies' ,'apiService' ,'Websokect' , bodyCtrl])
 adminApp.controller('loginCtrl',  ['$scope', '$cookies' ,'apiService', loginCtrl]);
 adminApp.controller('MainController',  ['$scope' ,'$routeParams', 'apiService' ,'$templateCache', '$compile', '$cookies', MainController])
 
@@ -796,6 +826,19 @@ adminApp.filter('range', function() {
     return page;
   };
 });
+
+adminApp.factory('Websokect', ['$q', '$rootScope', '$http', function($q, $rootScope, $http) 
+{
+	return {
+		open :function(){
+			var socket = {};
+			var uid ="001";
+			var host =location.protocol + '//' + location.host ;
+			socket = io(host+':2120', {secure: true});
+			return socket;
+		}
+    };
+}]);
 
 $( document ).ready(function() {
 	CURRENT_URL = window.location.href.split("#")[0].split("?")[0],
