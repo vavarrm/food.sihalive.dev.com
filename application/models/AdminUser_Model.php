@@ -145,11 +145,13 @@
 							per.pe_func,
 							per.pe_id,
 							per.pe_control,
-							per.pe_page
+							per.pe_page,
+							per.pe_order_id 
 						FROM admin_user AS au 
 							INNER JOIN admin_role_permissions_link AS link ON au.ar_id =  link.ar_id
 							INNER JOIN permissions AS per ON link.pe_id = per.pe_id
-						WHERE per.pe_parents_id = 0";
+						WHERE per.pe_parents_id = 0
+						ORDER BY per.pe_order_id DESC";
 				$query = $this->db->query($sql, $bind);
 				$error = $this->db->error();
 				if($error['message'] !="")
@@ -164,8 +166,8 @@
 					$MyException->setParams($array);
 					throw $MyException;
 				}
+	
 				$output['list'] = $query->result_array();
-				
 				if(!empty($output['list']))
 				{
 					foreach($output['list'] as $key => &$value)

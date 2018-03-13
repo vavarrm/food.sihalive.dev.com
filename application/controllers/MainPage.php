@@ -20,7 +20,6 @@ class MainPage extends CI_Controller {
 	
 	public function index()
 	{
-		var_dump($_SERVER);
         $shop = $this->restaurant->Restaurant();
 
 		$this->smarty->assign(

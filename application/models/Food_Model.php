@@ -8,7 +8,7 @@
 			$this->load->database();
             $this->table="food";
             $this->JoinTable="restaurant";
-            $this->innerJoin="restaurant.r_id=food.r_id";
+            $this->innerJoin="restaurant.r_id=food.f_r_id";
 
 		}
 
@@ -212,7 +212,6 @@
 
 		function foodList_By_RestaurantId($userId){
 		    $data=$this->escapeString($userId);
-
             $this->db->select('*');
             $this->db->from($this->table);
             $this->db->join($this->JoinTable,$this->innerJoin);

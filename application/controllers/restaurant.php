@@ -5,7 +5,7 @@
  * Date: 2/16/18
  * Time: 1:28 PM
  */
-class restaurant extends CI_Controller{
+class Restaurant extends CI_Controller{
 
     public function __construct()
     {
@@ -25,6 +25,7 @@ class restaurant extends CI_Controller{
 
 
     public function id($x){
+		// echo "D";
         $foodList = $this->food->foodList_By_RestaurantId($x);
         $shopId = $this->restaurant->getRestaurant_byId($x);
         $operation=$this->restaurant->get_operation($x);

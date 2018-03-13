@@ -88,7 +88,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 		$('.tab-pane').removeClass('active in');
 		$scope.templates[index] ={'url':child.pe_page,"control":control,"func":child.pe_func};
 		var tabpanel   	= '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" >';
-		    tabpanel  	+='<iframe height="1000px" src="/admin/layout/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'/'+child.pe_id+'" scrolling="auto"   frameBorder="0"></iframe>';
+		    tabpanel  	+='<iframe height="1000px" src="/admin/views/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'/'+child.pe_id+'" scrolling="auto"   frameBorder="0"></iframe>';
 			tabpanel 	+='</div>';
 		target.append($compile(tabpanel)($scope));
 		$('.tab-pane').eq(index).addClass('active in');
@@ -130,10 +130,8 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 				if(r.data.status =="200")
 				{
 					$scope.sidebarMenuList = r.data.body.menu_list;
-					console.log(r.data.body.socket_push_data);
 					$scope.socket_push_data = r.data.body.socket_push_data;
 					$scope.admin = r.data.body.admin_user;
-					$scope.test="AA";
 					$scope.sidebar_menu_click($scope.sidebarMenuList[0].pe_control, $scope.sidebarMenuList[0].child[0]);
 				}else
 				{
@@ -200,11 +198,12 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 		form_row :{},
 		pe_id :$routeParams.pe_id,
 		tabindex: $routeParams.tabindex,
-		table_action_list :{}
+		table_action_list :{},
+		row:{}
 	};
 	$scope.edit = function(id)
 	{
-		var url ="/admin/layout/form_panel.html#!/formEdit/"+$scope.data.form.table_edit+id+'/'+$routeParams.pe_id ;
+		var url ="/admin/views/form_panel.html#!/formEdit/"+$scope.data.form.table_edit+id+'/'+$routeParams.pe_id ;
 		
 		location.href=url;
 	}
@@ -449,13 +448,55 @@ var MainController = function($scope, $routeParams, apiService, $templateCache, 
 	$scope.tableAdd = function()
 	{
 		var tabindex = $routeParams.tabindex;
-		var url ="/admin/layout/form_panel.html#!/formAdd/"+$scope.data.form.table_add+tabindex+'/'+$routeParams.pe_id;
+		var url ="/admin/views/form_panel.html#!/formAdd/"+$scope.data.form.table_add+tabindex+'/'+$routeParams.pe_id;
 		if(typeof $routeParams.id !="undefined")
 		{
 			url+="/"+$routeParams.id;
 		}
 		location.href=url;
 	}		
+		
+	$scope.select_search = function(field,value)
+	{
+		$scope.search();
+	}
+		
+	$scope.init = function(initFunc)
+	{
+		var sess = $cookies.get('admin_sess');
+		$scope.data.form.action ='/'+$routeParams.controller+'/'+$routeParams.func+'?sess='+sess+'&pe_id='+$routeParams.pe_id;
+		if(typeof initFunc !="undefined")
+		{
+			var obj ={
+				id :$routeParams.id
+			}
+			var promise = apiService.adminApi($routeParams.controller,initFunc, obj,$routeParams.pe_id);
+			promise.then
+			(
+				function(r) 
+				{
+					if(r.data.status =="200")
+					{
+						$scope.data.row = r.data.body.row;
+					}else
+					{
+						var obj =
+						{
+							'message' :r.data.message,
+						};
+						dialog(obj);
+					}
+					
+				},
+				function() {
+					var obj ={
+						'message' :'system error'
+					};
+					dialog(obj);
+				}
+			)
+		}
+	}
 		
 	$scope.search = function()
 	{
@@ -625,14 +666,14 @@ adminApp.config(function($routeProvider){
     }).when("/:controller/:func/:page/:tabindex/:pe_id/:id",{
 		templateUrl: function(params) {
 			
-			var page ='/admin/layout/'+params.page+'.html?'+Math.random();
+			var page ='/admin/views/'+params.page+'.html?'+Math.random();
 			return page;
 		},
 		cache: false,
 		controller: 'MainController'
     }).when("/:controller/:func/:page/:tabindex/:pe_id",{
 		templateUrl: function(params) {
-			var page ='/admin/layout/'+params.page+'.html?'+Math.random();
+			var page ='/admin/views/'+params.page+'.html?'+Math.random();
 			return page;
 		},
 		cache: false,
