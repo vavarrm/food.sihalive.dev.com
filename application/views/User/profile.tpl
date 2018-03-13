@@ -28,7 +28,6 @@
 		margin-top: 20px!important;
 	}
 </style>
-
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 
@@ -197,14 +196,13 @@
 												</div>
 												<div id='response'></div>
 											</form>
-											<div class="col-sm-12" style="margin-top: 20px; padding: 0px;"  >
+											<div class="col-sm-12" style="margin-top: 20px; padding: 0px;" ng-controller="userAddressCtrl" ng-init="address_()" >
 												<table id="tb_order" class="table table-striped table-bordered"
 													   cellspacing="0" width="100%"  >
-
 													<thead>
 													<tr class="this-border">
 
-														<td>Address</td>
+														<td>Title</td>
 														<td>Description</td>
 														<td> </td>
 													</tr>
@@ -213,10 +211,9 @@
 													<tbody >
 
 
-													<tr  >
-														<td>{{row.o_id}}</td>
-
-														<td>{{row.o_id}}</td>
+													<tr ng-repeat="row in data.book_address" >
+														<td>{{row.p_description}}</td>
+														<td>{{row.description}}</td>
 														<td>
 															<span class="badge this-green"> edit</span>
 															<a href="/user/inv/"> <span class="badge

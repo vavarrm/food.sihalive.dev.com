@@ -29,13 +29,17 @@
 				<ul class="list-links list-inline text-left">
 				  <li>
 					<div class="unit unit-horizontal unit-middle unit-spacing-xs">
+						<!--
 					  <div class="unit-left"><span class="icon icon-circle icon-gray-dark icon-xxs mdi mdi-phone text-middle"></span></div>
 					  <div class="unit-body">
+
 						<address class="contact-info">
 							<a href="callto:#" class="link-default link-xs"><{$website.phone}></a>
 							<span class="reveal-block text-base link-xs"><{$language.text_open_hour}></span>
 						</address>
+
 					  </div>
+					  	-->
 					</div>
 				  </li>
 				</ul>

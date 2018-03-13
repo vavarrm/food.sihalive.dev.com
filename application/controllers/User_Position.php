@@ -17,7 +17,7 @@ class User_Position extends CI_Controller{
 
         $data = array(
             'p_id' => $this->input->post('o_position_id'),
-            'p_description' => $this->input->post('desc'),
+            'description' => $this->input->post('desc'),
             'u_id' => $this->input->post('u_id'),
         );
         $result=$this->position->insert($data);

@@ -34,7 +34,7 @@ var isEmailExistApi ="/Api/isEmailExist/";
 var setProfileApi ="/Api/setProfile/";
 var getOrderList ="/Api/getOrderList/";
 var setProfileInitApi ="/User/setProfileInit/";
-//var getUserAddress ="/User/getUserAddress/";
+var getUserAddress ="/Api/getUserAddress/";
 
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
@@ -185,7 +185,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
                     text: "close",
                     click: function() {
                         $( this ).dialog( "close" );
-                        //window.location.href="/Menu";
+                       // window.location.href="/";
                     }
                 }
             ]
@@ -821,14 +821,12 @@ var orderCtrl = function($scope, $cookies, $rootScope, apiService)
     }
 }
 
-/*var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
+var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
 {
     $scope.data={
-        orders :{},
-        order_status :{},
-        o_status :'1'
+        p_description :{}
     };
-    $scope.address = function()
+    $scope.address_ = function()
     {
         var sess = $cookies.get('sess');
         $.ajax({
@@ -840,8 +838,8 @@ var orderCtrl = function($scope, $cookies, $rootScope, apiService)
             success: function (data) {
                 if(data.status =="200")
                 {
-                    $scope.data.orders = data['body']['data']['orders'];
-                    $scope.data.order_status = data['body']['data']['order_status'];
+                    $scope.data.book_address = data['body']['data']['book_address'];
+
                 }else{
                     var obj = {
                         message :data.message
@@ -858,7 +856,9 @@ var orderCtrl = function($scope, $cookies, $rootScope, apiService)
         });
         return false;
     }
-}*/
+}
+
+
 
 
 var contactsCtrl = function ($scope){
@@ -878,7 +878,7 @@ sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope','apiSer
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'apiService',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);
 sihaliveApp.controller('contactsCtrl',  ['$scope',contactsCtrl]);
-//sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',userAddressCtrl]);
+sihaliveApp.controller('userAddressCtrl',  ['$scope', '$cookies', '$rootScope', 'User',userAddressCtrl]);
 
 
 var apiService = function($http, $cookies)

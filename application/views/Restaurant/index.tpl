@@ -61,12 +61,32 @@
 -->
     <{include file="Frontend/breadcrumbs.tpl"}>
     <section class=" text-left container " style="background: #fff; position:inherit"   >
-        <div class=" row " >
+        <div class="row " >
+            <div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px">
+                <div class="col-sm-12 this-center" style="padding: 0px">
+                    <div class="col-xs-3 col-md-3 this-padding">
+                        <span class="fa fa-home" style="font-size: 20px"></span>
+                        <span class="fa fa-arrow-right this-hide-small" style="padding-left: 20px"> Home </span>
+                    </div>
+                    <div class="col-xs-3 col-md-3 this-padding this-white" style="margin-top:2px; border-radius: 2px">
+                        <span class=" fa fa-shopping-cart" style="font-size: 20px"></span>
+                        <span class="fa fa-arrow-right this-hide-small " style="padding-left: 20px">  ORDER </span>
+                    </div>
+                    <div class="col-xs-3 col-md-3 this-padding " >
+                        <span class="fa fa-credit-card" style="font-size: 20px"></span>
+                        <span class="fa fa-arrow-right this-hide-small" style="padding-left:20px"> CHECK OUT</span>
+                    </div>
+                    <div class="col-xs-3 col-md-3 this-padding">
+                        <span class="fa fa-print" style="font-size: 20px"></span>
+                        <span class="this-hide-small">RECEIPT</span>
+                    </div>
+                </div>
+            </div>
             <div class="container" style="padding: 0px">
-                <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  id="" >
-                    <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; overflow: hidden ;margin-bottom: 20px">
+                <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  >
+                    <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; ;margin-bottom: 20px">
 
-                        <ul class="nav nav-tabs bg-primary "  style="margin-top: 5px" >
+                        <ul class="nav nav-tabs "  style="margin-top: 5px; border: 0px!important;" >
                             <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
                             <li><a data-toggle="tab" href="#menu1">MAP </a></li>
                             <li><a data-toggle="tab" href="#open">Opening </a></li>
@@ -98,7 +118,7 @@
                                                <div id="menu__">
                                                    <{foreach from=$list_category_by_restaurant item=row key=index}>
                                                    <li class="list-group-item" style="cursor: pointer; color: black">
-                                                       <a href="#<{$row.ca_id}>">
+                                                       <a href="#m_<{$row.ca_id}>">
                                                        <{$row.ca_name}>
                                                        <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
                                                            <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
@@ -125,23 +145,27 @@
                                             </select>
                                         </form>
                                         <{foreach from=$foodList item=row key=index}>
-                                        <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
+                                        <div class="col-xs-12 col-md-4  " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
-                                                <div class="col-xs-12 col-md-12 ">
+                                                <div class="col-xs-12 col-md-12 " >
 
-                                                    <img src="/images/category-1-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
+                                                    <img src="/images/category-1-310X260.png" alt="" width="250"
+                                                         height="200" class="img-responsive img-circle
+                                                         reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
 
                                                 </div>
-                                                <div class="col-sx-12 col-md-12 " style="padding: 5px" >
-                                                    <p style="margin-top: 10px" >
+                                                <div class="col-sx-12 col-md-12 " style="padding: 5px; " >
+                                                    <div style="margin-top: -25px; position: relative" >
                                                         <{$row.f_name}>
-                                                    </p>
-                                                    <div class="col-sm-12 " id="<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
-                                                        <button class="this-btn this-btn-this this-small" data-toggle="modal" data-target="#<{$row.f_id}>"
+                                                    </div>
+                                                    <div class="col-sm-12 " id="m_<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
+                                                        <button class="this-btn this-btn-this this-small"
+                                                                data-toggle="modal" data-target="#<{$row.f_id}>"
 
                                                                 style="font-size: 12px; font-weight:normal;
-                                              padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
-                                                            <p>Price : <{$row.f_large_price}> $ </p>
+                                              padding: 5px; border-radius: 3px; height: 30px;  margin-top: -10px;
+                                              background: #f75d34">
+                                                            <{$row.f_large_price}> $
                                                         </button>
                                                     </div>
                                                 </div>
@@ -259,7 +283,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="summary-wrap" style="border-top: 1px solid silver">
+                                                        <div class="summary-wrap this-hide" style="border-top: 1px
+                                                        solid silver">
                                                             <{foreach from=$r_id item=row key=index}>
                                                             <input type="text" id="r_id" value="<{$row.r_id}>"
                                                                    name="o_r_id" style="display: none"
@@ -281,6 +306,15 @@
                                                                         <span class="glyphicon glyphicon-log-out"></span> <{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
                                                                 </center>
                                                             </div>
+                                                        </div>
+                                                        <div class="" style="margin-top: 10px">
+                                                            <center>
+                                                                <a href="/ShopCart">
+                                                                    <button   class="this-btn this-btn-this">
+                                                                        <span class="glyphicon glyphicon-log-out"></span>
+                                                                        结帐 </button>
+                                                                </a>
+                                                            </center>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -344,8 +378,6 @@
                     </div>
 
                 </div>
-
-
 
             </div>
 

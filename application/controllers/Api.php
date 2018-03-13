@@ -139,7 +139,7 @@ class Api extends CI_Controller {
 		$this->response($output);
 	}
 
-    /*public function getUserAddress()
+    public function getUserAddress()
     {
         $output['body']=array();
         $output['status'] = '200';
@@ -157,7 +157,8 @@ class Api extends CI_Controller {
             }
             $get = $user_data['u_id'];
 
-            $output['body']['data']['orders'] = $this->u_position->My_loac($get);
+            $output['body']['data']['book_address'] = $this->u_position->My_loac($get);
+
         }catch(Exception $e)
         {
             $output['status'] = '000';
@@ -165,7 +166,7 @@ class Api extends CI_Controller {
         }
 
         $this->response($output);
-    }*/
+    }
 
 	
 	public function setProfile()
