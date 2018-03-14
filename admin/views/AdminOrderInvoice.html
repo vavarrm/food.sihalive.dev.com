@@ -1,4 +1,4 @@
- <div class="right_col" ng-init="init('getInvoice')">
+ <div class="row" ng-init="init('getInvoice')">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
@@ -33,42 +33,28 @@
                       </tbody>
 				</table>
 			</div>
-	  </div>
-	</div>
-</div>
- <div class="row" ng-init="init('getInvoice')">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="x_panel">
 			<div class="x_title">
-				<h2>Delivery info</h2>
+				<h2>delivery</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<div class="row">
-					<div class="col-md-3 col-sm-3 col-xs-12">
-						<h2>receiver：</h2>
-						<h2>1</h2>
-					</div>	
-					<div class="col-md-3 col-sm-3 col-xs-12">
-						<h2>messge：</h2>
-						<h2>1</h2>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-12">
-						<h2>address：</h2>
-						<h2>1</h2>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-12">
-						<h2>phone</h2>
-						<h2>1</h2>
-					</div>
-				</div> 
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<h2>receiver：</h2>
-						<h2>1</h2>
-					</div>	
-				</div> 
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					<span>receiver：</span>
+					<span ng-bind="data.row.order_list.o_receiver"></span>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					<span>phone：</span>
+					<span ng-bind="data.row.order_list.u_phone"></span>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					<span>messge：</span>
+					<span ng-bind="data.row.order_list.o_messge"></span>
+				</div>	
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					<span>addrees：</span>
+					<span ng-bind="data.row.order_list.o_address" ></span>
+				</div>
 			</div>
-		</div>
+	  </div>
 	</div>
 </div>

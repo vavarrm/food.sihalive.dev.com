@@ -515,7 +515,6 @@ class AdminRestaurant extends CI_Controller {
 			$output['status'] = $parames['status']; 
 			$this->myLog->error_log($parames);
 		}
-		
 		$this->myfunc->back($back,$output['message']);
 	}
 	
@@ -571,7 +570,10 @@ class AdminRestaurant extends CI_Controller {
 				$MyException->setParams($array);
 				throw $MyException;
 			}
-			$data = $this->restaurant->delFood($id);
+			$ary = array(
+				'id'=>$id
+			);
+			$data = $this->restaurant->delFood($ary);
 			// if($data
 		}catch(MyException $e)
 		{
@@ -661,16 +663,38 @@ class AdminRestaurant extends CI_Controller {
 				}
 			}
 			
+			$form['selectSearchControl'] = array(
+				'f_status'	=>array(
+					array('text'=>'sale_out','value'=>'sale_out'),
+					array('text'=>'sale_on','value'=>'sale_on'),
+					array('text'=>'sale_off','value'=>'sale_off'),
+				)
+			);
+			if(!empty($form['selectSearchControl']))
+			{
+				foreach($form['selectSearchControl'] as $key => $value)
+				{
+					$$key= (isset($this->request[$key]))?$this->request[$key]:'';
+				}
+			}
+			
 			$ary['order'] = (empty($this->request['order']))?array("f_id"=>'DESC'):$this->request['order'];
 			$ary['fields'] = array(
 				'f_id'	=>'f.f_id',
-				'f_name'	=>'f.f_name',
-				'f_name_en'	=>'f.f_name_en',
-				'category_name'  =>'ca.ca_name AS category_name',
-				'category_name_en'  =>'ca.ca_name_en AS category_name_en',
+				'food_name'	=>'CONCAT(f.f_name, "/", f.f_name_en) AS food_name',
+				'category_name'  =>'CONCAT(ca.ca_name, "/", ca.ca_name_en) AS category_name',
+				'large_price'	=>'f.f_large_price AS large_price',
+				'medium_price'	=>'f.f_medium_price AS medium_price',
+				'small_price'	=>'f.f_small_price AS small_price',
+				'status'		=>'f.f_status AS status'
 			);
 			$ary['f.f_r_id'] = array(
 				'value' =>$r_id,
+				'logic' =>'AND',
+				'operator' =>'=',
+			);
+			$ary['f.f_status'] = array(
+				'value' =>$f_status,
 				'logic' =>'AND',
 				'operator' =>'=',
 			);

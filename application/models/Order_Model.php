@@ -67,6 +67,31 @@
 				}
 				$row =  $query->row_array();
 				$data['total'] = $row['total'];
+				
+				$sql="	SELECT 
+							o_messge , 
+							o_addrees , 
+							o_receiver ,
+							u.u_phone 
+						FROM 
+							order_list AS o LEFT JOIN  user AS u ON o.o_u_id = u.u_id  
+						WHERE o_id =?";
+				$query = $this->db->query($sql, $bind);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$row =  $query->row_array();
+				$data['order_list'] = $row;
+				
 				$query->free_result();
 				return $data;
 				
@@ -84,7 +109,7 @@
 				{
 					$MyException = new MyException();
 					$array = array(
-						'message' 	=>$error['message'] ,
+						'el_system_error' 	=>$error['message'] ,
 						'status'	=>'000'
 					);
 					
