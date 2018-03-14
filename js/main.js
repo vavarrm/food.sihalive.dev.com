@@ -68,7 +68,6 @@ sihaliveApp.factory('User',['$cookies','$rootScope' , function($cookies, $rootSc
 }])
 
 var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
-
     $scope.selectPrice = function(price, $event)
     {
         $scope.selectprice = price;

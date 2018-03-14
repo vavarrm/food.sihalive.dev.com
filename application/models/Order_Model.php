@@ -8,10 +8,109 @@
 			$this->load->database();
 		}
 	
+		public function getInvoice($id)
+		{
+			try
+			{
+				if(empty($id))
+				{
+					$MyException = new MyException();
+					$array = array(
+						'message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				
+				$sql="
+						SELECT 
+							od.* ,
+							CONCAT(f_name,'/',	f_name_en) AS food_name
+						FROM  
+							order_detail AS od LEFT JOIN  food AS f ON f.f_id = od.od_f_id
+						WHERE 
+							od.od_o_id =?";
+				$bind =array(
+					'id'=>$id
+				);
+				$query = $this->db->query($sql, $bind);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$data['list'] =  $query->result_array();
+				
+				$sql ="SELECT SUM(t.od_price) AS total FROM(".$sql.") AS t";
+				$query = $this->db->query($sql, $bind);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$row =  $query->row_array();
+				$data['total'] = $row['total'];
+				$query->free_result();
+				return $data;
+				
+			}catch(MyException $e)
+			{
+				throw $e;
+			}
+		}
+	
+		public function getList($ary)
+		{
+			try
+			{
+				if(empty($ary))
+				{
+					$MyException = new MyException();
+					$array = array(
+						'message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				
+				$fields = join(',' ,$ary['fields']);
+				
+				$sql ="	SELECT o_id AS id," 
+						.$fields.	
+						" FROM
+							order_list AS o 
+								LEFT JOIN restaurant AS r ON o.o_r_id = r.r_id
+								LEFT JOIN user AS u ON u.u_id =o.o_u_id";
+				$ary['sql'] =$sql;
+				$output = $this->getListFromat($ary);
+				return 	$output  ;
+			}catch(MyException $e)
+			{
+				throw $e;
+			}
+		}
+	
 		public function getOrderList($where = array())
 		{
-		    //var_dump($where);
-		   // exit();
 			$ignore = array(
 				'sess',
 				'u_id'

@@ -26,26 +26,14 @@ class Restaurant_cat_Model extends CI_Model{
         return $val;
     }
 
-    public  function list_restaurant_cat($data){
+    public  function list_restaurant_cat($data)
+	{
 
         $q=$this->escapeString($data);
         $this->db->select('*');
         $this->db->from($this->tb_restaurant);
         $this->db->join($this->JoinTable,$this->innerJoin);
-        // $this->db->join('restaurant_operation', 'restaurant_operation.r_id = restaurant.r_id');
-        $this->db->where('category.ca_id', $q);
-        $query = $this->db->get();
 
-        $rows=$query->result_array();
-        if(count($rows))
-        {
-            $query->free_result();
-            return $rows;
-        }
-        else
-        {
-            return FALSE;
-        }
 
     }
 
