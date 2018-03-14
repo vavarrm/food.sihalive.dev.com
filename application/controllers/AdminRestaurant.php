@@ -406,6 +406,12 @@ class AdminRestaurant extends CI_Controller {
 			}
 			
 			$ary['order'] = (empty($this->request['order']))?array("ca_id"=>'DESC'):$this->request['order'];
+			
+			$ary['ca.ca_r_id'] = array(
+				'value' =>$r_id,
+				'logic' =>'AND',
+				'operator' =>'=',
+			);
 			$ary['fields'] = array(
 				'ca_id'			=>'ca.ca_id',
 				'ca_name'		=>'ca.ca_name',
