@@ -209,7 +209,7 @@
                                 <div class="col-sm-3 this-hide-small this-white " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  "
                                      ng-controller="shopCartCtrl">
                                     <div id="inv">
-                                        <div class="row natural">
+                                        <div class="row">
                                             <div class="container this-white" style="background:#f16121;height: 40px; color:
                                             white; padding: 10px; ">
                                                 Order Information
