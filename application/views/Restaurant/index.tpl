@@ -48,6 +48,12 @@
     }
 
 
+    #sidebar__inner{
+        transform: translate(0, 0); /* For browsers don't support translate3d. */
+        transform: translate3d(0, 0, 0);
+        will-change: position, transform;
+    }
+
 </style>
 <{$lat=""}>
 <{$lng=""}>
@@ -59,9 +65,9 @@
 <section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center"></section>
 -->
     <{include file="Frontend/breadcrumbs.tpl"}>
-    <section class=" text-left container " style="background: #fff; position:inherit"  id="masthead"   >
-        <div class="row " >
-            <div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px">
+    <section class=" text-left container " style="background: #fff; position:inherit"   >
+        <div class="row "  >
+            <div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px"  >
                 <div class="col-sm-12 this-center" style="padding: 0px">
                     <div class="col-xs-3 col-md-3 this-padding">
                         <span class="fa fa-home" style="font-size: 20px"></span>
@@ -81,9 +87,9 @@
                     </div>
                 </div>
             </div>
-            <div class="container" style="padding: 0px">
-                <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  >
-                    <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; ;margin-bottom: 20px">
+            <div class="container "  id="main-content"  style="padding: 0px" >
+                <div class="col-sm-12" style="padding: 0px;  height: auto "  >
+                    <div class="col-sm-12" style="padding: 0px; height: 100%; ;margin-bottom: 20px">
 
                         <ul class="nav nav-tabs "  style="margin-top: 5px; border: 0px!important;" >
                             <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
@@ -94,19 +100,24 @@
 
                         <div class="tab-content" >
                             <div id="home" class="tab-pane fade in active">
-                                <div class="col-sm-3 this-hide-small " style="padding: 2px; margin-top: 4px;
+                                <div class="col-sm-3 this-hide-small " style="
+                                padding: 2px; margin-top: 4px;
                                 position:relative; z-index: 0" id="sidebar"   >
-                                    <div class="sidebar__inner">
+                                    <div id="sidebar__inner">
                                         <ul class="list-group" style="border:none;"  >
                                             <div  style="width:auto"  id="pro_left"  >
 
                                                 <li class="list-group-item" id="menu_clcik" style="background:#f16121;color: white;"> <span class="glyphicon glyphicon-th"></span> MENU </li>
                                                 <div id="menu__">
-                                                    <{foreach from=$category item=row key=index}>
-                                                    <li class="list-group-item" style="cursor: pointer; color: black"><{$row.ca_name}>
-                                                        <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
-                                                            <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
-                                                        </i></li>
+                                                    <{foreach from=$list_category_by_restaurant item=row key=index}>
+                                                    <li class="list-group-item" style="cursor: pointer; color: black">
+                                                        <a href="#Id<{$row.ca_id}>">
+                                                            <{$row.ca_name}>
+                                                            <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
+                                                                <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
+                                                            </i>
+                                                        </a>
+                                                    </li>
 
                                                     <{/foreach}>
 
@@ -129,7 +140,7 @@
                                             </select>
                                         </form>
                                         <{foreach from=$foodList item=row key=index}>
-                                        <div class="col-xs-12 col-md-4  " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
+                                        <div class="col-xs-12 col-md-4  " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px" id="Id<{$row.f_ca_id}>">
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
                                                 <div class="col-xs-12 col-md-12 " >
 
@@ -138,9 +149,9 @@
                                                          reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
 
                                                 </div>
-                                                <div class="col-sx-12 col-md-12 " style="padding: 5px; " >
+                                                <div class="col-sx-12 col-md-12 " style="padding: 5px; "  >
                                                     <div style="margin-top: -25px; position: relative" >
-                                                        <{$row.f_name}>
+                                                        <{$row.f_name}> <{$row.f_ca_id}>
                                                     </div>
                                                     <div class="col-sm-12 " id="m_<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
                                                         <button class="this-btn this-btn-this this-small"
@@ -206,11 +217,12 @@
                                         <{/foreach}>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 this-hide-small this-white " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  "
+                                <div class="col-sm-3 this-hide-small this-white " style="margin-top: 5px; margin-bottom: 10px; "
                                      ng-controller="shopCartCtrl">
                                     <div id="inv">
-                                        <div class="row">
-                                            <div class="container this-white" style="background:#f16121;height: 40px; color:
+                                        <div class="row" id="inv__">
+                                            <div class="this-container this-white" style="background:#f16121;height:
+                                            40px; color:
                                             white; padding: 10px; ">
                                                 Order Information
                                             </div>
@@ -372,6 +384,8 @@
 
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script type="text/javascript" src="/js/ResizeSensor.js"></script>
 <script type="text/javascript" src="/js/sticky-sidebar.js"></script>
@@ -390,19 +404,22 @@
         }
 </script>
 <script type="text/javascript">
-  var stickySidebar = new StickySidebar('#sidebar', {
+    var sidebar = new StickySidebar('#sidebar', {
         topSpacing: 20,
         bottomSpacing: 20,
-        containerSelector: '.container',
-        innerWrapperSelector: '.sidebar__inner'
+        topSpacing: 20,
+        containerSelector: '#main-content',
+        innerWrapperSelector: '#sidebar__inner'
     });
-    var stickySidebar_ = new StickySidebar('#inv', {
+    var inv = new StickySidebar('#inv', {
         topSpacing: 20,
         bottomSpacing: 20,
-        leftSpacing:20,
-        containerSelector: '.container',
-        innerWrapperSelector: '.inv'
-    });*
+        containerSelector: '#main-content',
+        innerWrapperSelector: '#inv__'
+    });
+
+</script>
+<script type="text/javascript">
 
     var lat="<{$lat}>";
     var lang="<{$lng}>";
@@ -476,5 +493,23 @@
         alert(e);
     }
 
+    $("#sidebar ul li a[href^='#']").on('click', function(e) {
 
+        // prevent default anchor click behavior
+        e.preventDefault();
+
+        // store hash
+        var hash = this.hash;
+
+        // animate
+        $('html, body').animate({
+            scrollTop: $(hash).offset().top
+        }, 1000, function(){
+
+            // when done, add hash to url
+            // (default click behaviour)
+            window.location.hash = hash;
+        });
+
+    });
 </script>

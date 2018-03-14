@@ -25,8 +25,9 @@ class Restaurant extends CI_Controller{
 
 
     public function id($x){
-		// echo "D";
-        $foodList = $this->food->foodList_By_RestaurantId($x);
+
+
+        $foodList = $this->food->get_food_by_r($x);
         $shopId = $this->restaurant->getRestaurant_byId($x);
         $operation=$this->restaurant->get_operation($x);
         $list_category_by_restaurant=$this->cat->list_category_by_restaurant($x);
@@ -46,6 +47,8 @@ class Restaurant extends CI_Controller{
              $this->load->view('404');
          }
     }
+
+
     function listShop(){
 
         $shop = $this->restaurant->Restaurant();
