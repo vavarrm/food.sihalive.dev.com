@@ -87,8 +87,10 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 		var target =$('#myTabContent');
 		$('.tab-pane').removeClass('active in');
 		$scope.templates[index] ={'url':child.pe_page,"control":control,"func":child.pe_func};
+		var height = $(window).height()-180;
+		console.log(height);
 		var tabpanel   	= '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" >';
-		    tabpanel  	+='<iframe height="1000px" src="/admin/views/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'/'+child.pe_id+'" scrolling="auto"   frameBorder="0"></iframe>';
+		    tabpanel  	+='<iframe  height="'+height+'px" src="/admin/views/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'/'+child.pe_id+'" scrolling="auto"   frameBorder="0"></iframe>';
 			tabpanel 	+='</div>';
 		target.append($compile(tabpanel)($scope));
 		$('.tab-pane').eq(index).addClass('active in');
