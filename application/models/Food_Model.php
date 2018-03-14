@@ -74,12 +74,14 @@
                 $row['o_id'],
                 $ary['u_id'],
                 $ary['o_message'],
-                $ary['o_position_id'],
+                $ary['o_position_id']
+
             );
+
             $query = $this->db->query($sql,$bind);
 
-
             $in_f_id = array();
+
             if(!empty($ary['order_list']))
             {
                 $index =0;
@@ -108,6 +110,8 @@
                                     $value['order_num'],
                                     $temp['f_large_price']
                                 );
+
+
                                 $query = $this->db->query($sql, $insert);
                             }
                             $total_sql[] =sprintf("SELECT	f_large_price*f_discount AS price FROM food WHERE f_id = %s", $value['f_id']);
@@ -155,7 +159,24 @@
 
             }
         }
-
+        public function get_InvById($Id){
+            $this->db->select('o_id');
+            $this->db->from('order_list');
+            $this->db->where('u_id',$Id);
+            $this->db->order_by('o_id', 'DESC');
+            $this->db->limit('1');
+            $query=$this->db->get();
+            $rows=$query->result_array();
+            if(count($rows))
+            {
+                $query->free_result();
+                return $rows;
+            }
+            else
+            {
+                return FALSE;
+            }
+        }
 
 
 	
@@ -215,8 +236,8 @@
             $this->db->select('*');
             $this->db->from($this->table);
             $this->db->join($this->JoinTable,$this->innerJoin);
-            $this->db->join("food_category_link","food_category_link.f_id=food.f_id");
-            $this->db->where('restaurant.r_id', $data);
+            //$this->db->join("food_category_link","food_category_link.f_id=food.f_id");
+            $this->db->where('restaurant.r_id',$data);
             $query=$this->db->get();
             $rows=$query->result_array();
             if(count($rows))

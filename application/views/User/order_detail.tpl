@@ -5,61 +5,91 @@
     <!--
 <section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center"></section>
 -->
-    <{include file="Frontend/breadcrumbs.tpl"}>
-    <section class=" text-left container " style="background: #fff; position:inherit;padding: 0px"   >
+
+    <section class=" text-left container " style="background: #fff; position:inherit;padding: 0px; margin-top: 50px"   >
         <div class="row">
             <div class="col-sm-1"></div>
             <div class="col-sm-10 this-card" style="margin-bottom: 30px; padding-bottom: 20px">
                 <br>
-                <{foreach from=$sum item=row key=index}>
+
                 <center><h5 style="font-weight: bold">  Food Delivery  </h5></center>
                 <hr/>
-                <div class="col-sm-12">
-                    <p>ORDER ID :<{$row.o_id}></p>
-                    <p>ORDER DATE:<{$row.add_datetime}></p>
+               <div class="this-container">
+                   <{foreach from=$status item=row key=index}>
+                   <div class="col-xs-6 col-md-4">
+                       <p ><span style="font-weight: bold" class="this-hide-small">  ORDER ID :</span>
+                           <span class="icon icon-sm icon-primary fa fa-barcode this-hide-large"> : </span>
+                           <I><{$row.o_id}></I>
+                       </p>
+                       <p >
+                           <span style="font-weight: bold" class="this-hide-small"> DATE: </span>
+                           <span class="icon icon-sm icon-primary fa fa-clock-o this-hide-large">:</span>
+
+                           <i > <{$row.add_datetime}></i>
+                       </p>
+                   </div>
+                       <div class="col-xs-6 col-md-4 this-right">
+
+                           <p ><span class="this-hide-small" style="font-weight: bold"> STATUS: </span> <span
+                                       class="icon icon-sm icon-primary fa fa-truck this-hide-large"> :</span>
+                               <i class=" this-spin fa fa-refresh" style="color: limegreen"></i>
+                               <i > <{$row.o_status}></i>...</p>
+                       </div>
+                   <{/foreach}>
+               </div>
+            <hr class="offset-top-10">
+                <div class="col-xs-12 this-center">
+                    <h6 style="font-weight: bold"><u> INVOICE </u> </h6>
                 </div>
-                <CENTER><h6 style="font-weight: bold"><u> INVOICE </u> </h6></CENTER>
                 <div class="this-container" style="padding: 0px">
 
-                    <table class="table table-striped table-condensed">
+                    <table class="table table-striped table-condensed ">
                         <thead>
                         <tr>
-                            <th style="text-align:center; width: 50%; border-bottom: 2px solid #ddd;">Description</th>
-                            <th style="text-align:center; width: 12%; border-bottom: 2px solid #ddd;">Quantity</th>
-                            <th style="text-align:center; width: 24%; border-bottom: 2px solid #ddd;">Price</th>
-                            <th style="text-align:center; width: 26%; border-bottom: 2px solid #ddd;">Subtotal</th>
+                            <th style="text-align:left; width: 50%; border-bottom: 2px solid #ddd;">Description</th>
+                            <th style="text-align:left; width: 12%; border-bottom: 2px solid #ddd;">Quantity</th>
+                            <th style="text-align:left; width: 24%; border-bottom: 2px solid #ddd;">Price</th>
+                            <th style="text-align:left; width: 26%; border-bottom: 2px solid #ddd;">Subtotal</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                         <{foreach from=$order item=row key=index}>
                         <tr>
                             <td style="text-align:left;"><{$row.f_name}></td>
-                            <td style="text-align:center;"><{$row.od_num}></td>
-                            <td style="text-align:right;"><{$row.f_large_price}></td>
-                            <td style="text-align:right;"><{$row.od_price}></td>
+                            <td style="text-align:left;"><{$row.od_num}></td>
+                            <td style="text-align:left;"><{$row.f_large_price}></td>
+                            <td style="text-align:left;"><{$row.od_price}></td>
                         </tr>
                             <{/foreach}>
                         <tfoot>
-
+                        <{foreach from=$sum item=row key=index}>
                         <tr>
-                            <th colspan="2" style="text-align:left;">Total : </th>
-                            <th colspan="2" style="text-align:right;"><{$row.total}></th>
+                            <th>Total : </th>
+                            <th></th><th></th>
+                            <th style="text-align: left" >$ <{$row.total}></th>
                         </tr>
 
-                        <tr><th colspan="2" style="text-align:left;">Deliver Fee :</th><th colspan="2"
-                                                                                     style="text-align:right;">1
-                                .00</th></tr>
-
-                        <tr>
-                            <th colspan="2" style="text-align:left;">Grand Total : </th>
-                            <th colspan="2" style="text-align:right;"><{$row.total+1}></th>
+                        <tr><th>Deliver Fee :</th>
+                            <th></th><th></th>
+                            <th style="text-align: left" >$ 1.00</th>
                         </tr>
 
+                        <tr>
+                            <th  >Grand Total : </th>
+                            <th></th><th></th>
+                            <th style="text-align: left" >$ <{$row.total+1}></th>
+                        </tr>
+                            <{/foreach}>
                         </tfoot>
                     </table>
 
                 </div>
-                <{/foreach}>
+
+                <div class="this-center this-large" style="margin-top: 20px">
+                    Thank You!!
+                </div>
+                <br/><br/><br/><br/>
+
             </div>
         </div>
     </section>

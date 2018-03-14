@@ -110,7 +110,7 @@
                             </ul>
 
                         </div>
-                        <div class="col-sm-9 this-margin-bottom" style="padding: 0px;  cursor: pointer;overflow: auto  "  >
+                        <div class="col-sm-9 this-margin-bottom" style=";  cursor: pointer;  "  >
                             <div  style="position: relative">
 
 
@@ -120,7 +120,7 @@
 
                                     <div class=" restaurant-entry  ">
                                        <div class="row">
-                                           <div class="col-sm-12 restaurant this-margin-top this-border this-padding">
+                                           <div class="col-sm-12  this-margin-top this-border this-padding this-white">
                                                <div class="col-sm-9  text-xs-center text-sm-left">
                                                    <div class="col-sx-12 col-md-4">
                                                        <a class="img-responsive  " href="/<{$row.r_id}>">
@@ -130,10 +130,13 @@
                                                    <!-- end:Logo -->
                                                    <div class="col-xs-12 col-md-8">
                                                        <h5><a href="/<{$row.r_id}>"><{$row.r_name}></a></h5>
-                                                       <span style="font-weight: 300;font-size: 14px;    font-family: 'Lato', Helvetica, Arial, sans-serif;">Burgers, American, Sandwiches, Fast Food, BBQ,urgers, American, Sandwiches <a href="#">...</a></span>
+                                                       <span style="font-weight: 300;font-size: 14px;    font-family: 'Lato', Helvetica, Arial, sans-serif;"><{$row.r_description}> <a href="#">...</a></span>
                                                        <ul class="list-inline">
-                                                           <li class="list-inline-item"><i class="fa fa-check"></i> Min $ 10,00</li>
-                                                           <li class="list-inline-item"><i class="fa fa-motorcycle"></i> 30 min</li>
+                                                          <li class="list-inline-item"><i class="fa
+                                                          fa-check"></i>
+                                                               Delivery Fee: $ 1,00</li>
+                                                           <li class="list-inline-item"><i class="fa
+                                                           fa-motorcycle"></i> 20 min</li>
                                                        </ul>
                                                    </div>
                                                    <!-- end:Entry description -->
@@ -141,8 +144,8 @@
                                                <div class="col-sm-3 text-xs-center">
                                                    <div class="right-content bg-white">
                                                        <div class="right-review">
-                                                           <div class="rating-block"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> </div>
-                                                           <p> 245 Reviews</p> <a href="/<{$row.r_id}>" class="btn btn-sm​​​​​​​​​​​ this-hover-text-deep-orange this-text-deep-orange" style="border: dashed 1px orangered;">View Menu</a> </div>
+                                                           <p> 50 Views</p> <a href="/<{$row.r_id}>" class="btn
+                                                           btn-sm​​​​​​​​​​​ this-hover-text-deep-orange this-text-deep-orange" style="border: dashed 1px orangered;">View Menu</a> </div>
                                                    </div>
                                                    <!-- end:right info -->
                                                </div>

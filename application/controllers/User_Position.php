@@ -11,17 +11,19 @@ class User_Position extends CI_Controller{
     {
         parent::__construct();
         $this->load->Model('User_Position_Model','position');
+        $this->load->helper('url');
     }
     public function doInsert(){
 
         $data = array(
             'p_id' => $this->input->post('o_position_id'),
-            'p_description' => $this->input->post('desc'),
+            'description' => $this->input->post('desc'),
             'u_id' => $this->input->post('u_id'),
-
         );
-
         $result=$this->position->insert($data);
+        if($result){
+            redirect('/profile');
+        }
 
 
     }

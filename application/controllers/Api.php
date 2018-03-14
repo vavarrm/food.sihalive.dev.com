@@ -19,6 +19,7 @@ class Api extends CI_Controller {
 		$this->sms =$this->config->item('sms');
 
 		$this->load->model('Restaurant_Model','Restaurant');
+        $this->load->model('User_Position_Model', 'u_position');
     }
 
 	
@@ -138,6 +139,34 @@ class Api extends CI_Controller {
 		$this->response($output);
 	}
 
+    public function getUserAddress()
+    {
+        $output['body']=array();
+        $output['status'] = '200';
+        $output['title'] ='set Profile';
+        try
+        {
+            $get = $this->input->get();
+            $sess= $get ['sess'];
+            $urlRsaRandomKey = 	$get["sess"];
+            $encrypt_user_data =$_SESSION['encrypt_user_data'];
+            $user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
+            if(!$user_data)
+            {
+                throw new Exception("get user error");
+            }
+            $get = $user_data['u_id'];
+
+            $output['body']['data']['book_address'] = $this->u_position->My_loac($get);
+
+        }catch(Exception $e)
+        {
+            $output['status'] = '000';
+            $output['message'] = $e->getMessage();
+        }
+
+        $this->response($output);
+    }
 
 	
 	public function setProfile()
@@ -632,25 +661,27 @@ class Api extends CI_Controller {
 		$output['body']=array();
 		$output['status'] = '200';
 		$output['title'] ='结帐';
-		try 
+		try
 		{
+
 			if(empty($this->request))
 			{
 				throw new Exception("request is empty");
 			}
-			
+
 			$user  =$_SESSION['encrypt_user_data'];
-			
+
 			if(empty($user))
 			{
 				throw new Exception("user no login");
 			}
             $get = $this->input->get();
+
+
             if(isset($get['sess']))
             {
                 $urlRsaRandomKey =$get['sess'];
             }
-
             $encrypt_user_data = $user ;
             $decrypt_user_data= $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
 			if(!$decrypt_user_data)
@@ -658,12 +689,16 @@ class Api extends CI_Controller {
 				throw new Exception("get user error");
 			}
 			$this->request['u_id'] = $decrypt_user_data['u_id'];
+
+
 			$this->food->inserdOrder($this->request);
+			//$Inv=$this->food->get_InvById($this->request['u_id']);
+
 			$ary =array(
 				'action'	=>'order_alert'
 			);
 			$output['body']['order_alert'] = $this->socketIO->push($ary);
-			
+
 		}catch(Exception $e)
 		{
 			$output['status'] ='000';

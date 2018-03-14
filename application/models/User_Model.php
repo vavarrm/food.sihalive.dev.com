@@ -236,7 +236,8 @@
             $this->db->select('*');
             $this->db->from('order_detail');
             $this->db->join('food', 'food.f_id = order_detail.f_id');
-            $this->db->where('o_id', $q);
+
+            $this->db->where('order_detail.o_id', $q);
             $query = $this->db->get();
             $rows = $query->result_array();
             if (count($rows) >0) {
@@ -252,7 +253,7 @@
             $this->db->select('SUM(od_price) as total,add_datetime,o_id');
             $this->db->select('od_price');
             $this->db->from('order_detail');
-            $this->db->where('o_id', $q);
+            $this->db->where('order_detail.o_id', $q);
             $query = $this->db->get();
             $rows = $query->result_array();
             if (count($rows) >0) {
@@ -261,6 +262,22 @@
             } else {
                 return FALSE;
             }
+        }
+
+        function order_status($inv){
+            $q=$this->escapeString($inv);
+            $this->db->select('*');
+            $this->db->from('order_list');
+            $this->db->where('o_id',$q);
+            $query = $this->db->get();
+            $rows = $query->result_array();
+            if (count($rows) >0) {
+                $query->free_result();
+                return $rows;
+            } else {
+                return FALSE;
+            }
+
         }
 
 

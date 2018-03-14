@@ -6,6 +6,7 @@ class User extends CI_Controller {
 	public function __construct() 
 	{
 		parent::__construct();
+        $this->load->library('session');
 		$this->user_language_ary = $this->language->load('user');
 		$this->response_code = $this->language->load('admin_response');
 		$this->request = json_decode(trim(file_get_contents('php://input'), 'r'), true);
@@ -17,6 +18,7 @@ class User extends CI_Controller {
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model('Position_Model', 'adds');
+        $this->load->model('User_Position_Model', 'u_position');
 
 
 
@@ -40,7 +42,9 @@ class User extends CI_Controller {
 	
 	public function index()
 	{
+
         $location = $this->adds->getDeliveryPosition();
+
         $this->smarty->assign(array(
             'location'		=>$location,
             'userLanguageAry'	=>$this->user_language_ary
@@ -84,10 +88,13 @@ class User extends CI_Controller {
     {
         $order = $this->user->inv_view($inv);
         $sum = $this->user->sum_price_order_by_rId($inv);
+        $status = $this->user->order_status($inv);
+
         if($order==true){
             $this->smarty->assign(array(
                 'order'            =>$order,
                 'sum'            =>$sum,
+                'status'        =>$status,
                 'userLanguageAry'	=>$this->user_language_ary,
             ));
             $this->smarty->displayFrame(__CLASS__.'/order_detail.tpl');

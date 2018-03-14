@@ -50,7 +50,6 @@
     }
 
 </style>
-
 <{$lat=""}>
 <{$lng=""}>
 <{$r_name=""}>
@@ -62,21 +61,42 @@
 -->
     <{include file="Frontend/breadcrumbs.tpl"}>
     <section class=" text-left container " style="background: #fff; position:inherit"   >
-        <div class=" row " >
-            <div class="col-sm-12" style="padding: 0px">
-                <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  id="" >
-                    <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; overflow: hidden ;margin-bottom: 20px">
+        <div class="row " >
+            <div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px">
+                <div class="col-sm-12 this-center" style="padding: 0px">
+                    <div class="col-xs-3 col-md-3 this-padding">
+                        <span class="fa fa-home" style="font-size: 20px"></span>
+                        <span class="fa fa-arrow-right this-hide-small" style="padding-left: 20px"> Home </span>
+                    </div>
+                    <div class="col-xs-3 col-md-3 this-padding this-white" style="margin-top:2px; border-radius: 2px">
+                        <span class=" fa fa-shopping-cart" style="font-size: 20px"></span>
+                        <span class="fa fa-arrow-right this-hide-small " style="padding-left: 20px">  ORDER </span>
+                    </div>
+                    <div class="col-xs-3 col-md-3 this-padding " >
+                        <span class="fa fa-credit-card" style="font-size: 20px"></span>
+                        <span class="fa fa-arrow-right this-hide-small" style="padding-left:20px"> CHECK OUT</span>
+                    </div>
+                    <div class="col-xs-3 col-md-3 this-padding">
+                        <span class="fa fa-print" style="font-size: 20px"></span>
+                        <span class="this-hide-small">RECEIPT</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding: 0px">
+                <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  >
+                    <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; ;margin-bottom: 20px">
 
-                        <ul class="nav nav-tabs bg-primary "  style="margin-top: 5px" >
+                        <ul class="nav nav-tabs "  style="margin-top: 5px; border: 0px!important;" >
                             <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
                             <li><a data-toggle="tab" href="#menu1">MAP </a></li>
                             <li><a data-toggle="tab" href="#open">Opening </a></li>
                             <li><a data-toggle="tab" href="#about">About </a></li>
                         </ul>
 
-                        <div class="tab-content" >
+                        <div class="  tab-content" >
                             <div id="home" class="tab-pane fade in active">
-                                <div class="col-sm-3 this-hide-small " style="padding: 2px; margin-top: 4px; position:relative; z-index: 0" id="sidebar"   >
+                                <div class="col-sm-3 this-hide-small " style="padding: 2px; margin-top: 4px;
+                              " id="sidebar"   >
                                    <div class="sidebar__inner">
                                        <ul class="list-group nav nav-pills nav-stacked" style="border:none; margin-bottom: 40px"  >
                                            <div  style="width:auto"  id="pro_left"  >
@@ -86,32 +106,27 @@
                                                    <{$lng=$row.r_lng}>
                                                    <{$r_name=$row.r_name}>
                                                    <{$r_about=$row.r_description}>
-
                                                    <center>
                                                        <img src="http://freedesignfile.com/upload/2017/07/chef-restaurant-logo-design-vector.jpg"
                                                             width="120" class="img-responsive img-circle" style=" margin-top: 0px">
                                                    </center>
-
                                                    <h2 class="this-text-black" style="font-size: 18px;text-transform: uppercase"><{$row.r_name}></h2>
                                                    <span class="this-text-black">Open :<{$row.r_open_start}> - Close <{$row.r_open_end}></span>
                                                    <{/foreach}>
                                                </li>
-
                                                <li class="list-group-item" id="menu_clcik" style="background:#f16121;color: white;"> <span class="glyphicon glyphicon-th"></span> MENU </li>
                                                <div id="menu__">
                                                    <{foreach from=$list_category_by_restaurant item=row key=index}>
                                                    <li class="list-group-item" style="cursor: pointer; color: black">
-                                                       <a href="#<{$row.ca_id}>">
+                                                       <a href="#m_<{$row.ca_id}>">
                                                        <{$row.ca_name}>
                                                        <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
                                                            <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
                                                        </i>
                                                        </a>
                                                    </li>
-
                                                    <{/foreach}>
                                                </div>
-
                                                <li class="list-group-item" style="padding: 0px; margin-top: 20px; margin-bottom: 20px ">
                                                    <img src="https://www.hostgator.com/images/banners/336x280/WordPress-336x280.gif" class="img-responsive" width="300">
                                                </li>
@@ -119,112 +134,122 @@
 
                                        </ul>
                                    </div>
-
                                 </div>
                                 <div class="col-sm-6" style="padding: 0px;  cursor: pointer;overflow: auto;  " id="this_center" ng-controller="productPageCtrl"  >
                                     <div id="content">
-                                        <form class="form this-white" style="padding: 5px; ">
+                                        <form class="form this-white this-hide-large" style="padding: 5px; ">
                                             <select class="form-control input-sm  " style="background: white!important;" >
-
-
                                                 <{foreach from=$category item=row key=index}>
-
                                                 <option value="<{$row.ca_id}>" > <{$row.ca_name}> </option>
-
-
                                                 <{/foreach}>
                                             </select>
                                         </form>
                                         <{foreach from=$foodList item=row key=index}>
-
-                                        <div class="col-xs-12 col-md-4 this-center " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
+                                        <div class="col-xs-12 col-md-4  " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
-                                                <div class="col-xs-12 col-md-12 ">
+                                                <div class="col-xs-12 col-md-12 " >
 
-                                                    <img src="/images/category-1-310X260.png" alt="" width="250" height="200" class="img-responsive img-circle reveal-inline-block"/>
+                                                    <img src="/images/category-1-310X260.png" alt="" width="250"
+                                                         height="200" class="img-responsive img-circle
+                                                         reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
 
                                                 </div>
-                                                <div class="col-sx-12 col-md-12 " style="padding: 5px" >
-                                                    <p style="margin-top: 10px" >
+                                                <div class="col-sx-12 col-md-12 " style="padding: 5px; " >
+                                                    <div style="margin-top: -25px; position: relative" >
                                                         <{$row.f_name}>
-                                                    </p>
-                                                    <div class="col-sm-12 " id="<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
-                                                        <button class="this-btn this-btn-this this-small" onclick="document.getElementById('<{$row.f_id}>').style.display='block'"
+                                                    </div>
+                                                    <div class="col-sm-12 " id="m_<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
+                                                        <button class="this-btn this-btn-this this-small"
+                                                                data-toggle="modal" data-target="#<{$row.f_id}>"
+
                                                                 style="font-size: 12px; font-weight:normal;
-                                              padding: 8px; border-radius: 3px; height: 35px;  margin-top: -20px; background: #f75d34">
-                                                            <p>Price : <{$row.f_large_price}> $ </p>
+                                              padding: 5px; border-radius: 3px; height: 30px;  margin-top: -10px;
+                                              background: #f75d34">
+                                                            <{$row.f_large_price}> $
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     <!--  Open Modal Order --->
-                                        <div id="<{$row.f_id}>" class="this-modal this-animate-opacity this-margin-top this-small">
-                                            <div class="this-modal-content">
-                                                <header class="this-container ">
-                                            <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"
-                                                  class="this-button this-right this-btn-this" style="margin-right: -16px; border-radius: 0px">&times;</span>
-                                                    <h3><{$row.f_name}></h3>
-                                                </header>
-                                                <div class="this-container this-padding">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
 
-                                                            <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
+                                           <div id="<{$row.f_id}>" class="modal fade this-center"  role="dialog"
+                                                style="margin-top: 30px; padding: 0px!important; margin: 0px;
+                                                border-radius:0px!important; margin-top: 50px">
+                                               <div class="modal-dialog" style="border-radius: 0px">
+                                               <div class="modal-content ">
+                                                   <div class="modal-header">
+                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                       <h3><{$row.f_name}></h3>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                       <div class="row">
+                                                           <div class="col-sm-6">
+                                                               <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
 
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <form>
-                                                                <p>Price : <{$row.f_large_price}> $ </p>
-                                                                <p>Quantity</p>
-                                                                <div class="stepper-type-1">
-                                                                    <div class="stepper ">
-                                                                        <input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control stepper-input">
-                                                                        <span class="stepper-arrow up"></span>
-                                                                        <span class="stepper-arrow down"></span>
-                                                                    </div>
-                                                                </div>
+                                                               <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
 
-                                                                <hr class="offset-top-50">
-                                 <button  ng-click="click(<{$row.f_id}>, '1','<{$row.f_large_price}>' ,'<{$row.f_name}>');$event.stopPropagation();"
-                                                                         ng-model="$item.order_num"
-                                                                         class="this-btn this-btn-this this-right this-margin-top " >
+                                                           </div>
+                                                           <div class="col-sm-6">
+                                                               <form>
+                                                                   <p>Price : <{$row.f_large_price}> $ </p>
+                                                                   <p>Quantity</p>
+                                                                   <div class="stepper-type-1">
+                                                                       <div class="stepper "><input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control text-bold stepper-input"><span class="stepper-arrow up"></span><span class="stepper-arrow down"></span></div>
+                                                                   </div>
 
-                                                                    ADD TO CART
-                                                                </button>
-                                                            </form>
+                                                                   <hr class="offset-top-50">
+                                                                   <button type="button"
+                                                                           ng-click="click(<{$row.f_id}>, '1',
+                                                                   '<{$row.f_large_price}>','<{$row.f_name}>');$event.stopPropagation();"
+                                                                            ng-model="$item.order_num"
+                                                                            class="this-btn this-btn-this this-right
+                                                                            this-margin-top "  >
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <footer class="this-container this-padding this-right">
+                                                                       ADD TO CART
+                                                                   </button>
+                                                               </form>
 
-                                                </footer>
-                                            </div>
-                                        </div>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+
+                                               </div>
+                                               </div>
+                                           </div>
+
                                         <!--Close Modal -->
                                         <{/foreach}>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 this-hide-small " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  " ng-controller="shopCartCtrl">
+                                <div class="col-sm-3 this-hide-small this-white " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  "
+                                     ng-controller="shopCartCtrl">
                                     <div id="inv">
                                         <div class="row">
-                                            <div class="containerj" style="background:#f16121;height: 46px; color: white; padding: 10px; ">
+                                            <div class="container this-white" style="background:#f16121;height: 40px; color:
+                                            white; padding: 10px; ">
                                                 Order Information
                                             </div>
-                                            <div class="col-sm-12 " style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
+                                            <div class="col-sm-12 this-white " style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
                                                 <div class="inner line-top relative">
 
-                                                    <p class="bold center">Your Order</p>
+
                                                     <div class="item-order-wrap" style="border-top: 1px solid silver" >
                                                         <div class="item-order-list item-row"  ng-repeat="item in items|filter as filterAry" ng-show="!item.del" >
-                                                            <div class="b"><span  class="
-                                                            grid-element-mod-2"　ng-bind="item.f_name"></span>
-                                                                <p class="uk-text-small">
-                                                                    <span class="base-price" ng-bind="'$'+item.price"></span></p>
+                                                            <div class="col-sm-9"  >
+                                                                <span  class="grid-element-mod-2"　ng-bind="item.f_name">
+                                                                    {{item.f_name}}
+                                                                </span>
                                                             </div>
-                                                            <span class="glyphicon glyphicon-edit" style="font-size: 15px"></span>
+                                                            <div class="col-sm-3">
+                                                                <p class="uk-text-small">
+                                                                    <span class="base-price" ng-bind="'$'+item.price"></span>
+                                                                </p>
+                                                            </div>
+                                                            <span>
+                                                            <input data-index="{{$index}}" data-price="{{item.price}}" type="number" data-zeros="true"  value="{{item.order_num}}" ng-model="$item.order_num" min="1" max="20" readonly class="form-control text-bold">
+
+                                                            </span>
                                                             <span class="glyphicon glyphicon-trash"
                                                                   style="font-size:15px; cursor: pointer" ng-click="delete
                                                                   ($index);
@@ -236,9 +261,14 @@
                                                             <div class="row">
                                                                 <div class="col-md-6 col-xs-6 text-right ">Sub Total</div>
                                                                 <div class="col-md-6 col-xs-6 text-right cart_subtotal">
-                                                                    <div class="offset-top-0">
-					<span class="h5 text-sbold">$<span>
-					<span data-index="{{$index}}" data-subtotal="{{item.subtotal}}" class="h5 text-sbold subtotal" ng-model="item.subtotal" ng-bind="item.subtotal" ng-init="item.subtotal =  (item.price*item.order_num)"></span>
+                                                                    <div class="offset-top-0"><span class="h5 text-sbold">$<span>
+                                                                    <span data-index="{{$index}}"
+                                                                          data-subtotal="{{item.subtotal}}"
+                                                                          class="h5 text-sbold subtotal" ng-model="item.subtotal"
+                                                                          ng-bind="item.subtotal"
+                                                                          ng-init="item.subtotal=(item.price*item.order_num)">
+                                                                        {{item.subtotal}}
+                                                                    </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -249,14 +279,17 @@
                                                             <div class="row cart_total_wrap bold">
                                                                 <div class="col-md-6 col-xs-6  text-right">Total</div>
                                                                 <div class="col-md-6 col-xs-6  text-right cart_total">
-                                                                    <span class="total"  ng-bind="'Total:'+Total
-                                                                    (filterAry)"
-                                                                    ></span>
+                                                                    <span class="total" ng-bind="'Total:'+Total(filterAry)"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="summary-wrap" style="border-top: 1px solid silver">
-
+                                                        <div class="summary-wrap this-hide" style="border-top: 1px
+                                                        solid silver">
+                                                            <{foreach from=$r_id item=row key=index}>
+                                                            <input type="text" id="r_id" value="<{$row.r_id}>"
+                                                                   name="o_r_id" style="display: none"
+                                                                   class="form-control form-control-has-validation form-control-last-child ">
+                                                            <{/foreach}>
                                                             <input type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge"
                                                                    class="form-control form-control-has-validation
                                                                    form-control-last-child " style="margin-top: 10px">
@@ -269,11 +302,19 @@
                                                             </div>
                                                             <div class="" style="margin-top: 10px">
                                                                 <center>
-                                                                    <button  ng-click="checkout();$event
-                                                                    .preventDefault();" class="this-btn this-btn-this"> <span
-                                                                                class="glyphicon glyphicon-log-out"></span> <{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
+                                                                    <button  ng-click="checkout();$event.preventDefault();" class="this-btn this-btn-this">
+                                                                        <span class="glyphicon glyphicon-log-out"></span> <{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
                                                                 </center>
                                                             </div>
+                                                        </div>
+                                                        <div class="" style="margin-top: 10px">
+                                                            <center>
+                                                                <a href="/ShopCart">
+                                                                    <button   class="this-btn this-btn-this">
+                                                                        <span class="glyphicon glyphicon-log-out"></span>
+                                                                        结帐 </button>
+                                                                </a>
+                                                            </center>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -337,8 +378,6 @@
                     </div>
 
                 </div>
-
-
 
             </div>
 
