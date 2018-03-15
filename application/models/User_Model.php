@@ -235,9 +235,9 @@
             $q=$this->escapeString($inv);
             $this->db->select('*');
             $this->db->from('order_detail');
-            $this->db->join('food', 'food.f_id = order_detail.f_id');
+            $this->db->join('food', 'food.f_id = order_detail.od_f_id');
 
-            $this->db->where('order_detail.o_id', $q);
+            $this->db->where('order_detail.od_o_id', $q);
             $query = $this->db->get();
             $rows = $query->result_array();
             if (count($rows) >0) {
@@ -250,10 +250,10 @@
 
         function sum_price_order_by_rId($inv){
             $q=$this->escapeString($inv);
-            $this->db->select('SUM(od_price) as total,add_datetime,o_id');
+            $this->db->select('SUM(od_price) as total,add_datetime,od_o_id');
             $this->db->select('od_price');
             $this->db->from('order_detail');
-            $this->db->where('order_detail.o_id', $q);
+            $this->db->where('order_detail.od_o_id', $q);
             $query = $this->db->get();
             $rows = $query->result_array();
             if (count($rows) >0) {

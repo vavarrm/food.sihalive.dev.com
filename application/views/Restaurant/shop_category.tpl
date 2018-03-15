@@ -50,7 +50,7 @@
 
                                 <div class=" restaurant-entry  ">
                                     <div class="">
-                                        <div class="col-sm-12 restaurant this-margin-top this-border this-padding">
+                                        <div class="col-sm-12  this-margin-top this-border this-padding">
                                             <div class="col-sm-9  text-xs-center text-sm-left">
                                                 <div class="col-sx-12 col-md-4">
                                                     <a class="img-responsive  " href="/<{$row.r_id}>">

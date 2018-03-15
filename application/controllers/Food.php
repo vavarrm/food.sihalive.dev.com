@@ -74,8 +74,6 @@ class Food extends CI_Controller {
 
 	function foodList_by_Id($userId){
 
-
-
     }
 	
 	

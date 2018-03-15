@@ -16,6 +16,7 @@ class Shop extends  CI_Controller{
             'shopId'	=>$shopId,
             'operation'      =>$operation
         ));
+        //var_dump($shopId);
         $this->smarty->displayFrame('Restaurant/shop_category.tpl');
     }
 

@@ -65,14 +65,14 @@
 					<button  type="submit" class="this-btn this-btn-this" style="height: 40px"><{$mainpage_language_ary.our_menu}></button>
 				</form>
 				<div class="row">
-					<{foreach from=$category item=row key=index}>
+					<{foreach from=$group item=row key=index}>
 					<!-- Each popular food item starts -->
-					<a href="/shop/<{$row.ca_id}>">
+					<a href="/shop/<{$row.g_r_name|replace:' ':'-'}>">
 						<div class="col-xs-12 col-sm-6 col-md-2" ">
 						<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
-							<img src="images/category-<{$row.ca_id}>-310X260.png" class="img-responsive"/>
+							<img src="images/category-<{$row.g_r_name}>-310X260.png" class="img-responsive"/>
 							<div class="content">
-								<div class="product-name"><{$row.ca_name}></div>
+								<div class="product-name"><{$row.g_r_name}></div>
 							</div>
 
 						</div>
@@ -86,7 +86,7 @@
 
 </section>
 	<br/>
-	<section class="popular container-fluid this-white this-padding" >
+	<section class="popular container-fluid this-white this-padding " >
 		<div class="container">
            <h5 class="h5 text-uppercase">Restaurants in Shihanoukville </h5>
 			<hr class="offset-top-50">

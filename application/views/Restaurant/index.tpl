@@ -14,7 +14,6 @@
     }
 
 
-
 </style>
 <{$lat=""}>
 <{$lng=""}>
@@ -45,10 +44,10 @@
                     </div>
                 </div>
             </div>
-            <div class="container "  id="main-content"  style="padding: 0px" >
+            <div class="container " id="main-content"  style="padding: 0px" >
                 <div class="col-sm-12" style="padding: 0px;  height: auto "  >
                     <div class="col-sm-9  this-margin-top " style="padding: 0px; height: 100%; border: 1px
-                    solid silver ;
+                    solid silver; border-radius: 0px!important; ;
                     margin-bottom: 20px; border-radius: 5px">
 
                         <ul class="nav nav-tabs this-white "  style=" border: 0px!important;" >
@@ -62,13 +61,32 @@
                             <div id="home" class="tab-pane fade in active "  >
 
 
-                                <div class="col-sm-4 this-hide-small " style=" margin-top: 4px;position:relative;z-index: 0;" id="sidebar"   >
+                                <div class="col-sm-4 this-hide-small " style=" margin-top: 4px;position:relative;
+                                z-index: 0;"id="sidebar"   >
 
                                     <div id="sidebar__inner">
                                         <ul class="list-group" style="border:none!important;"  >
                                             <div  style="width:auto"  id="pro_left"  >
+                                                <li class="list-group-item" style="overflow: hidden; ;
+                                                background: silver; padding: 0px; position: relative; ">
+                                                    <{foreach from=$shopId item=row}>
+                                                    <{$lat=$row.r_lat}>
+                                                    <{$lng=$row.r_lng}>
+                                                    <{$r_name=$row.r_name}>
+                                                    <{$r_about=$row.r_description}>
+                                                    <center>
+                                                        <img src="/images/food/1-43-310x260.png"
+                                                             class="img-responsive " style=" margin-top: -10px;
+                                                             ">
+                                                        <h2 class="this-text-black" style="font-size: 18px;text-transform: uppercase"><{$row.r_name}></h2>
+                                                    </center>
 
-                                                <li class="list-group-item" id="menu_clcik" style="color: white;"> <span class="glyphicon glyphicon-th"></span> MENU </li>
+
+                                                    <{/foreach}>
+                                                </li>
+                                                <li class="list-group-item bg-info" id="menu_clcik" style="color:
+                                                white; background-color:orangered"> <span class="glyphicon
+                                                glyphicon-th"></span> MENU </li>
                                                 <div id="menu__">
                                                     <{foreach from=$list_category_by_restaurant item=row key=index}>
                                                     <li class="list-group-item" style="cursor: pointer; color: black">
@@ -90,13 +108,34 @@
                                 </div>
                                 <div class="col-sm-8" style="padding: 0px;  cursor: pointer;overflow: auto; " id="mainCol" ng-controller="productPageCtrl"  >
                                     <div id="content">
-                                        <form class="form this-white this-hide-large" style="padding: 5px; ">
-                                            <select class="form-control input-sm  " style="background: white!important;" >
-                                                <{foreach from=$category item=row key=index}>
-                                                <option value="<{$row.ca_id}>" > <{$row.ca_name}> </option>
-                                                <{/foreach}>
-                                            </select>
-                                        </form>
+                                       <div class="col-sm-12 this-border this-hide-large this-hide-medium"
+                                            style="padding:0px;
+                                       margin-top:
+                                       5px">
+                                           <div class="this-dropdown-hover " style="width: 100%">
+
+                                               <div class="this-container this-white this-padding "  style="height:
+                                               40px;width:"> <span class="icon icon-sm icon-primary fa
+                                               fa-align-justify"></span></span> <span style="font-size:
+                                               17px; font-weight: bold;  padding-top: -5px"> MENU </span>
+                                               </div>
+                                               <div class="this-dropdown-content this-bar-block this-border"
+                                                    style="width: 100%">
+                                                   <{foreach from=$list_category_by_restaurant item=row key=index}>
+
+                                                   <a class="this-bar-item" href="#Id<{$row.ca_id}>" >
+
+                                                       <{$row.ca_name}>
+
+                                                   </a>
+
+                                                   <{/foreach}>
+
+
+                                               </div>
+                                           </div>
+                                       </div>
+
                                         <{foreach from=$foodList item=row key=index}>
                                         <div class="col-xs-12 col-md-4  " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px" id="Id<{$row.f_ca_id}>">
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
@@ -363,22 +402,20 @@
 </script>
 <script type="text/javascript">
 
-    var sidebar = new StickySidebar('#sidebar', {
+   /* var sidebar = new StickySidebar('#sidebar', {
         topSpacing: 20,
         bottomSpacing: 20,
-        leftSpacing:20,
-        rightSpacing:20,
+
         containerSelector:  '#main-content',
         innerWrapperSelector: '#sidebar__inner',
 
     });
-
     var inv = new StickySidebar('#inv', {
         topSpacing: 20,
         bottomSpacing: 20,
         containerSelector: '#main-content',
         innerWrapperSelector: '#inv__'
-    });
+    });*/
 
 </script>
 <script type="text/javascript">

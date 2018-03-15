@@ -110,6 +110,14 @@ class User extends CI_Controller {
 
     }
 
+    function verify(){
+
+        $this->smarty->displayFrame(__CLASS__.'/verify_code.tpl');
+
+
+
+    }
+
 
 
 
