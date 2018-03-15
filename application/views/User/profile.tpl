@@ -280,31 +280,7 @@
 				</ul>
 			</div>
 
-			<div id="add_location" class=" this-bottom" style="width: 100%; height:10%;  background: white; text-align: center; position: absolute">
-				<p style="font-size: 12px"> Drag drop and create your location Address </p>
-				<button class="this-btn this-btn-this" id="open_form" style="height: 35px; padding: 2px; width: 100px"> AddNew </button>
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-2"></div>
-						<div class="col-sm-8 w3-padding ">
-							<form  class="form" style="text-align: left" id="frm_add" action="/User_Position/doInsert" method="post" >
-								<div class="form-group">
-									<label for="p_name">Address name :</label>
-									<input type="text" class="form-control input-sm" id="p_name" name="u_position_name"  required minlength="5">
-								</div>
-								<div class="form-group">
-									<label for="p_desc">Plase Description :</label>
-									<input type="text" class="form-control input-sm" id="p_desc" required minlength="5">
-								</div>
 
-								<button type="submit"class="this-btn" " style="height: 35px; padding: 2px; width: 100px">Save</button>
-								<button type="reset" id="close_add" class=" btn-primary " style="height: 35px; padding: 2px; width: 100px">Back</button>
-								<div id='response'></div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
 
 		</div>
 	</div>

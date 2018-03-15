@@ -219,15 +219,7 @@
 					$bind[] = $value;
 				}
 			}
-			// $sql ="	SELECT * 
-					// FROM `food` AS f
-						// LEFT JOIN `category` AS ca ON f.ca_id = ca.ca_id
-					// WHERE ".$where_str."
-					// ORDER BY f.f_id DESC";
-			// $query = $this->db->query($sql, $bind);
-			//echo $this->db->last_query();
-			// $rows  =  $query->result_array();
-			// $query->free_result();
+
 			return $rows;
 		}
 
@@ -237,6 +229,7 @@
             $this->db->from($this->table);
             $this->db->join($this->JoinTable,$this->innerJoin);
             //$this->db->join("food_category_link","food_category_link.f_id=food.f_id");
+            $this->db->order_by("f_r_id", "asc");
             $this->db->where('restaurant.r_id',$data);
             $query=$this->db->get();
             $rows=$query->result_array();
@@ -249,8 +242,55 @@
             {
                 return FALSE;
             }
+        }
+        public function get_food_by_r($userId)
+        {
+            $data=$this->escapeString($userId);
+            $this->db->select('*');
+            $this->db->from("food");
+            $this->db->join("restaurant","restaurant.r_id=food.f_r_id");
+            $this->db->join("category","category.ca_id=food.f_ca_id");
+            $this->db->order_by("category.ca_id", "asc");
+            $this->db->where('restaurant.r_id',$data);
+            $query=$this->db->get();
+            $rows=$query->result_array();
+            $return = array();
+
+            foreach ($query->result() as $category)
+            {
+                $return[$category->ca_id] = $category;
+                $return[$category->ca_id]->subs = $this->get_category($category->ca_id); // Get the categories sub
+                // categories
+            }
+
+            return $rows;
+        }
 
 
+        public function get_category($res_id)
+        {
+            // Select all entries from the menu table
+            $query = $this->db->query("select * from category WHERE ca_r_id='.$res_id.' order by ca_id DESC ");
+
+            // Create a multidimensional array to contain a list of items and parents
+            $cat = array(
+                'items' => array(),
+                'parents' => array()
+            );
+            // Builds the array lists with data from the menu table
+            foreach ($query->result() as $cats) {
+                // Creates entry into items array with current menu item id ie. $menu['items'][1]
+                $cat['items'][$cats->ca_id] = $cats;
+                // Creates entry into parents array. Parents array contains a list of all items with children
+                $cat['parents'][$cats->ca_r_id][] = $cats->category_id;
+            }
+
+            if ($cat) {
+                $result = $this->get_food_by_r(0, $cat);
+                return $result;
+            } else {
+                return FALSE;
+            }
         }
 
 	}

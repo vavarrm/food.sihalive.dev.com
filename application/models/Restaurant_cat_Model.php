@@ -40,11 +40,11 @@ class Restaurant_cat_Model extends CI_Model{
     public function list_category_by_restaurant($ca_id){
         $q=$this->escapeString($ca_id);
         $this->db->select("*");
-        $this->db->from($this->tb_restaurant);
-        $this->db->join($this->tb_restaurant_category_link, $this->join_link_restautant);
-        $this->db->join($this->tb_category,$this->join_link_category);
-        //$this->db->join($this->tb_food_category_link,$this->join_link_food);
-        $this->db->where('restaurant.r_id', $q);
+        $this->db->from("category");
+        //$this->db->join($this->tb_restaurant_category_link, $this->join_link_restautant);
+      //  $this->db->join($this->tb_category,$this->join_link_category);
+      //  $this->db->join($this->tb_food_category_link,$this->join_link_food);
+        $this->db->where('ca_r_id',$q);
         $query = $this->db->get();
         $rows=$query->result_array();
         if(count($rows))

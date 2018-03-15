@@ -9,8 +9,6 @@
     }
 
     #sidebar{
-
-
         will-change: min-height;
     }
     #inv{
@@ -49,20 +47,27 @@
         height: 100%;
     }
 
+
+    #sidebar__inner{
+        transform: translate(0, 0); /* For browsers don't support translate3d. */
+        transform: translate3d(0, 0, 0);
+        will-change: position, transform;
+    }
+
 </style>
 <{$lat=""}>
 <{$lng=""}>
 <{$r_name=""}>
 <{$r_about=""}>
-<main class="page-content this-white" style="background: #F0F0F0"  ng-controller="shopCartCtrl"  >
+<main class="page-content " style=""  ng-controller="shopCartCtrl"  >
     <!-- Breadcrumbs & Page title-->
     <!--
 <section class="container-fluid this-padding this-center" style="height: 300px; background-image: url('/images/bg-image-3.jpg'); background-size: cover; background-position: center"></section>
 -->
     <{include file="Frontend/breadcrumbs.tpl"}>
     <section class=" text-left container " style="background: #fff; position:inherit"   >
-        <div class="row " >
-            <div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px">
+        <div class="row "  >
+            <div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px"  >
                 <div class="col-sm-12 this-center" style="padding: 0px">
                     <div class="col-xs-3 col-md-3 this-padding">
                         <span class="fa fa-home" style="font-size: 20px"></span>
@@ -82,9 +87,9 @@
                     </div>
                 </div>
             </div>
-            <div class="container" style="padding: 0px">
-                <div class="col-sm-12" style="padding: 0px; z-index: 99999; height: auto "  >
-                    <div class="col-sm-12" style="padding: 0px;z-index:999; height: 100%; ;margin-bottom: 20px">
+            <div class="container "  id="main-content"  style="padding: 0px" >
+                <div class="col-sm-12" style="padding: 0px;  height: auto "  >
+                    <div class="col-sm-12" style="padding: 0px; height: 100%; ;margin-bottom: 20px">
 
                         <ul class="nav nav-tabs "  style="margin-top: 5px; border: 0px!important;" >
                             <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
@@ -93,49 +98,39 @@
                             <li><a data-toggle="tab" href="#about">About </a></li>
                         </ul>
 
-                        <div class="  tab-content" >
+                        <div class="tab-content" >
                             <div id="home" class="tab-pane fade in active">
-                                <div class="col-sm-3 this-hide-small " style="padding: 2px; margin-top: 4px;
-                              " id="sidebar"   >
-                                   <div class="sidebar__inner">
-                                       <ul class="list-group nav nav-pills nav-stacked" style="border:none; margin-bottom: 40px"  >
-                                           <div  style="width:auto"  id="pro_left"  >
-                                               <li class="list-group-item">
-                                                   <{foreach from=$shopId item=row}>
-                                                   <{$lat=$row.r_lat}>
-                                                   <{$lng=$row.r_lng}>
-                                                   <{$r_name=$row.r_name}>
-                                                   <{$r_about=$row.r_description}>
-                                                   <center>
-                                                       <img src="http://freedesignfile.com/upload/2017/07/chef-restaurant-logo-design-vector.jpg"
-                                                            width="120" class="img-responsive img-circle" style=" margin-top: 0px">
-                                                   </center>
-                                                   <h2 class="this-text-black" style="font-size: 18px;text-transform: uppercase"><{$row.r_name}></h2>
-                                                   <span class="this-text-black">Open :<{$row.r_open_start}> - Close <{$row.r_open_end}></span>
-                                                   <{/foreach}>
-                                               </li>
-                                               <li class="list-group-item" id="menu_clcik" style="background:#f16121;color: white;"> <span class="glyphicon glyphicon-th"></span> MENU </li>
-                                               <div id="menu__">
-                                                   <{foreach from=$list_category_by_restaurant item=row key=index}>
-                                                   <li class="list-group-item" style="cursor: pointer; color: black">
-                                                       <a href="#m_<{$row.ca_id}>">
-                                                       <{$row.ca_name}>
-                                                       <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
-                                                           <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
-                                                       </i>
-                                                       </a>
-                                                   </li>
-                                                   <{/foreach}>
-                                               </div>
-                                               <li class="list-group-item" style="padding: 0px; margin-top: 20px; margin-bottom: 20px ">
-                                                   <img src="https://www.hostgator.com/images/banners/336x280/WordPress-336x280.gif" class="img-responsive" width="300">
-                                               </li>
-                                           </div>
+                                <div class="col-sm-3 this-hide-small " style="
+                                padding: 2px; margin-top: 4px;
+                                position:relative; z-index: 0" id="sidebar"   >
+                                    <div id="sidebar__inner">
+                                        <ul class="list-group" style="border:none;"  >
+                                            <div  style="width:auto"  id="pro_left"  >
 
-                                       </ul>
-                                   </div>
+                                                <li class="list-group-item" id="menu_clcik" style="background:#f16121;color: white;"> <span class="glyphicon glyphicon-th"></span> MENU </li>
+                                                <div id="menu__">
+                                                    <{foreach from=$list_category_by_restaurant item=row key=index}>
+                                                    <li class="list-group-item" style="cursor: pointer; color: black">
+                                                        <a href="#Id<{$row.ca_id}>">
+                                                            <{$row.ca_name}>
+                                                            <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
+                                                                <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
+                                                            </i>
+                                                        </a>
+                                                    </li>
+
+                                                    <{/foreach}>
+
+                                                </div>
+                                            </div>
+
+                                        </ul>
+                                    </div>
+
                                 </div>
-                                <div class="col-sm-6" style="padding: 0px;  cursor: pointer;overflow: auto;  " id="this_center" ng-controller="productPageCtrl"  >
+                                <div class="col-sm-6  " style="padding: 0px;  cursor: pointer;overflow: auto;
+                                background:#f1f1f1  "
+                                     id="mainCol" ng-controller="productPageCtrl"  >
                                     <div id="content">
                                         <form class="form this-white this-hide-large" style="padding: 5px; ">
                                             <select class="form-control input-sm  " style="background: white!important;" >
@@ -145,7 +140,7 @@
                                             </select>
                                         </form>
                                         <{foreach from=$foodList item=row key=index}>
-                                        <div class="col-xs-12 col-md-4  " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px">
+                                        <div class="col-xs-12 col-md-4  " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px" id="Id<{$row.f_ca_id}>">
                                             <div class="col-sm-12 restaurant  " style="height:auto;min-height: 90px; padding: 0px!important; " >
                                                 <div class="col-xs-12 col-md-12 " >
 
@@ -154,9 +149,9 @@
                                                          reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
 
                                                 </div>
-                                                <div class="col-sx-12 col-md-12 " style="padding: 5px; " >
+                                                <div class="col-sx-12 col-md-12 " style="padding: 5px; "  >
                                                     <div style="margin-top: -25px; position: relative" >
-                                                        <{$row.f_name}>
+                                                        <{$row.f_name}> <{$row.f_ca_id}>
                                                     </div>
                                                     <div class="col-sm-12 " id="m_<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
                                                         <button class="this-btn this-btn-this this-small"
@@ -173,60 +168,61 @@
                                         </div>
                                     <!--  Open Modal Order --->
 
-                                           <div id="<{$row.f_id}>" class="modal fade this-center"  role="dialog"
-                                                style="margin-top: 30px; padding: 0px!important; margin: 0px;
+                                        <div id="<{$row.f_id}>" class="modal fade this-center"  role="dialog"
+                                             style="margin-top: 30px; padding: 0px!important; margin: 0px;
                                                 border-radius:0px!important; margin-top: 50px">
-                                               <div class="modal-dialog" style="border-radius: 0px">
-                                               <div class="modal-content ">
-                                                   <div class="modal-header">
-                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                       <h3><{$row.f_name}></h3>
-                                                   </div>
-                                                   <div class="modal-body">
-                                                       <div class="row">
-                                                           <div class="col-sm-6">
-                                                               <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
+                                            <div class="modal-dialog" style="border-radius: 0px">
+                                                <div class="modal-content ">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h3><{$row.f_name}></h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
 
-                                                               <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
+                                                                <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
 
-                                                           </div>
-                                                           <div class="col-sm-6">
-                                                               <form>
-                                                                   <p>Price : <{$row.f_large_price}> $ </p>
-                                                                   <p>Quantity</p>
-                                                                   <div class="stepper-type-1">
-                                                                       <div class="stepper "><input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control text-bold stepper-input"><span class="stepper-arrow up"></span><span class="stepper-arrow down"></span></div>
-                                                                   </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <form>
+                                                                    <p>Price : <{$row.f_large_price}> $ </p>
+                                                                    <p>Quantity</p>
+                                                                    <div class="stepper-type-1">
+                                                                        <div class="stepper "><input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control text-bold stepper-input"><span class="stepper-arrow up"></span><span class="stepper-arrow down"></span></div>
+                                                                    </div>
 
-                                                                   <hr class="offset-top-50">
-                                                                   <button type="button"
-                                                                           ng-click="click(<{$row.f_id}>, '1',
+                                                                    <hr class="offset-top-50">
+                                                                    <button type="button"
+                                                                            ng-click="click(<{$row.f_id}>, '1',
                                                                    '<{$row.f_large_price}>','<{$row.f_name}>');$event.stopPropagation();"
                                                                             ng-model="$item.order_num"
                                                                             class="this-btn this-btn-this this-right
                                                                             this-margin-top "  >
 
-                                                                       ADD TO CART
-                                                                   </button>
-                                                               </form>
+                                                                        ADD TO CART
+                                                                    </button>
+                                                                </form>
 
-                                                           </div>
-                                                       </div>
-                                                   </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                               </div>
-                                               </div>
-                                           </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <!--Close Modal -->
                                         <{/foreach}>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 this-hide-small this-white " style="margin-top: 5px; margin-bottom: 10px; overflow: hidden  "
+                                <div class="col-sm-3 this-hide-small this-white " style="margin-top: 5px; margin-bottom: 10px; "
                                      ng-controller="shopCartCtrl">
                                     <div id="inv">
-                                        <div class="row">
-                                            <div class="container this-white" style="background:#f16121;height: 40px; color:
+                                        <div class="row" id="inv__">
+                                            <div class="this-container this-white" style="background:#f16121;height:
+                                            40px; color:
                                             white; padding: 10px; ">
                                                 Order Information
                                             </div>
@@ -286,9 +282,9 @@
                                                         <div class="summary-wrap this-hide" style="border-top: 1px
                                                         solid silver">
                                                             <{foreach from=$r_id item=row key=index}>
-                                                            <input type="text" id="r_id" value="<{$row.r_id}>"
-                                                                   name="o_r_id" style="display: none"
-                                                                   class="form-control form-control-has-validation form-control-last-child ">
+                                                        <input type="text" id="r_id" value="<{$row.r_id}>"
+                                                               name="o_r_id" style="display: none"
+                                                               class="form-control form-control-has-validation form-control-last-child ">
                                                             <{/foreach}>
                                                             <input type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge"
                                                                    class="form-control form-control-has-validation
@@ -335,12 +331,12 @@
 
                             <div id="open" class="tab-pane fade in ">
                                 <div class="this-container this-padding">
-                                   <h5> Opening Hours</h5>
+                                    <h5> Opening Hours</h5>
                                     <hr class="offset-top-20">
                                     <ul class="this-ul">
 
 
-                                    <{foreach from=$operation item=row }>
+                                        <{foreach from=$operation item=row }>
 
 
                                         <li>
@@ -356,7 +352,7 @@
                                             </div>
                                         </li>
 
-                                    <{/foreach}>
+                                        <{/foreach}>
 
                                     </ul>
 
@@ -388,6 +384,8 @@
 
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script type="text/javascript" src="/js/ResizeSensor.js"></script>
 <script type="text/javascript" src="/js/sticky-sidebar.js"></script>
@@ -406,23 +404,26 @@
         }
 </script>
 <script type="text/javascript">
-    var stickySidebar = new StickySidebar('#sidebar', {
+    var sidebar = new StickySidebar('#sidebar', {
         topSpacing: 20,
         bottomSpacing: 20,
-        containerSelector: '.container',
-        innerWrapperSelector: '.sidebar__inner'
+        topSpacing: 20,
+        containerSelector: '#main-content',
+        innerWrapperSelector: '#sidebar__inner'
     });
-    var stickySidebar_ = new StickySidebar('#inv', {
+    var inv = new StickySidebar('#inv', {
         topSpacing: 20,
         bottomSpacing: 20,
-        leftSpacing:20,
-        containerSelector: '.container',
-        innerWrapperSelector: '.inv'
+        containerSelector: '#main-content',
+        innerWrapperSelector: '#inv__'
     });
 
-       var lat="<{$lat}>";
-       var lang="<{$lng}>";
-       var r_name="<{$r_name}>";
+</script>
+<script type="text/javascript">
+
+    var lat="<{$lat}>";
+    var lang="<{$lng}>";
+    var r_name="<{$r_name}>";
 
     // The following example creates a marker in Stockholm, Sweden using a DROP
 
@@ -488,9 +489,27 @@
         }
 
         initialize();
-     } catch (e) {
+    } catch (e) {
         alert(e);
-     }
+    }
 
+    $("#sidebar ul li a[href^='#']").on('click', function(e) {
 
+        // prevent default anchor click behavior
+        e.preventDefault();
+
+        // store hash
+        var hash = this.hash;
+
+        // animate
+        $('html, body').animate({
+            scrollTop: $(hash).offset().top
+        }, 1000, function(){
+
+            // when done, add hash to url
+            // (default click behaviour)
+            window.location.hash = hash;
+        });
+
+    });
 </script>

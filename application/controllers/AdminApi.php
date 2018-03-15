@@ -45,6 +45,9 @@ class AdminApi extends CI_Controller {
 		}
     }
 	
+	public function index()
+	{
+	}
 	
 	private function doLogin($ary)
 	{

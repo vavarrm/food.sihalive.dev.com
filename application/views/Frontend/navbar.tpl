@@ -1,5 +1,6 @@
 <div class="rd-navbar-wrap rd-navbar-default "  ng-controller="navCtrl" >
-  <nav data-layout="rd-navbar-fixed w3-card" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" class="rd-navbar">
+  <nav data-layout="rd-navbar this-card" data-stick-up-clone="false"  class="rd-navbar" style="position:
+  relative!important; width: 100%!important;">
 	<div class="shell shell-fluid">
 	  <div class="rd-navbar-inner">
 		<div class="rd-navbar-nav-wrap-outer"> 
