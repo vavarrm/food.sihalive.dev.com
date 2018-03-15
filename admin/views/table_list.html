@@ -86,7 +86,7 @@
 								<td>
 									<button ng-if="data.form.table_del !==undefined" type="button" ng-click="del(row.id)" class="btn btn-default btn-xs">del</button>
 									<button ng-if="data.form.table_del !==undefined" type="button" ng-click="edit(row.id)" class="btn btn-default btn-xs">edit</button>
-									<a ng-repeat="action in data.table_action_list" ng-bind="action.pe_name" href="/admin/layout/tabpanel.html#!{{action.pe_control}}/{{action.pe_func}}/{{action.pe_page}}/{{data.tabindex}}/{{data.pe_id}}/{{row.id}}" class="btn btn-default btn-xs"> </a>
+									<a ng-repeat="action in data.table_action_list" ng-bind="action.pe_name" href="/admin/views/tabpanel.html#!{{action.pe_control}}/{{action.pe_func}}/{{action.pe_page}}/{{data.tabindex}}/{{data.pe_id}}/{{row.id}}" class="btn btn-default btn-xs"> </a>
 								</td>
 							</tr>
 						</tbody>

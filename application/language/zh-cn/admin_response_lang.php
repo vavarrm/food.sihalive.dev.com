@@ -8,4 +8,6 @@
 	$lang['006'] = "login is empty";
 	$lang['007'] = "no permissions";
 	$lang['008'] = "Duplicate data";
+	$lang['009'] = "upload error";
+	$lang['010'] = "Cannot delete or update a parent row: a foreign key";
 ?>

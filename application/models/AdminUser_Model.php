@@ -36,8 +36,7 @@
 				{
 					$MyException = new MyException();
 					$array = array(
-						'message' 	=>$error['message'] ,
-						'type' 		=>'db' ,
+						'el_system_error' 	=>$error['message'] ,
 						'status'	=>'001'
 					);
 					
@@ -65,7 +64,7 @@
 							per.pe_control,
 							per.pe_page
 						FROM admin_user AS au 
-							INNER JOIN admin_role_permissions_link AS link ON au.ar_id =  link.ar_id
+							INNER JOIN admin_role_permissions_link AS link ON au.ad_ar_id =  link.ar_id
 							INNER JOIN permissions AS per ON link.pe_id = per.pe_id
 						WHERE per.pe_parents_id = ? AND au.ad_id=? AND pe_type ='action'";
 				$bind = array(
@@ -79,8 +78,7 @@
 				{
 					$MyException = new MyException();
 					$array = array(
-						'message' 	=>$error['message'] ,
-						'type' 		=>'db' ,
+						'el_system_error' 	=>$error['message'] ,
 						'status'	=>'001'
 					);
 					
@@ -106,7 +104,7 @@
 							per.pe_control,
 							per.pe_page
 						FROM admin_user AS au 
-							INNER JOIN admin_role_permissions_link AS link ON au.ar_id =  link.ar_id
+							INNER JOIN admin_role_permissions_link AS link ON au.ad_ar_id =  link.ar_id
 							INNER JOIN permissions AS per ON link.pe_id = per.pe_id
 						WHERE per.pe_id = ? AND au.ad_id=?";
 				$bind = array(
@@ -119,8 +117,7 @@
 				{
 					$MyException = new MyException();
 					$array = array(
-						'message' 	=>$error['message'] ,
-						'type' 		=>'db' ,
+						'el_system_error' 	=>$error['message'] ,
 						'status'	=>'001'
 					);
 					
@@ -129,6 +126,67 @@
 				}
 				$row = $query->row_array();
 				return $row;
+			}catch(MyException $e)
+			{
+				throw $e;
+			}
+		}
+		
+		public function getList($ary)
+		{
+			try
+			{
+				if(empty($ary))
+				{
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				
+				$fields = join(',' ,$ary['fields']);
+				
+				$sql ="	SELECT ad_id AS id," 
+						.$fields.	
+						" FROM
+							admin_user AS au 
+						";
+				$ary['sql'] =$sql;
+				$output = $this->getListFromat($ary);
+				return 	$output  ;
+			}catch(MyException $e)
+			{
+				throw $e;
+			}
+		}
+		
+		public function getRoleList()
+		{
+			try
+			{
+				$sql ="	SELECT 
+							ar_id ,
+							ar_name
+						FROM  admin_role  WHERE ar_id !=1";
+				$query = $this->db->query($sql);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>'001'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$rows = $query->result_array();
+				return $rows;
 			}catch(MyException $e)
 			{
 				throw $e;
@@ -148,7 +206,7 @@
 							per.pe_page,
 							per.pe_order_id 
 						FROM admin_user AS au 
-							INNER JOIN admin_role_permissions_link AS link ON au.ar_id =  link.ar_id
+							INNER JOIN admin_role_permissions_link AS link ON au.ad_ar_id =  link.ar_id
 							INNER JOIN permissions AS per ON link.pe_id = per.pe_id
 						WHERE per.pe_parents_id = 0
 						ORDER BY per.pe_order_id DESC";
@@ -158,8 +216,7 @@
 				{
 					$MyException = new MyException();
 					$array = array(
-						'message' 	=>$error['message'] ,
-						'type' 		=>'db' ,
+						'el_system_error' 	=>$error['message'] ,
 						'status'	=>'001'
 					);
 					
@@ -200,8 +257,6 @@
 						$value['child'] = $child;
 					}
 				}
-				
-				// var_dump($rows);
 				$query->free_result();
 				return $output;
 			}	

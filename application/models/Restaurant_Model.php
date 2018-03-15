@@ -2,13 +2,14 @@
 
 class Restaurant_Model extends CI_Model{
 
+	public $CI;
     public function __construct()
     {
         parent::__construct();
         $this->load->database();
         $this->table="restaurant";
         $this->JoinTable="";
-
+		$this->CI =&get_instance();
     }
 	
 	public function getFoodRowById($f_id)
@@ -389,6 +390,59 @@ class Restaurant_Model extends CI_Model{
 				throw $MyException;
 			}
 			$output['affected_rows'] += $this->db->affected_rows();
+			
+			if (!file_exists(IMAGEPATH.'/food')) 
+			{
+				mkdir(IMAGEPATH.'/food', '0777', true);
+			}
+			
+			$config['upload_path'] = IMAGEPATH.'/food/';
+			$config['allowed_types'] = 'jpg|jpe|gpng';
+			$config['max_size']	= '2048';
+			$config['max_width']  = '300';
+			$config['max_height']  = '250';
+			$config['encrypt_name']  = true;
+			$this->CI->load->library('upload',$config);
+			if ( ! $this->upload->do_upload('f_photo_300X250'))
+			{
+				$error= $this->upload->display_errors();
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error ,
+					'status'	=>'009'
+				);
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			if(file_exists(IMAGEPATH.'/food/'.$ary['f_photo']))
+			{
+				unlink(IMAGEPATH.'/food/'.$ary['f_photo']);
+			}
+			
+			$image = array('upload_data' => $this->upload->data());
+			
+			$sql="UPDATE food SET f_photo_300X250 = ? WHERE f_id =?";
+			$bind = array(
+				$image['upload_data']['file_name'],
+				$ary['f_id']
+			);
+			$this->db->query($sql, $bind); 
+			$output['affected_rows'] += $this->db->affected_rows();
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
 			$this->db->trans_commit();
 			return $output;
 		}catch(MyException $e)
@@ -532,15 +586,16 @@ class Restaurant_Model extends CI_Model{
 		}
     }
 	
-	public function delFood($id , $r_id)
+	public function delFood($ary)
 	{
 		try
 		{
 			$bind = array(
-				$id
+				$ary['id']
 			);
-			$sql="DELETE FROM food WHERE f_id=?";
-			$this->db->query($sql, $bind); 
+			
+			$sql ="SELECT	f_photo_300X250 FROM food WHERE f_id = ?";
+			$query = $this->db->query($sql, $bind);
 			$error = $this->db->error();
 			if($error['message'] !="")
 			{
@@ -549,6 +604,36 @@ class Restaurant_Model extends CI_Model{
 				$array = array(
 					'el_system_error' 	=>$error['message'] ,
 					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$row = $query->row_array();
+			if(file_exists(IMAGEPATH.'/food/'.$row['f_photo']))
+			{
+				unlink(IMAGEPATH.'/food/'.$row['f_photo']);
+			}
+			
+			$sql="DELETE FROM food WHERE f_id=?";
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+				
+				$MyException = new MyException();
+				
+				if($error['code']== 1451)
+				{
+					$status ='010';
+				}else
+				{
+					$status ='000';
+				}
+				
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>$status
 				);
 				
 				$MyException->setParams($array);
@@ -566,6 +651,7 @@ class Restaurant_Model extends CI_Model{
 		);
 		try
 		{
+			$this->db->trans_begin();
 			if(empty($ary))
 			{
 				$MyException = new MyException();
@@ -591,6 +677,7 @@ class Restaurant_Model extends CI_Model{
 				$ary['f_ca_id'],
 			);
 			$this->db->query($sql, $bind); 
+			$f_id  = $this->db->insert_id();
 			$output['affected_rows'] += $this->db->affected_rows();
 			$error = $this->db->error();
 			if($error['message'] !="")
@@ -606,10 +693,58 @@ class Restaurant_Model extends CI_Model{
 				throw $MyException;
 			}
 			
+			if (!file_exists(IMAGEPATH.'/food')) 
+			{
+				mkdir(IMAGEPATH.'/food', '0777', true);
+			}
+			
+			$config['upload_path'] = IMAGEPATH.'/food/';
+			$config['allowed_types'] = 'jpg|jpe|gpng';
+			$config['max_size']	= '2048';
+			$config['max_width']  = '300';
+			$config['max_height']  = '250';
+			$config['encrypt_name']  = true;
+			$this->CI->load->library('upload',$config);
+			if ( ! $this->upload->do_upload('f_photo_300X250'))
+			{
+				$error= $this->upload->display_errors();
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error ,
+					'status'	=>'009'
+				);
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$image = array('upload_data' => $this->upload->data());
+			
+			$sql="UPDATE food SET f_photo_300X250 = ? WHERE f_id =?";
+			$bind = array(
+				$image['upload_data']['file_name'],
+				$f_id 
+			);
+			$this->db->query($sql, $bind); 
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+
+				$MyException = new MyException();
+				$array = array(
+					'el_system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
+			$this->db->trans_commit();
 			return $output;
 			
 		}catch(MyException $e)
 		{
+			$this->db->trans_rollback();
 			throw $e;
 		}
 	}
@@ -706,11 +841,19 @@ class Restaurant_Model extends CI_Model{
 			$error = $this->db->error();
 			if($error['message'] !="")
 			{
-
 				$MyException = new MyException();
+				
+				if($error['code']== 1451)
+				{
+					$status ='010';
+				}else
+				{
+					$status ='000';
+				}
+				
 				$array = array(
 					'el_system_error' 	=>$error['message'] ,
-					'status'	=>'000'
+					'status'	=>$status
 				);
 				
 				$MyException->setParams($array);
