@@ -134,8 +134,23 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 					$scope.socket_push_data = r.data.body.socket_push_data;
 					$scope.admin = r.data.body.admin_user;
 					$scope.sidebar_menu_click($scope.sidebarMenuList[0].pe_control, $scope.sidebarMenuList[0].child[0]);
-				}else
+				}else if(r.data.status =="006")
 				{
+					var obj =
+					{
+						'message' :'please login',
+						buttons: [
+							{
+								text: "close",
+								click: function() {
+									location.href="/admin/login"
+									$( this ).dialog( "close" );
+								}
+							}
+						]
+					};
+					dialog(obj);
+				}else{
 					var obj =
 					{
 						'message' :r.data.message,

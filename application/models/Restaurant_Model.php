@@ -795,6 +795,7 @@ class Restaurant_Model extends CI_Model{
 		}
 	}
 	
+	
 	public function getFoodList($ary =array())
 	{
 		try
