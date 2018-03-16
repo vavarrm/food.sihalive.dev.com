@@ -226,40 +226,51 @@ class AdminCustomer extends CI_Controller {
 	
 	public function doSendVerificationEmail()
 	{
+		// phpinfo();
+		require(FCPATH."/application/third_party/phpmailer/class.phpmailer.php");
+		$mail = new PHPMailer(true);
+		$mail->IsSMTP();
+		$mail->SMTPAuth = true; // turn on SMTP authentication
+		$mail->SMTPSecure = 'ssl'; 
+		// $mail->Host = "smtp.gmail.com"; //Gamil的SMTP主機        
+		// $mail->Port = 465;  //Gami
+		$mail->Username = "vavarrm@gmail.com";
+		$mail->Password = "A29760615a";
+
+		$mail->FromName = "tryion";
+		// 寄件者名稱(你自己要顯示的名稱)
+		$webmaster_email = "tryion@sihalive.com"; 
+		//回覆信件至此信箱
+
 		
-$subject = 'This is a test';
-$message = '<p>This message has been sent for testing purposes.</p>';
+		$email="vavarrm@gmail.com";
+		// 收件者信箱
+		$name="vavarrm";
+		// 收件者的名稱or暱稱
+		$mail->From = $webmaster_email;
 
-// Get full html:
-$body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=' . strtolower(config_item('charset')) . '" />
-    <title>' . html_escape($subject) . '</title>
-    <style type="text/css">
-        body {
-            font-family: Arial, Verdana, Helvetica, sans-serif;
-            font-size: 16px;
-        }
-    </style>
-</head>
-<body>
-' . $message . '
-</body>
-</html>';
-// Also, for getting full html you may use the following internal method:
-//$body = $this->email->full_html($subject, $message);
+		$mail->AddAddress($email,$name);
+		$mail->AddReplyTo($webmaster_email,"Squall.f");
+		
+		$mail->WordWrap = 50;
+		//每50行斷一次行
+		
+		$mail->IsHTML(true); // send as HTML
 
-$result = $this->email
-    ->from('vavarrm@gmail.com')
-    ->to('vavarrm@gmail.com')
-    ->subject($subject)
-    ->message($body)
-    ->send();
+		$mail->Subject = "信件標題"; 
+		// 信件標題
+		$mail->Body = "信件內容";
+		//信件內容(html版，就是可以有html標籤的如粗體、斜體之類)
+		$mail->AltBody = "信件內容"; 
+		//信件內容(純文字版)
 
-var_dump($result);
-echo '<br />';
-echo $this->email->print_debugger();
+		if(!$mail->Send()){
+		echo "寄信發生錯誤：" . $mail->ErrorInfo;
+		//如果有錯誤會印出原因
+		}
+		else{ 
+		echo "寄信成功";
+		}
 
 	}
 }
