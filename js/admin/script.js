@@ -61,6 +61,7 @@ function dialog(object2, cb, params)
 
 var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 {
+	$(document).scrollTop(0) ;
 	$scope.panelShow = false;
 	$scope.admin_sess = $cookies.get('admin_sess');
 	if(typeof $scope.admin_sess =="undefined")
@@ -88,6 +89,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 		$('.tab-pane').removeClass('active in');
 		$scope.templates[index] ={'url':child.pe_page,"control":control,"func":child.pe_func};
 		var height = $(window).height()-100;
+		// var height = 960;
 		var tabpanel   	= '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" >';
 		    tabpanel  	+='<iframe  height="'+height+'px" src="/admin/views/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'/'+child.pe_id+'" scrolling="auto"   frameBorder="0"></iframe>';
 			tabpanel 	+='</div>';

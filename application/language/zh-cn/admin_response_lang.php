@@ -17,4 +17,5 @@
 	$lang['015'] = "account is exists";
 	$lang['016'] = "admin role error";
 	$lang['017'] = "cant delete admin user";
+	$lang['018'] = "session is empty";
 ?>

@@ -1,18 +1,51 @@
 <?php
 	class User_Model extends CI_Model 
 	{
-		function __construct()
+		public function __construct()
 		{
 			
 			parent::__construct();
 			$this->load->database();
 		}
-        function escapeString($val) {
+		
+		public function getList($ary)
+		{
+			try
+			{
+				if(empty($ary))
+				{
+					$MyException = new MyException();
+					$array = array(
+						'message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				
+				$fields = join(',' ,$ary['fields']);
+				
+				$sql ="	SELECT u_id AS id," 
+						.$fields.	
+						" FROM
+							user AS u";
+				$ary['sql'] =$sql;
+				$output = $this->getListFromat($ary);
+				return 	$output  ;
+			}catch(MyException $e)
+			{
+				throw $e;
+			}
+		}
+		
+        public function escapeString($val) {
             $db = get_instance()->db->conn_id;
             $val = mysqli_real_escape_string($db, $val);
             return $val;
         }
-		function setsetProfile($ary,$u_id)
+		
+		public function setsetProfile($ary,$u_id)
 		{
 			$this->db->where('u_id', $u_id);
 			$this->db->update('user', $ary); 
@@ -20,7 +53,7 @@
 			return $output;
 		}
 		
-		function isUserAccountExist($u_account)
+		public function isUserAccountExist($u_account)
 		{
 			try 
 			{
@@ -50,7 +83,7 @@
 			}
 		}
 		
-		function isEmailExist($u_email)
+		public function isEmailExist($u_email)
 		{
 			$sql="SELECT COUNT(*) AS total FROM user WHERE u_email=?";
 			$bind = array(
@@ -62,7 +95,7 @@
 			return $row;
 		}
 		
-		function getUserForFBId($fb_u_id)
+		public function getUserForFBId($fb_u_id)
 		{
 			$sql ="SELECT * FROM user WHERE fb_u_id = ?";
 			$bind = array(
@@ -74,7 +107,7 @@
 			return $row;
 		}	
 		
-		function setUserPhoneVerification($u_id)
+		public function setUserPhoneVerification($u_id)
 		{
 			$output = array(
 				'affected_rows'	=>0,
@@ -115,7 +148,7 @@
 			}
 		}
 		
-		function getUserForId($u_id)
+		public function getUserForId($u_id)
 		{
 			$sql ="
 			SELECT 
@@ -139,7 +172,7 @@
 			return $row;
 		}
 		
-		function getUserForLogin($ary= array())
+		public function getUserForLogin($ary= array())
 		{
 			
 			try 
@@ -173,7 +206,7 @@
 			}
 		}
 		
-		function isAccountExist($ary = array())
+		public function isAccountExist($ary = array())
 		{
 			try 
 			{
@@ -193,8 +226,88 @@
 			}
 		}
 		
+		public function setLock($ary)
+		{
+			$output= array(
+				'affected_rows'	=>0
+			);
+			try
+			{
+				$this->db->trans_begin();
+				if(empty($ary))
+				{
+					$MyException = new MyException();
+					$array = array(
+						'message' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				
+				$sql ="UPDATE user SET u_status = ? WHERE u_id =?";
+				$bind = array(
+					$ary['u_status'],
+					$ary['u_id'],
+				);
+				$this->db->query($sql, $bind); 
+				$output['affected_rows'] += $this->db->affected_rows();
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{	
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>$status
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				
+				
+				$this->db->trans_commit();
+				return $output;
+				
+			}catch(MyException $e)
+			{
+				$this->db->trans_rollback();
+				throw $e;
+			}
+		}
 		
-		function insert($ary = array())
+		public function getUserById($id)
+		{
+			$output =array();
+			try
+			{
+				$sql ="SELECT u_account ,u_id,u_status FROM user WHERE u_id =?";
+				$bind=array($id);
+				$query = $this->db->query($sql,$bind);
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>'001'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
+				$row = $query->row_array();
+				$query->free_result();
+				$output['row'] =$row ;
+				return 	$output  ;
+			}catch(MyException $e)
+			{
+				throw $e;
+			}
+		}
+		
+		public function insert($ary = array())
 		{
 			$output = array(
 				'affected_rows' =>0
@@ -230,7 +343,7 @@
 			}
 		}
 
-        function inv_view($inv)
+        public function inv_view($inv)
         {
             $q=$this->escapeString($inv);
             $this->db->select('*');
@@ -248,7 +361,7 @@
             }
         }
 
-        function sum_price_order_by_rId($inv){
+        public function sum_price_order_by_rId($inv){
             $q=$this->escapeString($inv);
             $this->db->select('SUM(od_price) as total,add_datetime,o_id');
             $this->db->select('od_price');
@@ -264,7 +377,7 @@
             }
         }
 
-        function order_status($inv){
+        public function order_status($inv){
             $q=$this->escapeString($inv);
             $this->db->select('*');
             $this->db->from('order_list');
