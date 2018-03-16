@@ -28,19 +28,19 @@
                 <div class="col-sm-12 this-center" style="padding: 0px">
                     <div class="col-xs-3 col-md-3 this-padding">
                         <span class="fa fa-home" style="font-size: 20px"></span>
-                        <span class="fa fa-arrow-right this-hide-small" style="padding-left: 20px"> Home </span>
+                        <span class="fa fa-arrow-right this-hide-small" style="padding-left: 20px"><{$mainpage_language_ary.Home}>  </span>
                     </div>
                     <div class="col-xs-3 col-md-3 this-padding this-white" style="margin-top:2px; border-radius: 2px">
                         <span class=" fa fa-shopping-cart" style="font-size: 20px"></span>
-                        <span class="fa fa-arrow-right this-hide-small " style="padding-left: 20px">  ORDER </span>
+                        <span class="fa fa-arrow-right this-hide-small " style="padding-left: 20px">  <{$mainpage_language_ary.ORDER}> </span>
                     </div>
                     <div class="col-xs-3 col-md-3 this-padding " >
                         <span class="fa fa-credit-card" style="font-size: 20px"></span>
-                        <span class="fa fa-arrow-right this-hide-small" style="padding-left:20px"> CHECK OUT</span>
+                        <span class="fa fa-arrow-right this-hide-small" style="padding-left:20px"> <{$mainpage_language_ary.CHECK_OUT}></span>
                     </div>
                     <div class="col-xs-3 col-md-3 this-padding">
                         <span class="fa fa-print" style="font-size: 20px"></span>
-                        <span class="this-hide-small">RECEIPT</span>
+                        <span class="this-hide-small"><{$mainpage_language_ary.RECEIPT}></span>
                     </div>
                 </div>
             </div>
@@ -51,10 +51,10 @@
                     margin-bottom: 20px; border-radius: 5px">
 
                         <ul class="nav nav-tabs this-white "  style=" border: 0px!important;" >
-                            <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
-                            <li><a data-toggle="tab" href="#menu1">MAP </a></li>
-                            <li><a data-toggle="tab" href="#open">Opening </a></li>
-                            <li><a data-toggle="tab" href="#about">About </a></li>
+                            <li class="active"><a data-toggle="tab" href="#home"> <{$mainpage_language_ary.Profile}></a></li>
+                            <li><a data-toggle="tab" href="#menu1"><{$mainpage_language_ary.MAP}> </a></li>
+                            <li><a data-toggle="tab" href="#open"><{$mainpage_language_ary.Opening}> </a></li>
+                            <li><a data-toggle="tab" href="#about"><{$mainpage_language_ary.About}> </a></li>
                         </ul>
 
                         <div class="tab-content" style="background: #f1f1f1!important;" id="cover" >
@@ -68,7 +68,7 @@
                                         <ul class="list-group" style="border:none!important;"  >
                                             <div  style="width:auto"  id="pro_left"  >
                                                 <li class="list-group-item" style="overflow: hidden; ;
-                                                background: silver; padding: 0px; position: relative; ">
+                                                background: silver; padding: 0px; height: 150px ">
                                                     <{foreach from=$shopId item=row}>
                                                     <{$lat=$row.r_lat}>
                                                     <{$lng=$row.r_lng}>
@@ -76,9 +76,12 @@
                                                     <{$r_about=$row.r_description}>
                                                     <center>
                                                         <img src="/images/food/1-43-310x260.png"
-                                                             class="img-responsive " style=" margin-top: -10px;
+                                                             class="img-responsive img-Circle " style="
+                                                             margin-top:-10px; position: relative; width: 200px;
                                                              ">
-                                                        <h2 class="this-text-black" style="font-size: 18px;text-transform: uppercase"><{$row.r_name}></h2>
+                                                        <h2 class="this-text-black" style="font-size: 18px;
+                                                        text-transform: uppercase; margin-top: -30px">
+                                                            <{$row.r_name}></h2>
                                                     </center>
 
 
@@ -86,7 +89,7 @@
                                                 </li>
                                                 <li class="list-group-item bg-info" id="menu_clcik" style="color:
                                                 white; background-color:orangered"> <span class="glyphicon
-                                                glyphicon-th"></span> MENU </li>
+                                                glyphicon-th"></span> <{$mainpage_language_ary.MENU}> </li>
                                                 <div id="menu__">
                                                     <{foreach from=$list_category_by_restaurant item=row key=index}>
                                                     <li class="list-group-item" style="cursor: pointer; color: black">
@@ -117,7 +120,7 @@
                                                <div class="this-container this-white this-padding "  style="height:
                                                40px;width:"> <span class="icon icon-sm icon-primary fa
                                                fa-align-justify"></span></span> <span style="font-size:
-                                               17px; font-weight: bold;  padding-top: -5px"> MENU </span>
+                                               17px; font-weight: bold;  padding-top: -5px"> </span> <{$mainpage_language_ary.MENU}>  </span>
                                                </div>
                                                <div class="this-dropdown-content this-bar-block this-border"
                                                     style="width: 100%">
@@ -148,7 +151,7 @@
                                                 </div>
                                                 <div class="col-sx-12 col-md-12 " style="padding: 5px; "  >
                                                     <div style="margin-top: -25px; position: relative" >
-                                                        <{$row.f_name}> <{$row.f_ca_id}>
+                                                        <{$row.f_name}>
                                                     </div>
                                                     <div class="col-sm-12 " id="m_<{$row.ca_id}>"  style="text-align: center; margin-top: 10px">
                                                         <button class="this-btn this-btn-this this-small"
@@ -184,8 +187,9 @@
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <form>
-                                                                    <p>Price : <{$row.f_large_price}> $ </p>
-                                                                    <p>Quantity</p>
+                                                                    <p></span> <{$mainpage_language_ary.Price}>  :
+                                                                        <{$row.f_large_price}> $ </p>
+                                                                    <p> <{$mainpage_language_ary.Quantity}></p>
                                                                     <div class="stepper-type-1">
                                                                         <div class="stepper "><input type="number" data-zeros="true" value="1" min="1" max="20" readonly="" class="form-control text-bold stepper-input"><span class="stepper-arrow up"></span><span class="stepper-arrow down"></span></div>
                                                                     </div>
@@ -198,7 +202,7 @@
                                                                             class="this-btn this-btn-this this-right
                                                                             this-margin-top "  >
 
-                                                                        ADD TO CART
+                                                                        <{$mainpage_language_ary.ADD_TO_CART}>
                                                                     </button>
                                                                 </form>
 
@@ -227,7 +231,7 @@
 
                             <div id="open" class="tab-pane fade in ">
                                 <div class="this-container this-padding">
-                                    <h5> Opening Hours</h5>
+                                    <h5> <{$mainpage_language_ary.Opening_Hours}> </h5>
                                     <hr class="offset-top-20">
                                     <ul class="this-ul">
 
@@ -274,7 +278,7 @@
                                 <div class="this-container this-white" style="background:#f16121;height:
                                             40px; color:
                                             white; padding: 10px; ">
-                                    Order Information
+                                    <{$mainpage_language_ary.Order_Information}>
                                 </div>
                                 <div class="col-sm-12 this-white " style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
                                     <div class="inner line-top relative">
@@ -305,7 +309,8 @@
                                             </div>
                                             <div class="summary-wrap" style="border-top: 1px solid silver">
                                                 <div class="row">
-                                                    <div class="col-md-6 col-xs-6 text-right ">Sub Total</div>
+                                                    <div class="col-md-6 col-xs-6 text-right
+"><{$mainpage_language_ary.Sub_Total}></div>
                                                     <div class="col-md-6 col-xs-6 text-right cart_subtotal">
                                                         <div class="offset-top-0"><span class="h5 text-sbold">$<span>
                                                                     <span data-index="{{$index}}"
@@ -319,11 +324,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-6 col-xs-6 text-right ">Delivery Fee</div>
+                                                    <div class="col-md-6 col-xs-6 text-right
+"><{$mainpage_language_ary.delivery_fee}></div>
                                                     <div class="col-md-6 col-xs-6 text-right ">$1.00</div>
                                                 </div>
                                                 <div class="row cart_total_wrap bold">
-                                                    <div class="col-md-6 col-xs-6  text-right">Total</div>
+                                                    <div class="col-md-6 col-xs-6  text-right"><{$mainpage_language_ary.Total}></div>
                                                     <div class="col-md-6 col-xs-6  text-right cart_total">
                                                         <span class="total" ng-bind="'Total:'+Total(filterAry)"></span>
                                                     </div>
@@ -358,7 +364,7 @@
                                                     <a href="/ShopCart">
                                                         <button   class="this-btn this-btn-this">
                                                             <span class="glyphicon glyphicon-log-out"></span>
-                                                            结帐 </button>
+                                                            <{$mainpage_language_ary.Checkout}> </button>
                                                     </a>
                                                 </center>
                                             </div>
@@ -402,7 +408,7 @@
 </script>
 <script type="text/javascript">
 
-   /* var sidebar = new StickySidebar('#sidebar', {
+    var sidebar = new StickySidebar('#sidebar', {
         topSpacing: 20,
         bottomSpacing: 20,
 
@@ -415,7 +421,7 @@
         bottomSpacing: 20,
         containerSelector: '#main-content',
         innerWrapperSelector: '#inv__'
-    });*/
+    });
 
 </script>
 <script type="text/javascript">
