@@ -14,6 +14,7 @@ class Restaurant extends CI_Controller{
         $this->load->model('Restaurant_Model', 'restaurant');
         $this->load->model('Food_Model', 'food');
         $this->load->model('Restaurant_cat_Model', 'cat');
+        $this->mainpage_language_ary = $this->language->load('mainpage');
     }
 
     public function index(){
@@ -37,6 +38,7 @@ class Restaurant extends CI_Controller{
             'shopId'	=>$shopId,
             'operation'      =>$operation,
             'foodList'=>$foodList,
+            'mainpage_language_ary'	=>$this->mainpage_language_ary,
             'list_category_by_restaurant'=>$list_category_by_restaurant,
             'shopLanguageAry'	=>$this->shopcart_language_ary,
         ));

@@ -69,7 +69,7 @@
                 $row['o_id']+=1;
             }
 
-            $sql="INSERT INTO order_list (o_id,u_id,o_messge,p_id) VALUES(?,?, ?, ?)";
+            $sql="INSERT INTO order_list (o_id,o_u_id,o_messge,o_p_id) VALUES(?,?, ?, ?)";
             $bind = array(
                 $row['o_id'],
                 $ary['u_id'],
@@ -101,7 +101,7 @@
                                 $query = $this->db->query($sql, $bind);
                                 $temp =  $query->row_array();
                                 $query->free_result();
-                                $sql ="INSERT INTO order_detail(o_id, od_item_index,f_id, od_num, od_price,od_is_set)
+                                $sql ="INSERT INTO order_detail(od_o_id,od_item_index,f_id, od_num, od_price,od_is_set)
 									   VALUES(?, ?, ?, ?, ?,'1')";
                                 $insert = array(
                                     $row['o_id'] ,
@@ -125,7 +125,7 @@
                         $temp =  $query->row_array();
                         $query->free_result();
                         $total_sql = array();
-                        $sql ="INSERT INTO order_detail(o_id, od_item_index, f_id, od_num, od_price)
+                        $sql ="INSERT INTO order_detail(od_o_id, od_item_index,od_f_id, od_num, od_price)
 							   VALUES(?,?,?,?,?)";
                         $insert = array(
                             $row['o_id'] ,

@@ -8,6 +8,8 @@ class ShopCart extends CI_Controller {
 		parent::__construct();
 		$this->shopcart_language_ary = $this->language->load('shopcart');
         $this->load->model("User_Position_Model",'position');
+        $this->load->model('Position_Model', 'adds');
+        $this->mainpage_language_ary = $this->language->load('mainpage');
     }
 	
 	public function index()
@@ -17,10 +19,12 @@ class ShopCart extends CI_Controller {
 	
 	public function order()
 	{
-
+        $location = $this->adds->getDeliveryPosition();
         $user_location=$this->position->listLocation('27');
 		$this->smarty->assign(array(
 		    'user_location'     =>$user_location,
+            'location'		=>$location,
+            'mainpage_language_ary'	=>$this->mainpage_language_ary,
 			'shopLanguageAry'	=>$this->shopcart_language_ary
 		));
 		$this->smarty->displayFrame(__CLASS__.'/shop-cart.tpl');

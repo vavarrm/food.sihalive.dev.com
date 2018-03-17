@@ -15,17 +15,24 @@ class User_Position extends CI_Controller{
     }
     public function doInsert(){
 
+        $map=$this->input->post('o_position_id');
+        $query = $this->db->query("select p_lat ,p_lng,p_title from position where p_id='$map'");
+        foreach ($query->result() as $row)
+        {
         $data = array(
             'p_id' => $this->input->post('o_position_id'),
             'description' => $this->input->post('desc'),
             'u_id' => $this->input->post('u_id'),
+            'u_p_b_late'=>$row->p_lat,
+            'u_p_b_lag'=>$row->p_lng,
+            'u_p_b_titel'=>$row->p_title,
         );
+        }
+
         $result=$this->position->insert($data);
         if($result){
             redirect('/profile');
         }
-
-
     }
     public function ajax_edit($id)
     {

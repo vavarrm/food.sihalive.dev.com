@@ -872,7 +872,10 @@ class Restaurant_Model extends CI_Model{
     }
 	
     public function Restaurant(){
-        $sql="SELECT * FROM `restaurant` ORDER BY r_id";
+        $sql="SELECT * FROM `restaurant` 
+                    WHERE  EXISTS (SELECT 1 
+                    FROM   food 
+                    WHERE  food.f_r_id = restaurant.r_id) ORDER BY r_id";
         $query = $this->db->query($sql, $bind);
         $rows  =  $query->result_array();
         $query->free_result();
@@ -886,6 +889,7 @@ class Restaurant_Model extends CI_Model{
         $this->db->select('*');
         $this->db->from($this->table);
         $this->db->where('restaurant.r_id', $q);
+        //$this->db->like('restaurant.r_name',str_replace('-', ' ', $q));
         $query = $this->db->get();
 
         $rows=$query->result_array();
@@ -1001,18 +1005,26 @@ class Restaurant_Model extends CI_Model{
             // return FALSE;
         // }
 
-
     }
 
     public function search_Res($data)
 	{
-        $sql="select DISTINCT(r.r_name),r.r_description,r.r_address from restaurant as r INNER join food AS f ON r.r_id=f.r_id WHERE f.f_name LIKE  '%".$q."%' OR f.f_name_en LIKE '%".$q."%' ";
+        $q=$this->escapeString($data);
+        $sql="select DISTINCT(r.r_name),r.r_id,r_name from restaurant as r INNER join food as f
+                  ON r.r_id=f.f_r_id WHERE f.f_name LIKE  '%".$q."%' OR f.f_name_en LIKE '%".$q."%' 
+                  OR r.r_name LIKE '%".$q."%'";
         $query = $this->db->query($sql);
         $rows  =  $query->result_array();
         $query->free_result();
         return $rows;
     }
-
+   function restaurant_group(){
+       $sql="select * from grop_restaurant";
+       $query = $this->db->query($sql);
+       $rows  =  $query->result_array();
+       $query->free_result();
+       return $rows;
+   }
 
 
 }

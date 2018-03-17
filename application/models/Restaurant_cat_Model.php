@@ -30,10 +30,25 @@ class Restaurant_cat_Model extends CI_Model{
 	{
 
         $q=$this->escapeString($data);
-        $this->db->select('*');
-        $this->db->from($this->tb_restaurant);
-        $this->db->join($this->JoinTable,$this->innerJoin);
+       // $qu=str_replace('-',' ',$q);
 
+        $this->db->select('*');
+        $this->db->from("restaurant");
+        $this->db->join("grop_restaurant","grop_restaurant.g_r_id=restaurant.g_r_id");
+       // $this->db->where('grop_restaurant.g_r_name', $qu);
+        $this->db->like('grop_restaurant.g_r_name',str_replace('-', ' ',$q));
+        $this->db->or_like('grop_restaurant.g_r_id',str_replace('-', ' ',$q));
+        $query = $this->db->get();
+        $rows=$query->result_array();
+        if(count($rows))
+        {
+            $query->free_result();
+            return $rows;
+        }
+        else
+        {
+            return FALSE;
+        }
 
     }
 
@@ -45,6 +60,7 @@ class Restaurant_cat_Model extends CI_Model{
       //  $this->db->join($this->tb_category,$this->join_link_category);
       //  $this->db->join($this->tb_food_category_link,$this->join_link_food);
         $this->db->where('ca_r_id',$q);
+        //$this->db->like('ca_r_id',str_replace('-',' ',$q));
         $query = $this->db->get();
         $rows=$query->result_array();
         if(count($rows))

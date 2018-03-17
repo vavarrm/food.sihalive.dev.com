@@ -21,11 +21,13 @@ class MainPage extends CI_Controller {
 	public function index()
 	{
         $shop = $this->restaurant->Restaurant();
+        $group=$this->restaurant->restaurant_group();
 
 		$this->smarty->assign(
 			array(
 				'mainpage_language_ary'	=>$this->mainpage_language_ary,
-                'shop'	=>$shop
+                'shop'	=>$shop,
+                'group'=>$group
 			)
 		);
 		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
