@@ -271,6 +271,9 @@ class Api extends CI_Controller {
 		try 
 		{
 			$positions = $this->position->getDeliveryPosition();
+
+			var_dump($positions);
+			exit();
 			$output['body']['data']['positions'] =$positions ;
 			
 		}catch(Exception $e)

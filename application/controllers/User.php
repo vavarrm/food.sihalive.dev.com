@@ -18,7 +18,8 @@ class User extends CI_Controller {
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model('Position_Model', 'adds');
-        $this->load->model('User_Position_Model', 'u_position');
+        $this->load->model('User_Position_Model','u_position');
+        $this->mainpage_language_ary = $this->language->load('mainpage');
 
 
 
@@ -32,7 +33,8 @@ class User extends CI_Controller {
 
 		$this->smarty->assign(array(
             'location'		=>$location,
-			'userLanguageAry'	=>$this->user_language_ary
+			'userLanguageAry'	=>$this->user_language_ary,
+            'mainpage_language_ary'	=>$this->mainpage_language_ary
 		));
 		$this->smarty->displayFrame(__CLASS__.'/profile.tpl');
 	}
@@ -47,7 +49,8 @@ class User extends CI_Controller {
 
         $this->smarty->assign(array(
             'location'		=>$location,
-            'userLanguageAry'	=>$this->user_language_ary
+            'userLanguageAry'	=>$this->user_language_ary,
+             'mainpage_language_ary'	=>$this->mainpage_language_ary
         ));
         $this->smarty->displayFrame(__CLASS__.'/profile.tpl');
 		
@@ -80,10 +83,8 @@ class User extends CI_Controller {
 			$output['status'] = $parames['status']; 
 			$this->myLog->error_log($parames);
 		}
-		
 		$this->myfunc->response($output);
 	}
-
     function inv($inv)
     {
         $order = $this->user->inv_view($inv);
@@ -96,6 +97,7 @@ class User extends CI_Controller {
                 'sum'            =>$sum,
                 'status'        =>$status,
                 'userLanguageAry'	=>$this->user_language_ary,
+                'mainpage_language_ary'	=>$this->mainpage_language_ary
             ));
             $this->smarty->displayFrame(__CLASS__.'/order_detail.tpl');
         }else{
@@ -103,11 +105,6 @@ class User extends CI_Controller {
             redirect(base_url().'profile');
 
         }
-
-
-
-
-
     }
 
     function verify(){

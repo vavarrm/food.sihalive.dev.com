@@ -39,7 +39,7 @@ class User_Position_Model extends CI_Model {
 
         $this->db->select("*");
         $this->db->from('user_position_book');
-        $this->db->join('position','position.p_id=user_position_book.p_id');
+       // $this->db->join('position','position.p_id=user_position_book.p_id');
         $this->db->where('user_position_book.u_id',$id);
         $query=$this->db->get();
         if($query->num_rows() >0){
@@ -54,6 +54,10 @@ class User_Position_Model extends CI_Model {
     {
         $this->db->insert($this->table, $post);
         return true;
+
+    }
+
+    public  function Insert_Select(){
 
     }
 

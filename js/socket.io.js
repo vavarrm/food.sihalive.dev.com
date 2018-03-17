@@ -114,7 +114,6 @@ var Backoff = _dereq_('backo2');
  */
 
 module.exports = Manager;
-
 /**
  * `Manager` constructor.
  *

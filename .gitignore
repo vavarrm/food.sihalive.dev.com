@@ -9,3 +9,5 @@
 /application/*.DS_Stores
 /.idea
 
+/application/*.DS_Store
+/desktop.ini

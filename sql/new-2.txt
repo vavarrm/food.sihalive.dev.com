@@ -1,0 +1,25 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSerialNumber`(IN `sn_type` VARCHAR(20))
+    NO SQL
+BEGIN
+  DECLARE number INT(11) DEFAULT 0;
+	DECLARE first_char CHAR(1) DEFAULT '';
+	DECLARE rand_number int(5) DEFAULT 1;
+	
+  CASE  
+  WHEN sn_type = 'order'    THEN  SET first_char = 'O'; 
+  WHEN sn_type  ='coupons'  THEN SET first_char = 'C';  
+  ELSE SET  first_char = '';
+	END CASE;
+ IF first_char !='' THEN
+		SET  number = ( SELECT RIGHT(sn_number,6) FROM serial_number  AS sn WHERE DATE_FORMAT(add_datetime,'%Y%m%d') = DATE_FORMAT(NOW(),'%Y%m%d') AND sn.sn_type = sn_type ) ;
+		SET rand_number = (SELECT   LPAD(FLOOR(25 + (RAND() * 99999)),5,0));
+	  SELECT   CONCAT(first_char,DATE_FORMAT(NOW(),'%Y%m%d'),rand_number,LPAD(IFNULL(number,1)+1,6,0)) AS new_serial_number ;
+		
+ELSE
+	  SELECT ''  AS  serial_number  ;
+END IF;
+
+
+END$$
+DELIMITER ;
