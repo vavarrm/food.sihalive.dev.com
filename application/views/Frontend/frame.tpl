@@ -42,21 +42,6 @@
 	<{include file="Frontend/js.tpl"}>
     <!-- Java script-->
 	<script>
-		function changeOrderNum(input)
-		{
-			var index = $(input).data('index');
-			var price = parseFloat($(input).data('price'));
-			var order_num = parseInt(input.val());
-			$('span[data-index='+index+']').html(price* order_num ).data('subtotal', price* order_num);
-			var total = 0;
-			$.each($('.subtotal'),function(i,e){
-				var subtotal = parseFloat($(e).data('subtotal'),2);
-				total+=subtotal ;
-				
-			})
-
-			$('.total').html(parseFloat(total,2).toFixed(2));
-		}
 		window.onload=function()
 		{	
 			if($(document).width()<=1024)
@@ -72,40 +57,8 @@
 				{
 					$('.cartnums').removeClass('text-black').addClass('text-white');
 				}
-			});
-			
-			$( "body" ).on( "click", ".stepper-arrow.up", function(e) {	
-				var input = $(this).parent().find('input');
-				if($(input).hasClass( "ng-valid" ) ==false)
-				{
-					return false;
-				}
-				var max   =parseInt(input.attr('max'));
-				var val   =parseInt(input.val());
-				if(val > max)
-				{
-					return false;
-				}
-				input.val(val +1);
-				changeOrderNum(input)
-			});
-
-			$( "body" ).on( "click", ".stepper-arrow.down", function() {
-				var input = $(this).parent().find('input');
-				if($(input).hasClass( "ng-valid" ) ==false)
-				{
-					return false;
-				}
-				var min   =parseInt(input.attr('min'));
-				var val   =parseInt(input.val());
-				if(val <= min)
-				{
-					return false;
-				}
-				input.val(val -1);
-				changeOrderNum(input);
-			});
+			});	
 		}
 	</script>
-	</body>
+</body>
 </html>
