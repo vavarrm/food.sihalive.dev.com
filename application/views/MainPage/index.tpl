@@ -101,7 +101,10 @@
 						<div class="content">
 							<div class="product-name"><{$row.r_name}></div>
 						</div>
-						<a href="/<{$row.r_id}>" class="this-btn this-text-deep-orange" style="border: dashed 1px orangered;">Order Now</a>
+						<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>" class="this-btn
+						this-text-deep-orange"
+						   style="border: dashed 1px orangered;
+">Order Now</a>
 
 					</div>
 				</div>

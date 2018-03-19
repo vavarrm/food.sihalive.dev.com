@@ -167,7 +167,7 @@ var categoryCtrl = function($scope, $http){
 var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
     var shopcart =  $cookies.getObject('shopcart');
 	$scope.items=[];
-	if(type of r_id !="undefined" &&typeof shopcart[r_id] !="undefined")
+	if(typeof r_id !="undefined" && typeof shopcart[r_id] !="undefined")
 	{
 		$scope.items=shopcart[r_id];
 	}
@@ -1032,6 +1032,25 @@ $('#FBloginBtn').bind('click', function(e){
     fbAction = "FBLogin";
     fbLogin();
 })
+
+$('#shopAlert').click(function () {
+
+  $('#shopshowPage').slideToggle();
+});
+
+$('#closeShopcart').click(function () {
+    $('#shopshowPage').slideUp('this-animate-right');
+})
+$('#openLocation').click(function () {
+    $('#shopshowPage').slideToggle();
+    $('#this_map').show();
+});
+$('#PopUp').click(function () {
+    $('#shopshowPage').slideToggle();
+    $('#this_map').hide();
+});
+$('#shopAlert').hide();
+
 
 
 

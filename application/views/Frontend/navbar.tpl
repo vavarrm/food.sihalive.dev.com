@@ -10,13 +10,13 @@
 			  <div class="rd-navbar-panel rd-navbar-aside-left">
 				<!-- RD Navbar Toggle-->
 				<button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
-				<div class="cart-right-top" >
-					<a href="/ShopCart/" class="link link-shop link-default">
+				<div class="cart-right-top"  >
+					<div  class="link link-shop link-default" id="shopAlert">
 						<span class="icon icon-sm mdi mdi-cart-outline"  ></span>
 						<span >(</span>
 						<span class="label-inline big text-white cartnums"   ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
 						<span >)</span>
-					</a>
+					</div>
 				</div>
 				<!-- RD Navbar Brand-->
 					<a href="/" class="rd-navbar-brand brand" >
@@ -51,12 +51,12 @@
 		<!-- RD Navbar Nav-->
 		<div class="rd-navbar-nav-wrap" >
 		  <!-- RD Navbar Shop-->
-		  <div class="rd-navbar-shop this-hide-large this-hide-medium">
-			<a href="/ShopCart/" class="link link-shop link-default">
+		  <div class="rd-navbar-shop this-hide-large this-hide-medium" >
+			<div  class="link link-shop link-default">
 			  <span class="big text-gray-light">Cart</span>
 			  <span class="icon icon-sm mdi mdi-cart-outline" ></span>
 			  <span class="label-inline big text-white cartnums"  ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
-			</a>
+			</div>
 		  </div>
 		  <!-- RD Navbar Nav-->
 		  <ul class="rd-navbar-nav">

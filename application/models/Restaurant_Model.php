@@ -893,6 +893,10 @@ class Restaurant_Model extends CI_Model{
 			//exit();
 			if($error['message'] !="")
 			{
+                $array = array(
+                    'el_system_error' 	=>$error['message'] ,
+                    'status'	=>'000'
+                );
 				$MyException = new MyException();
 				$MyException->setParams($array);
 				throw $MyException;

@@ -167,7 +167,7 @@
 
 
 						<div id="address" class="tab-pane this-animate-right this-left-align">
-							<div class="well this-white " style="border: none">
+							<div class="well this-white  " style="border: none">
 
 								<div class="this-container" style="padding: 0px">
 									<div class="row">
