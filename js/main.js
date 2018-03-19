@@ -393,7 +393,6 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
             return false;
         }
 
-
         if($scope.checkout_confirm ==false)
         {
             $( "#dialog p").text( js_cart_checkout_confirm );

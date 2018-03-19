@@ -105,7 +105,7 @@
                                                 <div id="menu__">
                                                     <{foreach from=$list_category_by_restaurant item=row key=index}>
                                                     <li class="list-group-item" style="cursor: pointer; color: black" ng-click="filterFood(<{$row.ca_id}>)">
-                                                        <a >
+                                                        <a href="#Id<{$row.ca_id}>">
                                                             <{$row.ca_name}>
                                                             <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
                                                                 <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
@@ -150,7 +150,7 @@
                                        </div>
                                         <{foreach from=$foodList item=row key=index}>
                                         <div data-caid="<{$row.ca_id}>" class="col-xs-12 col-md-4 food" style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px" id="Id<{$row.f_ca_id}>">
-                                            <div class="col-sm-12 restaurant " style="height:auto;min-height: 90px; padding: 0px!important; " >
+                                            <div class="col-sm-12 restaurant " style="height:auto;min-height: 90px; padding: 0px!important; " data-toggle="modal" data-target="#<{$row.f_id}>" >
                                                 <div class="col-xs-12 col-md-12 " >
                                                     <img src="/images/category-1-310X260.png" alt="" width="250"
                                                          height="200" class="img-responsive img-circle
@@ -193,7 +193,7 @@
 																		</div>
                                                                     </div>
                                                                     <hr class="offset-top-50">
-                                                                    <button type="button" ng-click="addCart(<{$row.f_id}>,'<{$row.f_large_price}>','<{$row.f_name}>');$event.stopPropagation();"  ng-model="$item.order_num" class="this-btn this-btn-this this-rightthis-margin-top "  >
+                                                                    <button type="button" ng-click="addCart('<{$row.f_id}>','<{$row.f_large_price}>','<{$row.f_name}>');$event.stopPropagation();"  ng-model="$item.order_num" class="this-btn this-btn-this this-rightthis-margin-top "  >
                                                                         <{$mainpage_language_ary.ADD_TO_CART}>
                                                                     </button>
                                                                 </form>

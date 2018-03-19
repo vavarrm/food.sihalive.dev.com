@@ -889,6 +889,8 @@ class Restaurant_Model extends CI_Model{
 				 ";
 			$query = $this->db->query($sql, $bind);
 			$error = $this->db->error();
+			//var_dump($error);
+			//exit();
 			if($error['message'] !="")
 			{
 				$MyException = new MyException();
