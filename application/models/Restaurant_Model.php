@@ -396,53 +396,56 @@ class Restaurant_Model extends CI_Model{
 				mkdir(IMAGEPATH.'/food', '0777', true);
 			}
 			
-			$config['upload_path'] = IMAGEPATH.'/food/';
-			$config['allowed_types'] = 'jpg|jpe|gpng';
-			$config['max_size']	= '2048';
-			$config['max_width']  = '300';
-			$config['max_height']  = '250';
-			$config['encrypt_name']  = true;
-			$this->CI->load->library('upload',$config);
-			if ( ! $this->upload->do_upload('f_photo_300X250'))
+			if($_FILES['tmp_name'] !="")
 			{
-				$error= $this->upload->display_errors();
-				$MyException = new MyException();
-				$array = array(
-					'el_system_error' 	=>$error ,
-					'status'	=>'009'
-				);
-				$MyException->setParams($array);
-				throw $MyException;
-			}
+				$config['upload_path'] = IMAGEPATH.'/food/';
+				$config['allowed_types'] = 'jpg|jpe|gpng';
+				$config['max_size']	= '2048';
+				$config['max_width']  = '300';
+				$config['max_height']  = '250';
+				$config['encrypt_name']  = true;
 			
-			if(file_exists(IMAGEPATH.'/food/'.$ary['f_photo']))
-			{
-				unlink(IMAGEPATH.'/food/'.$ary['f_photo']);
-			}
-			
-			$image = array('upload_data' => $this->upload->data());
-			
-			$sql="UPDATE food SET f_photo_300X250 = ? WHERE f_id =?";
-			$bind = array(
-				$image['upload_data']['file_name'],
-				$ary['f_id']
-			);
-			$this->db->query($sql, $bind); 
-			$output['affected_rows'] += $this->db->affected_rows();
-			$error = $this->db->error();
-			if($error['message'] !="")
-			{
-
-				$MyException = new MyException();
-				$array = array(
-					'el_system_error' 	=>$error['message'] ,
-					'status'	=>'000'
-				);
+				$this->CI->load->library('upload',$config);
+				if ( ! $this->upload->do_upload('f_photo_300X250'))
+				{
+					$error= $this->upload->display_errors();
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error ,
+						'status'	=>'009'
+					);
+					$MyException->setParams($array);
+					throw $MyException;
+				}
 				
-				$MyException->setParams($array);
-				throw $MyException;
+				if(file_exists(IMAGEPATH.'/food/'.$ary['f_photo']))
+				{
+					unlink(IMAGEPATH.'/food/'.$ary['f_photo']);
+				}
+				
+				$image = array('upload_data' => $this->upload->data());
+				
+				$sql="UPDATE food SET f_photo_300X250 = ? WHERE f_id =?";
+				$bind = array(
+					$image['upload_data']['file_name'],
+					$ary['f_id']
+				);
+				$this->db->query($sql, $bind); 
+				$output['affected_rows'] += $this->db->affected_rows();
+				$error = $this->db->error();
+				if($error['message'] !="")
+				{
+
+					$MyException = new MyException();
+					$array = array(
+						'el_system_error' 	=>$error['message'] ,
+						'status'	=>'000'
+					);
+					
+					$MyException->setParams($array);
+					throw $MyException;
+				}
 			}
-			
 			$this->db->trans_commit();
 			return $output;
 		}catch(MyException $e)
@@ -708,6 +711,7 @@ class Restaurant_Model extends CI_Model{
 			if ( ! $this->upload->do_upload('f_photo_300X250'))
 			{
 				$error= $this->upload->display_errors();
+				var_dump($error);
 				$MyException = new MyException();
 				$array = array(
 					'el_system_error' 	=>$error ,
@@ -795,6 +799,7 @@ class Restaurant_Model extends CI_Model{
 		}
 	}
 	
+	
 	public function getFoodList($ary =array())
 	{
 		try
@@ -871,16 +876,31 @@ class Restaurant_Model extends CI_Model{
     }
 	
     public function Restaurant(){
-        $sql="SELECT * FROM `restaurant` 
-                    WHERE  EXISTS (SELECT 1 
-                    FROM   food 
-                    WHERE  food.f_r_id = restaurant.r_id) ORDER BY r_id";
-        $query = $this->db->query($sql, $bind);
-        $rows  =  $query->result_array();
-        $query->free_result();
-        return $rows;
-
-
+        try
+		{
+			
+			$sql="	SELECT 
+						r.r_id,
+						r_name,
+						r_logo_310X260
+					FROM  restaurant AS r 
+					INNER JOIN food AS f ON f.f_r_id = r.r_id
+					GROUP BY r.r_id
+				 ";
+			$query = $this->db->query($sql, $bind);
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+				$MyException = new MyException();
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			$rows  =  $query->result_array();
+			$query->free_result();
+			return $rows;
+		}catch(MyException $e){
+			throw $e;
+		}
     }
 
     public function  getRestaurant_byId($data){

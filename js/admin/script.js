@@ -61,6 +61,7 @@ function dialog(object2, cb, params)
 
 var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 {
+	$(document).scrollTop(0) ;
 	$scope.panelShow = false;
 	$scope.admin_sess = $cookies.get('admin_sess');
 	if(typeof $scope.admin_sess =="undefined")
@@ -88,6 +89,7 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 		$('.tab-pane').removeClass('active in');
 		$scope.templates[index] ={'url':child.pe_page,"control":control,"func":child.pe_func};
 		var height = $(window).height()-100;
+		// var height = 960;
 		var tabpanel   	= '<div ng-init="tableindex='+index+'" role="tabpanel" data-tabindex="'+index +'" class="tab-pane fade" id="tab_content'+index+'" >';
 		    tabpanel  	+='<iframe  height="'+height+'px" src="/admin/views/tabpanel.html#!/'+control+'/'+child.pe_func+'/'+$scope.templates[index].url+'/'+index+'/'+child.pe_id+'" scrolling="auto"   frameBorder="0"></iframe>';
 			tabpanel 	+='</div>';
@@ -134,8 +136,23 @@ var bodyCtrl = function($scope, $compile, $cookies, apiService, Websokect)
 					$scope.socket_push_data = r.data.body.socket_push_data;
 					$scope.admin = r.data.body.admin_user;
 					$scope.sidebar_menu_click($scope.sidebarMenuList[0].pe_control, $scope.sidebarMenuList[0].child[0]);
-				}else
+				}else if(r.data.status =="006")
 				{
+					var obj =
+					{
+						'message' :'please login',
+						buttons: [
+							{
+								text: "close",
+								click: function() {
+									location.href="/admin/login"
+									$( this ).dialog( "close" );
+								}
+							}
+						]
+					};
+					dialog(obj);
+				}else{
 					var obj =
 					{
 						'message' :r.data.message,

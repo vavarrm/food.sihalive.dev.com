@@ -22,7 +22,6 @@ class MainPage extends CI_Controller {
 	{
         $shop = $this->restaurant->Restaurant();
         $group=$this->restaurant->restaurant_group();
-
 		$this->smarty->assign(
 			array(
 				'mainpage_language_ary'	=>$this->mainpage_language_ary,

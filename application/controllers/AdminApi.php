@@ -45,6 +45,12 @@ class AdminApi extends CI_Controller {
 		}
     }
 	
+	public function logout()
+	{
+		unset($_SESSION['encrypt_admin_user_data']);
+		$this->myfunc->gotoUrl('/admin/login.html','logout ok');
+	}
+	
 	public function index()
 	{
 	}

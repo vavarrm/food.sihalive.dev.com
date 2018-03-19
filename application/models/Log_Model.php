@@ -17,7 +17,7 @@
 				$ary['message'],
 				$ary['class'],
 				$ary['function'],
-				$ary['system_error'],
+				$ary['el_system_error'],
 			);
 			$query = $this->db->query($sql, $bind);
 			

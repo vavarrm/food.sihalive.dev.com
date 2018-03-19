@@ -144,6 +144,12 @@ class MyFunc
 			}
 			
 			$admin_data = $this->getAdminUser($get['sess']);
+			
+			if(empty($admin_data))
+			{
+				return '018';
+			}
+			
 			$ary = array(
 				'ad_id'	=>$admin_data['ad_id'],
 				'pe_id'	=>$get['pe_id']

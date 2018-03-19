@@ -515,7 +515,7 @@ class AdminRestaurant extends CI_Controller {
 			$output['status'] = $parames['status']; 
 			$this->myLog->error_log($parames);
 		}
-		$this->myfunc->back($back,$output['message']);
+		// $this->myfunc->back($back,$output['message']);
 	}
 	
 	public function addFoodInit()

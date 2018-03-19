@@ -93,71 +93,71 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 
     $scope.click = function(f_id, order_num, price, f_name, is_set)
     {
-        var set_include = new Array();
-        var set_select_empty = false;
-        var error;
-        if(typeof is_set != 'undefined' && is_set == '1')
-        {
+        // var set_include = new Array();
+        // var set_select_empty = false;
+        // var error;
+        // if(typeof is_set != 'undefined' && is_set == '1')
+        // {
 
-            $.each($('.setSelect'), function(i, e){
+            // $.each($('.setSelect'), function(i, e){
 
-                if($(e).val() =="")
-                {
-                    error = js_please_select+$(e).prev().text();
-                    set_select_empty  = true;
-                    return  false;
-                }
-                var f_name = $(e).find("option:selected").text();
-                set_include.push({"f_id":$(e).val(),'f_name':f_name});
-            })
-        }
+                // if($(e).val() =="")
+                // {
+                    // error = js_please_select+$(e).prev().text();
+                    // set_select_empty  = true;
+                    // return  false;
+                // }
+                // var f_name = $(e).find("option:selected").text();
+                // set_include.push({"f_id":$(e).val(),'f_name':f_name});
+            // })
+        // }
 
-        if(set_select_empty == true)
-        {
-            var obj = {
-                message : error
-            }
-            dialog(obj)
-        }
+        // if(set_select_empty == true)
+        // {
+            // var obj = {
+                // message : error
+            // }
+            // dialog(obj)
+        // }
 
-        if(order_num =='na')
-        {
-            order_num = $('#order_num').val();
-        }
-        var  obj ={
-            f_id : f_id,
-            order_num  :  order_num,
-            price: price,
-            f_name:f_name,
-            is_set:is_set,
-            set_include :set_include
-        };
-        var shopcart =  $cookies.getObject('shopcart');
-        var isadd = false;
-        $.each(shopcart, function(i,e){
-            if(e.f_id == f_id)
-            {
-                isadd=true;
-                $.extend( shopcart[i], obj );
-                $cookies.putObject('shopcart', shopcart, { path: '/'});
-            }else{
-                isadd = false;
-            }
-        })
-        if(!isadd)
-        {
-            shopcart.push(obj);
-            $cookies.putObject('shopcart', shopcart, { path: '/'});
-            $rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
-        }
+        // if(order_num =='na')
+        // {
+            // order_num = $('#order_num').val();
+        // }
+        // var  obj ={
+            // f_id : f_id,
+            // order_num  :  order_num,
+            // price: price,
+            // f_name:f_name,
+            // is_set:is_set,
+            // set_include :set_include
+        // };
+        // var shopcart =  $cookies.getObject('shopcart');
+        // var isadd = false;
+        // $.each(shopcart, function(i,e){
+            // if(e.f_id == f_id)
+            // {
+                // isadd=true;
+                // $.extend( shopcart[i], obj );
+                // $cookies.putObject('shopcart', shopcart, { path: '/'});
+            // }else{
+                // isadd = false;
+            // }
+        // })
+        // if(!isadd)
+        // {
+            // shopcart.push(obj);
+            // $cookies.putObject('shopcart', shopcart, { path: '/'});
+            // $rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
+        // }
 
-        if($(document).width()<=1024)
-        {
-            $('.cartnums').removeClass('text-white').addClass('text-black');
-        }else
-        {
-            $('.cartnums').removeClass('text-black').addClass('text-white');
-        }
+        // if($(document).width()<=1024)
+        // {
+            // $('.cartnums').removeClass('text-white').addClass('text-black');
+        // }else
+        // {
+            // $('.cartnums').removeClass('text-black').addClass('text-white');
+        // }
     };
 };
 
@@ -166,30 +166,82 @@ var categoryCtrl = function($scope, $http){
 
 var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
     var shopcart =  $cookies.getObject('shopcart');
-    $scope.items=shopcart;
-    $scope.cartnums= shopcart.length;
+	$scope.items=[];
+	if(type of r_id !="undefined" &&typeof shopcart[r_id] !="undefined")
+	{
+		$scope.items=shopcart[r_id];
+	}
+	if($scope.items.length >0)
+	{
+		$('.cartdiv').removeClass('hidden');
+	}
     $('.container').removeClass('hidden');
 
+	$scope.ca_id = 'all';
+	
     $scope.data = {
         o_consignee :apiService.u_email,
-        o_phone :apiService.u_phone,
+        o_phone :apiService.u_phone
     };
 
+	$scope.gotoCheckOut = function(r_id)
+	{
+		var temp ={};
+		temp[r_id] = $scope.items;
+		$cookies.putObject('shopcart', temp, { path: '/'});
+		$cookies.putObject('checkout', temp[r_id], { path: '/'});
+		location.href="/ShopCart";
+	}
+	
+	$scope.filterFood = function(id)
+	{
+		$('.food').hide();
+		$('.food[data-caid='+id+']').show()
+	}
+	
+	$scope.addCart = function(f_id,f_price,f_name)
+	{
+		var push =true
+		angular.forEach($scope.items, function(value, key){
+			if(f_id == value.f_id)
+			{
+				push = false;
+				var order_num =  $('input[type=number][data-id='+f_id+']').val();
+				$scope.items[key].order_num=parseInt(order_num) +1;
+				$('input[type=number][data-id='+f_id+']').val($scope.items[key].order_num);
+			}
+		})
+		
+		if(push ==true)
+		{
+			$scope.items.push(
+				{	
+					f_name : f_name,
+					f_price : f_price,
+					f_id :f_id,
+					order_num :1,
+				}
+			);	
+		}
+
+		$('.cartdiv').removeClass('hidden');
+	}
+	
     if($scope.cartnums ==0)
     {
-        $( "#dialog p").text(js_cart_num_is_zero);
-        $( "#dialog" ).dialog({
-            buttons: [
-                {
-                    text: "close",
-                    click: function() {
-                        $( this ).dialog( "close" );
+        // $( "#dialog p").text(js_cart_num_is_zero);
+        // $( "#dialog" ).dialog({
+            // buttons: [
+                // {
+                    // text: "close",
+                    // click: function() {
+                        // $( this ).dialog( "close" );
                        // window.location.href="/";
-                    }
-                }
-            ]
-        });
-        return false;
+                    // }
+                // }
+            // ]
+        // });
+        // return false;
     }
 
     $scope.mapinit = function()
@@ -209,26 +261,27 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
             }
         });
     }
+	
+	$scope.$watch($scope.items, function(newValue, oldValue) {
+	
+		
+	},true);
+	
     $scope.Total = function(filterAry){
         var total = 0;
         angular.forEach(filterAry, function(item){
-            total += parseFloat(item.subtotal,2);
+			
+            total += parseFloat(item.f_price*item.order_num,2);
         });
         return total.toFixed(2);
     };
 
     $scope.delete = function($index)
     {
-        if (confirm('Are you sure you want remove?')) {
-            $scope.items.splice($index,1);
-            $cookies.putObject('shopcart', $scope.items, { path: '/'});
-            $scope.cartnums= $scope.items.length;
-            $rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
-        } else {
-
-        }
-
-
+		$scope.items.splice($index,1);
+		$cookies.putObject('shopcart', $scope.items, { path: '/'});
+		$scope.cartnums= $scope.items.length;
+		$rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
     }
 
     $scope.ischeckout = false;
@@ -858,6 +911,9 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
 }
 
 
+var restaurantCtrl = function()
+{
+}
 
 
 var contactsCtrl = function ($scope){
@@ -873,6 +929,7 @@ sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
 sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
 sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', 'apiService', productPageCtrl]);
 sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
+sihaliveApp.controller('restaurantCtrl',  ['$scope', '$cookies', '$rootScope', 'apiService',restaurantCtrl]);
 sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope','apiService',loginCtrl]);
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'apiService',bodyCtrl]);
 sihaliveApp.controller('orderCtrl',  ['$scope', '$cookies', '$rootScope', 'User',orderCtrl]);

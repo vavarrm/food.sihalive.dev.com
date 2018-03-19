@@ -158,6 +158,19 @@ class CI_Model {
 			$sql =$ary['sql'];
 			$search_sql = $sql.$where.$order.$limit ;
 			$query = $this->db->query($search_sql, $bind);
+			$error = $this->db->error();
+			if($error['message'] !="")
+			{
+				$MyException = new MyException();
+				$array = array(
+					'system_error' 	=>$error['message'] ,
+					'status'	=>'000'
+				);
+				
+				$MyException->setParams($array);
+				throw $MyException;
+			}
+			
 			$rows = $query->result_array();
 			
 			$total_sql = sprintf("SELECT COUNT(*) AS total FROM(%s) AS t",$sql.$where) ;

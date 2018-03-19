@@ -1,5 +1,4 @@
-<footer class="page-foot  footer-light context-dark " style="background-color:#302f35!important; text-align: left"
-        ng-controller="navCtrl">
+<footer class="page-foot  footer-light context-dark " style="background-color:#302f35!important; text-align: left" ng-controller="navCtrl">
 	<section class="section-top-45 section-bottom-40 ">
 	  <div class="shell">
 		<div class="range range-xs-center">
@@ -12,8 +11,7 @@
 
                         <p>	<a href="callto:#" > <span class="icon icon-sm fa fa-phone-square"  style="font-size:20px; "
                                 ></span><{$website.phone}></a> </p>
-                        <p>	<a href="callto:#" ><span class="icon icon-sm fa fa-envelope-o" style="font-size:18px;
-"></span>
+                        <p>	<a href="callto:#" ><span class="icon icon-sm fa fa-envelope-o" style="font-size:18px;"></span>
                                 tryion@sihalive.com</a> </p>
 						<p class="contact-info"> <span class="icon icon-sm  fa fa-clock-o" style="font-size:20px; "></span>
                             <{$language.text_open_hour}></p>
@@ -26,13 +24,10 @@
 		  <div class="cell-sm-3 cell-md-3  offset-lg-top-0">
 				<h5 class="text-italic font-secondary">FEATURES SITE</h5>
 				<div class="unit unit-sm-horizontal unit-sm-top unit-spacing-xs offset-top-15">
-
 					<div class="unit-body">
                         <span> <a href="/"> Home </a> </span><br/>
                         <span> <a href="/contacts"> Contacts </a> </span><br/>
                         <span> <a href="/MainPage/privacy"> Privacy</a> </span><br/>
-
-
 
 					</div>
 				</div>
@@ -66,7 +61,7 @@
 	  <div class="shell">
 		<hr>
 	  </div>
-	  <div class="shell section-20 " ng-change="change()">
+	  <div class="shell section-20" >
           <span class="this-left" > <a ng-click="setLanguage('en')">English (US)</a>  </span>
           <span class="this-left" style="margin-left: 20px"><a ng-click="setLanguage('zh-cn')">简体中文</a> </span>
 		<div class="range range-xs-center" style="margin-top: -5px">

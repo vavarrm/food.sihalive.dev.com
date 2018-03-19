@@ -18,14 +18,30 @@
 				<label class="control-label col-md-3 col-sm-3 col-xs-12" >account<span class="required">*</span>
 				</label>
 				<div class="col-md-3 col-sm-3 col-xs-12">
-					<input type="text" name="ad_account" required="required" class="form-control col-md-7 col-xs-12">
+					<input type="text" name="ad_account" required="required" placeholder="account" class="form-control col-md-7 col-xs-12">
 				</div>
 			  </div>	 
 			  <div class="form-group">
 				<label class="control-label col-md-3 col-sm-3 col-xs-12" >password<span class="required">*</span>
 				</label>
 				<div class="col-md-3 col-sm-3 col-xs-12">
-					<input type="password" name="ad_password" required="required" class="form-control col-md-7 col-xs-12">
+					<input ng-model="passwd" type="password" name="ad_passwd" required="required"  placeholder="password" class="form-control col-md-7 col-xs-12">
+				</div>
+			  </div>
+			   <div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" >password<span class="required">*</span>
+				</label>
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					<input ng-model="passwd_confirm" type="password" name="ad_passwd_confirm" placeholder="password  confirm" required="required" class="form-control col-md-7 col-xs-12">
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" >role<span class="required">*</span>
+				</label>
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					<select name="ad_ar_id" class="form-control col-md-7 col-xs-12">
+						<option value="{{option.ar_id}}" ng-repeat="option in data.form.controller_list.role_list" ng-bind="option.ar_name"></option>
+					</select>
 				</div>
 			  </div>			  
 			  <div class="ln_solid"></div>
