@@ -21,6 +21,23 @@
 
 
 	}
+	.intl-tel-input {
+		margin: 10px;
+		font-size: 14px;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		color: #333;
+		height: 40px!important;
+		padding: 5px;
+	}
+	.intl-tel-input input {
+		width: 100%;
+		border: 1px solid #CCC;
+		font-family: inherit;
+		font-size: 100%;
+		color: inherit;
+		height: 40px!important;
+		padding: 5px;
+	}
 	main{
 		min-height: 800px;
 	}
@@ -28,9 +45,8 @@
 		margin-top: 20px!important;
 	}
 </style>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-
+<link rel="stylesheet" href="https://www.jqueryscript.net/demo/jQuery-International-Telephone-Input-With-Flags-Dial-Codes/build/css/intlTelInput.css">
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <main class="page-content this-white" ng-controller="userCtrl" ng-init="init()"  >
 
 	<!-- Breadcrumbs & Page title-->
@@ -47,64 +63,96 @@
 							<{$mainpage_language_ary.Profile}></a></li>
 					<li><a data-toggle="tab" href="#address"><span class="glyphicon glyphicon-map-marker"></span>
 							<{$mainpage_language_ary.Address}></a></li>
-
 				</ul>
-
 				<div class="tab-content this-border this-padding-top this-padding " style="border: none!important; margin-bottom: 50px">
-					<div id="home" class="tab-pane this-animate-right " style="margin-top: 20px">
+					<div id="home" class="tab-pane this-animate-right " style="margin-top: 20px" >
 						<div class="c">
 							<div class=" this-white" style="border: none">
 								<div class="row">
-									<div class="col-sm-1"></div>
 
-									<div class="col-sm-8">
-										<form method="post"  class="rd-mailform form-contact-line text-left" >
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<form method="post"  class="form-horizontal this-text-left"
+											  style="text-align: left!important;" >
 											<div class="form-inline-flex">
-												<div class="form-group">
-													<label for="o_consignee" class="form-label form-label-outside
-													rd-input-label"><{$mainpage_language_ary.First_name}> :</label>
-													<input id="o_consignee" ng-model="u_fname"  type="text" placeholder="<{$userLanguageAry.user_delivery_phone}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
-													<span class="form-validation"></span>
-												</div>
-												<div class="form-group">
-													<label for="o_phone" class="form-label form-label-outside
-													rd-input-label"><{$mainpage_language_ary.Last_name}> :</label>
-													<input id="o_phone" ng-model="u_lname" type="text" placeholder="<{$mainpage_language_ary.Last_name}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
-												</div>
-											</div>
-											<div class="form-inline-flex this-margin-top">
-												<div class="form-group">
-													<label for="o_consignee" class="form-label form-label-outside
-													rd-input-label"><{$mainpage_language_ary.Phone}> : </label>
-													<input id="o_consignee" ng-model="u_phone"  type="text" placeholder="<{$mainpage_language_ary.Phone}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
-													<span class="form-validation"></span>
-												</div>
-												<div class="form-group">
-													<label for="o_phone" class="form-label form-label-outside
-													rd-input-label"><{$mainpage_language_ary.Email}> : </label>
-													<input id="o_email" ng-model="u_email" type="text" placeholder="<{$mainpage_language_ary.Email}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
-												</div>
-											</div>
-											<div class="form-inline-flex this-margin-top">
-												<div class="form-group">
-													<label for="o_consignee" class="form-label form-label-outside
-													rd-input-label"><{$mainpage_language_ary.Password}> :</label>
-													<input id="o_consignee" ng-model="u_pwd"  type="text" placeholder="<{$mainpage_language_ary.Password}>" name="o_consignee"   data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child">
-													<span class="form-validation"></span>
-												</div>
-												<div class="form-group">
-													<label for="o_phone" class="form-label form-label-outside
-													rd-input-label"><{$mainpage_language_ary.Confirm_Password}></label>
-													<input id="o_email" ng-model="u_confpwd" type="text" placeholder="<{$mainpage_language_ary.Confirm_Password}>" name="o_phone" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child"><span class="form-validation"></span>
-												</div>
-											</div>
-											<div class="offset-top-30">
+
 												<div class="form-inline-flex">
 													<div class="form-group">
-														<button ng-click="setProfile();$event.preventDefault();"  class="this-btn this-btn-this"><{$language.from_button_sumbit}></button>
+														<label for="o_consignee" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.First_name}> :</label>
+														<input id="o_fname" ng-model="u_fname"  type="text"
+															   placeholder="<{$userLanguageAry.user_delivery_phone}>"
+															   name="u_fname"   data-constraints="@Required"
+															   class="form-control form-control-has-validation form-control">
+														<span class="form-validation"></span>
+													</div>
+
+													<div class="form-group">
+														<label  class=" form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Last_name}> :</label>
+														<input id="o_lname" ng-model="u_lname" type="text"
+															   placeholder="<{$mainpage_language_ary.Last_name}>"
+															   name="u_lname" data-constraints="@Required"
+															   class="form-control form-control-has-validation form-control"><span class="form-validation"></span>
 													</div>
 												</div>
+												<div class="form-inline-flex this-margin-top">
+													<div class="form-group">
+														<label for="" class=" form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Phone}> : </label>
+														<input id="o_phone" ng-model="u_phone"  type="text"
+															   placeholder="<{$mainpage_language_ary.Phone}>" name="u_phone"
+															   data-constraints="@Required"
+															   class="form-control form-control-has-validation
+														   form-control ">
+														<span class="form-validation"></span>
+													</div>
+
+													<div class="form-group">
+														<label for="o_phone" class=" form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Email}> : </label>
+														<input id="o_email" ng-model="u_email" type="text"
+															   placeholder="<{$mainpage_language_ary.Email}>"
+															   name="u_email" data-constraints="@Required"
+															   class="form-control form-control-has-validation form-control">
+														<span class="form-validation"></span>
+													</div>
+
+												</div>
+												<div class="form-inline-flex this-margin-top">
+													<div class="form-group">
+														<label for="o_consignee" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Password}> :</label>
+														<input id="o_password" ng-model="u_pwd"  type="text"
+															   placeholder="<{$mainpage_language_ary.Password}>"
+															   name="u_password"   data-constraints="@Required"
+															   class="form-control form-control-has-validation form-control-last-child">
+														<span class="form-validation"></span>
+													</div>
+													<div class="form-group">
+														<label for="o_phone" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Confirm_Password}></label>
+														<input id="o_c_password" ng-model="u_confpwd" type="text"
+															   placeholder="<{$mainpage_language_ary.Confirm_Password}>"
+															   name="u_confpwd" data-constraints="@Required"
+															   class="form-control form-control-has-validation form-control-last-child">
+														<span class="form-validation"></span>
+													</div>
+
+												</div>
+
+												<div class="offset-top-30">
+													<div class="form-inline-flex">
+														<div class="form-group">
+															<button ng-click="setProfile();$event.preventDefault();"
+																	class="this-btn this-btn-this" style="width:
+																100px"><{$language.from_button_sumbit}></button>
+														</div>
+													</div>
+												</div>
+
 											</div>
+
+
 										</form>
 
 									</div>
@@ -163,10 +211,7 @@
 
 						</div>
 					</div>
-
-
-
-						<div id="address" class="tab-pane this-animate-right this-left-align">
+					<div id="address" class="tab-pane this-animate-right this-left-align">
 							<div class="well this-white  " style="border: none">
 
 								<div class="this-container" style="padding: 0px">
@@ -190,8 +235,10 @@
 															<option value="<{$row.p_id}>"><{$row.p_title}> </option>
 															<{/foreach}>
 														</select>
-														<span onclick="openLocation()"  class="this-btn
+														<a href="/user/maps">
+															<span onclics="openLocation()"  class="this-btn
 														this-btn-this" style="margin-top: 5px" ><{$mainpage_language_ary.google_map}> </span>
+														</a>
 													</div>
 													<div class="col-sm-7" style="padding: 0px">
 														<label for="p_desc"><{$mainpage_language_ary.Plcese_Description}> :</label>
@@ -223,13 +270,6 @@
 													<tr ng-repeat="row in data.book_address" >
 														<td>{{row.u_p_b_titel}}</td>
 														<td>{{row.description}}</td>
-														<!--<td>
-															<span class="badge this-green"> edit</span>
-															<a href="/user/inv/"> <span class="badge
-																this-orange
-																this-text-white " >View</span>
-															</a>
-														</td>-->
 													</tr>
 
 													</tbody>
@@ -245,14 +285,12 @@
 							</div>
 						</div>
 
-
-
 				</div>
 			</div>
 
 	</section>
 
-	<div class="this-animate-zoom ac-wrapper this-hide"  id="this_map" >
+	{*<div class="this-animate-zoom ac-wrapper this-hide"  id="this_map" >
 		<div class="popup" id="this_Open">
 
 			<div class="this-container this-top" style="width:320px; position:relative!important; background-color:rgba(255,255,255,0.7);text-align:left; top:0px; padding-bottom: 5px; padding: 5px"	>
@@ -282,13 +320,7 @@
 			</div>
 			<div id="maping" ng-init="mapinit()"  data-zoom="15" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model"
 				 style="position:fixed; margin-bottom: 5px; height:100%; margin-top: -70px">
-				<ul class="map_locations" style="width: 80%" >
-					<li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
-						<p data-position_id ="1" style="width:100%; text-align:  center;height: 80%">
-							<span style="width:28px; ">{{position.p_name}}</span>
-						</p>
-					</li>
-				</ul>
+				<div id="map_canvas" style="width: 1000px; height: 650px;"></div>
 			</div>
 
 			<div class="this-container this-bottom this-white" style="height:17%; text-align: left; padding:0px"
@@ -296,13 +328,17 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-6">
-							<form method="post" action="" style="margin-top: 5px">
+							<form method="post" action="/User_Position/google_insert" style="margin-top: 5px">
+								<input id="lat" name="lat"  style="display: none"/>
+								<input id="long" name="long" style="display: none" />
 								<span class="this-hide-small"> Address Name :</span>
-								<input type="text" class="form-control input-sm this-border" placeholder="Address name ....">
+								<input type="text" name="txtname" class="form-control input-sm this-border"
+									   placeholder="Address name ....">
 								<span class="this-hide-small" > Address Name :</span>
 								<input type="text" class="form-control input-sm this-border" placeholder="Description....">
-								<button id="open" class="this-btn this-btn-this  btn-sm " style="margin-top: 5px"
-								>Save</button>
+								<input type="submit" name="save_google" class="this-btn this-btn-this  btn-sm "
+									   value="Save"
+								   style="margin-top: 5px">
 							</form>
 						</div>
 					</div>
@@ -313,7 +349,7 @@
 
 
 		</div>
-	</div>
+	</div>*}
 
 </main>
 
@@ -329,7 +365,6 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
-<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script >
    // $.noConflict();
   //  jQuery( document ).ready(function( $ ) {
@@ -341,5 +376,14 @@
         $('#show_add').click(function () {
             $('#frm_add').slideToggle();
         });
+
     });
+</script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://www.jqueryscript.net/demo/jQuery-International-Telephone-Input-With-Flags-Dial-Codes/build/js/intlTelInput.js"></script>
+
+<script>
+    $("#o_phone").intlTelInput();
+    $("#o_phone").intlTelInput("selectCountry", "kh");
+
 </script>

@@ -73,6 +73,15 @@ class User_Position_Model extends CI_Model {
         $this->db->delete($this->table);
     }
 
+    public function insert_by_google($data){
+        $this->db->insert("user_position_book",$data);
+        $r=$this->db->insert_id();
+        if($r){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 }

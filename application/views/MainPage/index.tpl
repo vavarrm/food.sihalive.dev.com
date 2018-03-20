@@ -66,18 +66,21 @@
 					</div>
 					<button  type="submit" class="this-btn this-btn-this" style="height: 40px"><{$mainpage_language_ary.search}></button>
 				</form>
-				<div class="row">
+				<div class="row this-center" >
 					<{foreach from=$group item=row key=index}>
 					<!-- Each popular food item starts -->
 					<a href="/shop/<{$row.g_r_name|replace:' ':'-'}>">
-						<div class="col-xs-12 col-sm-6 col-md-2" ">
-						<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
-							<img src="images/category-<{$row.g_r_name}>-310X260.png" class="img-responsive"/>
-							<div class="content">
-								<div class="product-name"><{$row.g_r_name}></div>
-							</div>
+					<div class="col-xs-6 col-sm-2 col-md-2">
+					<div class="food-item-wrap this-center img-circle this-margin-top this-padding-bottom this-margin-bottom">
 
+						<img src="http://kcthaiplace.com/wp-content/uploads/2016/10/img03-300x300.png" class="img-responsive img-circle "/>
+						<div class="content">
+							<div class="badge this-orange product-name this-text-bold " style="color: white!important;">
+								<{$row.g_r_name}>
+							</div>
 						</div>
+
+					</div>
 				</div>
 				</a>
 				<{/foreach}>
@@ -95,16 +98,15 @@
 			<div class="row">
 				<{foreach from=$shop item=row key=index}>
 				<!-- Each popular food item starts -->
-				<div class="col-xs-12 col-sm-6 col-md-3" style="margin-top: 10px" >
-					<div class="food-item-wrap restaurant this-center " style="margin-top: 5px; padding-bottom: 5px; margin-bottom: 5px"  >
+				<div class="col-xs-12 col-sm-4 col-md-3 ">
+					<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px;
+					 margin-bottom: 5px; border: 1px solid #f2f2f2"  >
 						<img src="/images/category-<{$row.r_id}>-310X260.png" class="img-responsive" />
 						<div class="content">
 							<div class="product-name"><{$row.r_name}></div>
 						</div>
-						<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>" class="this-btn
-						this-text-deep-orange"
-						   style="border: dashed 1px orangered;
-">Order Now</a>
+					<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>" class="this-btn this-text-deep-orange"
+						   style="border: dashed 1px orangered;">Order Now</a>
 
 					</div>
 				</div>
@@ -112,7 +114,9 @@
 				<!-- Each popular food item starts -->
 			</div>
 		</div>
+		<hr class="offset-top-50">
 	</section>
+
 	<section class="container-fluid w3-siliver" style="background-image: url('/images/pattern.png'); background-repeat: repeat-x, repeat;
     background-position: bottom, center;
     padding: 100px 0;
