@@ -2,7 +2,7 @@
 /application/views/templates_c/*.php
 /application/views/templates_c
 /images/food
-/cache bb
+/cache 
 /*.DS_Store
 
 
