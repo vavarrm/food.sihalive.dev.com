@@ -75,6 +75,12 @@ class User_Position extends CI_Controller{
 
     }
 
+    public  function deletet_user_position(){
+        $id=$this->input->post('id');
+        $result=$this->position->delete_by_id($id);
+
+    }
+
 
 
 

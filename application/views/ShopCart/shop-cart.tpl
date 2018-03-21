@@ -30,7 +30,7 @@
 	}
 </style>
 
-<main class="page-content this-white" ng-controller="shopCartCtrl"   >
+<main class="page-content this-white" >
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
 	<section class="section-0 section-sm-10">
@@ -211,7 +211,11 @@
 														</div>
 													</div>
 													<center>
-														<img src="/images/icon/g_map.png"height="40" style="cursor: pointer"  onclick="openLocation()" >
+														<!--<img src="/images/icon/g_map.png"height="40" style="cursor: pointer"
+															  onclick="openLocation()" >-->
+														<a href="/user/maps">
+															<img src="/images/icon/g_map.png"height="40" style="cursor: pointer">
+														</a>
 													</center>
 													<div class="form-group ">
 														<div class="col-sm-12" style="padding: 0px">

@@ -47,11 +47,12 @@
 			<div class="cell-sm-3 cell-md-3  offset-lg-top-0">
 				<h5 class="text-italic font-secondary"><{$language.text_phone}></h5>
 				<div class="unit unit-sm-horizontal unit-sm-top unit-spacing-xs offset-top-15">
-					<i class="fa fa-facebook-official" style="font-size:30px;margin-left: 20px" ></i>
-					<i class="fa fa-instagram" style="font-size:30px; margin-left: 20px"></i>
-					<i class="fa fa-google-plus-square" style="font-size:30px; margin-left: 20px"></i>
-					<i class="fa fa-twitter-square" style="font-size:30px; margin-left: 20px"></i>
-					<i class="fa fa-youtube-play" style="font-size:30px; margin-left: 20px"></i>
+					<ul class="list-inline offset-top-15">
+						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-instagram"></span></a></li>
+						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-facebook"></span></a></li>
+						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-twitter"></span></a></li>
+						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-google-plus"></span></a></li>
+					</ul>
 				</div>
 			</div>
 		</div>

@@ -69,8 +69,9 @@ class User_Position_Model extends CI_Model {
 
     public function delete_by_id($id)
     {
-        $this->db->where('u_position_id', $id);
+        $this->db->where('p_bookId', $id);
         $this->db->delete($this->table);
+        return true;
     }
 
     public function insert_by_google($data){

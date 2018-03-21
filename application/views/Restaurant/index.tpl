@@ -59,7 +59,7 @@
 <{$r_name=""}>
 <{$r_about=""}>
 <main class="page-content " style=""  ng-controller="shopCartCtrl" ng-init="r_id='<{$r_id}>'" >
-    <div class="this-sidebar this-bar-block this-border-right this-animate-right" style="display:none;width:100%;z-index:9999" id="shopshowPage" >
+    <div class="this-sidebar this-bar-block this-border-right this-animate-right" style="display:none;width:100%;" id="shopshowPage"   ng-controller="userAddressCtrl" ng-init="address_()">
         <button  class="this-bar-item this-large bg-primary " style="width: 100%;">
             <span class="icon icon-sm fa fa-arrow-circle-left" id="closeShopcart"></span>
             <span class="this-center ">
@@ -67,7 +67,7 @@
         </button>
         <div class="row cartright">
 
-            <div class="col-sm-12 this-white hidden cartdiv" ng-show="items .length>0" style="text-align: left" >
+            <div class="col-sm-12 this-white hidden cartdiv" ng-show="items .length>0" style="text-align: left"  >
                 <div class="inner line-top relative">
                     <div class="item-order-wrap" style="border-top: 1px solid silver" >
                         <div class="item-order-list item-row this-border-top"  ng-repeat="(key ,item) in items |
@@ -94,24 +94,26 @@
                         </div>
 
                         <div class="col-sm-12 this-padding-0" style="padding: 0px">
-                            <form method="post"  class=" form-contact-line text-left "  ng-controller="userAddressCtrl" ng-init="address_()">
+
 
                                 <div class="form-inline-flex">
                                     <div class="form-group" >
-                                        <div class="col-sm-12" style="padding: 0px">
-                                            <label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
+                                    <div class="col-sm-12" style="padding: 0px">
+                                        <label for="message" class=" form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
 
-                                            <select   class="form-control
-															 form-control-has-validation form-control-last-child " id="o_position_id">
-                                                <option value="">請選擇</option>
-                                                <option ng-repeat="rows in data.book_address"
-                                                        value="{{rows.p_bookId}}" >{{rows.u_p_b_titel}}</option>
-                                            </select>
+                                        <select   class="form-control form-control-has-validation
+                                        form-control-last-child " id="o_position_id">
+                                            <option value="">請選擇</option>
+                                            <option ng-repeat="row in data.book_address"
+                                                    value="{{row.p_bookId}}" >{{row.u_p_b_titel}}</option>
+                                        </select>
 
-                                        </div>
+                                    </div>
                                     </div>
                                     <center>
-                                        <img src="/images/icon/g_map.png"height="40" style="cursor: pointer"  id="openLocation" >
+                                       <a href="/user/maps">
+                                           <img src="/images/icon/g_map.png"height="40" style="cursor: pointer"   >
+                                       </a>
                                     </center>
                                     <div class="form-group ">
                                         <div class="col-sm-12" style="padding: 0px">
@@ -138,7 +140,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+
                         </div>
 
                     </div>
@@ -391,29 +393,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="summary-wrap this-hide" style="border-top: 1px
-                                                solid silver">
-                                        <{foreach from=$r_id item=row key=index}>
-                                        <input 	type="text" id="r_id" value="<{$row.r_id}>"
-                                                name="o_r_id" style="display: none"
-                                                class="form-control form-control-has-validation form-control-last-child ">
-                                        <{/foreach}>
-                                        <input	type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>"
-                                                name="o_messge" class="form-control form-control-has-validationform-control-last-child "
-                                                style="margin-top: 10px">
-                                        <div style="margin-top: 10px">
-                                            <select class="form-control input-sm" >
-                                                <option value="Delivery"> Delivery</option>
 
-                                            </select>
-                                        </div>
-                                        <div class="" style="margin-top: 10px">
-                                            <center>
-                                                <button  ng-click="checkout();$event.preventDefault();" class="this-btn this-btn-this">
-                                                    <span class="glyphicon glyphicon-log-out"></span> <{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
-                                            </center>
-                                        </div>
-                                    </div>
                                     <div class="" style="margin-top: 10px">
                                         <center>
                                             <a ng-click="gotoCheckOut(<{$r_id}>)">
@@ -433,70 +413,7 @@
                 </div>
             </div>
         </div>
-        <div class="this-animate-zoom ac-wrapper  this-white"  id="this_map" style="display:none;
-        width:100%;z-index:9999">
-            <div class="popup" id="this_Open">
 
-                <div class="this-container this-top" style="width:320px; position:relative!important; background-color:rgba(255,255,255,0.7);text-align:left; top:0px; padding-bottom: 5px; padding: 5px"	>
-
-                    <div id="PopUp" class="this-circle" style="text-align:right; position: absolute;right: 0px;
-                    margin-top: -5px">
-                        <div   name="submit"  onClick="PopUp()" style="border-radius: 15px; background:transparent;width:
-					 30px" >
-						<span class="glyphicon glyphicon-remove-circle" style="font-size: 25px;color: orangered; cursor:
-						pointer"></span> </div>
-                    </div>
-
-
-                    <div class="form-group offset-top-0  " style="margin-top: -5px; width: 98%; padding: 10px">
-                        <div class="form-inline-flex">
-                            <div class="form-group" style="width: 90%">
-                                <select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm"
-                                         style="padding: 2px; padding-left: 10px">
-                                    <option value="0">請選擇</option>
-                                    <{foreach from=$location item=row key=index}>
-                                    <option value="<{$row.p_title}>"><{$row.p_title}> </option>
-                                    <{/foreach}>
-                                </select>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div id="maping" ng-init="mapinit()"  data-zoom="15" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model"
-                     style="position:fixed; margin-bottom: 5px; height:100%; margin-top: -70px">
-                    <ul class="map_locations" style="width: 80%" >
-                        <li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
-                            <p data-position_id ="1" style="width:100%; text-align:  center;height: 80%">
-                                <span style="width:28px; ">{{position.p_name}}</span>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="this-container this-bottom this-white" style="height:17%; text-align: left; padding:0px"
-                     id="frm_address">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <form method="post" action="" style="margin-top: 5px">
-                                    <span class="this-hide-small"> Address Name :</span>
-                                    <input type="text" class="form-control input-sm this-border" placeholder="Address name ....">
-                                    <span class="this-hide-small" > Address Name :</span>
-                                    <input type="text" class="form-control input-sm this-border" placeholder="Description....">
-                                    <button id="open" class="this-btn this-btn-this  btn-sm " style="margin-top: 5px"
-                                    >Save</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-            </div>
-        </div>
     </main>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>

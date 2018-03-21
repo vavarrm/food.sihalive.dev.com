@@ -55,11 +55,10 @@
 			return $row;
 		}
 
-
         public function inserdOrder($ary = array())
         {
             $output = array();
-           // $this->db->trans_start();
+            // $this->db->trans_start();
             $row = $this->getLastOid();
             if(empty($row))
             {
@@ -86,13 +85,14 @@
             {
                 $index =0;
                 $total_sql="";
+
                 foreach($ary['order_list'] as  $key => $value )
                 {
                     if($value['is_set']==1)
                     {
+
                         if(!empty($value['set_include']))
                         {
-
                             foreach($value['set_include'] as $include)
                             {
                                 $index++;
@@ -118,6 +118,7 @@
                         }
                     }else
                     {
+
                         $index++;
                         $sql ="SELECT * FROM food WHERE f_id =?";
                         $bind = array($value['f_id']);

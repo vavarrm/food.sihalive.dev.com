@@ -3,7 +3,7 @@ $(function(){
 
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 	{
-		$cache.removeClass("stuck");
+		//$cache.removeClass("stuck");
 		$inv.addClass('this-hide');
 		$inv.hide();
 
@@ -12,7 +12,10 @@ $(function(){
 	var $cart = $('#sidebar__inner'),
 		_top = $cart.offset().top;
 	var $cart2 = $('#inv'),
+	if(typeof  $cart2 !="undefined"")
+	{
 		_top2 = $cart2.offset().top;
+    }
 	// 當網頁捲軸捲動時
 	var $win = $(document).scroll(function(){
 		// 如果現在的 scrollTop 大於原本 #cart 的 top 時

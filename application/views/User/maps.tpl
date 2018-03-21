@@ -1,8 +1,9 @@
 
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html ng-app="sihaliveApp">
 
 <head lang="en">
+    <title>Location</title>
     <meta charset="UTF-8">
     <!-- Bootstrap stuff -->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
@@ -12,14 +13,21 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
     <script src="https://www.jqueryscript.net/demo/Location-Picker-Place-Autocomplete-Plugin-For-Google-Maps-Location-Picker/dist/locationpicker.jquery.min.js"></script>
-    <title>Location</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/script.min.js"></script>
+    <script src="/js/socket.io.js"></script>
+    <script type="text/javascript" src="/js/angular.min.js"></script>
+    <script type="text/javascript" src="/js/angular-cookies.min.js"></script>
+
+
+    <script type="text/javascript" src="/js/main.js"></script>
 </head>
 
-<body onload="geoFindMe()" >
-<div class="form-horizontal" style="width: 100%"ng-controller="userCtrl" ng-init="init()" >
+<body onload="geoFindMe()" ng-controller="bodyCtrl" ng-init="init()"  >
+<div class="form-horizontal" style="width: 100%"  ng-controller="userCtrl" ng-init="init()" >
 
 
     <div id="us3" style="width:100%; height:800px;"></div>
@@ -30,29 +38,37 @@
         <div class="col-sm-3">
             <div id="out"></div>
 
+                <button onclick="window.history.back();" class=" this-margin-top this-top this-right this-btn-this
+                btn" style="width:80px" >
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span>Back
+                </button>
+
                 <button id="location" class=" this-margin-top this-top this-right this-btn-this
-                btn" style="width: 150px" >Get Location</button>
+                btn" style="width: 150px; right: 10px" ><span class="glyphicon glyphicon-map-marker"></span>Your
+                    Location</button>
+
         </div>
 
-        <div class="col-sm-12 this-bottom this-white this-padding" style="height: 20%">
+        <div class="col-sm-12 this-bottom this-white this-padding this-border-top" style="height: 20%">
            <form method="post" action="/User_Position/google_insert">
 
 
-               <div class="col-sm-12">
+               <div class="col-sm-12  this-hide-small">
                    <div class="col-xs-6 col-sm-4 col-md-4">
-                       <input type="text" class="form-control"   style="" id="o_consignee" ng-model="u_id" name="u_id">
-                       <input type="text" class="form-control"  id="us3-lat" name="lat" />
+                       <input type="text" class="form-control" style="display: none"   id="o_consignee"
+                              ng-model="u_id" name="u_id" required>
+                       <input type="text" class="form-control"  id="us3-lat" name="lat" required readonly />
                    </div>
                    <div class="col-xs-6 col-sm-4 col-md-4 ">
-                       <input type="text" class="form-control" id="us3-lon" name="lag" />
+                       <input type="text" class="form-control" id="us3-lon" name="lag" required="required" readonly/>
                    </div>
                </div>
                <div class="col-sm-12">
                    <div class="col-xs-12 col-sm-4 col-md-4 this-padding">
-                       <input type="text" class="form-control " name="title" placeholder="Title name ...">
+                       <input type="text" class="form-control " name="title" placeholder="Title name ... "required="required">
                    </div>
                    <div class="col-xs-12 col-sm-4 col-md-4 this-padding">
-                       <input type="text" class="form-control " name="desc" placeholder="Description..">
+                       <input type="text" class="form-control " name="desc" placeholder="Description.." required="required">
                    </div>
 
                </div>
@@ -83,7 +99,8 @@
                   $('#us3').locationpicker({
                       location: {
                           latitude:lat,
-                          longitude:lag
+                          longitude:lag,
+                          zoom: 10,
                       },
                       radius:400,
                       inputBinding: {

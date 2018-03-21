@@ -112,7 +112,7 @@ class User extends CI_Controller {
     }
     public function maps(){
 	    $this->load->view('/user/maps.tpl');
-
+        //$this->smarty->displayFrame(__CLASS__.'/user/maps.tpl');
     }
 
 

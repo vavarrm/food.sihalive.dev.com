@@ -196,7 +196,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
 	$scope.filterFood = function(id)
 	{
 		$('.food').hide();
-		$('.food[data-caid='+id+']').show()
+		$('.food[data-caid='+id+']').show();
 	}
 	
 	$scope.addCart = function(f_id,f_price,f_name)
@@ -863,6 +863,7 @@ var orderCtrl = function($scope, $cookies, $rootScope, apiService)
 
 var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
 {
+
     $scope.data={
         p_description :{}
     };
@@ -870,7 +871,7 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
     {
         var sess = $cookies.get('sess');
         $.ajax({
-            async: false,
+            async: true,
             type: 'get',
             dataType: 'json',
             url: getUserAddress+"?sess="+sess,
@@ -878,8 +879,8 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
             success: function (data) {
                 if(data.status =="200")
                 {
+                   // console.log( data['body']['data']['book_address']);
                     $scope.data.book_address = data['body']['data']['book_address'];
-
                 }else{
                     var obj = {
                         message :data.message
@@ -895,6 +896,34 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
             }
         });
         return false;
+    }
+
+    $scope.del=function (id) {
+        if(id!=null){
+            var dataString = 'id='+id;
+            $.ajax({
+                type: "POST",
+                url: "User_Position/deletet_user_position",
+                data: dataString,
+                cache: false,
+                success: function(data) {
+                    $scope.data.book_address = data['body']['data']['book_address'];
+                    $scope.address_();
+                },
+                error: function(err) {
+                    var obj = {
+                        message :data.message
+                    };
+                    dialog(obj)
+                }
+            });
+
+        return false;
+
+        }else{
+
+        }
+
     }
 }
 
