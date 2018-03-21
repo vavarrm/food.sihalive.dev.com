@@ -1,0 +1,75 @@
+			<div class="form-inline-flex">
+												<div class="form-group">
+													<label for="o_consignee" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.First_name}> :</label>
+													<input id="o_fname" ng-model="u_fname"  type="text"
+														   placeholder="<{$userLanguageAry.user_delivery_phone}>"
+														   name="u_fname"   data-constraints="@Required"
+														   class="form-control form-control-has-validation form-control">
+													<span class="form-validation"></span>
+												</div>
+
+												<div class="form-group">
+													<label for="o_phone" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Last_name}> :</label>
+													<input id="o_lname" ng-model="u_lname" type="text"
+														   placeholder="<{$mainpage_language_ary.Last_name}>"
+														   name="u_lname" data-constraints="@Required"
+														   class="form-control form-control-has-validation form-control"><span class="form-validation"></span>
+												</div>
+											</div>
+											<div class="form-inline-flex this-margin-top">
+												<div class="form-group">
+													<label for="" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Phone}> : </label>
+													<input id="o_phone" ng-model="u_phone"  type="text"
+														   placeholder="<{$mainpage_language_ary.Phone}>" name="u_phone"
+														   data-constraints="@Required"
+														   class="form-control form-control-has-validation
+														   form-control ">
+													<span class="form-validation"></span>
+												</div>
+
+												<div class="form-group">
+													<label for="o_phone" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Email}> : </label>
+													<input id="o_email" ng-model="u_email" type="text"
+														   placeholder="<{$mainpage_language_ary.Email}>"
+														   name="u_email" data-constraints="@Required"
+														   class="form-control form-control-has-validation form-control">
+													<span class="form-validation"></span>
+												</div>
+
+											</div>
+											<div class="form-inline-flex this-margin-top">
+												<div class="form-group">
+													<label for="o_consignee" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Password}> :</label>
+													<input id="o_password" ng-model="u_pwd"  type="text"
+														   placeholder="<{$mainpage_language_ary.Password}>"
+														   name="u_password"   data-constraints="@Required"
+														   class="form-control form-control-has-validation form-control-last-child">
+													<span class="form-validation"></span>
+												</div>
+
+												<div class="form-group">
+													<label for="o_phone" class="form-label form-label-outside
+													rd-input-label"><{$mainpage_language_ary.Confirm_Password}></label>
+													<input id="o_c_password" ng-model="u_confpwd" type="text"
+														   placeholder="<{$mainpage_language_ary.Confirm_Password}>"
+														   name="u_confpwd" data-constraints="@Required"
+														   class="form-control form-control-has-validation form-control-last-child">
+													<span class="form-validation"></span>
+												</div>
+
+											</div>
+
+											<div class="offset-top-30">
+												<div class="form-inline-flex">
+													<div class="form-group">
+														<button ng-click="setProfile();$event.preventDefault();"
+																class="this-btn this-btn-this" style="width:
+																100px"><{$language.from_button_sumbit}></button>
+													</div>
+												</div>
+											</div>
