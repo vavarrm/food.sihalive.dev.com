@@ -644,7 +644,6 @@ var loginCtrl = function($scope, $cookies, $rootScope, apiService){
 
                                         location.href="/";
                                     }
-
                                 }
                             }]
                     };
@@ -665,9 +664,7 @@ var loginCtrl = function($scope, $cookies, $rootScope, apiService){
         });
     }
 
-
 }
-
 
 var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
 {
@@ -706,12 +703,10 @@ var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
             }
         });
     }
-
     $scope.getUserCallBack = function(r)
     {
         $scope.islogin = true;
     }
-
     $scope.init = function()
     {
         var sess = $cookies.get('sess');
@@ -731,13 +726,9 @@ var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
                     dialog(obj);
                 }
             )
-
         }
-
-
     }
 }
-
 var breadcrumbsCtrl = function ($scope)
 {
     var pathname = window.location.pathname; // Returns path only
@@ -748,7 +739,7 @@ var breadcrumbsCtrl = function ($scope)
     })
 }
 
-var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
+var userCtrl = function($scope, $cookies,User, $rootScope, apiService)
 {
     $scope.sending =false;
     $scope.getUserProfile = function(r){
@@ -776,10 +767,8 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
             }
         )
     }
-
     $scope.setProfile = function()
     {
-
 
         if(	$scope.sending == true)
         {
