@@ -63,4 +63,5 @@ $route['profile'] = "user/profile";
 $route['contacts'] = "contacts";
 $route['shop/(:any)'] = "/shop/id/$1";
 $route['(:any)'] = "/restaurant/id/$1";
+$route['cart/(:any).html'] = "ShopCart";
 

@@ -30,7 +30,7 @@
 	}
 </style>
 
-<main class="page-content this-white" >
+<main class="page-content this-white"ng-controller="shopCartCtrl" ng-init="r_id='<{$r_id}>'"   >
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
 	<section class="section-0 section-sm-10">
