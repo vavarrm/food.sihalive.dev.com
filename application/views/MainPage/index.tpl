@@ -64,13 +64,15 @@
 							form-control-last-child " name="q" placeholder="<{$mainpage_language_ary.like_to_eat}>..."
 								   style="min-width: 300px"> </div>
 					</div>
-					<button  type="submit" class="this-btn this-btn-this" style="height: 40px"><{$mainpage_language_ary.search}></button>
+
+                        <button  type="submit" class="this-btn this-btn-this" style="height: 40px; width: 100px;"><{$mainpage_language_ary.search}></button>
+
 				</form>
 				<div class="row this-center" >
 					<{foreach from=$group item=row key=index}>
 					<!-- Each popular food item starts -->
 					<a href="/shop/<{$row.g_r_name|replace:' ':'-'}>">
-					<div class="col-xs-6 col-sm-2 col-md-2">
+					<div class="col-xs-4 col-sm-2 col-md-2" style="padding: 0px; margin-top: -10px">
 					<div class="food-item-wrap this-center img-circle this-margin-top this-padding-bottom this-margin-bottom">
 
 						<img src="http://kcthaiplace.com/wp-content/uploads/2016/10/img03-300x300.png" class="img-responsive img-circle "/>
@@ -94,25 +96,33 @@
 	<section class="popular container-fluid this-white this-padding " >
 		<div class="container">
            <h5 class="h5 text-uppercase"><{$mainpage_language_ary.all_restaurant}></h5>
-			<hr class="offset-top-50">
+			<hr class="offset-top-10">
 			<div class="row">
+
+					<div class="shell">
+				<div class="range range-xs-center ">
 				<{foreach from=$shop item=row key=index}>
 				<!-- Each popular food item starts -->
-				<div class="col-xs-12 col-sm-4 col-md-3 ">
-					<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px;
-					 margin-bottom: 5px; border: 1px solid #f2f2f2"  >
-						<img src="/images/category-<{$row.r_id}>-310X260.png" class="img-responsive" />
-						<div class="content">
-							<div class="product-name"><{$row.r_name}></div>
-						</div>
-					<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>" class="this-btn this-text-deep-orange"
-						   style="border: dashed 1px orangered;">Order Now</a>
 
+					<div class="col-xs-12 col-sm-4 col-md-3 ">
+						<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>">
+							<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px;
+					 margin-bottom: 5px; border: 1px solid #f2f2f2"  >
+								<img src="/images/category-<{$row.r_id}>-310X260.png" class="img-responsive" />
+								<div class="content">
+									<h6 class="product-name "><{$row.r_name}></h6>
+								</div>
+								<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>" class="this-btn this-text-deep-orange"
+								   style="border: dashed 1px orangered;">Order Now</a>
+							</div>
+						</a>
 					</div>
-				</div>
+
 				<{/foreach}>
 				<!-- Each popular food item starts -->
 			</div>
+			</div>
+
 		</div>
 		<hr class="offset-top-50">
 	</section>
@@ -126,7 +136,7 @@
 
                 <!-- 3 block sections starts -->
                 <div class="row how-it-works-solution">
-                    <div class="col-xs-12 col-sm-12 col-md-4 how-it-works-steps white-txt col1">
+                    <div class="col-xs-12 col-sm-4 col-md-4 how-it-works-steps white-txt col1">
                         <div class="how-it-works-wrap">
                             <div class="step step-1">
 
@@ -137,14 +147,15 @@
                                             <path d="M202.494 386h22c5.799 0 10.5-4.701 10.5-10.5s-4.701-10.5-10.5-10.5h-22c-5.799 0-10.5 4.701-10.5 10.5s4.701 10.5 10.5 10.5z"></path> </g>
                                     </svg>
                                 </div>
-                                <img src="/images/icon/arrow-big.png" class="this-hide-small" style="position: absolute; margin-left: 50px"/>
+                                <img src="/images/icon/arrow-big.png" class="this-hide-small this-hide-medium" style="position:
+                                absolute; margin-left: 50px"/>
                                 <h6 class="text-white"><{$mainpage_language_ary.Choose_restaurant}></h6>
                                 <p><{$mainpage_language_ary.We_have_got_your_covered_with_restaurants_online}></p>
                             </div>
 
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 how-it-works-steps white-txt col2">
+                    <div class="col-xs-12 col-sm-4 col-md-4 how-it-works-steps white-txt col2">
                         <div class="step step-2">
                             <div class="icon" data-step="2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380.721 380.721" width="70">
@@ -152,13 +163,13 @@
                                         <path d="M58.727 281.236c.32-5.217.657-10.457 1.319-15.709 1.261-12.525 3.974-25.05 6.733-37.296a543.51 543.51 0 0 1 5.449-17.997c2.463-5.729 4.868-11.433 7.25-17.01 5.438-10.898 11.491-21.07 18.724-29.593 1.737-2.19 3.427-4.328 5.095-6.46 1.912-1.894 3.805-3.747 5.676-5.588 3.863-3.509 7.221-7.273 11.107-10.091 7.686-5.711 14.529-11.137 21.477-14.506 6.698-3.724 12.455-6.982 17.631-8.812 10.125-4.084 15.883-6.141 15.883-6.141s-4.915 3.893-13.502 10.207c-4.449 2.917-9.114 7.488-14.721 12.147-5.803 4.461-11.107 10.84-17.358 16.992-3.149 3.114-5.588 7.064-8.551 10.684-1.452 1.83-2.928 3.712-4.427 5.6a1225.858 1225.858 0 0 1-3.84 6.286c-5.537 8.208-9.673 17.858-13.995 27.664-1.748 5.1-3.566 10.283-5.391 15.534a371.593 371.593 0 0 1-4.16 16.476c-2.266 11.271-4.502 22.761-5.438 34.612-.68 4.287-1.022 8.633-1.383 12.979 94 .023 166.775.069 268.589.069.337-4.462.534-8.97.534-13.536 0-85.746-62.509-156.352-142.875-165.705 5.17-4.869 8.436-11.758 8.436-19.433-.023-14.692-11.921-26.612-26.631-26.612-14.715 0-26.652 11.92-26.652 26.642 0 7.668 3.265 14.558 8.464 19.426-80.396 9.353-142.869 79.96-142.869 165.706 0 4.543.168 9.027.5 13.467 9.935-.002 19.526-.002 28.926-.002zM0 291.135h380.721v33.59H0z"></path> </g>
                                 </svg>
                             </div>
-                            <img src="/images/icon/arrow-big-dotted.png" class="this-hide-small" style="position: absolute; margin-left: 50px"/>
+                            <img src="/images/icon/arrow-big-dotted.png" class="this-hide-small this-hide-medium" style="position: absolute; margin-left: 50px"/>
 
                             <h6 class="text-white"><{$mainpage_language_ary.Choose_a_tasty_dish}></h6>
                             <p><{$mainpage_language_ary.We_have_got_your_covered_with_menus_from_delivery_restaurants_online}></p>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 how-it-works-steps white-txt col3">
+                    <div class="col-xs-12 col-sm-4 col-md-4 how-it-works-steps white-txt col3">
                         <div class="step step-3">
                             <div class="icon" data-step="3">
                                 <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 612.001 612" width="70">
@@ -173,6 +184,17 @@
         </div>
 	</section>
 	<section class="container-fluid this-padding" style="min-height: 300px; background-color: transparent">
-
+		<div class="range range-xs-center range-lg-bottom" style="margin-top: 40px">
+			<div class="cell-md-9" >
+				<div class="group-sm" >
+					<h1 class="text-baseline">Fast Delivery</h1>
+					<div class="group-sm offset-top-15 offset-lg-top-20">
+						<hr class="hr divider-xs bg-primary text-top veil reveal-lg-inline-block">
+						<p class="big offset-lg-top-0 text-top text-white">Enjoy our free, fast, and reliable delivery service.</p>
+					</div>
+				</div>
+			</div>
+			<div class="cell-lg-3"><a href="#" class="btn btn-shape-circle btn-white-outline btn-min-width-md">Learn more</a></div>
+		</div>
 	</section>
 </main>

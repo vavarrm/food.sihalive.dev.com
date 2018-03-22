@@ -49,10 +49,8 @@
 
         </div>
 
-        <div class="col-sm-12 this-bottom this-white this-padding this-border-top" style="height: 20%">
+        <div class="col-sm-12 this-bottom this-white this-padding this-border-top " style="height: 25%">
            <form method="post" action="/User_Position/google_insert">
-
-
                <div class="col-sm-12  this-hide-small">
                    <div class="col-xs-6 col-sm-4 col-md-4">
                        <input type="text" class="form-control" style="display: none"   id="o_consignee"
@@ -76,10 +74,6 @@
                    <input type="submit" class="btn this-btn-this" value="Save" name="save_google" style="margin-left: 15px">
                </div>
            </form>
-
-
-
-
         </div>
     </div>
     <div class="clearfix"></div>

@@ -51,13 +51,7 @@
 		<!-- RD Navbar Nav-->
 		<div class="rd-navbar-nav-wrap" >
 		  <!-- RD Navbar Shop-->
-		  <div class="rd-navbar-shop this-hide-large this-hide-medium" >
-			<div  class="link link-shop link-default">
-			  <span class="big text-gray-light">Cart</span>
-			  <span class="icon icon-sm mdi mdi-cart-outline" ></span>
-			  <span class="label-inline big text-white cartnums"  ng-model="cartnums" ng-change="change()" ng-bind = "cartnums"></span>
-			</div>
-		  </div>
+
 		  <!-- RD Navbar Nav-->
 		  <ul class="rd-navbar-nav">
 			<li>

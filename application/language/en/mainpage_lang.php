@@ -25,7 +25,7 @@ $lang['About'] = "About";
 $lang['MENU'] = "MENU";
 $lang['Price'] = "Price";
 $lang['Quantity'] = "Quantity";
-$lang['ADD_TO_CART'] = "ADD TO CART";
+$lang['ADD_TO_CART'] = "ADD CART";
 
 $lang['Opening_Hours'] = "Opening Hours";
 $lang['Order_Information'] = "Order Information";

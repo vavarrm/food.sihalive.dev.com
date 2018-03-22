@@ -52,13 +52,17 @@
         margin-top: 20px!important;
     }
 
-	
+    .active{
+
+        color:orangered;
+    }
+
 </style>
 <{$lat=""}>
 <{$lng=""}>
 <{$r_name=""}>
 <{$r_about=""}>
-<main class="page-content " style=""  ng-controller="shopCartCtrl" ng-init="r_id='<{$r_id}>'" >
+<main class="page-content " style=""  ng-controller="shopCartCtrl" ng-init="r_id='<{$r_id}>'" onload="geoFindMe()" >
     <div class="this-sidebar this-bar-block this-border-right this-animate-right" style="display:none;width:100%;" id="shopshowPage"   ng-controller="userAddressCtrl" ng-init="address_()">
         <button  class="this-bar-item this-large bg-primary " style="width: 100%;">
             <span class="icon icon-sm fa fa-arrow-circle-left" id="closeShopcart"></span>
@@ -79,7 +83,6 @@
                             </div>
                             <span>
                             <input 	type="number"    data-id="{{item.f_id}}" data-price="{{item.f_price}}" ng-model="item.order_num"  min="1" max="20" readonly class="form-control text-bold order_num">
-
 							</span>
                             <span 	class="glyphicon glyphicon-trash" style="font-size:15px; cursor: pointer" ng-click="delete($index); $event.stopPropagation();"></span>
                             <div class="clear"></div>
@@ -92,22 +95,17 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-sm-12 this-padding-0" style="padding: 0px">
-
-
                                 <div class="form-inline-flex">
                                     <div class="form-group" >
                                     <div class="col-sm-12" style="padding: 0px">
                                         <label for="message" class=" form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
-
                                         <select   class="form-control form-control-has-validation
                                         form-control-last-child " id="o_position_id">
                                             <option value="">請選擇</option>
                                             <option ng-repeat="row in data.book_address"
                                                     value="{{row.p_bookId}}" >{{row.u_p_b_titel}}</option>
                                         </select>
-
                                     </div>
                                     </div>
                                     <center>
@@ -222,7 +220,7 @@
                                                         <a href="#Id<{$row.ca_id}>">
                                                             <{$row.ca_name}>
                                                             <i class="ion-ios-arrow-right" style="right: 0px; text-align: right; float: right">
-                                                                <span class="glyphicon glyphicon-menu-right" style="font-size: 12px; color: silver"></span>
+                                                                <span class="icon icon-sm icon-primary fa fa-arrow-circle-right"></span>
                                                             </i>
                                                         </a>
                                                     </li>
@@ -261,20 +259,19 @@
                                            </div>
                                        </div>
                                         <{foreach from=$foodList item=row key=index}>
-                                        <div data-caid="<{$row.ca_id}>" class="col-xs-12 col-md-4 food" style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px" id="Id<{$row.f_ca_id}>">
-                                            <div class="col-sm-12 this-white " style="height:auto;min-height: 90px;
+                                        <div data-caid="<{$row.ca_id}>" class="col-xs-12 col-sm-6 col-md-4 food " style=";overflow-x: auto; overflow-y: hidden; min-height: 180px; padding: 10px" id="Id<{$row.f_ca_id}>">
+                                            <div class="col-sm-12 this-white restaurant " style="height:auto;min-height: 90px;
                                             padding: 0px!important; "  >
-                                                <div class="col-md-12 this-border " style="height: 150px;
-                                                overflow: hidden" >
+                                                <div class="col-md-12" >
                                                    <center>
-                                                       <img src="/images/category-1-310X260.png" alt="" width="250"
-                                                            height="200" class="img-responsive img-circle
+                                                       <img src="/images/category-1-310X260.png" alt=""
+                                                             class="img-responsive img-circle
                                                          reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
                                                    </center>
                                                 </div>
                                                 <div class="col-md-12 this-padding" style="text-align:center;
                                                 overflow: hidden;height: 35px"  >
-														<{$row.f_name}>
+														<{$row.f_name|truncate:20:"...":true}>
                                                 </div>
                                                 <div class="col-sm-12  this-padding" id="m_<{$row.ca_id}>"  style="text-align:
                                                 center;">
@@ -285,10 +282,11 @@
                                             </div>
                                         </div>
                                     <!--  Open Modal Order --->
-                                        <div id="<{$row.f_id}>" class="modal fade this-center"  role="dialog"
+                                        <div id="<{$row.f_id}>" class="modal fade this-center this-container"
+                                             role="dialog"
                                              style="margin-top: 30px; padding: 0px!important; margin: 0px;
                                                 border-radius:0px!important; margin-top: 50px">
-                                            <div class="modal-dialog" style="border-radius: 0px">
+                                            <div class="modal-dialog" style="border-radius: 0px; padding: 0px">
                                                 <div class="modal-content ">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -328,35 +326,32 @@
                             </div>
                             <div id="menu1" class="tab-pane fade">
 
-                                <div id="hideMapOverflow">
-                                    <div id="map_canvas" style="height:100%"></div>
-                                </div>
+                                    <div id="map_canvas"  style='height:500px;background-color:white;width:100%'></div>
+
                             </div>
                             <div id="open" class="tab-pane fade in ">
-                                <div class="this-container this-padding">
+                                <div class="this-container this-padding this-margin-bottom">
                                     <h5> <{$mainpage_language_ary.Opening_Hours}> </h5>
-                                    <hr class="offset-top-20">
-                                    <ul class="this-ul">
-                                        <{foreach from=$operation item=row }>
-                                        <li>
-                                            <div class="row">
-
-                                                <div class="col-sm-4">
-                                                    + <{$row.open_day}>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <{$row.open_time_start}>  - <{$row.open_time_end}>
-                                                </div>
-
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <{foreach from=$operation item=row }>
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                + <{$row.ro_open_day}>
                                             </div>
-                                        </li>
-                                        <{/foreach}>
-                                    </ul>
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <{$row.ro_open_time_start}>  - <{$row.ro_open_time_end}>
+                                            </div>
+                                            <{/foreach}>
+                                        </div>
+
+                                    </div>
+
                                 </div>
                             </div>
                             <div id="about" class="tab-pane fade">
                                 <div class="this-container this-padding">
                                     <h4> <{$r_name}> </h4>
+
                                     <hr class="offset-top-20">
                                     <{$r_about}>
                                 </div>
@@ -375,23 +370,24 @@
                                 <div class="item-order-wrap" style="border-top: 1px solid silver" >
                                     <div class="item-order-list item-row"  ng-repeat="(key ,item) in items | filter as filterAry" ng-show="!item.del" >
 
-                                        <div class="col-sm-8"  ng-bind="item.f_name">
+                                        <div class="col-sm-12" style="margin-top: 5px">
+                                            <div class="col-sm-9 col-md-9"  ng-bind="item.f_name">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p class="uk-text-small" ng-bind="'$'+item.f_price"></p>
+                                            </div>
                                         </div>
-
-                                        <div class="col-sm-2">
-                                           <p class="uk-text-small" ng-bind="'$'+item.f_price"></p>
-
-                                        <span>
-                                            <input 	type="number"    data-id="{{item.f_id}}" data-price="{{item.f_price}}" ng-model="item.order_num"  min="1" max="20" readonly class="form-control text-bold order_num">
+                                        <div class="col-sm-12" style="text-align: right">
+                                            <input 	type="number"    data-id="{{item.f_id}}" data-price="{{item.f_price}}" ng-model="item.order_num"  min="1" max="20" readonly
+                                                      class="form-control text-bold input-sm order_num">
                                             <span 	class="glyphicon glyphicon-trash" style="font-size:15px; cursor: pointer" ng-click="delete($index); $event.stopPropagation();"></span>
-
-                                        </span>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
-                                    <div class="summary-wrap" style="border-top: 1px solid silver">
-                                        <div class="row cart_total_wrap bold">
-                                            <div class="col-md-12 col-xs-6  text-right cart_total">
+                                    <div class="this-container this-border-top" style="border-top: 1px solid silver">
+                                        <div class="row cart_total_wrap bold this-border-top">
+                                            <div class="col-md-12 col-xs-6  text-right cart_total"
+                                                 style="font-weight: bold; font-size: 18px">
                                                 <span><{$mainpage_language_ary.Total}>:</span>
                                                 <span class="total" ng-bind="Total(filterAry)"></span>
                                             </div>
@@ -420,21 +416,23 @@
 
     </main>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script type="text/javascript">
-var lat="<{$lat}>";
-var lang="<{$lng}>";
+
 var r_name="<{$r_name}>";
 var r_id="<{$r_id}>";
+var lat="<{$lat}>";
+var lang="<{$lng}>";
+
+
 
 function detectmob() {
-    if(window.innerWidth <= 1100 || window.innerHeight <= 600) {
+    if (window.innerWidth <= 1100 || window.innerHeight <= 600) {
         return true;
     } else {
         return false;
     }
-
 }
 
 if (detectmob()){
@@ -445,7 +443,76 @@ if (detectmob()){
 }
 $(document).ready(function () {
     $('#shopAlert').show();
+    $('ul li a').click(function(){
+        $('li a').removeClass("active");
+        $(this).addClass("active");
+    });
 });
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"> </script>
+<script src="/js/restaurant/index.js"></script>
+<script>
 
+    try {
+
+        var point = {
+            lat: lat,
+            lng: lang,
+        };
+        var markerSize = {
+            x: 22,
+            y: 40
+        };
+        google.maps.Marker.prototype.setLabel = function(label) {
+            this.label = new MarkerLabel({
+                map: this.map,
+                marker: this,
+                text: label
+            });
+            this.label.bindTo('position', this, 'position');
+        };
+
+        var MarkerLabel = function(options) {
+            this.setValues(options);
+            this.span = document.createElement('span');
+            this.span.className = 'map-marker-label';
+        };
+        MarkerLabel.prototype = $.extend(new google.maps.OverlayView(), {
+            onAdd: function() {
+                this.getPanes().overlayImage.appendChild(this.span);
+                var self = this;
+                this.listeners = [
+                    google.maps.event.addListener(this, 'position_changed', function() {
+                        self.draw();
+                    })
+                ];
+            },
+            draw: function() {
+                var text = String(this.get('text'));
+                var position = this.getProjection().fromLatLngToDivPixel(this.get('position'));
+                this.span.innerHTML = text;
+                this.span.style.left = (position.x - (markerSize.x / 2)) - (text.length * 3) + 10 + 'px';
+                this.span.style.top = (position.y - markerSize.y + 40) + 'px';
+            }
+        });
+        function initialize() {
+            var myLatLng = new google.maps.LatLng(point.lat, point.lng);
+            var gmap = new google.maps.Map(document.getElementById('map_canvas'), {
+                zoom:15,
+                center: myLatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var myMarker = new google.maps.Marker({
+                map: gmap,
+                position:myLatLng,
+                label: r_name,
+                draggable: true
+            });
+        }
+
+        initialize();
+    } catch (e) {
+        alert(e);
+    }
 </script>
 

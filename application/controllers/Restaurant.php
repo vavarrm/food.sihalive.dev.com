@@ -27,9 +27,6 @@ class Restaurant extends CI_Controller{
 
     public function id($q){
         $x=substr(strrchr($q,'-store-'),1);
-
-
-
         $foodList = $this->food->get_food_by_r($x);
         $shopId = $this->restaurant->getRestaurant_byId($x);
         $operation=$this->restaurant->get_operation($x);

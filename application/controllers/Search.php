@@ -25,7 +25,7 @@ class search extends CI_Controller{
            }
 
         }else{
-            echo'error';
+
         }
 
 
