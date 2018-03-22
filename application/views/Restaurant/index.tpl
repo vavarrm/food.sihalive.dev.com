@@ -374,15 +374,19 @@
                             <div class="inner line-top relative">
                                 <div class="item-order-wrap" style="border-top: 1px solid silver" >
                                     <div class="item-order-list item-row"  ng-repeat="(key ,item) in items | filter as filterAry" ng-show="!item.del" >
+
                                         <div class="col-sm-8"  ng-bind="item.f_name">
                                         </div>
-                                        <div class="col-sm-2" >
+
+                                        <div class="col-sm-2">
                                            <p class="uk-text-small" ng-bind="'$'+item.f_price"></p>
-                                        </div>
+
                                         <span>
                                             <input 	type="number"    data-id="{{item.f_id}}" data-price="{{item.f_price}}" ng-model="item.order_num"  min="1" max="20" readonly class="form-control text-bold order_num">
+                                            <span 	class="glyphicon glyphicon-trash" style="font-size:15px; cursor: pointer" ng-click="delete($index); $event.stopPropagation();"></span>
+
                                         </span>
-                                        <span 	class="glyphicon glyphicon-trash" style="font-size:15px; cursor: pointer" ng-click="delete($index); $event.stopPropagation();"></span>
+                                        </div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="summary-wrap" style="border-top: 1px solid silver">
