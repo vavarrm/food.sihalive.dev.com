@@ -7,12 +7,14 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->login_language_ary = $this->language->load('login');
+        $this->mainpage_language_ary = $this->language->load('mainpage');
     }
 	
 	public function index()
 	{
 		$get= $this->input->get();
 		$this->smarty->assign(array(
+            'mainpage_language_ary'	=>$this->mainpage_language_ary,
 			'back'				=>$get['back'],
 			'language_ary'		=>$this->login_language_ary,
 			'jsArray'	=>array(

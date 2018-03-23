@@ -1,4 +1,5 @@
 <!-- Page Content-->
+
 <main class="page-content" style="background-image: url('/images/bg-image-1.jpg'); background-position: center; background-size:cover; background-attachment: fixed"  >
 	<!-- Swiper variant 3-->
 	<section class="bg-gray-darker" style=" background: white">
@@ -183,18 +184,7 @@
             </div>
         </div>
 	</section>
-	<section class="container-fluid this-padding" style="min-height: 300px; background-color: transparent">
-		<div class="range range-xs-center range-lg-bottom" style="margin-top: 40px">
-			<div class="cell-md-9" >
-				<div class="group-sm" >
-					<h1 class="text-baseline">Fast Delivery</h1>
-					<div class="group-sm offset-top-15 offset-lg-top-20">
-						<hr class="hr divider-xs bg-primary text-top veil reveal-lg-inline-block">
-						<p class="big offset-lg-top-0 text-top text-white">Enjoy our free, fast, and reliable delivery service.</p>
-					</div>
-				</div>
-			</div>
-			<div class="cell-lg-3"><a href="#" class="btn btn-shape-circle btn-white-outline btn-min-width-md">Learn more</a></div>
-		</div>
+	<section class="container-fluid this-padding" ng-controller="shopCartCtrl"  style="min-height: 300px;background-color: transparent">
+
 	</section>
 </main>

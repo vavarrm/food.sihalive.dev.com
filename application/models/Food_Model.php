@@ -57,6 +57,8 @@
 
         public function inserdOrder($ary = array())
         {
+            // var_dump($ary);
+            // exit();
             $output = array();
             // $this->db->trans_start();
             $row = $this->getLastOid();
@@ -88,6 +90,7 @@
 
                 foreach($ary['order_list'] as  $key => $value )
                 {
+					
                     if($value['is_set']==1)
                     {
 
@@ -118,7 +121,8 @@
                         }
                     }else
                     {
-
+						var_dump($value);
+						var_dump($value['order_num']);
                         $index++;
                         $sql ="SELECT * FROM food WHERE f_id =?";
                         $bind = array($value['f_id']);

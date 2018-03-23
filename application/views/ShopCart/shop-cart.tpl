@@ -96,34 +96,30 @@
 
 			</div>
 		</div>-->
-
-		<div class="container" style="padding: 0px; margin-top: 0px; text-align: left">
-			<div class="this-container  this-text-white " style="height: 40px; background: #f75d34;
-			border-radius:
-			4px">
-				<div class="item-order-list item-row this-border-top"  ng-repeat="(key ,item) in items |
-                        filter as filterAry" ng-show="!item.del" >
-					<div class="col-xs-8 col-md-8 this-margin-top"  ng-bind="item.f_name">
+		<div class="container" style="padding: 0px">
+			<div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px"  >
+				<div class="col-sm-12 this-center" style="padding: 0px">
+					<div class="col-xs-3 col-md-3 this-padding">
+						<span class="fa fa-home" style="font-size: 20px"></span>
+						<span class="fa fa-arrow-right this-hide-small" style="padding-left: 20px"><{$mainpage_language_ary.Home}>  </span>
 					</div>
-					<div class="col-xs-4 col-md-4" >
-						<p class="uk-text-small" ng-bind="'$'+item.f_price"></p>
+					<div class="col-xs-3 col-md-3 this-padding " >
+						<span class=" fa fa-shopping-cart" style="font-size: 20px"></span>
+						<span class="fa fa-arrow-right this-hide-small " style="padding-left: 20px">  <{$mainpage_language_ary.ORDER}> </span>
 					</div>
-					<span>
-                            <input 	type="number"    data-id="{{item.f_id}}" data-price="{{item.f_price}}" ng-model="item.order_num"  min="1" max="20" readonly class="form-control text-bold order_num">
-
-							</span>
-					<span 	class="glyphicon glyphicon-trash" style="font-size:15px; cursor: pointer" ng-click="delete($index); $event.stopPropagation();"></span>
-					<div class="clear"></div>
-				</div>
-				<div class="summary-wrap" style="border-top: 1px solid silver">
-					<div class="row cart_total_wrap bold this-right this-padding">
-						<div class="col-md-12   text-right cart_total this-large">
-							<span><{$mainpage_language_ary.Total}>:</span>
-							<span class="total" ng-bind="Total(filterAry)"></span>
-						</div>
+					<div class="col-xs-3 col-md-3 this-padding this-white "  style="margin-top:2px; border-radius: 2px">
+						<span class="fa fa-credit-card" style="font-size: 20px"></span>
+						<span class="fa fa-arrow-right this-hide-small " style="padding-left:20px"> <{$mainpage_language_ary.CHECK_OUT}></span>
+					</div>
+					<div class="col-xs-3 col-md-3 this-padding">
+						<span class="fa fa-print" style="font-size: 20px"></span>
+						<span class="this-hide-small"><{$mainpage_language_ary.RECEIPT}></span>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="container" style="padding: 0px; margin-top: 0px; text-align: left">
+
 			<div class="col-sm-12" style="margin-bottom: 100px">
 				<div class="col-sm-12  this-margin-top this-margin-bottom" STYLE="border-radius: 4PX">
 					<div class="this-container this-padding" style="border-bottom: 1px solid silver">

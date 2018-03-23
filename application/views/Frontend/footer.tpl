@@ -22,12 +22,12 @@
 				</div>
 			</div>
 		  <div class="cell-sm-3 cell-md-3  offset-lg-top-0">
-				<h5 class="text-italic font-secondary">FEATURES SITE</h5>
+				<h5 class="text-italic font-secondary"> <{$mainpage_language_ary.features}></h5>
 				<div class="unit unit-sm-horizontal unit-sm-top unit-spacing-xs offset-top-15">
 					<div class="unit-body">
-                        <span> <a href="/"> Home </a> </span><br/>
-                        <span> <a href="/contacts"> Contacts </a> </span><br/>
-                        <span> <a href="/MainPage/privacy"> Privacy</a> </span><br/>
+                        <span> <a href="/">  <{$mainpage_language_ary.Home}> </a> </span><br/>
+                        <span> <a href="/contacts"> <{$mainpage_language_ary.contacts}>  </a> </span><br/>
+                        <span> <a href="/MainPage/privacy"> <{$mainpage_language_ary.Privacy}></a> </span><br/>
 
 					</div>
 				</div>

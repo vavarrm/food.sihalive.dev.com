@@ -5,6 +5,7 @@ class search extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Restaurant_Model', 'restaurant');
+        $this->mainpage_language_ary = $this->language->load('mainpage');
     }
     function escapeString($val) {
         $db = get_instance()->db->conn_id;
@@ -17,7 +18,8 @@ class search extends CI_Controller{
            $search = $this->restaurant->search_Res($q);
            if($search >0){
                $this->smarty->assign(array(
-                   'search'	=>$search
+                   'search'	=>$search,
+                   'mainpage_language_ary'	=>$this->mainpage_language_ary,
                ));
                $this->smarty->displayFrame('Restaurant/search.tpl');
            }else{

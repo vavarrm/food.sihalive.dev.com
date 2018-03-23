@@ -7,6 +7,7 @@ class Shop extends  CI_Controller{
         parent::__construct();
         $this->load->model('Restaurant_Model', 'restaurant');
         $this->load->model('Restaurant_cat_Model', 'cat');
+        $this->mainpage_language_ary = $this->language->load('mainpage');
     }
 
     function Id($x){

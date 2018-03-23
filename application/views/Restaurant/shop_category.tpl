@@ -12,12 +12,10 @@
 
 
     }
+    #mapid { height: 180px; }
 </style>
-
-
 <main class="page-content" style="background: #F0F0F0">
     <!-- Breadcrumbs & Page title-->
-
     <section class="container-fluid text-center" style="background: silver;height: 350px;
     background-image:url('http://sihalive.dev.com/demo/images/home-slide-4-1920x800.jpg');
     background-size: cover; background-position: center ">
@@ -74,12 +72,13 @@
                                 <{foreach from=$shopId item=row key=index}>
 
                                 <{if empty($row.r_id)}>
+
                                 <div class="this-container this-padding this-center" style="height: 200px">
                                     <h2> Restaurant Not found </h2>
                                 </div>
                                 <{else}>
-                                <div class="col-xs-12 col-sm-4 col-md-4 this-center ">
-                                    <div class="restaurant col-sm-12  ">
+                                <div class="col-xs-12 col-sm-6 col-md-3 this-center this-white " style="padding: 0px">
+                                    <div class=" col-sm-12  ">
                                         <div class="col-sm-12">
                                             <img src="/images/category-<{$row.r_id}>-310X260.png" class="img-responsive" />
                                         </div>
@@ -96,6 +95,7 @@
                                     </div>
                                 </div>
 
+
                                 <{/if}>
                                 <{/foreach}>
 
@@ -111,4 +111,3 @@
 
 
 </main>
-

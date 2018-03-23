@@ -55,14 +55,14 @@
 		  <!-- RD Navbar Nav-->
 		  <ul class="rd-navbar-nav">
 			<li>
-				<a href="/"><{$language.nav_home}></a>
+				<a href="/"><{$mainpage_language_ary.Home}></a>
 			</li>
 			<li>
-				<a href="/contacts"><{$language.nav_contact}></a>
+				<a href="/contacts"><{$mainpage_language_ary.contacts}></a>
 			</li>
 
 			<li>
-				<a href="#"><{$language.nav_language}></a>
+				<a href="#"><{$mainpage_language_ary.Language}></a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
 					<li >
@@ -74,24 +74,24 @@
 				</ul>
 			</li>
 			<li  ng-show="islogin" >
-				<a href="#"><{$language.nav_user}></a>
+				<a href="#"><{$mainpage_language_ary.Account}></a>
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
 					<!--
 					<li>
-						<a href="/Food/orderList"><{$language.nav_user_orderlist}></a>
+						<a href="/Food/orderList"><{$mainpage_language_ary.nav_user_orderlist}></a>
 					</li>\
 					-->
 					<li>
-						<a href="/profile"><{$language.nav_user_profile}></a>
+						<a href="/profile"><{$mainpage_language_ary.Account}></a>
 					</li>
 					<li>
-						<a ng-click="logout()"><{$language.nav_user_logout}></a>
+						<a ng-click="logout()"><{$mainpage_language_ary.logout}></a>
 					</li>
 				</ul>
 			</li>
 			<li  ng-show="islogin == false">
-				<a href="/login/"><{$language.nav_login}></a>
+				<a href="/login/"><{$mainpage_language_ary.login}></a>
 			</li>
 		  </ul>
 		  <div class="rd-navbar-aside-right">
