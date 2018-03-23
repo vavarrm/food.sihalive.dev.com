@@ -11,6 +11,7 @@
 <script src="/js/socket.io.js"></script>
 <script type="text/javascript" src="/js/angular.min.js"></script>
 <script type="text/javascript" src="/js/angular-cookies.min.js"></script>
+<script type="text/javascript" src="/js/ngStorage.min.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>

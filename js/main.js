@@ -37,7 +37,7 @@ var setProfileInitApi ="/User/setProfileInit/";
 var getUserAddress ="/Api/getUserAddress/";
 
 
-var sihaliveApp = angular.module('sihaliveApp', ['ngCookies']);
+var sihaliveApp = angular.module('sihaliveApp', ['ngCookies','ngStorage']);
 
 sihaliveApp.factory('User',['$cookies','$rootScope' , function($cookies, $rootScope){
     var user={} ;
@@ -164,15 +164,20 @@ var productPageCtrl = function($scope, $cookies, $rootScope, apiService){
 var categoryCtrl = function($scope, $http){
 };
 
-var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
-    var shopcart =  $cookies.getObject('shopcart');
+var shopCartCtrl = function($scope, $cookies, $rootScope, apiService ,$localStorage){
+   if(typeof  $localStorage.shopcart =="undefined")
+	{
+		$localStorage.shopcart ={};
+		var shopcart =  $localStorage.shopcart;
+	}else{
+		var shopcart =  $localStorage.shopcart;
+	}
+	
 	$scope.items=[];
+	// console.log(typeof shopcart[r_id]);
 	if(typeof r_id !="undefined" && typeof shopcart[r_id] !="undefined")
 	{
 		$scope.items=shopcart[r_id];
-	}
-	if($scope.items.length >0)
-	{
 		$('.cartdiv').removeClass('hidden');
 	}
     $('.container').removeClass('hidden');
@@ -186,13 +191,15 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
 
 	$scope.gotoCheckOut = function(r_id)
 	{
-		var temp ={};
-		temp[r_id] = $scope.items;
-		$cookies.putObject('shopcart', temp, { path: '/'});
-		$cookies.putObject('checkout', temp[r_id], { path: '/'});
+		$localStorage.checkout =$localStorage.shopcart[r_id];
+		$localStorage.shopcart[r_id] =new Array(); 
 		location.href="/ShopCart";
 	}
 	
+	$scope.invoices = function()
+	{
+		$scope.items =$localStorage.checkout;
+	}
 	$scope.filterFood = function(id)
 	{
 		$('.food').hide();
@@ -223,7 +230,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
 				}
 			);	
 		}
-
+		$localStorage.shopcart[r_id] =$scope.items;
 		$('.cartdiv').removeClass('hidden');
 	}
 	
@@ -279,7 +286,15 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
     $scope.delete = function($index)
     {
 		$scope.items.splice($index,1);
-		$cookies.putObject('shopcart', $scope.items, { path: '/'});
+		$localStorage.shopcart[r_id] =$scope.items;
+		$scope.cartnums= $scope.items.length;
+		$rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
+    }
+	
+	$scope.idelete = function($index)
+    {
+		$scope.items.splice($index,1);
+		$localStorage.checkout =$scope.items;
 		$scope.cartnums= $scope.items.length;
 		$rootScope.$broadcast('cartnumsChanged', $scope.cartnums);
     }
@@ -486,15 +501,15 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
     }
 };
 
-var navCtrl = function($scope, $cookies, $rootScope, User){
+var navCtrl = function($scope, $cookies, $rootScope, User,$localStorage){
     $scope.data = {
         islogin : false
     }
-    var shopcart =  $cookies.getObject('shopcart');
-    if (typeof shopcart === "undefined") {
-        shopcart =[];
-        $cookies.putObject('shopcart', shopcart, { path: '/'});
-    }
+	if(typeof $localStorage.shopcart =="undefined")
+	{
+		$localStorage.shopcart ={};
+	}
+    var shopcart =  $localStorage.shopcart;
     $scope.cartnums= shopcart.length;
     $rootScope.$on('cartnumsChanged', function(event, data){
         $scope.cartnums = $cookies.getObject('shopcart').length;
@@ -707,6 +722,7 @@ var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
     {
         $scope.islogin = true;
     }
+	
     $scope.init = function()
     {
         var sess = $cookies.get('sess');
@@ -879,7 +895,7 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
             success: function (data) {
                 if(data.status =="200")
                 {
-                   // console.log( data['body']['data']['book_address']);
+                   console.log( data['body']['data']['book_address']);
                     $scope.data.book_address = data['body']['data']['book_address'];
                 }else{
                     var obj = {
@@ -943,9 +959,9 @@ var contactsCtrl = function ($scope){
 sihaliveApp.controller('userCtrl', ['$scope' , '$cookies', '$rootScope', 'User','apiService',userCtrl]);
 sihaliveApp.controller('categoryCtrl', categoryCtrl);
 sihaliveApp.controller('breadcrumbsCtrl', breadcrumbsCtrl);
-sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User', navCtrl]);
+sihaliveApp.controller('navCtrl',  ['$scope', '$cookies', '$rootScope', 'User','$localStorage', navCtrl]);
 sihaliveApp.controller('productPageCtrl',  ['$scope', '$cookies','$rootScope', 'apiService', productPageCtrl]);
-sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User',shopCartCtrl]);
+sihaliveApp.controller('shopCartCtrl',  ['$scope', '$cookies', '$rootScope', 'User','$localStorage',shopCartCtrl]);
 sihaliveApp.controller('restaurantCtrl',  ['$scope', '$cookies', '$rootScope', 'apiService',restaurantCtrl]);
 sihaliveApp.controller('loginCtrl',  ['$scope', '$cookies', '$rootScope','apiService',loginCtrl]);
 sihaliveApp.controller('bodyCtrl',  ['$scope', '$cookies', '$rootScope', 'apiService',bodyCtrl]);

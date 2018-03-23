@@ -1,53 +1,50 @@
 $(function(){
+	$(this).scrollTop(0);
+	$('#shopAlert').show();
+    $('ul li a').click(function(){
+        $('li a').removeClass("active");
+        $(this).addClass("active");
+    })
 	var $inv=$('#inv');
-
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 	{
+		// alert('d');
 		//$cache.removeClass("stuck");
-		$inv.addClass('this-hide');
-		$inv.hide();
+		// $inv.addClass('this-hide');
+		// $inv.hide();
 
 	}
 	// 先取得 #cart 及其 top 值
 	var $cart = $('#sidebar__inner'),
 		_top = $cart.offset().top;
-	var $cart2 = $('#inv'),
-	if(typeof  $cart2 !="undefined"")
+	var $cart2 = $('#inv');
+	if(typeof  $cart2 !="undefined")
 	{
 		_top2 = $cart2.offset().top;
     }
-	// 當網頁捲軸捲動時
 	var $win = $(document).scroll(function(){
-		// 如果現在的 scrollTop 大於原本 #cart 的 top 時
 		if($win.scrollTop() >= _top){
-			// 如果 $cart 的座標系統不是 fixed 的話
 			if($cart.css('position')!='fixed'){
-				// 設定 #cart 的座標系統為 fixed
 				$cart.css({
 					position: 'fixed',
 					top: 0
 				});
 			}
 		}else{
-			// 還原 #cart 的座標系統為 absolute
 			$cart.css({
 				position: 'absolute',
 				width:'260px',
 			});
 		}
 
-		// 如果現在的 scrollTop 大於原本 #cart 的 top 時
 		if($win.scrollTop() >= _top2){
-			// 如果 $cart 的座標系統不是 fixed 的話
 			if($cart2.css('position')!='fixed'){
-				// 設定 #cart 的座標系統為 fixed
 				$cart2.css({
 					position: 'fixed',
 					top: 0
 				});
 			}
 		}else{
-			// 還原 #cart 的座標系統為 absolute
 			$cart2.css({
 				position: 'absolute',
 				top: '',
@@ -120,7 +117,7 @@ $(function(){
 
 		initialize();
 	} catch (e) {
-		alert(e);
+		// alert(e);
 	}
 	
 	function changeOrderNum(input)
