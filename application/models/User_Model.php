@@ -392,6 +392,15 @@
             }
 
         }
+        public function contact_save($ary)
+        {
+            $this->db->insert('contact_us',$ary);
+            $this->db->mysql_insert_id();
+            //$this->db->where('u_id', $u_id);
+            //$this->db->update('user', $ary);
+            $output['affected_rows'] = $this->db->affected_rows();
+            return $output;
+        }
 
 
 	}

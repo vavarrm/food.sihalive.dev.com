@@ -3,7 +3,7 @@ $(function(){
 
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 	{
-		//$cache.removeClass("stuck");
+		$cache.removeClass("stuck");
 		$inv.addClass('this-hide');
 		$inv.hide();
 
@@ -11,8 +11,8 @@ $(function(){
 	// 先取得 #cart 及其 top 值
 	var $cart = $('#sidebar__inner'),
 		_top = $cart.offset().top;
-	var $cart2 = $('#inv'),
-	if(typeof  $cart2 !="undefined"")
+	var $cart2 = $('#inv');
+	if(typeof  $cart2 !=="undefined")
 	{
 		_top2 = $cart2.offset().top;
     }
@@ -168,11 +168,6 @@ $(function(){
 	
 });
 
-
-
-
-
-// The following example creates a marker in Stockholm, Sweden using a DROP
 
 
 $("#sidebar ul li a[href^='#']").on('click', function(e) {

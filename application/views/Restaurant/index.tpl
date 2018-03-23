@@ -192,20 +192,24 @@
                                         <ul class="list-group" style="border:none!important;"  >
                                             <div  style="width:auto"  id="pro_left"  >
                                                 <li class="list-group-item" style="overflow: hidden; ;
-                                                background: silver; padding: 0px; height: 150px ">
+                                                background: silver; padding: 0px; height: 170px ">
                                                     <{foreach from=$shopId item=row}>
                                                     <{$lat=$row.r_lat}>
                                                     <{$lng=$row.r_lng}>
                                                     <{$r_name=$row.r_name}>
                                                     <{$r_about=$row.r_description}>
                                                     <center>
-                                                        <img src="/images/food/1-43-310x260.png"
-                                                             class="img-responsive img-Circle " style="
-                                                             margin-top:-10px; position: relative; width: 200px;
-                                                             ">
-                                                        <h2 class="this-text-black" style="font-size: 18px;
-                                                        text-transform: uppercase; margin-top: -30px">
-                                                            <{$row.r_name}></h2>
+
+                                                    <{if $row.r_logo_310X260!=''}>
+                                                    <div class="ratio"  style="background-image: url('/images/restaurant/<{$row.r_logo_310X260}>')"></div>
+                                                    <{else}>
+                                                    <div class="ratio"  style="background-image: url('https://caryelementary.files.wordpress.com/2014/04/dinner-table-setting.jpg')"></div>
+                                                    <{/if}>
+                                                <div class="this-container" style="background-color:red;">
+                                                    <h5 style="position: relative;color: white"><{$row.r_name}></h5>
+                                                </div>
+
+
                                                     </center>
 
 
@@ -264,9 +268,16 @@
                                             padding: 0px!important; "  >
                                                 <div class="col-md-12" >
                                                    <center>
-                                                       <img src="/images/category-1-310X260.png" alt=""
-                                                             class="img-responsive img-circle
+                                                       <{if $row.f_img !=''}>
+                                                   <img src="/images/food/<{$row.f_img}>" alt=""
+                                                        class="img-responsive img-circle
                                                          reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
+                                                       <{else}>
+                                                   <img src="https://cdn0.iconfinder.com/data/icons/public-seats/320/public-icon-15-512.png" alt=""
+                                                        class="img-responsive img-circle
+                                                         reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
+                                                       <{/if}>
+
                                                    </center>
                                                 </div>
                                                 <div class="col-md-12 this-padding" style="text-align:center;
@@ -296,7 +307,15 @@
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <span onclick="document.getElementById('<{$row.f_id}>').style.display='none'"></span>
-                                                                <img src="/images/category-1-310X260.png" alt=""  class="img-responsive img-circle reveal-inline-block"/>
+                                                                <{if $row.f_img !=''}>
+                                                            <img src="/images/food/<{$row.f_img}>" alt=""
+                                                                 class="img-responsive img-circle
+                                                         reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
+                                                                <{else}>
+                                                            <img src="https://cdn0.iconfinder.com/data/icons/public-seats/320/public-icon-15-512.png" alt=""
+                                                                 class="img-responsive img-circle
+                                                         reveal-inline-block"  data-toggle="modal" data-target="#<{$row.f_id}>"/>
+                                                                <{/if}>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <form>
@@ -514,5 +533,25 @@ $(document).ready(function () {
     } catch (e) {
         alert(e);
     }
+
+    $("#sidebar ul li a[href^='#']").on('click', function(e) {
+
+        // prevent default anchor click behavior
+        e.preventDefault();
+
+        // store hash
+        var hash = this.hash;
+
+        // animate
+        $('html, body').animate({
+            scrollTop: $(hash).offset().top
+        }, 1000, function(){
+
+            // when done, add hash to url
+            // (default click behaviour)
+            window.location.hash = hash;
+        });
+
+    });
 </script>
 

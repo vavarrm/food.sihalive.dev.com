@@ -8,15 +8,17 @@
 		<h4 class="font-default text-center"><{$language.text_contacts}></h4>
 		<{*<p class="text-center">We are available 24/7 by fax, e-mail or by phone. You can also use our quick contact form to ask a question about our services that we offer on a regular basis. We would be pleased to answer your questions.</p>*}>
 		<!-- RD Mailform-->
-		<form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" class="rd-mailform form-contact-line text-left offset-top-35">
+		<form data-form-output="form-output-global" data-form-type="contact" class="rd-mailform form-contact-line  text-left offset-top-35">
 		  <div class="form-inline-flex">
 			<div class="form-group">
 			  <label for="contact-name" class="form-label form-label-outside"><{$language.text_name}></label>
-			  <input id="contact-name" ng-model="co_name" type="text" placeholder="<{$language.text_enter_name}>" name="name" data-constraints="@Required" class="form-control">
+			  <input id="contact_name" ng-model="co_name" type="text" placeholder="<{$language.text_enter_name}>"
+					 name="name" data-constraints="@Required" class="form-control">
 			</div>
 			<div class="form-group">
 			  <label for="contact-phone" class="form-label form-label-outside"><{$language.text_phone}></label>
-			  <input id="contact-phone" ng-model="co_phone" type="text" placeholder="<{$language.text_enter_phone}>" name="phone" data-constraints="@Numeric @Required" class="form-control">
+			  <input id="contact_phone" ng-model="co_phone" type="text" placeholder="<{$language.text_enter_phone}>"
+					 name="phone" data-constraints="@Numeric @Required" class="form-control">
 			</div>
 		  </div>
 		  <div class="form-group offset-top-15">
@@ -27,10 +29,10 @@
 			<div class="form-inline-flex">
 			  <div class="form-group">
 				<label for="contact-email-2" class="form-label form-label-outside"><{$language.text.email}></label>
-				<input id="contact-email-2"  ng-model="co_email" type="email" placeholder="<{$language.text_enter_email}>" name="email" data-constraints="@Email @Required" class="form-control">
+				<input id="contact_email"  ng-model="co_email" type="email" placeholder="<{$language.text_enter_email}>" name="email" data-constraints="@Email @Required" class="form-control">
 			  </div>
 			  <div class="form-group">
-				<button type="submit" ng-click="send();$event.preventDefault();" class="btn btn-primary btn-fullwidth"><{$language.button_text_send}></button>
+				<button ng-click="send();$event.preventDefault();" class="btn btn-primary btn-fullwidth"><{$language.button_text_send}></button>
 			  </div>
 			</div>
 		  </div>
