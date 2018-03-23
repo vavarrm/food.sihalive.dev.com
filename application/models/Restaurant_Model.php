@@ -889,8 +889,14 @@ class Restaurant_Model extends CI_Model{
 				 ";
 			$query = $this->db->query($sql, $bind);
 			$error = $this->db->error();
+			//var_dump($error);
+			//exit();
 			if($error['message'] !="")
 			{
+                $array = array(
+                    'el_system_error' 	=>$error['message'] ,
+                    'status'	=>'000'
+                );
 				$MyException = new MyException();
 				$MyException->setParams($array);
 				throw $MyException;
@@ -907,6 +913,7 @@ class Restaurant_Model extends CI_Model{
         $q=$this->escapeString($data);
         $this->db->select('*');
         $this->db->from($this->table);
+        //$this->db->join('restaurant_operation','restaurant_operation.r_id=restaurant.r_id');
         $this->db->where('restaurant.r_id', $q);
         //$this->db->like('restaurant.r_name',str_replace('-', ' ', $q));
         $query = $this->db->get();
@@ -1006,23 +1013,23 @@ class Restaurant_Model extends CI_Model{
 	}
 	
     public function  get_operation($data){
-        // $q=$this->escapeString($data);
-        // $this->db->select('*');
-        // $this->db->from('restaurant_operation');
+         $q=$this->escapeString($data);
+         $this->db->select('*');
+         $this->db->from('restaurant_operation');
 
-        // $this->db->where('r_id', $q);
-        // $query = $this->db->get();
+         $this->db->where('r_id', $q);
+         $query = $this->db->get();
 
-        // $rows=$query->result_array();
-        // if(count($rows))
-        // {
-            // $query->free_result();
-            // return $rows;
-        // }
-        // else
-        // {
-            // return FALSE;
-        // }
+         $rows=$query->result_array();
+         if(count($rows))
+         {
+             $query->free_result();
+             return $rows;
+         }
+        else
+         {
+             return FALSE;
+       }
 
     }
 

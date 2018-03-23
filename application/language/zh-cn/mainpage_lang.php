@@ -56,12 +56,28 @@ $lang['Description'] = "描述";
 
 $lang['Checkout'] = "结帐";
 
+$lang['Home'] = "首页";
+$lang['contacts'] = "联络我们";
+$lang['Language'] = "语言";
+$lang['Profile'] = "個人資料";
+$lang['Account'] = "帐户";
+$lang['logout'] = "注销";
+
+$lang['login'] = "登入";
+
+$lang['Verify_you_phone'] = "验证你的手机";
+$lang['Verify'] = "确认";
+$lang['Back'] = "背部";
+$lang['Type_verification_code_you_received_in_sms'] = "您在收到短信类型验证码";
+$lang['Please_check_your_phone_number'] = "请检查您的电话号码";
 
 
+$lang['Resend_verification_code '] = "重新发送验证码 ";
 
 
-
-
+$lang['Privacy'] = "隐私";
+$lang['features'] = "特色网站";
+$lang['login'] = "登入";
 
 
 

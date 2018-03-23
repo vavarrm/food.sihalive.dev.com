@@ -25,7 +25,7 @@ $lang['About'] = "About";
 $lang['MENU'] = "MENU";
 $lang['Price'] = "Price";
 $lang['Quantity'] = "Quantity";
-$lang['ADD_TO_CART'] = "ADD TO CART";
+$lang['ADD_TO_CART'] = "ADD CART";
 
 $lang['Opening_Hours'] = "Opening Hours";
 $lang['Order_Information'] = "Order Information";
@@ -54,3 +54,41 @@ $lang['google_map'] = "google Map";
 $lang['Title'] = "Title";
 $lang['Description'] = "Description";
 $lang['Checkout'] = "Checkout";
+
+$lang['Home'] = "Home";
+$lang['contacts'] = "Contacts";
+$lang['Language'] = "Language";
+$lang['Profile'] = "Profile";
+$lang['Account'] = "Account";
+$lang['logout'] = "Logout";
+$lang['login'] = "Login";
+
+$lang['Verify_you_phone'] = "Verify you phone";
+$lang['Verify'] = "Verify";
+$lang['Back'] = "Back";
+$lang['Type_verification_code_you_received_in_sms'] = "Type verification code you received in sms";
+$lang['Please_check_your_phone_number'] = "Please check your phone number";
+
+
+$lang['Resend_verification_code '] = "Resend verification code ";
+
+$lang['Privacy'] = "Privacy";
+$lang['features'] = "FEATURES SITE";
+$lang['login'] = "登入";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

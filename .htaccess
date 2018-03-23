@@ -17,7 +17,6 @@
     RewriteEngine on
     RewriteBase /
     RewriteCond $1 !^(index\.php|PHPMailer-master|production|build|vendors|demo|admin|static|images|swf|third_party|uploads|js|css|assets|fonts|font-awesome|robots\.txt|$)
-    RewriteRule ^(.*)$ /index.php/$1 [L,QSA]	
-	RewriteCond %{HTTPS} !=on
-	RewriteRule ^(.*) https://%{SERVER_NAME}/$1 [R,L]
+    RewriteRule ^(.*)$ /index.php/$1 [L,QSA]
+
 </IfModule>

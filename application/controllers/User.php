@@ -108,13 +108,17 @@ class User extends CI_Controller {
     }
 
     function verify(){
+        $this->smarty->assign(array(
 
+            'userLanguageAry'	=>$this->user_language_ary,
+            'mainpage_language_ary'	=>$this->mainpage_language_ary
+        ));
         $this->smarty->displayFrame(__CLASS__.'/verify_code.tpl');
-
-
-
     }
-
+    public function maps(){
+	    $this->load->view('/user/maps.tpl');
+        //$this->smarty->displayFrame(__CLASS__.'/user/maps.tpl');
+    }
 
 
 

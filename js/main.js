@@ -167,7 +167,7 @@ var categoryCtrl = function($scope, $http){
 var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
     var shopcart =  $cookies.getObject('shopcart');
 	$scope.items=[];
-	if(typeof r_id !="undefined" && typeof shopcart[r_id] !="undefined" )
+	if(typeof r_id !="undefined" && typeof shopcart[r_id] !="undefined")
 	{
 		$scope.items=shopcart[r_id];
 	}
@@ -196,7 +196,7 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
 	$scope.filterFood = function(id)
 	{
 		$('.food').hide();
-		$('.food[data-caid='+id+']').show()
+		$('.food[data-caid='+id+']').show();
 	}
 	
 	$scope.addCart = function(f_id,f_price,f_name)
@@ -392,7 +392,6 @@ var shopCartCtrl = function($scope, $cookies, $rootScope,apiService){
             });
             return false;
         }
-
 
         if($scope.checkout_confirm ==false)
         {
@@ -645,7 +644,6 @@ var loginCtrl = function($scope, $cookies, $rootScope, apiService){
 
                                         location.href="/";
                                     }
-
                                 }
                             }]
                     };
@@ -666,9 +664,7 @@ var loginCtrl = function($scope, $cookies, $rootScope, apiService){
         });
     }
 
-
 }
-
 
 var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
 {
@@ -707,12 +703,10 @@ var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
             }
         });
     }
-
     $scope.getUserCallBack = function(r)
     {
         $scope.islogin = true;
     }
-
     $scope.init = function()
     {
         var sess = $cookies.get('sess');
@@ -732,13 +726,9 @@ var bodyCtrl = function($scope, $cookies, $rootScope, apiService)
                     dialog(obj);
                 }
             )
-
         }
-
-
     }
 }
-
 var breadcrumbsCtrl = function ($scope)
 {
     var pathname = window.location.pathname; // Returns path only
@@ -749,7 +739,7 @@ var breadcrumbsCtrl = function ($scope)
     })
 }
 
-var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
+var userCtrl = function($scope, $cookies,User, $rootScope, apiService)
 {
     $scope.sending =false;
     $scope.getUserProfile = function(r){
@@ -777,10 +767,8 @@ var userCtrl = function($scope, $cookies, $rootScope, User, apiService)
             }
         )
     }
-
     $scope.setProfile = function()
     {
-
 
         if(	$scope.sending == true)
         {
@@ -875,6 +863,7 @@ var orderCtrl = function($scope, $cookies, $rootScope, apiService)
 
 var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
 {
+
     $scope.data={
         p_description :{}
     };
@@ -882,7 +871,7 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
     {
         var sess = $cookies.get('sess');
         $.ajax({
-            async: false,
+            async: true,
             type: 'get',
             dataType: 'json',
             url: getUserAddress+"?sess="+sess,
@@ -890,8 +879,8 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
             success: function (data) {
                 if(data.status =="200")
                 {
+                   // console.log( data['body']['data']['book_address']);
                     $scope.data.book_address = data['body']['data']['book_address'];
-
                 }else{
                     var obj = {
                         message :data.message
@@ -907,6 +896,34 @@ var userAddressCtrl = function($scope, $cookies, $rootScope, apiService)
             }
         });
         return false;
+    }
+
+    $scope.del=function (id) {
+        if(id!=null){
+            var dataString = 'id='+id;
+            $.ajax({
+                type: "POST",
+                url: "User_Position/deletet_user_position",
+                data: dataString,
+                cache: false,
+                success: function(data) {
+                    $scope.data.book_address = data['body']['data']['book_address'];
+                    $scope.address_();
+                },
+                error: function(err) {
+                    var obj = {
+                        message :data.message
+                    };
+                    dialog(obj)
+                }
+            });
+
+        return false;
+
+        }else{
+
+        }
+
     }
 }
 
@@ -1033,6 +1050,25 @@ $('#FBloginBtn').bind('click', function(e){
     fbAction = "FBLogin";
     fbLogin();
 })
+
+$('#shopAlert').click(function () {
+
+  $('#shopshowPage').slideToggle();
+});
+
+$('#closeShopcart').click(function () {
+    $('#shopshowPage').slideUp('this-animate-right');
+})
+$('#openLocation').click(function () {
+    $('#shopshowPage').slideToggle();
+    $('#this_map').show();
+});
+$('#PopUp').click(function () {
+    $('#shopshowPage').slideToggle();
+    $('#this_map').hide();
+});
+$('#shopAlert').hide();
+
 
 
 

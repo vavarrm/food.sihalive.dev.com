@@ -17,21 +17,23 @@
 
 				<h5 style="font-size: 20px"><span class="icon icon-sm icon-primary fa fa-comment-o"
 													 style="font-size:50px"></span>
-					Verify you phone </h5>
-				<p style="color: #302f35"> Type verification code you received in sms </p>
-				<span style="color: #302f35; font-size: 12px"> Please check your phone number 12345678 </span>
+					 <{$mainpage_language_ary.Verif_you_phone}> </h5>
+				<p style="color: #302f35">   <{$mainpage_language_ary.Type_verification_code_you_received_in_sms}></p>
+				<span style="color: #302f35; font-size: 12px"><{$mainpage_language_ary.Please_check_your_phone_number}>
+					</span>
 				<form method="post" action="" >
 					<input type="text" class="form-control" style="border: 1px  solid silver" placeholder="Enter verification code" name="txtcode">
 
 					<a href="#send">
-						<span style="margin-top: 10px; padding-top: 10px; color: orangered"> Resend verification code </span>
+						<span style="margin-top: 10px; padding-top: 10px; color: orangered">  <{$mainpage_language_ary.Resend_verification_code}> </span>
 					</a>
 					<br/>
 					<br/>
-					<input type="submit" class="this-btn this-btn-this" value="<< Back" style="margin-top: 5px;
+					<input type="submit" class="this-btn this-btn-this" value="<< <{$mainpage_language_ary.Back}>" style="margin-top: 5px;
 					background: silver!important;"
 						   name="verify">
-					<input type="submit" class="this-btn this-btn-this this-right" value="Verify >> "style="margin-top:5px" name="verify">
+					<input type="submit" class="this-btn this-btn-this this-right" value=" <{$mainpage_language_ary.Verify}> >> "style="margin-top:5px"
+						   name="verify">
 
 				</form>
 			</div>

@@ -8,7 +8,7 @@
 		width: 100%;
 		height: 100%;
 		background:transparent;
-		z-index: 1001;
+		z-index: 1;
 	}
 	.popup {
 		width: 100%;
@@ -29,35 +29,97 @@
 		margin-top: 20px!important;
 	}
 </style>
-
-<main class="page-content this-white" ng-controller="shopCartCtrl" >
+<{$r_id=2}>
+<main class="page-content this-white" ng-controller="shopCartCtrl" ng-init="r_id='<{$r_id}>'"   >
 	<!-- Breadcrumbs & Page title-->
 	<{include file="Frontend/breadcrumbs.tpl"}>
 	<section class="section-0 section-sm-10">
+		<!--<div class="this-animate-zoom ac-wrapper this-hide this-white"  id="this_map" >
+			<div class="popup" id="this_Open">
 
-		<div class="container" style="padding: 0px; margin-top: 0px; text-align: left">
-			<div class="this-container  this-text-white " style="height: 40px; background: #f75d34;
-			border-radius:
-			4px">
-             <div class="col-sm-12 this-center" style="padding: 0px">
-				 <div class="col-xs-3 col-md-3 this-padding">
-					 <span class="fa fa-home" style="font-size: 20px"></span>
-					 <span class="fa fa-arrow-right this-hide-small" style="padding-left: 20px"> <{$mainpage_language_ary.Home}>  </span>
-				 </div>
-				 <div class="col-xs-3 col-md-3 this-padding">
-					 <span class=" fa fa-shopping-cart" style="font-size: 20px"></span>
-					<span class="fa fa-arrow-right this-hide-small " style="padding-left: 20px">  <{$mainpage_language_ary.ORDER}> </span>
-				 </div>
-				 <div class="col-xs-3 col-md-3 this-padding this-white" style="margin-top:2px; border-radius: 2px">
-					 <span class="fa fa-credit-card" style="font-size: 20px"></span>
-					 <span class="fa fa-arrow-right this-hide-small" style="padding-left:20px"> <{$mainpage_language_ary.CHECK_OUT}></span>
-				 </div>
-				 <div class="col-xs-3 col-md-3 this-padding">
-					 <span class="fa fa-print" style="font-size: 20px"></span>
-					  <span class="this-hide-small"><{$mainpage_language_ary.RECEIPT}></span>
-				 </div>
-			 </div>
+				<div class="this-container this-top" style="width:320px; position:relative!important; background-color:rgba(255,255,255,0.7);text-align:left; top:0px; padding-bottom: 5px; padding: 5px"	>
+
+					<div onClick="PopUp()" class="this-circle" style="text-align:right; position: absolute;right: 0px; margin-top: -5px">
+						<div   name="submit"  onClick="PopUp()" style="border-radius: 15px; background:transparent;width:
+					 30px" >
+						<span class="glyphicon glyphicon-remove-circle" style="font-size: 25px;color: orangered; cursor:
+						pointer"></span> </div>
+					</div>
+
+
+					<div class="form-group offset-top-0  " style="margin-top: -5px; width: 98%; padding: 10px">
+						<div class="form-inline-flex">
+							<div class="form-group" style="width: 90%">
+								<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm"
+										 style="padding: 2px; padding-left: 10px">
+									<option value="0">請選擇</option>
+									<{foreach from=$location item=row key=index}>
+									<option value="<{$row.p_title}>"><{$row.p_title}> </option>
+									<{/foreach}>
+								</select>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div id="maping" ng-init="mapinit()"  data-zoom="15" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model"
+					 style="position:fixed; margin-bottom: 5px; height:100%; margin-top: -70px">
+					<ul class="map_locations" style="width: 80%" >
+						<li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
+							<p data-position_id ="1" style="width:100%; text-align:  center;height: 80%">
+								<span style="width:28px; ">{{position.p_name}}</span>
+							</p>
+						</li>
+					</ul>
+				</div>
+
+				<div class="this-container this-bottom this-white" style="height:17%; text-align: left; padding:0px"
+					 id="frm_address">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-6">
+								<form method="post" action="" style="margin-top: 5px">
+									<span class="this-hide-small"> Address Name :</span>
+									<input type="text" class="form-control input-sm this-border" placeholder="Address name ....">
+									<span class="this-hide-small" > Address Name :</span>
+									<input type="text" class="form-control input-sm this-border" placeholder="Description....">
+									<button id="open" class="this-btn this-btn-this  btn-sm " style="margin-top: 5px"
+									>Save</button>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+
 			</div>
+		</div>-->
+		<div class="container" style="padding: 0px">
+			<div class="this-container  this-text-white " style="height: 40px; background: #f75d34;border-radius:4px"  >
+				<div class="col-sm-12 this-center" style="padding: 0px">
+					<div class="col-xs-3 col-md-3 this-padding">
+						<span class="fa fa-home" style="font-size: 20px"></span>
+						<span class="fa fa-arrow-right this-hide-small" style="padding-left: 20px"><{$mainpage_language_ary.Home}>  </span>
+					</div>
+					<div class="col-xs-3 col-md-3 this-padding " >
+						<span class=" fa fa-shopping-cart" style="font-size: 20px"></span>
+						<span class="fa fa-arrow-right this-hide-small " style="padding-left: 20px">  <{$mainpage_language_ary.ORDER}> </span>
+					</div>
+					<div class="col-xs-3 col-md-3 this-padding this-white "  style="margin-top:2px; border-radius: 2px">
+						<span class="fa fa-credit-card" style="font-size: 20px"></span>
+						<span class="fa fa-arrow-right this-hide-small " style="padding-left:20px"> <{$mainpage_language_ary.CHECK_OUT}></span>
+					</div>
+					<div class="col-xs-3 col-md-3 this-padding">
+						<span class="fa fa-print" style="font-size: 20px"></span>
+						<span class="this-hide-small"><{$mainpage_language_ary.RECEIPT}></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" style="padding: 0px; margin-top: 0px; text-align: left">
+
 			<div class="col-sm-12" style="margin-bottom: 100px">
 				<div class="col-sm-12  this-margin-top this-margin-bottom" STYLE="border-radius: 4PX">
 					<div class="this-container this-padding" style="border-bottom: 1px solid silver">
@@ -149,7 +211,11 @@
 														</div>
 													</div>
 													<center>
-														<img src="/images/icon/g_map.png"height="40" style="cursor: pointer"  onclick="openLocation()" >
+														<!--<img src="/images/icon/g_map.png"height="40" style="cursor: pointer"
+															  onclick="openLocation()" >-->
+														<a href="/user/maps">
+															<img src="/images/icon/g_map.png"height="40" style="cursor: pointer">
+														</a>
 													</center>
 													<div class="form-group ">
 														<div class="col-sm-12" style="padding: 0px">
@@ -191,68 +257,6 @@
 		</div>
 
 	</section>
-	<div class="this-animate-zoom ac-wrapper this-hide this-white"  id="this_map" >
-		<div class="popup" id="this_Open">
-
-			<div class="this-container this-top" style="width:320px; position:relative!important; background-color:rgba(255,255,255,0.7);text-align:left; top:0px; padding-bottom: 5px; padding: 5px"	>
-
-				<div onClick="PopUp()" class="this-circle" style="text-align:right; position: absolute;right: 0px; margin-top: -5px">
-					<div   name="submit"  onClick="PopUp()" style="border-radius: 15px; background:transparent;width:
-					 30px" >
-						<span class="glyphicon glyphicon-remove-circle" style="font-size: 25px;color: orangered; cursor:
-						pointer"></span> </div>
-				</div>
-
-
-				<div class="form-group offset-top-0  " style="margin-top: -5px; width: 98%; padding: 10px">
-					<div class="form-inline-flex">
-						<div class="form-group" style="width: 90%">
-							<select  id="o_position_id" data-constraints="@Required"  name="o_position_id" class="form-control form-control-has-validation form-control-last-child input-sm"
-									 style="padding: 2px; padding-left: 10px">
-								<option value="0">請選擇</option>
-								<{foreach from=$location item=row key=index}>
-								<option value="<{$row.p_title}>"><{$row.p_title}> </option>
-								<{/foreach}>
-							</select>
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div id="maping" ng-init="mapinit()"  data-zoom="15" data-y="10.6105995" data-x="103.5236850" data-styles="" class="rd-google-map rd-google-map__model"
-				 style="position:fixed; margin-bottom: 5px; height:100%; margin-top: -70px">
-				<ul class="map_locations" style="width: 80%" >
-					<li data-y="{{position.p_lat}}" data-x="{{position.p_lng}}" data-position_id="{{position.p_id}}" ng-repeat="position in positions">
-						<p data-position_id ="1" style="width:100%; text-align:  center;height: 80%">
-							<span style="width:28px; ">{{position.p_name}}</span>
-						</p>
-					</li>
-				</ul>
-			</div>
-
-			<div class="this-container this-bottom this-white" style="height:17%; text-align: left; padding:0px"
-				 id="frm_address">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6">
-		<form method="post" action="" style="margin-top: 5px">
-			<span class="this-hide-small"> Address Name :</span>
-			<input type="text" class="form-control input-sm this-border" placeholder="Address name ....">
-			<span class="this-hide-small" > Address Name :</span>
-			<input type="text" class="form-control input-sm this-border" placeholder="Description....">
-			<button id="open" class="this-btn this-btn-this  btn-sm " style="margin-top: 5px"
-			>Save</button>
-		</form>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-
-
-		</div>
-	</div>
 </main>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
@@ -262,7 +266,5 @@
     function PopUp(){
         $('#this_map').addClass('this-hide');
     }
-
-
 
 </script>

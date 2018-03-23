@@ -164,11 +164,9 @@ class Api extends CI_Controller {
             $output['status'] = '000';
             $output['message'] = $e->getMessage();
         }
-
         $this->response($output);
     }
 
-	
 	public function setProfile()
 	{
 		$output['body']=array();
