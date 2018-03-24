@@ -2,8 +2,8 @@
 	<section class="section-top-45 section-bottom-40 ">
 	  <div class="shell">
 		<div class="range range-xs-center">
-			<div class="cell-sm-3 cell-md-3 offset-lg-top-0">
-				<h5 class="text-italic font-secondary"><{$language.text_phone}></h5>
+			<div class="cell-sm-4 cell-md-4 offset-lg-top-0">
+				<h5 class="text-italic font-secondary"><{$mainpage_language_ary.Contact_US}></h5>
 				<div class="unit unit-sm-horizontal unit-sm-top unit-spacing-xs offset-top-15">
 
 					<div class="unit-body">
@@ -21,19 +21,9 @@
 					</div>
 				</div>
 			</div>
-		  <div class="cell-sm-3 cell-md-3  offset-lg-top-0">
-				<h5 class="text-italic font-secondary"> <{$mainpage_language_ary.features}></h5>
-				<div class="unit unit-sm-horizontal unit-sm-top unit-spacing-xs offset-top-15">
-					<div class="unit-body">
-                        <span> <a href="/">  <{$mainpage_language_ary.Home}> </a> </span><br/>
-                        <span> <a href="/contacts"> <{$mainpage_language_ary.contacts}>  </a> </span><br/>
-                        <span> <a href="/MainPage/privacy"> <{$mainpage_language_ary.Privacy}></a> </span><br/>
 
-					</div>
-				</div>
-			</div>
-			<div class="cell-sm-3 cell-md-3  offset-lg-top-0">
-				<h5 class="text-italic font-secondary"><{$language.text_your_follow_us}></h5>
+			<div class="cell-sm-4 cell-md-4  offset-lg-top-0">
+				<h5 class="text-italic font-secondary"><{$mainpage_language_ary.Like_US}></h5>
 				<ul class="list-inline offset-top-15">
 					<div class="fb-page"
 						 data-href="https://www.facebook.com/Sihalive-187813995113064"
@@ -44,12 +34,13 @@
 					</div>
 				</ul>
 			</div>
-			<div class="cell-sm-3 cell-md-3  offset-lg-top-0">
-				<h5 class="text-italic font-secondary"><{$language.text_phone}></h5>
+			<div class="cell-sm-4 cell-md-4  offset-lg-top-0">
+				<h5 class="text-italic font-secondary"><{$mainpage_language_ary.Follow_US}></h5>
 				<div class="unit unit-sm-horizontal unit-sm-top unit-spacing-xs offset-top-15">
 					<ul class="list-inline offset-top-15">
 						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-instagram"></span></a></li>
-						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-facebook"></span></a></li>
+						<li><a href="https://www.facebook.com/Sihalive-187813995113064/?ref=br_rs" target="_blank"><span class="icon
+						 icon-sm icon-circle icon-gray icon-social fa-facebook"></span></a></li>
 						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-twitter"></span></a></li>
 						<li><a href="#"><span class="icon icon-sm icon-circle icon-gray icon-social fa-google-plus"></span></a></li>
 					</ul>
@@ -63,8 +54,11 @@
 		<hr>
 	  </div>
 	  <div class="shell section-20" >
-          <span class="this-left" > <a ng-click="setLanguage('en')">English (US)</a>  </span>
-          <span class="this-left" style="margin-left: 20px"><a ng-click="setLanguage('zh-cn')">简体中文</a> </span>
+          <span class="this-left" > <a ng-click="setLanguage('en')"><img src="/images/icon/en.png"/> English (US)</a>
+		  </span>
+          <span class="this-left" style="margin-left: 20px"><a ng-click="setLanguage('zh-cn')"> <img src="/images/icon/zh-cn.png"/>
+				  简体中文</a>
+		  </span>
 		<div class="range range-xs-center" style="margin-top: -5px">
 
 		  <div class="cell-md-5 text-center">

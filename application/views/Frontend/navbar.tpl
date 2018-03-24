@@ -66,10 +66,10 @@
 				<!-- RD Navbar Dropdown-->
 				<ul class="rd-navbar-dropdown">
 					<li >
-						<a ng-click="setLanguage('en')">english</a>
+						<a ng-click="setLanguage('en')"><img src="/images/icon/en.png"/> english</a>
 					</li>
 					<li>
-						<a ng-click="setLanguage('zh-cn')">简体中文</a>
+						<a ng-click="setLanguage('zh-cn')"> <img src="/images/icon/zh-cn.png"/> 简体中文</a>
 					</li>
 				</ul>
 			</li>

@@ -78,7 +78,9 @@ $lang['Resend_verification_code '] = "重新发送验证码 ";
 $lang['Privacy'] = "隐私";
 $lang['features'] = "特色网站";
 $lang['login'] = "登入";
-
+$lang['Follow_US'] = "跟着我们";
+$lang['Like_US'] = "關注我們";
+$lang['Contact_US'] = "联系我们";
 
 
 
