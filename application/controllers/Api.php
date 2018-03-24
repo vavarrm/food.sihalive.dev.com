@@ -766,29 +766,23 @@ class Api extends CI_Controller {
 	}
     public function sendContact()
     {
-        $output['body']=array();
-        $output['status'] = '200';
-        $output['title'] ='set Profile';
+
         try
         {
-            $get = $this->input->get();
-            $sess= $get ['sess'];
-            $urlRsaRandomKey = 	$get["sess"];
-            $encrypt_user_data =$_SESSION['encrypt_user_data'];
-            $user_data = $this->decryptUser($urlRsaRandomKey, $encrypt_user_data);
-            if(!$user_data)
-            {
-                throw new Exception("get user error");
-            }
-            $output['body']['affected_rows'] = $this->user->contact_save($this->request);
-
+            $data = array(
+                'c_us_name' => $this->input->post('name'),
+                'c_us_phone' => $this->input->post('phone'),
+                'c_us_message' => $this->input->post('message'),
+            );
+            $result = $this->user->contact_save($data);
 
         }catch(Exception $e)
         {
-            $output['status'] = '000';
-            $output['message'] = $e->getMessage();
+            $result['status'] ='000';
+            $result['message'] = $e->getMessage();
         }
 
-        $this->response($output);
+        echo json_encode($result , true);
+
     }
 }

@@ -937,41 +937,7 @@ var contactsCtrl = function ($scope){
 
     $scope.send = function()
     {
-        var data = {
-            'co_name' :$('#contact_name').val(),
-            'co_phone' :$('#contact_phone').val(),
-            'co_message':$('#message').val(),
-            'co_email' : $('#contact_email').val(),
-        };
-        var sess = $cookies.get('sess');
-        $.ajax({
-            // async: false,
-            type: 'post',
-            dataType: 'json',
-            url: sendContact+"?sess="+sess,
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            success: function (data) {
-                if(data.status =="200")
-                {
-                    $scope.sending = false;
-                    global({show:true ,message:js_respond_200,type:'finsh'});
-                    setTimeout("global()", 2000 );
-                }else{
-                    var obj = {
-                        message :data.message
-                    };
-                    dialog(obj)
-                }
-            },
-            error: function (data) {
-                var obj = {
-                    message :js_set_profile_error
-                }
-                dialog(obj)
-            }
-        });
-        return false;
+
 
     }
 }
