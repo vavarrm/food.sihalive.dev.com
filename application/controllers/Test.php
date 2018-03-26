@@ -25,4 +25,5 @@ class Test extends CI_Controller {
 		echo $this->cache->get('foo1');
 	}
 	
+	
 }
