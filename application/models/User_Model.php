@@ -392,6 +392,17 @@
             }
 
         }
+        public function contact_save($ary)
+        {
+            $this->db->insert('contact_us',$ary);
+            $res=$this->db->insert_id();
+            if($res!==""){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
 
 
 	}

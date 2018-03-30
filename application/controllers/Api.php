@@ -764,4 +764,25 @@ class Api extends CI_Controller {
 		header('Content-Type: application/json');
 		echo json_encode($output , true);
 	}
+    public function sendContact()
+    {
+
+        try
+        {
+            $data = array(
+                'c_us_name' => $this->input->post('name'),
+                'c_us_phone' => $this->input->post('phone'),
+                'c_us_message' => $this->input->post('message'),
+            );
+            $result = $this->user->contact_save($data);
+
+        }catch(Exception $e)
+        {
+            $result['status'] ='000';
+            $result['message'] = $e->getMessage();
+        }
+
+        echo json_encode($result , true);
+
+    }
 }

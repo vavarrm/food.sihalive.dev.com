@@ -35,7 +35,7 @@ var setProfileApi ="/Api/setProfile/";
 var getOrderList ="/Api/getOrderList/";
 var setProfileInitApi ="/User/setProfileInit/";
 var getUserAddress ="/Api/getUserAddress/";
-
+var sendContact ="/Api/sendContact/";
 
 var sihaliveApp = angular.module('sihaliveApp', ['ngCookies','ngStorage']);
 
@@ -950,8 +950,10 @@ var restaurantCtrl = function()
 
 
 var contactsCtrl = function ($scope){
+
     $scope.send = function()
     {
+
 
     }
 }

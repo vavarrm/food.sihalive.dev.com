@@ -18,5 +18,23 @@ class Contacts extends CI_Controller {
 		));
 		$this->smarty->displayFrame(__CLASS__.'/index.tpl');
 	}
+	public function Insert(){
+	    $data=array();
+	    $ary=array();
+	    if($this->input->post('')){
+	        $ary=array(
+	            'c_us_name'=>$this->input->post(),
+                'c_us_phone'=>$this->input->post(),
+                'c_us_message'=>$this->input->post(),
+
+
+            );
+
+        }else{
+
+        }
+
+
+    }
 	
 }

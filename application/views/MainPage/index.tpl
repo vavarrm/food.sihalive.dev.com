@@ -1,5 +1,18 @@
 <!-- Page Content-->
+<style>
+	@media only screen and (max-width: 600px) {
 
+	}
+	.ratio {
+		position:relative;
+		width: 100%;
+		height: 0;
+		padding-bottom: 50%;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+	}
+</style>
 <main class="page-content" style="background-image: url('/images/bg-image-1.jpg'); background-position: center; background-size:cover; background-attachment: fixed"  >
 	<!-- Swiper variant 3-->
 	<section class="bg-gray-darker" style=" background: white">
@@ -73,10 +86,16 @@
 					<{foreach from=$group item=row key=index}>
 					<!-- Each popular food item starts -->
 					<a href="/shop/<{$row.g_r_name|replace:' ':'-'}>">
-					<div class="col-xs-4 col-sm-2 col-md-2" style="padding: 0px; margin-top: -10px">
+					<div class="col-xs-4 col-sm-2 col-md-2 this-padding" style="margin-top: -10px">
 					<div class="food-item-wrap this-center img-circle this-margin-top this-padding-bottom this-margin-bottom">
+                         <{if $row.g_r_img !=""}>
+					<img src="/images/restaurant/<{$row.g_r_img}>"
+						 class="img-responsive img-circle this-padding 	"/>
+						<{else}>
+					<img src="http://suezhoudoesfood.com/wp-content/uploads/2014/09/logo_grey.png"
+						 class="img-responsive img-circle this-padding 	"/>
+						<{/if}>
 
-						<img src="http://kcthaiplace.com/wp-content/uploads/2016/10/img03-300x300.png" class="img-responsive img-circle "/>
 						<div class="content">
 							<div class="badge this-orange product-name this-text-bold " style="color: white!important;">
 								<{$row.g_r_name}>
@@ -100,29 +119,36 @@
 			<hr class="offset-top-10">
 			<div class="row">
 
-					<div class="shell">
-				<div class="range range-xs-center ">
+
 				<{foreach from=$shop item=row key=index}>
 				<!-- Each popular food item starts -->
 
-					<div class="col-xs-12 col-sm-4 col-md-3 ">
+					<div class="col-xs-12 col-sm-4 col-md-3 this-margin-top ">
 						<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>">
-							<div class="food-item-wrap restaurant this-center  " style="margin-top: 5px; padding-bottom: 5px;
-					 margin-bottom: 5px; border: 1px solid #f2f2f2"  >
-								<img src="/images/category-<{$row.r_id}>-310X260.png" class="img-responsive" />
-								<div class="content">
-									<h6 class="product-name "><{$row.r_name}></h6>
+							<div class="col-sm-12 restaurant this-card this-center this-padding-0 " >
+								<div class="col-xs-12 this-padding this-border">
+									<{if $row.r_logo_310X260!=''}>
+									<div class="ratio"  style="background-image: url('/images/restaurant/<{$row.r_logo_310X260}>')"></div>
+										<{else}>
+									<div class="ratio"  style="background-image: url('https://caryelementary.files.wordpress.com/2014/04/dinner-table-setting.jpg')"></div>
+									<{/if}>
 								</div>
-								<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>" class="this-btn this-text-deep-orange"
-								   style="border: dashed 1px orangered;">Order Now</a>
+								<div class="col-xs-12 this-border" style="min-height: 100px">
+									<div class="content">
+										<h6 class="product-name "><{$row.r_name}></h6>
+									</div>
+									<a href="<{str_replace(" ", "-",$row.r_name)}>-store-<{$row.r_id}>"
+									   class="this-btn this-text-deep-orange this-margin-top"
+									   style="border: dashed 1px orangered;">Order Now</a>
+								</div>
+
+
 							</div>
 						</a>
 					</div>
 
 				<{/foreach}>
 				<!-- Each popular food item starts -->
-			</div>
-			</div>
 
 		</div>
 		<hr class="offset-top-50">

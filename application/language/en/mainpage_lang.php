@@ -76,6 +76,10 @@ $lang['Privacy'] = "Privacy";
 $lang['features'] = "FEATURES SITE";
 $lang['login'] = "登入";
 
+$lang['Follow_US'] = "Follow US";
+$lang['Like_US'] = "Like Us";
+$lang['Contact_US'] = "Contact US";
+
 
 
 
