@@ -26,6 +26,9 @@ class ShopCart extends CI_Controller {
             'location'		=>$location,
             'mainpage_language_ary'	=>$this->mainpage_language_ary,
 			'shopLanguageAry'	=>$this->shopcart_language_ary,
+			'jsArray'	=>array(
+				'ShopCart/index.js'
+			),
 
 		));
 		$this->smarty->displayFrame(__CLASS__.'/shop-cart.tpl');

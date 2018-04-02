@@ -56,14 +56,34 @@
 
         color:orangered;
     }
-
+	#aside_main{
+		padding: 0px;
+		height: 100%;
+		border: 1px solid silver; 
+		border-radius: 0px!important;
+		margin-bottom: 20px; border-radius: 5px
+	}
+	@media screen and  (min-width: 768px)  and (max-width: 1024px){
+		#aside_left{
+			display:none;
+		}
+		#aside_main{
+			width :100%;
+		}
+	}	
+	
+	#menu_clcik{
+		color: white;
+		background-color:orangered
+	}
+	
 </style>
 <{$lat=""}>
 <{$lng=""}>
 <{$r_name=""}>
 <{$r_about=""}>
 <main class="page-content " style=""  ng-controller="shopCartCtrl" ng-init="r_id='<{$r_id}>'" onload="geoFindMe()" >
-    <div class="this-sidebar this-bar-block this-border-right this-animate-right" style="display:none;width:100%;" id="shopshowPage"   ng-controller="userAddressCtrl" ng-init="address_()">
+    <div class="this-sidebar this-bar-block this-border-right this-animate-right" style="display:none;width:100%;" id="shopshowPage"   ng-controller="userAddressCtrl" >
         <button  class="this-bar-item this-large bg-primary " style="width: 100%;">
             <span class="icon icon-sm fa fa-arrow-circle-left" id="closeShopcart"></span>
             <span class="this-center ">
@@ -96,51 +116,14 @@
                             </div>
                         </div>
                         <div class="col-sm-12 this-padding-0" style="padding: 0px">
-                                <div class="form-inline-flex">
-                                    <div class="form-group" >
-                                    <div class="col-sm-12" style="padding: 0px">
-                                        <label for="message" class=" form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_position}></label>
-                                        <select   class="form-control form-control-has-validation
-                                        form-control-last-child " id="o_position_id">
-                                            <option value="">請選擇</option>
-                                            <option ng-repeat="row in data.book_address"
-                                                    value="{{row.p_bookId}}" >{{row.u_p_b_titel}}</option>
-                                        </select>
-                                    </div>
-                                    </div>
-                                    <center>
-                                       <a href="/user/maps">
-                                           <img src="/images/icon/g_map.png"height="40" style="cursor: pointer"   >
-                                       </a>
-                                    </center>
-                                    <div class="form-group ">
-                                        <div class="col-sm-12" style="padding: 0px">
-                                            <label for="message" class="form-label form-label-outside rd-input-label"><{$shopLanguageAry.shopcart_delivery_message}></label>
-                                            <input type="text"  id="message" placeholder="<{$shopLanguageAry.shopcart_delivery_message_placeholder}>" name="o_messge"  class="form-control form-control-has-validation form-control-last-child ">
-                                            <span class="form-validation"></span>
-                                        </div>
-                                    </div>
-
-                                    <br/>
-                                </div>
-                                <div class=" form-inline-flex form-group">
-                                    <div class="col-sm-12" style="padding: 0px">
-                                        <input type="text"  id="o_address" placeholder="o_address"
-                                               name="o_messge"  class="form-control form-control-has-validation form-control-last-child ">
-                                        <span class="form-validation"></span>
-                                    </div>
-                                </div>
-
-                                <div class="offset-top-15">
-                                    <div class="form-inline-flex">
-                                        <div class="form-group">
-                                            <button ng-click="checkout();$event.preventDefault();"  class="btn btn-primary btn-fullwidth"><{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
-                                        </div>
-                                    </div>
-                                </div>
-
+							<div class="offset-top-15">
+								<div class="form-inline-flex">
+									<div class="form-group">
+										<button ng-click="gotoCheckOut(<{$r_id}>);$event.preventDefault();"  class="btn btn-primary btn-fullwidth"><{$shopLanguageAry.shopcart_proceed_to_checkout}></button>
+									</div>
+								</div>
+							</div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -173,9 +156,7 @@
             </div>
             <div class="container " id="main-content"  style="padding: 0px" >
                 <div class="col-sm-12" style="padding: 0px;  height: auto "  >
-                    <div id="aside_main" class="col-sm-9  this-margin-top " style="padding: 0px; height: 100%;border:
-                    1px solid
-                    silver; border-radius: 0px!important;margin-bottom: 20px; border-radius: 5px">
+                    <div id="aside_main" class="col-sm-9  this-margin-top " style="">
 
                         <ul class="nav nav-tabs this-white "  style=" border: 0px!important;" >
                             <li class="active"><a data-toggle="tab" href="#home"> <{$mainpage_language_ary.Profile}></a></li>
@@ -215,9 +196,8 @@
 
                                                     <{/foreach}>
                                                 </li>
-                                                <li class="list-group-item bg-info" id="menu_clcik" style="color:
-                                                white; background-color:orangered"> <span class="glyphicon
-                                                glyphicon-th"></span> <{$mainpage_language_ary.MENU}> </li>
+                                                <li class="list-group-item bg-info" id="menu_clcik" > 
+												<span class="glyphicon glyphicon-th"></span> <{$mainpage_language_ary.MENU}> </li>
                                                 <div id="menu__">
                                                     <{foreach from=$list_category_by_restaurant item=row key=index}>
                                                     <li class="list-group-item" style="cursor: pointer; color: black" ng-click="filterFood(<{$row.ca_id}>)">
@@ -344,9 +324,7 @@
                                 </div>
                             </div>
                             <div id="menu1" class="tab-pane fade">
-
                                     <div id="map_canvas"  style='height:500px;background-color:white;width:100%'></div>
-
                             </div>
                             <div id="open" class="tab-pane fade in ">
                                 <div class="this-container this-padding this-margin-bottom">
@@ -377,179 +355,71 @@
                             </div>
                         </div>
                     </div>
-                    <div id="aside_left" class="col-sm-3 this-hide-small   this-white "
-                         style="margin-top:17px;margin-bottom:10px; ">
-                <div id="inv"  >
-                    <div class="row cartright" id="inv__">
-                        <div class="this-container this-white" style="background:#f16121;height:40px; color: white; padding: 10px; ">
-                            <{$mainpage_language_ary.CART}>
-                        </div>
-                        <div class="col-sm-12 this-white hidden cartdiv" ng-show="items .length>0" style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
-                            <div class="inner line-top relative">
-                                <div class="item-order-wrap" style="border-top: 1px solid silver" >
-                                    <div class="item-order-list item-row"  ng-repeat="(key ,item) in items | filter as filterAry" ng-show="!item.del" >
+                    <div id="aside_left" class="col-sm-3 this-hide-small   this-white " style="margin-top:17px;margin-bottom:10px; ">
+						<div id="inv" >
+							<div class="row cartright" id="inv__">
+								<div class="this-container this-white" style="background:#f16121;height:40px; color: white; padding: 10px; ">
+									<{$mainpage_language_ary.CART}>
+								</div>
+								<div class="col-sm-12 this-white hidden cartdiv" ng-show="items .length>0" style="border-bottom: 1px solid silver ; padding: 10px; border-left: 1px solid white; margin-top: 6px">
+									<div class="inner line-top relative">
+										<div class="item-order-wrap" style="border-top: 1px solid silver" >
+											<div class="item-order-list item-row"  ng-repeat="(key ,item) in items | filter as filterAry" ng-show="!item.del" >
 
-                                        <div class="col-sm-12" style="margin-top: 5px">
-                                            <div class="col-sm-9 col-md-9"  ng-bind="item.f_name">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <p class="uk-text-small" ng-bind="'$'+item.f_price"></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12" style="text-align: right">
-                                            <input 	type="number"    data-id="{{item.f_id}}" data-price="{{item.f_price}}" ng-model="item.order_num"  min="1" max="20" readonly
-                                                      class="form-control text-bold input-sm order_num">
-                                            <span 	class="glyphicon glyphicon-trash" style="font-size:15px; cursor: pointer" ng-click="delete($index); $event.stopPropagation();"></span>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="this-container this-border-top" style="border-top: 1px solid silver">
-                                        <div class="row cart_total_wrap bold this-border-top">
-                                            <div class="col-md-12 col-xs-6  text-right cart_total"
-                                                 style="font-weight: bold; font-size: 18px">
-                                                <span><{$mainpage_language_ary.Total}>:</span>
-                                                <span class="total" ng-bind="Total(filterAry)"></span>
-                                            </div>
-                                        </div>
-                                    </div>
+												<div class="col-sm-12" style="margin-top: 5px">
+													<div class="col-sm-9 col-md-9"  ng-bind="item.f_name">
+													</div>
+													<div class="col-sm-3">
+														<p class="uk-text-small" ng-bind="'$'+item.f_price"></p>
+													</div>
+												</div>
+												<div class="col-sm-12" style="text-align: right">
+													<input 	type="number"    data-id="{{item.f_id}}" data-price="{{item.f_price}}" ng-model="item.order_num"  min="1" max="20" readonly
+															  class="form-control text-bold input-sm order_num">
+													<span 	class="glyphicon glyphicon-trash" style="font-size:15px; cursor: pointer" ng-click="delete($index); $event.stopPropagation();"></span>
+												</div>
+												<div class="clear"></div>
+											</div>
+											<div class="this-container this-border-top" style="border-top: 1px solid silver">
+												<div class="row cart_total_wrap bold this-border-top">
+													<div class="col-md-12 col-xs-6  text-right cart_total"
+														 style="font-weight: bold; font-size: 18px">
+														<span><{$mainpage_language_ary.Total}>:</span>
+														<span class="total" ng-bind="Total(filterAry)"></span>
+													</div>
+												</div>
+											</div>
 
-                                    <div class="" style="margin-top: 10px">
-                                        <center>
-                                            <a ng-click="gotoCheckOut(<{$r_id}>)">
-                                                <button   class="this-btn this-btn-this">
-                                                    <span class="glyphicon glyphicon-log-out"></span>
-                                                    <{$mainpage_language_ary.Checkout}>
-                                                </button>
-                                            </a>
-                                        </center>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
+											<div class="" style="margin-top: 10px">
+												<center>
+													<a ng-click="gotoCheckOut(<{$r_id}>)">
+														<button   class="this-btn this-btn-this">
+															<span class="glyphicon glyphicon-log-out"></span>
+															<{$mainpage_language_ary.Checkout}>
+														</button>
+													</a>
+												</center>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-
-var r_name="<{$r_name}>";
-var r_id="<{$r_id}>";
-var lat="<{$lat}>";
-var lang="<{$lng}>";
-
-
-
-function detectmob() {
-    if (window.innerWidth <= 1100 || window.innerHeight <= 600) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-if (detectmob()){
-    $('#aside_left').remove();
-    $('#aside_main').removeClass('col-sm-9');
-    $('#aside_main').addClass('col-sm-12');
-
-}
-$(document).ready(function () {
-    $('#shopAlert').show();
-    $('ul li a').click(function(){
-        $('li a').removeClass("active");
-        $(this).addClass("active");
-    });
-});
+	var r_name="<{$r_name}>";
+	var r_id="<{$r_id}>";
+	var lat="<{$lat}>";
+	var lang="<{$lng}>";
+	$(this).scrollTop(0);
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"> </script>
 <script src="/js/restaurant/index.js"></script>
-<script>
-
-    try {
-
-        var point = {
-            lat: lat,
-            lng: lang,
-        };
-        var markerSize = {
-            x: 22,
-            y: 40
-        };
-        google.maps.Marker.prototype.setLabel = function(label) {
-            this.label = new MarkerLabel({
-                map: this.map,
-                marker: this,
-                text: label
-            });
-            this.label.bindTo('position', this, 'position');
-        };
-
-        var MarkerLabel = function(options) {
-            this.setValues(options);
-            this.span = document.createElement('span');
-            this.span.className = 'map-marker-label';
-        };
-        MarkerLabel.prototype = $.extend(new google.maps.OverlayView(), {
-            onAdd: function() {
-                this.getPanes().overlayImage.appendChild(this.span);
-                var self = this;
-                this.listeners = [
-                    google.maps.event.addListener(this, 'position_changed', function() {
-                        self.draw();
-                    })
-                ];
-            },
-            draw: function() {
-                var text = String(this.get('text'));
-                var position = this.getProjection().fromLatLngToDivPixel(this.get('position'));
-                this.span.innerHTML = text;
-                this.span.style.left = (position.x - (markerSize.x / 2)) - (text.length * 3) + 10 + 'px';
-                this.span.style.top = (position.y - markerSize.y + 40) + 'px';
-            }
-        });
-        function initialize() {
-            var myLatLng = new google.maps.LatLng(point.lat, point.lng);
-            var gmap = new google.maps.Map(document.getElementById('map_canvas'), {
-                zoom:15,
-                center: myLatLng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-            var myMarker = new google.maps.Marker({
-                map: gmap,
-                position:myLatLng,
-                label: r_name,
-                draggable: true
-            });
-        }
-
-        initialize();
-    } catch (e) {
-        alert(e);
-    }
-
-    $("#sidebar ul li a[href^='#']").on('click', function(e) {
-
-        // prevent default anchor click behavior
-        e.preventDefault();
-
-        // store hash
-        var hash = this.hash;
-
-        // animate
-        $('html, body').animate({
-            scrollTop: $(hash).offset().top
-        }, 1000, function(){
-
-            window.location.hash = hash;
-        });
-
-    });
-</script>
-

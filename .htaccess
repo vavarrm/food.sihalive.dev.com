@@ -18,5 +18,6 @@
     RewriteBase /
     RewriteCond $1 !^(index\.php|PHPMailer-master|production|build|vendors|demo|admin|static|images|swf|third_party|uploads|js|css|assets|fonts|font-awesome|robots\.txt|$)
     RewriteRule ^(.*)$ /index.php/$1 [L,QSA]
-
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule ^(.*)?$ https://%{SERVER_NAME}/$1 [L,R=301]
 </IfModule>
